@@ -1,0 +1,95 @@
+Table gp_practices {
+  id int [pk, increment]
+  name_ice varchar
+  created_at timestamp
+  address int
+  phone_num varchar
+  emis_cdb_practice_code varchar
+  go_live_date timestamp
+  closed boolean
+  main_partner int
+}
+
+Table gp_practices_system_types {
+  id int [pk, increment]
+  gp_practice_id int
+  system_type int
+}
+
+Table system_types {
+  id int [pk, increment]
+  name varchar
+} 
+
+Table gp_addresses {
+  id int [pk, increment]
+  line_1 varchar
+  line_2 varchar
+  town varchar
+  county varchar
+  postcode varchar
+  dts_email varchar
+}
+
+Table practice_managers {
+  id int [pk, increment]
+  gp_practice_id int
+  gp_employee_id int
+}
+
+Table ip_ranges {
+  id int [pk, increment]
+  cidr varchar
+  gp_practice int
+}
+
+Table gp_employees {
+  id int [pk, increment]
+  first_name varchar
+  last_name varchar
+  email varchar
+  job_title int
+  gmc_id varchar
+  nmc_id varchar
+  desktop_id varchar
+  it_portal_id varchar
+}
+
+Table gp_practice_employees {
+  id int [pk, increment]
+  gp_practice_id int
+  gp_employee_id int
+  active boolean
+}
+
+Table job_titles {
+  id int [pk, increment]
+  title varchar
+}
+
+Table system_users {
+  id int [pk, increment]
+  first_name varchar
+  last_name varchar
+  email varchar
+  role int
+  password_hash varchar
+  password_salt varchar
+}
+
+Table system_roles {
+  id int [pk, increment]
+  name varchar
+}
+
+Ref: gp_practices.address > gp_addresses.id  
+Ref: practice_managers.gp_practice_id > gp_practices.id
+Ref: practice_managers.gp_employee_id > gp_employees.id
+Ref: system_users.role > system_roles.id
+Ref: gp_practice_employees.gp_employee_id > gp_employees.id
+Ref: gp_practice_employees.gp_practice_id > gp_practices.id
+Ref: gp_practices.main_partner > gp_employees.id
+Ref: ip_ranges.gp_practice > gp_practices.id
+Ref: gp_employees.job_title > job_titles.id
+Ref: gp_practices_system_types.gp_practice_id > gp_practices.id
+Ref: gp_practices_system_types.system_type > system_types.name
