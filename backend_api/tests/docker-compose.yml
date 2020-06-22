@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  c00006-mariadb:
+    image: linuxserver/mariadb
+    container_name: c00006-mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=RotaryLeafPlugCarve
+      - TZ=Europe/London
+      - MYSQL_DATABASE=francis
+      - MYSQL_USER=francis
+      - MYSQL_PASSWORD=FlameRinseChimeRoot
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+  c00006-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: c00006-phpmyadmin
+    environment:
+      - PUID=100006
+      - PGID=100006
+      - PMA_HOST=c00006-mariadb
+      - PMA_PORT=3306
+    ports:
+      - 8080:80
+    restart: unless-stopped
