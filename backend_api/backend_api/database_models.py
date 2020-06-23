@@ -60,7 +60,7 @@ class GPAddresses(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     line_1 = Column(String(length=255), nullable=False)
-    line_2 = Column(String(length=255), nullable=False)
+    line_2 = Column(String(length=255), nullable=True)
     town = Column(String(length=255), nullable=False)
     county = Column(String(length=255), nullable=False)
     postcode = Column(String(length=255), nullable=False)
