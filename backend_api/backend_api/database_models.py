@@ -23,11 +23,11 @@ association_practice_partners = Table('association_practice_partners', Base.meta
 class GPPractices(Base):
     __tablename__ = "gp_practices"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name_ice = Column(String(length=255), nullable=False)
+    id = Column(Integer, primary_key=True)
+    name_ice = Column(String(length=255), nullable=False, unique=True, index=True)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
     phone_num = Column(String(length=255))
-    emis_cdb_practice_code = Column(String(length=255), nullable=False)
+    emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
     go_live_date = Column(DateTime)
     closed = Column(Boolean, default=False)
 

@@ -1,13 +1,14 @@
+import json
 import logging
+import pathlib
 
 import fastapi
 import uvicorn
-from fastapi import Depends, HTTPException
-from sqlalchemy.orm import Session
 
 from backend_api import __version__, crud, database_models
 from . import pydantic_schemas as schemas
-from .database import SessionLocal, engine
+from .database import engine, SessionLocal
+from .rest import gp_practices
 
 database_models.Base.metadata.create_all(bind=engine)
 
@@ -15,26 +16,9 @@ database_models.Base.metadata.create_all(bind=engine)
 # Create the root instance of a FastAPI app
 app = fastapi.FastAPI(title="ICE PoC API", version=__version__)
 
-
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# app.include_router(
-    # jump_service.router, tags=["jump"], prefix=f"/api/{utils.get_config()['API']['VERSION']}"
-# )
-
-
-@app.get("/gp_practice/{gp_practice_id}", response_model=schemas.GPPractice)
-def read_user(gp_practice_id: int, db: Session = Depends(get_db)):
-    gp_practice = crud.get_gp_practice(db, gp_practice_id=gp_practice_id)
-    if gp_practice is None:
-        raise HTTPException(status_code=404, detail=f"GP Practice with id {gp_practice_id} not found")
-    return gp_practice
+app.include_router(
+    gp_practices.router, tags=["GP Practices"], prefix=f"/api/v1"
+)
 
 
 def start():
@@ -53,6 +37,22 @@ def start():
     # Set the hot reload option if the logging level is DEBUG
     reload = True if desired_log_level.lower() == "debug" else False
     logger.info(f"Hot reload enabled: {reload}")
+
+    # Load the mock data if necessary
+    mock_data_load = False
+
+    if mock_data_load:
+        with pathlib.Path(pathlib.Path.cwd() / ".." / "mock_data" / "gp_practices.json").open() as file:
+            data = json.loads(file.read())
+
+        db = SessionLocal()
+        for index, item in enumerate(data):
+            try:
+                crud.create_gp_practice(db, schemas.GPPracticeCreate(**item))
+            except Exception as e:
+                print(e)
+                db.rollback()
+                print(f"{index} {item['emis_cdb_practice_code']}  {item['name_ice']}")
 
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=desired_log_level.lower(), reload=reload)
