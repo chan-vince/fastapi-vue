@@ -5,15 +5,12 @@ from pydantic import BaseModel
 
 
 class GPAddressBase(BaseModel):
-    id: int
     line_1: str
     line_2: str
     town: str
-    country: str
+    county: str
     postcode: str
     dts_email: str
-    gp_practice_id: int
-    gp_practice: Any
 
 
 class GPAddressCreate(GPAddressBase):
@@ -21,12 +18,15 @@ class GPAddressCreate(GPAddressBase):
 
 
 class GPAddress(GPAddressBase):
+    id: int
+    gp_practice_id: int
+    gp_practice: Any
+
     class Config:
         orm_mode = True
 
 
 class SystemTypeBase(BaseModel):
-    id: int
     name: str
 
 
@@ -35,12 +35,13 @@ class SystemTypeCreate(SystemTypeBase):
 
 
 class SystemType(SystemTypeBase):
+    id: int
+
     class Config:
         orm_mode = True
 
 
 class JobTitleBase(BaseModel):
-    id: int
     title: str
 
 
@@ -49,12 +50,13 @@ class JobTitleCreate(JobTitleBase):
 
 
 class JobTitle(JobTitleBase):
+    id: int
+
     class Config:
         orm_mode = True
 
 
 class IPRangesBase(BaseModel):
-    id: int
     cidr: str
 
 
@@ -63,12 +65,13 @@ class IPRangesCreate(IPRangesBase):
 
 
 class IPRanges(IPRangesBase):
+    id: int
+
     class Config:
         orm_mode = True
 
 
 class GPEmployeeBase(BaseModel):
-    id: int
     first_name: str
     last_name: str
     email: str
@@ -86,12 +89,14 @@ class GPEmployeeCreate(GPEmployeeBase):
 
 
 class GPEmployee(GPEmployeeBase):
+    id: int
+
     class Config:
         orm_mode = True
 
 
 class GPPracticeBase(BaseModel):
-    name_ice: str
+    name: str
     phone_num: str
     emis_cdb_practice_code: str
     go_live_date: datetime.datetime = None
@@ -104,6 +109,7 @@ class GPPracticeCreate(GPPracticeBase):
 
 class GPPractice(GPPracticeBase):
     id: int
+
     created_date: datetime.datetime
     address: GPAddress = None
     employees: List[GPEmployee] = []
@@ -112,6 +118,3 @@ class GPPractice(GPPracticeBase):
 
     class Config:
         orm_mode = True
-
-
-GPPractice.update_forward_refs()
