@@ -44,11 +44,19 @@ def read_all_gp_practices(skip: int = 0, limit: int = 100, db: Session = Depends
     return gp_practices
 
 
-@router.get("/gp_practice/{gp_practice_id}", response_model=schemas.GPPractice)
+@router.get("/gp_practice/id/", response_model=schemas.GPPractice)
 def read_gp_practice_by_id(gp_practice_id: int, db: Session = Depends(get_db)):
     gp_practice: schemas.GPPractice = crud.get_gp_practice_by_id(db, gp_practice_id=gp_practice_id)
     if gp_practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with id {gp_practice_id} not found")
+    return gp_practice
+
+
+@router.get("/gp_practice/name/", response_model=schemas.GPPractice)
+def read_gp_practice_by_name(name: str, db: Session = Depends(get_db)):
+    gp_practice: schemas.GPPractice = crud.get_gp_practice_by_name(db, gp_name=name)
+    if gp_practice is None:
+        raise HTTPException(status_code=404, detail=f"GP Practice with name {name} not found")
     return gp_practice
 
 

@@ -20,7 +20,6 @@ class GPAddressCreate(GPAddressBase):
 class GPAddress(GPAddressBase):
     id: int
     gp_practice_id: int
-    gp_practice: Any
 
     class Config:
         orm_mode = True
