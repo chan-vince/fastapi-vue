@@ -44,13 +44,14 @@ class GPEmployees(Base):
     id = Column(Integer, primary_key=True, index=True)
     first_name = Column(String(length=255), nullable=False)
     last_name = Column(String(length=255), nullable=False)
-    email = Column(String(length=255), nullable=False)
+    email = Column(String(length=255), nullable=False, unique=True)
     professional_num = Column(String(length=255), nullable=False)
-    desktop_num = Column(String(length=255))
-    it_portal_num = Column(String(length=255))
+    desktop_num = Column(String(length=255), nullable=True)
+    it_portal_num = Column(String(length=255), nullable=True)
     active = Column(Boolean, default=True)
-    job_title_id = Column(Integer, ForeignKey("job_titles.id"))
+    job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
 
+    job_title = relationship("JobTitles", uselist=False)
     practices = relationship("GPPractices", secondary=association_practice_employee, back_populates="employees")
     partner_of = relationship("GPPractices", secondary=association_practice_partners, back_populates="main_partners")
 

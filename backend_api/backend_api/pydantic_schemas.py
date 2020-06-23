@@ -75,11 +75,10 @@ class GPEmployeeBase(BaseModel):
     last_name: str
     email: str
     professional_num: str
-    desktop_num: str
-    it_portal_num: str
-    active: bool
-    job_title_id: int
-    job_title: JobTitle
+    desktop_num: str = None
+    it_portal_num: str = None
+    active: bool = True
+    job_title_id: int = None
     practices: List[Any] = []
 
 
