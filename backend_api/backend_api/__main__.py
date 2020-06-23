@@ -26,7 +26,7 @@ def start():
     logger = logging.getLogger()
 
     # desired_log_level = utils.get_config()['General']['LogLevel']
-    desired_log_level = "INFO"
+    desired_log_level = "DEBUG"
     logging.basicConfig(
         format="%(asctime)s: %(levelname)s: %(name)s - %(message)s", level=desired_log_level
     )
@@ -39,7 +39,7 @@ def start():
     logger.info(f"Hot reload enabled: {reload}")
 
     # Load the mock data if necessary
-    mock_data_load = False
+    mock_data_load = True
 
     if mock_data_load:
         with pathlib.Path(pathlib.Path.cwd() / ".." / "mock_data" / "gp_practices.json").open() as file:
@@ -52,7 +52,7 @@ def start():
             except Exception as e:
                 print(e)
                 db.rollback()
-                print(f"{index} {item['emis_cdb_practice_code']}  {item['name_ice']}")
+                print(f"{index} {item['emis_cdb_practice_code']}  {item['name']}")
 
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=desired_log_level.lower(), reload=reload)
