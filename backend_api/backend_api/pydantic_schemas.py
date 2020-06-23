@@ -91,19 +91,11 @@ class GPEmployee(GPEmployeeBase):
 
 
 class GPPracticeBase(BaseModel):
-    id: int
     name_ice: str
-    created_date: datetime.datetime
     phone_num: str
     emis_cdb_practice_code: str
     go_live_date: datetime.datetime = None
     closed: bool
-    main_partner_id: int = None
-
-    address: GPAddress = None
-    employees: List[GPEmployee] = []
-    main_partner: List[GPEmployee] = []
-    system_type: List[SystemType] = []
 
 
 class GPPracticeCreate(GPPracticeBase):
@@ -111,6 +103,13 @@ class GPPracticeCreate(GPPracticeBase):
 
 
 class GPPractice(GPPracticeBase):
+    id: int
+    created_date: datetime.datetime
+    address: GPAddress = None
+    employees: List[GPEmployee] = []
+    main_partners: List[GPEmployee] = []
+    system_type: List[SystemType] = []
+
     class Config:
         orm_mode = True
 
