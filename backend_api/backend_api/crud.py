@@ -18,10 +18,23 @@ def get_gp_practice_by_name(db: Session, gp_name: str):
     return db.query(tables.GPPractices).filter(tables.GPPractices.name == gp_name).first()
 
 
-def create_gp_practice(db: Session, gp_practice: GPPracticeCreate):
-    gp_practice = tables.GPPractices(**gp_practice.dict())
-    db.add(gp_practice)
-    db.commit()
+def update_gp_practice(db: Session, updated_gp_practice: GPPracticeCreate):
+    gp_practice = tables.GPPractices(**updated_gp_practice.dict())
+
+    try:
+        db.add(gp_practice)
+        db.commit()
+    except sqlalchemy.exc.IntegrityError:
+        db.rollback()
+        gp_practice = get_gp_practice_by_name(db, updated_gp_practice.name)
+
+        gp_practice.phone_num = updated_gp_practice.phone_num
+        gp_practice.emis_cdb_practice_code = updated_gp_practice.emis_cdb_practice_code
+        gp_practice.go_live_date = updated_gp_practice.go_live_date
+        gp_practice.closed = updated_gp_practice.closed
+        db.add(gp_practice)
+        db.commit()
+
     db.refresh(gp_practice)
     return gp_practice
 

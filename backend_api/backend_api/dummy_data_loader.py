@@ -22,7 +22,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.create_gp_practice(self.db, schemas.GPPracticeCreate(**item))
+                crud.update_gp_practice(self.db, schemas.GPPracticeCreate(**item))
             except Exception as e:
                 logger.debug(e)
                 self.db.rollback()
