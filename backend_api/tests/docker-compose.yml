@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   c00006-mariadb:
-    image: linuxserver/mariadb
+    image: mysql
     container_name: c00006-mariadb
     environment:
-      - PUID=1000
-      - PGID=1000
+#      - PUID=1000
+#      - PGID=1000
       - MYSQL_ROOT_PASSWORD=***REMOVED***
       - TZ=Europe/London
       - MYSQL_DATABASE=francis
