@@ -1,12 +1,12 @@
 import datetime
-from typing import List, Any
+from typing import List, Any, Union
 
 from pydantic import BaseModel
 
 
 class GPAddressBase(BaseModel):
     line_1: str
-    line_2: str
+    line_2: Union[str, None]
     town: str
     county: str
     postcode: str

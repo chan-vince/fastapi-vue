@@ -54,7 +54,11 @@ def start():
         mock_data_base_path = pathlib.Path(pathlib.Path.cwd()) / ".." / "mock_data"
 
         ddl = DummyDataLoader()
+
+        # Load dummy data for the tables
         ddl.write_gp_practice_mock_data(mock_data_base_path / "gp_practices.json")
+        ddl.write_gp_address_mock_data(mock_data_base_path / "gp_addresses.json")
+
 
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=log_level.lower(), reload=reload)
