@@ -5,7 +5,6 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import backend_api.pydantic_schemas as schemas
-import backend_api.database_models as models
 from backend_api import crud
 from backend_api.database import get_db
 

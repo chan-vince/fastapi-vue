@@ -79,7 +79,6 @@ class GPEmployeeBase(BaseModel):
     it_portal_num: str = None
     active: bool = True
     job_title_id: int = None
-    practices: List[Any] = []
 
 
 class GPEmployeeCreate(GPEmployeeBase):
@@ -88,6 +87,7 @@ class GPEmployeeCreate(GPEmployeeBase):
 
 class GPEmployee(GPEmployeeBase):
     id: int
+    practices: List[Any] = []
 
     class Config:
         orm_mode = True

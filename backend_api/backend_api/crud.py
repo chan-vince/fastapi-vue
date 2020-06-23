@@ -75,8 +75,8 @@ def get_gp_employee_by_email(db: Session, email: str):
     return db.query(tables.GPEmployees).filter(tables.GPEmployees.email == email).first()
 
 
-def add_gp_employee(db: Session, new_employee: schemas.GPEmployeeCreate):
-    gp_employee: tables.GPEmployees = tables.GPEmployees(**new_employee.dict())
+def add_gp_employee(db: Session, new_gp_employee: schemas.GPEmployeeCreate):
+    gp_employee: tables.GPEmployees = tables.GPEmployees(**new_gp_employee.dict())
     db.add(gp_employee)
     db.commit()
     db.refresh(gp_employee)
