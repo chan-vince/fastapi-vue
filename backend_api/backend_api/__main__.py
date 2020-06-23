@@ -1,17 +1,17 @@
-import json
+import argparse
 import logging
+import os
 import pathlib
 
 import fastapi
 import uvicorn
 
-from backend_api import __version__, crud, database_models
-from . import pydantic_schemas as schemas
-from .database import engine, SessionLocal
+from backend_api import __version__, database_models
+from .database import engine
 from .rest import gp_practices
+from .dummy_data_loader import DummyDataLoader
 
 database_models.Base.metadata.create_all(bind=engine)
-
 
 # Create the root instance of a FastAPI app
 app = fastapi.FastAPI(title="ICE PoC API", version=__version__)
@@ -22,45 +22,45 @@ app.include_router(
 
 
 def start():
+    # Get the command line arguments
+    parser = argparse.ArgumentParser(description='Backend API server for the ICE PoC')
+    parser.add_argument('-l', '--log_level', default=os.environ.get('LOG_LEVEL'),
+                        help="DEBUG | INFO | WARNING | ERROR | CRITICAL")
+    parser.add_argument('-m', '--mock_data', action="store_true", help="Load mock data into tables on start")
+    args = parser.parse_args()
+
     # Configure logging
+    if args.log_level is None:
+        os.environ["LOG_LEVEL"] = "INFO"
+    else:
+        os.environ["LOG_LEVEL"] = args.log_level
+
+    log_level = os.environ.get('LOG_LEVEL')
     logger = logging.getLogger()
 
-    # desired_log_level = utils.get_config()['General']['LogLevel']
-    desired_log_level = "DEBUG"
     logging.basicConfig(
-        format="%(asctime)s: %(levelname)s: %(name)s - %(message)s", level=desired_log_level
+        format="%(asctime)s: %(levelname)s: %(name)s - %(message)s", level=log_level
     )
     logger.log(
-        logger.getEffectiveLevel(), f"Logging set to {desired_log_level}"
+        logger.getEffectiveLevel(), f"Logging set to {log_level}"
     )
 
     # Set the hot reload option if the logging level is DEBUG
-    reload = True if desired_log_level.lower() == "debug" else False
+    reload = True if log_level.lower() == "debug" else False
     logger.info(f"Hot reload enabled: {reload}")
 
     # Load the mock data if necessary
-    mock_data_load = True
+    if args.mock_data:
+        mock_data_base_path = pathlib.Path(pathlib.Path.cwd()) / ".." / "mock_data"
 
-    if mock_data_load:
-        with pathlib.Path(pathlib.Path.cwd() / ".." / "mock_data" / "gp_practices.json").open() as file:
-            data = json.loads(file.read())
-
-        db = SessionLocal()
-        for index, item in enumerate(data):
-            try:
-                crud.create_gp_practice(db, schemas.GPPracticeCreate(**item))
-            except Exception as e:
-                print(e)
-                db.rollback()
-                print(f"{index} {item['emis_cdb_practice_code']}  {item['name']}")
+        ddl = DummyDataLoader()
+        ddl.write_gp_practice_mock_data(mock_data_base_path / "gp_practices.json")
 
     # Start the ASGI server
-    uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=desired_log_level.lower(), reload=reload)
+    uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=log_level.lower(), reload=reload)
 
 
 if __name__ == '__main__':
-
-    # Todo some check to see if we should populate the database with test data
 
     # Start serving the API
     start()
