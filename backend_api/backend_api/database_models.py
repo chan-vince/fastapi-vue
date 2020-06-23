@@ -10,7 +10,6 @@ association_practice_employee = Table('association_practice_employee', Base.meta
                                       Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
                                       Column('gp_employee_id', Integer, ForeignKey('gp_employees.id')))
 
-
 association_practice_systems = Table('association_practice_systems', Base.metadata,
                                      Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
                                      Column('system_type_id', Integer, ForeignKey('system_types.id')))
