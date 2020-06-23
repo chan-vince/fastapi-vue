@@ -8,7 +8,7 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine
-from .rest import gp_practices
+from .rest import gp_practices, gp_employees
 from .dummy_data_loader import DummyDataLoader
 
 database_models.Base.metadata.create_all(bind=engine)
@@ -18,6 +18,9 @@ app = fastapi.FastAPI(title="ICE PoC API", version=__version__)
 
 app.include_router(
     gp_practices.router, tags=["GP Practices"], prefix=f"/api/v1"
+)
+app.include_router(
+    gp_employees.router, tags=["GP Employees"], prefix=f"/api/v1"
 )
 
 
