@@ -37,7 +37,7 @@ def add_new_gp_practice(gp_practice: schemas.GPPracticeCreate, db: Session = Dep
     gp_practice = crud.get_gp_practice_by_name(db, gp_practice.name)
     if gp_practice:
         raise HTTPException(status_code=400, detail=f"GP Practice with name {gp_practice.name} already registered")
-    return crud.update_gp_practice(db=db, gp_practice=gp_practice)
+    return crud.update_gp_practice(db=db, updated_gp_practice=gp_practice)
 
 
 @router.get("/gp_practice/address/", response_model=schemas.GPAddress)
