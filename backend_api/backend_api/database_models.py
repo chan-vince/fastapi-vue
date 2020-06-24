@@ -6,15 +6,15 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
-association_practice_employee = Table('association_practice_employee', Base.metadata,
+association_practice_employee = Table('_association_practice_employee', Base.metadata,
                                       Column('practice_id', Integer, ForeignKey('practices.id')),
                                       Column('employee_id', Integer, ForeignKey('employees.id')))
 
-association_practice_systems = Table('association_practice_systems', Base.metadata,
+association_practice_systems = Table('_association_practice_systems', Base.metadata,
                                      Column('practice_id', Integer, ForeignKey('practices.id')),
                                      Column('system_type_id', Integer, ForeignKey('system_types.id')))
 
-association_practice_partners = Table('association_practice_partners', Base.metadata,
+association_practice_partners = Table('_association_practice_partners', Base.metadata,
                                       Column('practice_id', Integer, ForeignKey('practices.id')),
                                       Column('employee_id', Integer, ForeignKey('employees.id')))
 
