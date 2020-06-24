@@ -5,6 +5,7 @@ import pathlib
 from backend_api import crud
 from backend_api.database import SessionLocal
 from . import pydantic_schemas as schemas
+from . import database_models as models
 
 logger = logging.getLogger("DummyDataLoader")
 
@@ -91,4 +92,48 @@ class DummyDataLoader:
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
+        logger.info("..done.")
+
+    def assign_employees_to_practice(self):
+        logger.info("Assigning 20 employees per practice...")
+        # Go through each of the 5000 employees and assign them to one practice
+        practice_id = 1
+        practice = self.db.query(models.Practice).filter(models.Practice.id == practice_id).first()
+        for index, employee in enumerate(self.db.query(models.Employee).all(), 1):
+            employee.practices = [practice]
+            self.db.add(employee)
+            if index % 20 == 0:
+                practice_id += 1
+                practice = self.db.query(models.Practice).filter(models.Practice.id == practice_id).first()
+
+        self.db.commit()
+        logger.info("..done.")
+
+    def assign_partner_to_practice(self):
+        logger.info("Assigning one partner to each practice...")
+
+        partners = self.db.query(models.Employee).filter(models.Employee.job_title_id == 7).limit(250).all()
+
+        for practice, partner in zip(self.db.query(models.Practice).all(), partners):
+            practice.main_partners = [partner]
+            self.db.add(practice)
+
+        self.db.commit()
+
+        logger.info("..done.")
+
+    def assign_access_system_to_practice(self):
+        logger.info("Assigning an access system to each practice...")
+
+        for index, practice in enumerate(self.db.query(models.Practice).all(), 1):
+            if index % 1 == 0:
+                practice.access_systems = [self.db.query(models.AccessSystem).filter(models.AccessSystem.id == 1).first()]
+            if index % 2 == 0:
+                practice.access_systems = [self.db.query(models.AccessSystem).filter(models.AccessSystem.id == 2).first()]
+            if index % 3 == 0:
+                practice.access_systems = [self.db.query(models.AccessSystem).filter(models.AccessSystem.id == 3).first()]
+            self.db.add(practice)
+
+        self.db.commit()
+
         logger.info("..done.")
