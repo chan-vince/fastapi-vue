@@ -31,14 +31,14 @@ class Practice(Base):
     closed = Column(Boolean, default=False)
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
-    system_types = relationship("SystemTypes", secondary=association_practice_systems)
-    address = relationship("Addresses", uselist=False, back_populates="practice")
-    employees = relationship("Employees", secondary=association_practice_employee, back_populates="practices")
-    main_partners = relationship("Employees", secondary=association_practice_partners, back_populates="partner_of")
-    ip_ranges = relationship("IPRanges")
+    system_types = relationship("SystemType", secondary=association_practice_systems)
+    address = relationship("Address", uselist=False, back_populates="practice")
+    employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
+    main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
+    ip_ranges = relationship("IPRange")
 
 
-class Employees(Base):
+class Employee(Base):
     __tablename__ = "employees"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -51,7 +51,7 @@ class Employees(Base):
     active = Column(Boolean, default=True)
     job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
 
-    job_title = relationship("JobTitles", uselist=False)
+    job_title = relationship("JobTitle", uselist=False)
     practices = relationship("Practice", secondary=association_practice_employee, back_populates="employees")
     partner_of = relationship("Practice", secondary=association_practice_partners, back_populates="main_partners")
 
@@ -71,21 +71,21 @@ class Address(Base):
     practice = relationship("Practice", back_populates="address")
 
 
-class JobTitles(Base):
+class JobTitle(Base):
     __tablename__ = "job_titles"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(length=255), nullable=False, unique=True)
 
 
-class SystemTypes(Base):
+class SystemType(Base):
     __tablename__ = "system_types"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(length=255), nullable=False, unique=True)
 
 
-class IPRanges(Base):
+class IPRange(Base):
     __tablename__ = "ip_ranges"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -93,20 +93,20 @@ class IPRanges(Base):
     practice = Column(Integer, ForeignKey("practices.id"))
 
 
-class SystemUsers(Base):
-    __tablename__ = "system_users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String(length=255))
-    last_name = Column(String(length=255))
-    email = Column(String(length=255))
-    role = Column(Integer, ForeignKey("system_roles.id"))
-    password_hash = Column(String(length=1024))
-    password_salt = Column(String(length=255))
-
-
-class SystemRoles(Base):
-    __tablename__ = "system_roles"
-
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(length=255))
+# class SystemUser(Base):
+#     __tablename__ = "system_users"
+#
+#     id = Column(Integer, primary_key=True, index=True)
+#     first_name = Column(String(length=255))
+#     last_name = Column(String(length=255))
+#     email = Column(String(length=255))
+#     role = Column(Integer, ForeignKey("system_roles.id"))
+#     password_hash = Column(String(length=1024))
+#     password_salt = Column(String(length=255))
+#
+#
+# class SystemRole(Base):
+#     __tablename__ = "system_roles"
+#
+#     id = Column(Integer, primary_key=True, index=True)
+#     name = Column(String(length=255))
