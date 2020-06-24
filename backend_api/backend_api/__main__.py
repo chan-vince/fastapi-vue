@@ -8,7 +8,7 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine
-from .rest import practices, employees
+from .rest import practices, employees, practice_addresses
 from .dummy_data_loader import DummyDataLoader
 
 database_models.Base.metadata.create_all(bind=engine)
@@ -18,6 +18,9 @@ app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
 
 app.include_router(
     practices.router, tags=["Practices"], prefix=f"/api/v1"
+)
+app.include_router(
+    practice_addresses.router, tags=["Practice Addresses"], prefix=f"/api/v1"
 )
 app.include_router(
     employees.router, tags=["Employees"], prefix=f"/api/v1"

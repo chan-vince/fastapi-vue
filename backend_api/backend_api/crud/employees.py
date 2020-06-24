@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
 import backend_api.exc
-from backend_api.crud.practices import get_practice_by_id
+from backend_api.crud.practices import read_practice_by_id
 
 
 def read_employee_by_email(db: Session, email: str):
@@ -49,7 +49,7 @@ def assign_employee_to_practice(db: Session, employee_id: int, practice_id: int)
     if employee is None:
         raise backend_api.exc.EmployeeNotFoundError
 
-    practice = get_practice_by_id(db, practice_id)
+    practice = read_practice_by_id(db, practice_id)
     if practice is None:
         raise backend_api.exc.PracticeNotFoundError
 
