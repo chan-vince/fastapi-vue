@@ -14,13 +14,13 @@ from .dummy_data_loader import DummyDataLoader
 database_models.Base.metadata.create_all(bind=engine)
 
 # Create the root instance of a FastAPI app
-app = fastapi.FastAPI(title="ICE PoC API", version=__version__)
+app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
 
 app.include_router(
-    gp_practices.router, tags=["GP Practices"], prefix=f"/api/v1"
+    gp_practices.router, tags=["Practices"], prefix=f"/api/v1"
 )
 app.include_router(
-    gp_employees.router, tags=["GP Employees"], prefix=f"/api/v1"
+    gp_employees.router, tags=["Employees"], prefix=f"/api/v1"
 )
 
 
