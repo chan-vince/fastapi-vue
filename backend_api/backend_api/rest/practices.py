@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import backend_api.pydantic_schemas as schemas
-from backend_api import crud
+from backend_api.crud import crud
 from backend_api.database import get_db
 
 # logger = logging.getLogger("REST:Practices")

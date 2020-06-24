@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 import sqlalchemy.exc
 
-from . import database_models as tables
-from . import pydantic_schemas as schemas
-from .pydantic_schemas import PracticeCreate
+from backend_api import database_models as tables
+from backend_api import pydantic_schemas as schemas
+from backend_api.pydantic_schemas import PracticeCreate
 
 
 def get_practices_all(db: Session, skip, limit):
