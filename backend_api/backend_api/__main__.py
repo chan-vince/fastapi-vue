@@ -65,6 +65,9 @@ def start():
         ddl.write_employee_mock_data(mock_data_base_path / "employees.json")
         ddl.write_access_system_mock_data(mock_data_base_path / "access_systems.json")
         ddl.write_ip_range_mock_data(mock_data_base_path / "ip_ranges.json")
+        ddl.assign_employees_to_practice()
+        ddl.assign_partner_to_practice()
+        ddl.assign_access_system_to_practice()
 
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=log_level.lower(), reload=reload)
