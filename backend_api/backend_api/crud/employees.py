@@ -59,6 +59,17 @@ def assign_employee_to_practice(db: Session, employee_id: int, practice_id: int)
     return employee
 
 
+def unassign_employee_from_practice(db: Session, employee_id: int):
+    employee: schemas.Employee = read_employee_by_id(db, employee_id)
+    if employee is None:
+        raise backend_api.exc.EmployeeNotFoundError
+
+    employee.practices = []
+    db.add(employee)
+    db.commit()
+    return employee
+
+
 def add_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
     job_title = tables.JobTitle(**new_job_title.dict())
     try:
