@@ -88,7 +88,7 @@ class EmployeeCreate(EmployeeBase):
 
 class Employee(EmployeeBase):
     id: int
-    practices: List[Any] = []
+    # practices: List[Any] = []
 
     class Config:
         orm_mode = True
