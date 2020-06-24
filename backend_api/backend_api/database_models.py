@@ -32,7 +32,7 @@ class Practice(Base):
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     system_types = relationship("SystemTypes", secondary=association_practice_systems)
-    address = relationship("GPAddresses", uselist=False, back_populates="practice")
+    address = relationship("Addresses", uselist=False, back_populates="practice")
     employees = relationship("Employees", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employees", secondary=association_practice_partners, back_populates="partner_of")
     ip_ranges = relationship("IPRanges")
@@ -56,8 +56,8 @@ class Employees(Base):
     partner_of = relationship("Practice", secondary=association_practice_partners, back_populates="main_partners")
 
 
-class GPAddresses(Base):
-    __tablename__ = "gp_addresses"
+class Address(Base):
+    __tablename__ = "addresses"
 
     id = Column(Integer, primary_key=True, index=True)
     line_1 = Column(String(length=255), nullable=False)

@@ -40,22 +40,22 @@ def update_practice(db: Session, updated_practice: PracticeCreate):
 
 
 def get_addresses_all(db: Session, skip, limit):
-    return db.query(tables.GPAddresses).offset(skip).limit(limit).all()
+    return db.query(tables.Address).offset(skip).limit(limit).all()
 
 
 def get_address_by_practice_name(db: Session, practice_name: str):
     return get_practice_by_name(db, practice_name).address
 
 
-def update_address_by_practice_id(db: Session, practice_id: int, new_address: schemas.GPAddressCreate):
-    address: tables.GPAddresses = tables.GPAddresses(**new_address.dict(), practice_id=practice_id)
+def update_address_by_practice_id(db: Session, practice_id: int, new_address: schemas.AddressCreate):
+    address: tables.Address = tables.Address(**new_address.dict(), practice_id=practice_id)
 
     try:
         db.add(address)
         db.commit()
     except sqlalchemy.exc.IntegrityError:
         db.rollback()
-        address = db.query(tables.GPAddresses).filter(tables.GPAddresses.practice_id == practice_id).first()
+        address = db.query(tables.Address).filter(tables.Address.practice_id == practice_id).first()
 
         address.line_1 = new_address.line_1
         address.line_2 = new_address.line_2

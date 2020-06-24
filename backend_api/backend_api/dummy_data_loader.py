@@ -27,14 +27,14 @@ class DummyDataLoader:
                 self.db.rollback()
         logger.info("..done.")
 
-    def write_gp_address_mock_data(self, json_file: pathlib.Path):
+    def write_address_mock_data(self, json_file: pathlib.Path):
         logger.info("Writing mock data for GP Addresses..")
         with json_file.open() as file:
             data = json.loads(file.read())
 
         for index, item in enumerate(data, 1):
             try:
-                crud.update_address_by_practice_id(self.db, index, schemas.GPAddressCreate(**item))
+                crud.update_address_by_practice_id(self.db, index, schemas.AddressCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
