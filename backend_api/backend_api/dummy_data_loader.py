@@ -28,7 +28,7 @@ class DummyDataLoader:
         logger.info("..done.")
 
     def write_address_mock_data(self, json_file: pathlib.Path):
-        logger.info("Writing mock data for GP Addresses..")
+        logger.info("Writing mock data for Addresses..")
         with json_file.open() as file:
             data = json.loads(file.read())
 
