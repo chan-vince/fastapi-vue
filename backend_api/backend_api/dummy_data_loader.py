@@ -2,7 +2,7 @@ import json
 import logging
 import pathlib
 
-from backend_api import crud
+from backend_api.crud import crud
 from backend_api.database import SessionLocal
 from . import pydantic_schemas as schemas
 from . import database_models as models
