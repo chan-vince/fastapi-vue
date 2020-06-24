@@ -26,6 +26,7 @@ class Practice(Base):
     name = Column(String(length=255), nullable=False, unique=True)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
     phone_num = Column(String(length=255))
+    national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
     go_live_date = Column(DateTime)
     closed = Column(Boolean, default=False)

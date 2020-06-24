@@ -97,6 +97,7 @@ class Employee(EmployeeBase):
 class PracticeBase(BaseModel):
     name: str
     phone_num: str
+    national_code: str
     emis_cdb_practice_code: str
     go_live_date: datetime.datetime = None
     closed: bool
