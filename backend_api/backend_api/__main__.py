@@ -8,7 +8,7 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine
-from .rest import practices, employees, practice_addresses
+from .rest import practices, employees, practice_addresses, access_systems
 from .dummy_data_loader import DummyDataLoader
 
 database_models.Base.metadata.create_all(bind=engine)
@@ -24,6 +24,9 @@ app.include_router(
 )
 app.include_router(
     employees.router, tags=["Employees"], prefix=f"/api/v1"
+)
+app.include_router(
+    access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
 )
 
 

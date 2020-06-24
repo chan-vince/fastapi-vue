@@ -33,13 +33,13 @@ def update_practice(practice_id: int, practice: schemas.PracticeCreate, db: Sess
 
 
 @router.get("/practice/", response_model=List[schemas.Practice])
-def read_all_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def get_all_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     practices = crud_practices.read_practices_all(db, skip=skip, limit=limit)
     return practices
 
 
 @router.get("/practice/id/", response_model=schemas.Practice)
-def read_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
+def get_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
     practice: schemas.Practice = crud_practices.read_practice_by_id(db, practice_id=practice_id)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with id {practice_id} not found")
@@ -47,7 +47,7 @@ def read_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/practice/name/", response_model=schemas.Practice)
-def read_practice_by_name(name: str, db: Session = Depends(get_db)):
+def get_practice_by_name(name: str, db: Session = Depends(get_db)):
     practice: schemas.Practice = crud_practices.read_practice_by_name(db, gp_name=name)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with name {name} not found")
@@ -58,5 +58,20 @@ def read_practice_by_name(name: str, db: Session = Depends(get_db)):
 @router.delete("/practice/", response_model=schemas.Practice)
 def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
-    read_practice_by_id(practice_id, db)
+    get_practice_by_id(practice_id, db)
     return crud_practices.delete_practice(db, practice_id)
+
+
+# Add an Access System to a practice
+@router.put("/practice/system/", response_model=schemas.Practice)
+def add_access_system_to_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
+    # Raises 404 if doesn't exist
+    get_practice_by_id(practice_id, db)
+    access_system = crud_practices.get_access_system_by_id(db, access_system_id)
+
+    return crud_practices.add_access_system_to_practice(db, practice_id, access_system)
+
+
+@router.delete("/practice/system/", response_model=schemas.Practice)
+def remove_access_system_from_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
+    return crud_practices.delete_access_system_from_practice(db, practice_id, access_system_id)
