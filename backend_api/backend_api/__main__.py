@@ -8,7 +8,7 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine
-from .rest import gp_practices, employees
+from .rest import practices, employees
 from .dummy_data_loader import DummyDataLoader
 
 database_models.Base.metadata.create_all(bind=engine)
@@ -17,7 +17,7 @@ database_models.Base.metadata.create_all(bind=engine)
 app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
 
 app.include_router(
-    gp_practices.router, tags=["Practices"], prefix=f"/api/v1"
+    practices.router, tags=["Practices"], prefix=f"/api/v1"
 )
 app.include_router(
     employees.router, tags=["Employees"], prefix=f"/api/v1"
@@ -59,7 +59,7 @@ def start():
         ddl = DummyDataLoader()
 
         # Load dummy data for the tables
-        ddl.write_gp_practice_mock_data(mock_data_base_path / "gp_practices.json")
+        ddl.write_practice_mock_data(mock_data_base_path / "practices.json")
         ddl.write_gp_address_mock_data(mock_data_base_path / "gp_addresses.json")
         ddl.write_job_titles_mock_data(mock_data_base_path / "job_titles.json")
         ddl.write_employee_mock_data(mock_data_base_path / "employees.json")

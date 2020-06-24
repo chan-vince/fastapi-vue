@@ -7,20 +7,20 @@ from .database import Base
 
 
 association_practice_employee = Table('association_practice_employee', Base.metadata,
-                                      Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
+                                      Column('practice_id', Integer, ForeignKey('practices.id')),
                                       Column('employee_id', Integer, ForeignKey('employees.id')))
 
 association_practice_systems = Table('association_practice_systems', Base.metadata,
-                                     Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
+                                     Column('practice_id', Integer, ForeignKey('practices.id')),
                                      Column('system_type_id', Integer, ForeignKey('system_types.id')))
 
 association_practice_partners = Table('association_practice_partners', Base.metadata,
-                                      Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
+                                      Column('practice_id', Integer, ForeignKey('practices.id')),
                                       Column('employee_id', Integer, ForeignKey('employees.id')))
 
 
-class GPPractices(Base):
-    __tablename__ = "gp_practices"
+class Practice(Base):
+    __tablename__ = "practices"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(length=255), nullable=False, unique=True)
@@ -32,7 +32,7 @@ class GPPractices(Base):
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     system_types = relationship("SystemTypes", secondary=association_practice_systems)
-    address = relationship("GPAddresses", uselist=False, back_populates="gp_practice")
+    address = relationship("GPAddresses", uselist=False, back_populates="practice")
     employees = relationship("Employees", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employees", secondary=association_practice_partners, back_populates="partner_of")
     ip_ranges = relationship("IPRanges")
@@ -52,8 +52,8 @@ class Employees(Base):
     job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
 
     job_title = relationship("JobTitles", uselist=False)
-    practices = relationship("GPPractices", secondary=association_practice_employee, back_populates="employees")
-    partner_of = relationship("GPPractices", secondary=association_practice_partners, back_populates="main_partners")
+    practices = relationship("Practice", secondary=association_practice_employee, back_populates="employees")
+    partner_of = relationship("Practice", secondary=association_practice_partners, back_populates="main_partners")
 
 
 class GPAddresses(Base):
@@ -66,9 +66,9 @@ class GPAddresses(Base):
     county = Column(String(length=255), nullable=False)
     postcode = Column(String(length=255), nullable=False)
     dts_email = Column(String(length=255), nullable=False)
-    gp_practice_id = Column(Integer, ForeignKey("gp_practices.id"), unique=True)
+    practice_id = Column(Integer, ForeignKey("practices.id"), unique=True)
 
-    gp_practice = relationship("GPPractices", back_populates="address")
+    practice = relationship("Practice", back_populates="address")
 
 
 class JobTitles(Base):
@@ -90,7 +90,7 @@ class IPRanges(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     cidr = Column(String(length=255), nullable=False, unique=True)
-    gp_practice = Column(Integer, ForeignKey("gp_practices.id"))
+    practice = Column(Integer, ForeignKey("practices.id"))
 
 
 class SystemUsers(Base):

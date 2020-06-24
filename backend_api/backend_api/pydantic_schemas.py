@@ -19,7 +19,7 @@ class GPAddressCreate(GPAddressBase):
 
 class GPAddress(GPAddressBase):
     id: int
-    gp_practice_id: int
+    practice_id: int
 
     class Config:
         orm_mode = True
@@ -93,7 +93,7 @@ class Employee(EmployeeBase):
         orm_mode = True
 
 
-class GPPracticeBase(BaseModel):
+class PracticeBase(BaseModel):
     name: str
     phone_num: str
     emis_cdb_practice_code: str
@@ -101,11 +101,11 @@ class GPPracticeBase(BaseModel):
     closed: bool
 
 
-class GPPracticeCreate(GPPracticeBase):
+class PracticeCreate(PracticeBase):
     pass
 
 
-class GPPractice(GPPracticeBase):
+class Practice(PracticeBase):
     id: int
 
     created_date: datetime.datetime

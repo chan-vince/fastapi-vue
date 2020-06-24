@@ -13,15 +13,15 @@ class DummyDataLoader:
     def __init__(self):
         self.db = SessionLocal()
 
-    def write_gp_practice_mock_data(self, json_file: pathlib.Path):
-        logger.info("Writing mock data for GP Practices..")
+    def write_practice_mock_data(self, json_file: pathlib.Path):
+        logger.info("Writing mock data for Practices..")
 
         with json_file.open() as file:
             data = json.loads(file.read())
 
         for index, item in enumerate(data, 1):
             try:
-                crud.update_gp_practice(self.db, schemas.GPPracticeCreate(**item))
+                crud.update_practice(self.db, schemas.PracticeCreate(**item))
             except Exception as e:
                 logger.debug(e)
                 self.db.rollback()
@@ -34,7 +34,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.update_gp_address_by_gp_practice_id(self.db, index, schemas.GPAddressCreate(**item))
+                crud.update_address_by_practice_id(self.db, index, schemas.GPAddressCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
