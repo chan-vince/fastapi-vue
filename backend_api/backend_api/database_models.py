@@ -12,7 +12,7 @@ association_practice_employee = Table('_association_practice_employee', Base.met
 
 association_practice_systems = Table('_association_practice_systems', Base.metadata,
                                      Column('practice_id', Integer, ForeignKey('practices.id')),
-                                     Column('system_type_id', Integer, ForeignKey('system_types.id')))
+                                     Column('access_system_id', Integer, ForeignKey('access_systems.id')))
 
 association_practice_partners = Table('_association_practice_partners', Base.metadata,
                                       Column('practice_id', Integer, ForeignKey('practices.id')),
@@ -31,7 +31,7 @@ class Practice(Base):
     closed = Column(Boolean, default=False)
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
-    system_types = relationship("SystemType", secondary=association_practice_systems)
+    access_systems = relationship("AccessSystem", secondary=association_practice_systems)
     address = relationship("Address", uselist=False, back_populates="practice")
     employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
@@ -78,8 +78,8 @@ class JobTitle(Base):
     title = Column(String(length=255), nullable=False, unique=True)
 
 
-class SystemType(Base):
-    __tablename__ = "system_types"
+class AccessSystem(Base):
+    __tablename__ = "access_systems"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(length=255), nullable=False, unique=True)

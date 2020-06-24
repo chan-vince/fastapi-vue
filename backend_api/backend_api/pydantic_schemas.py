@@ -25,15 +25,15 @@ class Address(AddressBase):
         orm_mode = True
 
 
-class SystemTypeBase(BaseModel):
+class AccessSystemBase(BaseModel):
     name: str
 
 
-class SystemTypeCreate(SystemTypeBase):
+class AccessSystemCreate(AccessSystemBase):
     pass
 
 
-class SystemType(SystemTypeBase):
+class AccessSystem(AccessSystemBase):
     id: int
 
     class Config:
@@ -112,7 +112,7 @@ class Practice(PracticeBase):
     address: Address = None
     employees: List[Employee] = []
     main_partners: List[Employee] = []
-    system_type: List[SystemType] = []
+    access_systems: List[AccessSystem] = []
 
     class Config:
         orm_mode = True
