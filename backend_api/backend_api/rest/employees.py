@@ -79,3 +79,9 @@ def delete_existing_employee_by_id(employee_id: int, db: Session = Depends(get_d
 @router.put("/employee/practice", response_model=schemas.Employee)
 def assign_employee_to_practice(employee_id: int, practice_id: int, db: Session = Depends(get_db)):
     return crud_employees.assign_employee_to_practice(db, employee_id, practice_id)
+
+
+# Remove an employee from a practice
+@router.delete("/employee/practice", response_model=schemas.Employee)
+def unassign_employee_from_practice(employee_id: int, db: Session = Depends(get_db)):
+    return crud_employees.unassign_employee_from_practice(db, employee_id)
