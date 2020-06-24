@@ -29,6 +29,7 @@ def update_practice(db: Session, updated_practice: PracticeCreate):
         practice = get_practice_by_name(db, updated_practice.name)
 
         practice.phone_num = updated_practice.phone_num
+        practice.national_code = updated_practice.national_code
         practice.emis_cdb_practice_code = updated_practice.emis_cdb_practice_code
         practice.go_live_date = updated_practice.go_live_date
         practice.closed = updated_practice.closed
