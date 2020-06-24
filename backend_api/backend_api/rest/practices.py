@@ -66,3 +66,11 @@ def read_practice_address_by_name(name: str, db: Session = Depends(get_db)):
     if address is None:
         raise HTTPException(status_code=404, detail=f"No address for GP Practice with name {name}")
     return address
+
+
+# Delete an existing practice
+@router.delete("/practice/", response_model=schemas.Practice)
+def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
+    # Raises 404 if doesn't exist
+    read_practice_by_id(practice_id, db)
+    return crud_practices.delete_practice(db, practice_id)

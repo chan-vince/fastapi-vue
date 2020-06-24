@@ -18,7 +18,7 @@ class AddressCreate(AddressBase):
 
 class Address(AddressBase):
     id: int
-    practice_id: int
+    practice_id: Union[int, None]
 
     class Config:
         orm_mode = True

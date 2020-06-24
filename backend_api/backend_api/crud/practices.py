@@ -40,6 +40,13 @@ def update_practice(db: Session, updated_practice: PracticeCreate):
     return practice
 
 
+def delete_practice(db: Session, practice_id: int):
+    practice = get_practice_by_id(db, practice_id)
+    db.delete(practice)
+    db.commit()
+    return practice
+
+
 def get_addresses_all(db: Session, skip, limit):
     return db.query(tables.Address).offset(skip).limit(limit).all()
 

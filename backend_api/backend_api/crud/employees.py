@@ -39,7 +39,7 @@ def update_employee(db: Session, employee_id: int, new_employee: schemas.Employe
 
 def delete_employee(db: Session, employee_id: int):
     employee = read_employee_by_id(db, employee_id)
-    db.query(tables.Employee).filter(tables.Employee.id == employee_id).delete()
+    db.delete(employee)
     db.commit()
     return employee
 
