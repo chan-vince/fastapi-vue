@@ -13,8 +13,8 @@ def get_address_by_practice_name(db: Session, practice_name: str):
     return read_practice_by_name(db, practice_name).address
 
 
-def get_address_by_practice_id(db: Session, practice_id: int):
-    return read_practice_by_id(db, practice_id).address
+def get_addresses_by_practice_id(db: Session, practice_id: int):
+    return read_practice_by_id(db, practice_id).addresses
 
 
 def create_address_for_practice(db: Session, practice_id: int, address: schemas.AddressCreate):
@@ -28,3 +28,13 @@ def update_address_by_practice_id(db: Session, practice_id: int, new_address: sc
     db.query(tables.Address).filter(tables.Address.practice_id == practice_id).update({**new_address.dict()})
     db.commit()
     return read_practice_by_id(db, practice_id)
+
+
+def delete_address_from_practice(db: Session, address_id: int, practice: schemas.Practice):
+    for index, address in enumerate(practice.addresses):
+        if address.id == address_id:
+            practice.addresses.pop(index)
+
+    db.add(practice)
+    db.commit()
+    return practice
