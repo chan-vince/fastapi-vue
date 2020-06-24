@@ -40,7 +40,7 @@ class DummyDataLoader:
                 self.db.rollback()
         logger.info("..done.")
 
-    def write_job_titles_mock_data(self, json_file: pathlib.Path):
+    def write_job_title_mock_data(self, json_file: pathlib.Path):
         logger.info("Writing mock data for Job Titles...")
         with json_file.open() as file:
             data = json.loads(file.read())
@@ -62,6 +62,32 @@ class DummyDataLoader:
         for index, item in enumerate(data, 1):
             try:
                 crud.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))
+            except Exception as e:
+                logger.debug(f"{index} {e}")
+                self.db.rollback()
+        logger.info("..done.")
+
+    def write_access_system_mock_data(self, json_file: pathlib.Path):
+        logger.info("Writing mock data for Access Systems...")
+        with json_file.open() as file:
+            data = json.loads(file.read())
+
+        for index, item in enumerate(data, 1):
+            try:
+                crud.add_access_system(self.db, schemas.AccessSystemCreate(**item))
+            except Exception as e:
+                logger.debug(f"{index} {e}")
+                self.db.rollback()
+        logger.info("..done.")
+
+    def write_ip_range_mock_data(self, json_file:pathlib.Path):
+        logger.info("Writing mock data for IP Ranges...")
+        with json_file.open() as file:
+            data = json.loads(file.read())
+
+        for index, item in enumerate(data, 1):
+            try:
+                crud.add_ip_range(self.db, schemas.IPRangeCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()

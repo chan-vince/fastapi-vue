@@ -105,7 +105,27 @@ def update_employee(db: Session, employee_id: int, new_employee: schemas.Employe
 
 def add_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
     job_title = tables.JobTitle(**new_job_title.dict())
-    db.add(job_title)
-    db.commit()
-    db.refresh(job_title)
+    try:
+        db.add(job_title)
+        db.commit()
+        db.refresh(job_title)
+    except sqlalchemy.exc.IntegrityError:
+        db.rollback()
+
     return job_title
+
+
+def add_access_system(db: Session, new_access_system: schemas.AccessSystemCreate):
+    access_system = tables.AccessSystem(**new_access_system.dict())
+    db.add(access_system)
+    db.commit()
+    db.refresh(access_system)
+    return access_system
+
+
+def add_ip_range(db: Session, new_ip_range: schemas.IPRangeCreate):
+    ip_range = tables.IPRange(**new_ip_range.dict())
+    db.add(ip_range)
+    db.commit()
+    db.refresh(ip_range)
+    return ip_range
