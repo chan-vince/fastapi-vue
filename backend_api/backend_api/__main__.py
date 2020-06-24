@@ -61,8 +61,10 @@ def start():
         # Load dummy data for the tables
         ddl.write_practice_mock_data(mock_data_base_path / "practices.json")
         ddl.write_address_mock_data(mock_data_base_path / "addresses.json")
-        ddl.write_job_titles_mock_data(mock_data_base_path / "job_titles.json")
+        ddl.write_job_title_mock_data(mock_data_base_path / "job_titles.json")
         ddl.write_employee_mock_data(mock_data_base_path / "employees.json")
+        ddl.write_access_system_mock_data(mock_data_base_path / "access_systems.json")
+        ddl.write_ip_range_mock_data(mock_data_base_path / "ip_ranges.json")
 
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=log_level.lower(), reload=reload)

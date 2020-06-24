@@ -55,15 +55,16 @@ class JobTitle(JobTitleBase):
         orm_mode = True
 
 
-class IPRangesBase(BaseModel):
+class IPRangeBase(BaseModel):
     cidr: str
+    practice: int
 
 
-class IPRangesCreate(IPRangesBase):
+class IPRangeCreate(IPRangeBase):
     pass
 
 
-class IPRanges(IPRangesBase):
+class IPRange(IPRangeBase):
     id: int
 
     class Config:
