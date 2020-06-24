@@ -25,7 +25,7 @@ def add_update_new_practice(practice: schemas.PracticeCreate, db: Session = Depe
     return crud.update_practice(db=db, updated_practice=practice)
 
 
-@router.post("/practice/{practice_id}/address", response_model=schemas.Address)
+@router.post("/practice/address/{practice_id}", response_model=schemas.Address)
 def add_update_address_for_practice_by_id(practice_id: int,
                                           new_address: schemas.AddressCreate,
                                           db: Session = Depends(get_db)):
