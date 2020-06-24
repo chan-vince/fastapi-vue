@@ -7,16 +7,16 @@ from .database import Base
 
 
 association_practice_employee = Table('_association_practice_employee', Base.metadata,
-                                      Column('practice_id', Integer, ForeignKey('practices.id')),
-                                      Column('employee_id', Integer, ForeignKey('employees.id')))
+                                      Column('practice_id', Integer, ForeignKey('practices.id', ondelete='CASCADE')),
+                                      Column('employee_id', Integer, ForeignKey('employees.id', ondelete='CASCADE')))
 
 association_practice_systems = Table('_association_practice_systems', Base.metadata,
-                                     Column('practice_id', Integer, ForeignKey('practices.id')),
-                                     Column('access_system_id', Integer, ForeignKey('access_systems.id')))
+                                     Column('practice_id', Integer, ForeignKey('practices.id', ondelete='CASCADE')),
+                                     Column('access_system_id', Integer, ForeignKey('access_systems.id', ondelete='CASCADE')))
 
 association_practice_partners = Table('_association_practice_partners', Base.metadata,
-                                      Column('practice_id', Integer, ForeignKey('practices.id')),
-                                      Column('employee_id', Integer, ForeignKey('employees.id')))
+                                      Column('practice_id', Integer, ForeignKey('practices.id', ondelete='CASCADE')),
+                                      Column('employee_id', Integer, ForeignKey('employees.id', ondelete='CASCADE')))
 
 
 class Practice(Base):
@@ -66,7 +66,7 @@ class Address(Base):
     county = Column(String(length=255), nullable=False)
     postcode = Column(String(length=255), nullable=False)
     dts_email = Column(String(length=255), nullable=False)
-    practice_id = Column(Integer, ForeignKey("practices.id"), unique=True)
+    practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
     practice = relationship("Practice", back_populates="address")
 
@@ -90,7 +90,7 @@ class IPRange(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     cidr = Column(String(length=255), nullable=False, unique=True)
-    practice = Column(Integer, ForeignKey("practices.id"))
+    practice = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
 
 # class SystemUser(Base):
