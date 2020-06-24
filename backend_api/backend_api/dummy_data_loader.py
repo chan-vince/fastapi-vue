@@ -2,7 +2,7 @@ import json
 import logging
 import pathlib
 
-from backend_api.crud import crud
+from backend_api.crud import practices
 from backend_api.database import SessionLocal
 from . import pydantic_schemas as schemas
 from . import database_models as models
@@ -22,7 +22,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.update_practice(self.db, schemas.PracticeCreate(**item))
+                practices.update_practice(self.db, schemas.PracticeCreate(**item))
             except Exception as e:
                 logger.debug(e)
                 self.db.rollback()
@@ -35,7 +35,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.update_address_by_practice_id(self.db, index, schemas.AddressCreate(**item))
+                practices.update_address_by_practice_id(self.db, index, schemas.AddressCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
@@ -48,7 +48,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.add_job_title(self.db, schemas.JobTitleCreate(**item))
+                practices.add_job_title(self.db, schemas.JobTitleCreate(**item))
             except Exception as e:
                 raise
                 logger.debug(f"{index} {e}")
@@ -62,7 +62,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))
+                practices.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
@@ -75,7 +75,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.add_access_system(self.db, schemas.AccessSystemCreate(**item))
+                practices.add_access_system(self.db, schemas.AccessSystemCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
@@ -88,7 +88,7 @@ class DummyDataLoader:
 
         for index, item in enumerate(data, 1):
             try:
-                crud.add_ip_range(self.db, schemas.IPRangeCreate(**item))
+                practices.add_ip_range(self.db, schemas.IPRangeCreate(**item))
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()

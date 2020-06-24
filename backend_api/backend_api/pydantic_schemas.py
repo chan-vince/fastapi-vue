@@ -1,6 +1,5 @@
 import datetime
 from typing import List, Any, Union
-
 from pydantic import BaseModel
 
 
@@ -71,29 +70,6 @@ class IPRange(IPRangeBase):
         orm_mode = True
 
 
-class EmployeeBase(BaseModel):
-    first_name: str
-    last_name: str
-    email: str
-    professional_num: str
-    desktop_num: str = None
-    it_portal_num: str = None
-    active: bool = True
-    job_title_id: int = None
-
-
-class EmployeeCreate(EmployeeBase):
-    pass
-
-
-class Employee(EmployeeBase):
-    id: int
-    # practices: List[Any] = []
-
-    class Config:
-        orm_mode = True
-
-
 class PracticeBase(BaseModel):
     name: str
     phone_num: str
@@ -112,9 +88,32 @@ class Practice(PracticeBase):
 
     created_date: datetime.datetime
     address: Address = None
-    employees: List[Employee] = []
-    main_partners: List[Employee] = []
+    # employees: List[Employee] = []
+    # main_partners: List[Employee] = []
     access_systems: List[AccessSystem] = []
+
+    class Config:
+        orm_mode = True
+
+
+class EmployeeBase(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+    professional_num: str
+    desktop_num: str = None
+    it_portal_num: str = None
+    active: bool = True
+    job_title_id: int = None
+
+
+class EmployeeCreate(EmployeeBase):
+    pass
+
+
+class Employee(EmployeeBase):
+    id: int
+    practices: List[Practice]
 
     class Config:
         orm_mode = True

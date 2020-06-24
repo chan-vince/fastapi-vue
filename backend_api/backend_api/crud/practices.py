@@ -72,50 +72,6 @@ def update_address_by_practice_id(db: Session, practice_id: int, new_address: sc
     return address
 
 
-def get_employee_by_email(db: Session, email: str):
-    return db.query(tables.Employee).filter(tables.Employee.email == email).first()
-
-
-def add_employee(db: Session, new_gp_employee: schemas.EmployeeCreate):
-    employee: tables.Employee = tables.Employee(**new_gp_employee.dict())
-    db.add(employee)
-    db.commit()
-    db.refresh(employee)
-    return employee
-
-
-def update_employee(db: Session, employee_id: int, new_employee: schemas.Employee):
-
-    employee = db.query(tables.Employee).filter(tables.Employee.id == employee_id).first().update(new_employee)
-
-    employee.first_name = new_employee.first_name
-    employee.last_name = new_employee.last_name
-    employee.email = new_employee.email
-    employee.professional_num = new_employee.professional_num
-    employee.desktop_num = new_employee.desktop_num
-    employee.it_portal_num = new_employee.it_portal_num
-    employee.active = new_employee.active
-    employee.job_title_id = new_employee.job_title_id
-
-    db.add(employee)
-    db.commit()
-
-    db.refresh(employee)
-    return employee
-
-
-def add_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
-    job_title = tables.JobTitle(**new_job_title.dict())
-    try:
-        db.add(job_title)
-        db.commit()
-        db.refresh(job_title)
-    except sqlalchemy.exc.IntegrityError:
-        db.rollback()
-
-    return job_title
-
-
 def add_access_system(db: Session, new_access_system: schemas.AccessSystemCreate):
     access_system = tables.AccessSystem(**new_access_system.dict())
     db.add(access_system)
