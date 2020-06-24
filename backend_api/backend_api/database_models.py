@@ -8,7 +8,7 @@ from .database import Base
 
 association_practice_employee = Table('association_practice_employee', Base.metadata,
                                       Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
-                                      Column('gp_employee_id', Integer, ForeignKey('gp_employees.id')))
+                                      Column('employee_id', Integer, ForeignKey('employees.id')))
 
 association_practice_systems = Table('association_practice_systems', Base.metadata,
                                      Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
@@ -16,7 +16,7 @@ association_practice_systems = Table('association_practice_systems', Base.metada
 
 association_practice_partners = Table('association_practice_partners', Base.metadata,
                                       Column('gp_practice_id', Integer, ForeignKey('gp_practices.id')),
-                                      Column('gp_employee_id', Integer, ForeignKey('gp_employees.id')))
+                                      Column('employee_id', Integer, ForeignKey('employees.id')))
 
 
 class GPPractices(Base):
@@ -33,13 +33,13 @@ class GPPractices(Base):
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     system_types = relationship("SystemTypes", secondary=association_practice_systems)
     address = relationship("GPAddresses", uselist=False, back_populates="gp_practice")
-    employees = relationship("GPEmployees", secondary=association_practice_employee, back_populates="practices")
-    main_partners = relationship("GPEmployees", secondary=association_practice_partners, back_populates="partner_of")
+    employees = relationship("Employees", secondary=association_practice_employee, back_populates="practices")
+    main_partners = relationship("Employees", secondary=association_practice_partners, back_populates="partner_of")
     ip_ranges = relationship("IPRanges")
 
 
-class GPEmployees(Base):
-    __tablename__ = "gp_employees"
+class Employees(Base):
+    __tablename__ = "employees"
 
     id = Column(Integer, primary_key=True, index=True)
     first_name = Column(String(length=255), nullable=False)
