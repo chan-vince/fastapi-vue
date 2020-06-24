@@ -70,7 +70,7 @@ class IPRanges(IPRangesBase):
         orm_mode = True
 
 
-class GPEmployeeBase(BaseModel):
+class EmployeeBase(BaseModel):
     first_name: str
     last_name: str
     email: str
@@ -81,11 +81,11 @@ class GPEmployeeBase(BaseModel):
     job_title_id: int = None
 
 
-class GPEmployeeCreate(GPEmployeeBase):
+class EmployeeCreate(EmployeeBase):
     pass
 
 
-class GPEmployee(GPEmployeeBase):
+class Employee(EmployeeBase):
     id: int
     practices: List[Any] = []
 
@@ -110,8 +110,8 @@ class GPPractice(GPPracticeBase):
 
     created_date: datetime.datetime
     address: GPAddress = None
-    employees: List[GPEmployee] = []
-    main_partners: List[GPEmployee] = []
+    employees: List[Employee] = []
+    main_partners: List[Employee] = []
     system_type: List[SystemType] = []
 
     class Config:

@@ -71,36 +71,36 @@ def update_gp_address_by_gp_practice_id(db: Session, gp_practice_id: int, new_ad
     return gp_address
 
 
-def get_gp_employee_by_email(db: Session, email: str):
-    return db.query(tables.GPEmployees).filter(tables.GPEmployees.email == email).first()
+def get_employee_by_email(db: Session, email: str):
+    return db.query(tables.Employees).filter(tables.Employees.email == email).first()
 
 
-def add_gp_employee(db: Session, new_gp_employee: schemas.GPEmployeeCreate):
-    gp_employee: tables.GPEmployees = tables.GPEmployees(**new_gp_employee.dict())
-    db.add(gp_employee)
+def add_employee(db: Session, new_employee: schemas.EmployeeCreate):
+    employee: tables.Employees = tables.Employees(**new_employee.dict())
+    db.add(employee)
     db.commit()
-    db.refresh(gp_employee)
-    return gp_employee
+    db.refresh(employee)
+    return employee
 
 
-def update_gp_employee(db: Session, gp_employee_id: int, new_employee: schemas.GPEmployee):
+def update_employee(db: Session, employee_id: int, new_employee: schemas.Employee):
 
-    gp_employee = db.query(tables.GPEmployees).filter(tables.GPEmployees.id == gp_employee_id).first().update(new_employee)
+    employee = db.query(tables.Employees).filter(tables.Employees.id == employee_id).first().update(new_employee)
 
-    gp_employee.first_name = new_employee.first_name
-    gp_employee.last_name = new_employee.last_name
-    gp_employee.email = new_employee.email
-    gp_employee.professional_num = new_employee.professional_num
-    gp_employee.desktop_num = new_employee.desktop_num
-    gp_employee.it_portal_num = new_employee.it_portal_num
-    gp_employee.active = new_employee.active
-    gp_employee.job_title_id = new_employee.job_title_id
+    employee.first_name = new_employee.first_name
+    employee.last_name = new_employee.last_name
+    employee.email = new_employee.email
+    employee.professional_num = new_employee.professional_num
+    employee.desktop_num = new_employee.desktop_num
+    employee.it_portal_num = new_employee.it_portal_num
+    employee.active = new_employee.active
+    employee.job_title_id = new_employee.job_title_id
 
-    db.add(gp_employee)
+    db.add(employee)
     db.commit()
 
-    db.refresh(gp_employee)
-    return gp_employee
+    db.refresh(employee)
+    return employee
 
 
 def add_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
