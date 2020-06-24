@@ -25,16 +25,16 @@ def add_update_new_practice(practice: schemas.PracticeCreate, db: Session = Depe
     return crud.update_practice(db=db, updated_practice=practice)
 
 
-@router.post("/practice/{practice_id}/address", response_model=schemas.GPAddress)
+@router.post("/practice/{practice_id}/address", response_model=schemas.Address)
 def add_update_address_for_practice_by_id(practice_id: int,
-                                             new_address: schemas.GPAddressCreate,
-                                             db: Session = Depends(get_db)):
+                                          new_address: schemas.AddressCreate,
+                                          db: Session = Depends(get_db)):
 
     practice = read_practice_by_id(practice_id=practice_id, db=db)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"No GP Practice with id {practice_id}")
 
-    return crud.update_gp_address_by_practice_id(db, practice_id=practice_id, new_address=new_address)
+    return crud.update_address_by_practice_id(db, practice_id=practice_id, new_address=new_address)
 
 
 @router.get("/practice/", response_model=List[schemas.Practice])
@@ -59,12 +59,12 @@ def read_practice_by_name(name: str, db: Session = Depends(get_db)):
     return practice
 
 
-@router.get("/practice/address/", response_model=schemas.GPAddress)
+@router.get("/practice/address/", response_model=schemas.Address)
 def read_practice_address_by_name(name: str, db: Session = Depends(get_db)):
     if crud.get_practice_by_name(db, name) is None:
         raise HTTPException(status_code=400, detail=f"No GP Practice with name {name}")
 
-    gp_address: schemas.GPAddress = crud.get_gp_address_by_practice_name(db, practice_name=name)
-    if gp_address is None:
+    address: schemas.Address = crud.get_address_by_practice_name(db, practice_name=name)
+    if address is None:
         raise HTTPException(status_code=404, detail=f"No address for GP Practice with name {name}")
-    return gp_address
+    return address

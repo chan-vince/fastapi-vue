@@ -4,7 +4,7 @@ from typing import List, Any, Union
 from pydantic import BaseModel
 
 
-class GPAddressBase(BaseModel):
+class AddressBase(BaseModel):
     line_1: str
     line_2: Union[str, None]
     town: str
@@ -13,11 +13,11 @@ class GPAddressBase(BaseModel):
     dts_email: str
 
 
-class GPAddressCreate(GPAddressBase):
+class AddressCreate(AddressBase):
     pass
 
 
-class GPAddress(GPAddressBase):
+class Address(AddressBase):
     id: int
     practice_id: int
 
@@ -109,7 +109,7 @@ class Practice(PracticeBase):
     id: int
 
     created_date: datetime.datetime
-    address: GPAddress = None
+    address: Address = None
     employees: List[Employee] = []
     main_partners: List[Employee] = []
     system_type: List[SystemType] = []

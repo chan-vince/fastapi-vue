@@ -60,7 +60,7 @@ def start():
 
         # Load dummy data for the tables
         ddl.write_practice_mock_data(mock_data_base_path / "practices.json")
-        ddl.write_gp_address_mock_data(mock_data_base_path / "gp_addresses.json")
+        ddl.write_address_mock_data(mock_data_base_path / "addresses.json")
         ddl.write_job_titles_mock_data(mock_data_base_path / "job_titles.json")
         ddl.write_employee_mock_data(mock_data_base_path / "employees.json")
 
