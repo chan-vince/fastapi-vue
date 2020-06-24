@@ -52,7 +52,12 @@ def get_practice_address_by_id(practice_id: int, db: Session = Depends(get_db)):
     if crud_practices.read_practice_by_id(db, practice_id) is None:
         raise HTTPException(status_code=400, detail=f"No GP Practice with id {practice_id}")
 
-    address: schemas.Address = crud_practice_addresses.get_address_by_practice_id(db, practice_id)
-    if address is None:
+    addresses: schemas.Address = crud_practice_addresses.get_addresses_by_practice_id(db, practice_id)
+    if not addresses:
         raise HTTPException(status_code=404, detail=f"No address for GP Practice with id {practice_id}")
-    return address
+    return addresses
+
+
+@router.delete("/practice/address/", response_model=schemas.Practice)
+def delete_address_from_practice(practice_id: int, address_id: int, db: Session = Depends(get_db)):
+    return crud_practice_addresses.delete_address_from_practice(db, address_id, get_practice_by_id(practice_id, db))
