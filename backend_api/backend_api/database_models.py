@@ -33,7 +33,7 @@ class Practice(Base):
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     access_systems = relationship("AccessSystem", secondary=association_practice_systems)
-    address = relationship("Address", uselist=False, back_populates="practice")
+    addresses = relationship("Address", back_populates="practice")
     employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
     ip_ranges = relationship("IPRange")
@@ -69,7 +69,7 @@ class Address(Base):
     dts_email = Column(String(length=255), nullable=False)
     practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
-    practice = relationship("Practice", back_populates="address")
+    practice = relationship("Practice", back_populates="addresses")
 
 
 class JobTitle(Base):

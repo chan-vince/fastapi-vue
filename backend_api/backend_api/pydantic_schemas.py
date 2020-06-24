@@ -87,7 +87,7 @@ class Practice(PracticeBase):
     id: int
 
     created_date: datetime.datetime
-    address: Address = None
+    addresses: List[Address] = None
     # employees: List[Employee] = []
     # main_partners: List[Employee] = []
     access_systems: List[AccessSystem] = []
