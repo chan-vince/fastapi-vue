@@ -59,7 +59,7 @@ def assign_employee_to_practice(db: Session, employee_id: int, practice_id: int)
     return employee
 
 
-def unassign_employee_from_practice(db: Session, employee_id: int):
+def unassign_employee_from_all_practices(db: Session, employee_id: int):
     employee: schemas.Employee = read_employee_by_id(db, employee_id)
     if employee is None:
         raise backend_api.exc.EmployeeNotFoundError
