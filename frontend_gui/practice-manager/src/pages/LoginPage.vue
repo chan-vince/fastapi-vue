@@ -3,7 +3,7 @@
         <NavBar/>
         <h1>Login</h1>
         <section class="login-form">
-            <b-field label="Username" style="text-align:left">
+            <b-field label="Email" style="text-align:left">
                 <b-input value=""></b-input>
             </b-field>
             <b-field label="Password" style="text-align:left" >
