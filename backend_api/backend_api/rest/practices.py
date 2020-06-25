@@ -85,3 +85,13 @@ def add_ip_range_to_practice_by_id(practice_id: int, ip_range: schemas.IPRangeCr
 @router.delete("/practice/ip_range/", response_model=schemas.Practice)
 def delete_ip_range_from_practice_by_id(practice_id: int, ip_range_id: int, db: Session = Depends(get_db)):
     return crud_practices.unassign_ip_range_from_practice(db, ip_range_id, practice_id)
+
+
+@router.put("/practice/main_partner", response_model=schemas.Practice)
+def assign_a_main_partner_to_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
+    return crud_practices.assign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
+
+
+@router.delete("/practice/main_partner", response_model=schemas.Practice)
+def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
+    return crud_practices.unassign_employee_as_main_partner_of_practice(db, employee_id, practice_id)

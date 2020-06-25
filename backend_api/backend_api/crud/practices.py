@@ -111,3 +111,31 @@ def unassign_ip_range_from_practice(db: Session, ip_range_id: int, practice_id: 
     db.add(practice)
     db.commit()
     return practice
+
+
+def assign_employee_as_main_partner_of_practice(db: Session, employee_id: int, practice_id: int):
+    employee: tables.Employee = db.query(tables.Employee).filter(tables.Employee.id == employee_id).first()
+
+    if employee is None:
+        raise backend_api.exc.EmployeeNotFoundError
+
+    practice: tables.Practice = read_practice_by_id(db, practice_id)
+    if practice is None:
+        raise backend_api.exc.PracticeNotFoundError
+
+    practice.main_partners.append(employee)
+    db.add(practice)
+    db.commit()
+    return practice
+
+
+def unassign_employee_as_main_partner_of_practice(db: Session, employee_id: int, practice_id: int):
+    practice: tables.Practice = read_practice_by_id(db, practice_id)
+    if practice is None:
+        raise backend_api.exc.PracticeNotFoundError
+
+    for index, employee in enumerate(practice.main_partners):
+        if employee.id == employee_id:
+            practice.main_partners.pop(index)
+
+    return practice
