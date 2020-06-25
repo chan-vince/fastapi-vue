@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
 from backend_api.pydantic_schemas import PracticeCreate
@@ -86,3 +86,28 @@ def add_ip_range(db: Session, new_ip_range: schemas.IPRangeCreate):
     db.commit()
     db.refresh(ip_range)
     return ip_range
+
+
+def assign_ip_range_to_practice(db: Session, ip_range: schemas.IPRangeCreate, practice_id: int):
+    practice: tables.Practice = read_practice_by_id(db, practice_id)
+    if practice is None:
+        raise backend_api.exc.PracticeNotFoundError
+
+    ip_range = tables.IPRange(**ip_range.dict(), practice=practice_id)
+    db.add(ip_range)
+    db.commit()
+    return practice
+
+
+def unassign_ip_range_from_practice(db: Session, ip_range_id: int, practice_id: int):
+    practice: tables.Practice = read_practice_by_id(db, practice_id)
+    if practice is None:
+        raise backend_api.exc.PracticeNotFoundError
+
+    for index, ip in enumerate(practice.ip_ranges):
+        if ip.id == ip_range_id:
+            practice.ip_ranges.pop(index)
+
+    db.add(practice)
+    db.commit()
+    return practice

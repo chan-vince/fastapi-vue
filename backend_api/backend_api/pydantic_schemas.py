@@ -56,7 +56,6 @@ class JobTitle(JobTitleBase):
 
 class IPRangeBase(BaseModel):
     cidr: str
-    practice: int
 
 
 class IPRangeCreate(IPRangeBase):
@@ -65,6 +64,7 @@ class IPRangeCreate(IPRangeBase):
 
 class IPRange(IPRangeBase):
     id: int
+    practice: int
 
     class Config:
         orm_mode = True
@@ -85,12 +85,13 @@ class PracticeCreate(PracticeBase):
 
 class Practice(PracticeBase):
     id: int
-
     created_date: datetime.datetime
     addresses: List[Address] = []
     # employees: List[Employee] = []
     # main_partners: List[Employee] = []
     access_systems: List[AccessSystem] = []
+    ip_ranges: List[IPRange] = []
+
 
     class Config:
         orm_mode = True
