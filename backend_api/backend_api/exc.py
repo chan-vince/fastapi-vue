@@ -6,3 +6,7 @@ class EmployeeNotFoundError(Exception):
 
 class PracticeNotFoundError(Exception):
     pass
+
+
+class JobTitleNotFoundError(Exception):
+    pass
