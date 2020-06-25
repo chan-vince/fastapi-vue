@@ -1,7 +1,7 @@
 <template>
   <div id="login">
       <NavBar/>
-    <h1>Practice view</h1>
+    <h1>Login Page</h1>
   </div>
 </template>
 

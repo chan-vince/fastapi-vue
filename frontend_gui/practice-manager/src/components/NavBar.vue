@@ -9,16 +9,13 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="#">
-                Home
-            </b-navbar-item>
-            <b-navbar-item href="#">
+            <b-navbar-item v-show="isAdmin" href="#">
                 Access Systems
             </b-navbar-item>
-            <b-navbar-item href="#">
+            <b-navbar-item v-show="isAdmin" href="#">
                 Pending Approvals
             </b-navbar-item>
-            <b-navbar-dropdown label="Practices">
+            <b-navbar-dropdown v-show="isAdmin" label="Practices">
                 <b-navbar-item href="#">
                     Add New Practice
                 </b-navbar-item>
@@ -26,7 +23,7 @@
                     Edit Practice Details
                 </b-navbar-item>
             </b-navbar-dropdown>
-            <b-navbar-dropdown label="Employees">
+            <b-navbar-dropdown v-show="isAdmin" label="Employees">
                 <b-navbar-item href="#">
                     Add New Employee
                 </b-navbar-item>
@@ -38,11 +35,14 @@
 
         <template slot="end">
             <b-navbar-dropdown label="Switch View">
-                <b-navbar-item href="#">
-                    Admin
+                <b-navbar-item>
+                    <router-link to='/login'>Login</router-link>
                 </b-navbar-item>
-                <b-navbar-item href="#">
-                    GP Practice
+                <b-navbar-item>
+                    <router-link to='/admin'>Admin</router-link>
+                </b-navbar-item>
+                <b-navbar-item>
+                    <router-link to='/practice'>GP Practice</router-link>
                 </b-navbar-item>
             </b-navbar-dropdown>
             <b-navbar-item tag="div">
@@ -58,7 +58,16 @@
 
 <script>
 export default {
-  name: 'NavBar',
+    name: 'NavBar',
+    computed: {
+      isAdmin() {
+        if(this.$route.path == "/admin") {
+          return true
+        } else {
+          return false
+        }
+      }
+    } 
 //   props: {
 //     msg: String
 //   }
