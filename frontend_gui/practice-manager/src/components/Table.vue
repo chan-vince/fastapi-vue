@@ -2,10 +2,10 @@
     <div class="table-div">
         <section>
             <b-field grouped group-multiline>
-                <b-select v-model="defaultSortDirection">
+                <!-- <b-select v-model="defaultSortDirection">
                     <option value="asc">Sort Ascending</option>
                     <option value="desc">Sort Descending</option>
-                </b-select>
+                </b-select> -->
                 <b-select v-model="perPage" :disabled="!isPaginated">
                     <option value="5">5 per page</option>
                     <option value="10">10 per page</option>

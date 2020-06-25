@@ -35,23 +35,17 @@
 
         <template slot="end">
             <b-navbar-dropdown label="Switch View">
-                <b-navbar-item>
-                    <router-link to='/login'>Login</router-link>
-                </b-navbar-item>
-                <b-navbar-item>
-                    <router-link to='/admin'>Admin</router-link>
-                </b-navbar-item>
-                <b-navbar-item>
-                    <router-link to='/practice'>GP Practice</router-link>
-                </b-navbar-item>
+                <router-link to='/login'><b-navbar-item>Login</b-navbar-item></router-link>
+                <router-link to='/admin'><b-navbar-item>Admin</b-navbar-item></router-link>
+                <router-link to='/practice'><b-navbar-item>GP Practice</b-navbar-item></router-link>
             </b-navbar-dropdown>
-            <b-navbar-item tag="div">
+            <!-- <b-navbar-item tag="div">
                 <div class="buttons">
                     <a class="button is-light">
                         Report Issue
                     </a>
                 </div>
-            </b-navbar-item>
+            </b-navbar-item> -->
         </template>
     </b-navbar>
 </template>
