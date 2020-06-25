@@ -80,3 +80,17 @@ def add_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
         db.rollback()
 
     return job_title
+
+
+def modify_job_title_for_employee_id(db: Session, job_title_id: int, employee_id: int):
+    job_title = db.query(tables.JobTitle).filter(tables.JobTitle.id == job_title_id).first()
+    if job_title is None:
+        raise backend_api.exc.JobTitleNotFoundError
+
+    employee: schemas.Employee = read_employee_by_id(db, employee_id)
+    if employee is None:
+        raise backend_api.exc.EmployeeNotFoundError
+
+    db.query(tables.Employee).filter(tables.Employee.id == employee_id).update({"job_title_id": job_title_id})
+    db.commit()
+    return employee
