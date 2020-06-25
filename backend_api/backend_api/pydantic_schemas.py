@@ -88,10 +88,9 @@ class Practice(PracticeBase):
     created_date: datetime.datetime
     addresses: List[Address] = []
     # employees: List[Employee] = []
-    # main_partners: List[Employee] = []
+    main_partners: List[Any] = []
     access_systems: List[AccessSystem] = []
     ip_ranges: List[IPRange] = []
-
 
     class Config:
         orm_mode = True
