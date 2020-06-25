@@ -1,23 +1,14 @@
 <template>
   <div id="app">
-    <NavBar/>
-    <h1 class="subsection">GP Practices</h1>
-    <Table/>
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Table from './components/Table.vue'
-import NavBar from './components/NavBar.vue'
 
 export default {
   name: 'App',
   components: {
-    // HelloWorld,
-    NavBar,
-    Table
   }
 }
 </script>
