@@ -10,11 +10,24 @@ from backend_api import __version__, database_models
 from .database import engine
 from .rest import practices, employees, practice_addresses, access_systems
 from .dummy_data_loader import DummyDataLoader
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = [
+    "http://localhost:8081",
+]
 
 database_models.Base.metadata.create_all(bind=engine)
 
 # Create the root instance of a FastAPI app
 app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(
     practices.router, tags=["Practices"], prefix=f"/api/v1"
