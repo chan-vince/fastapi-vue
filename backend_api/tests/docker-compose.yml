@@ -2,16 +2,18 @@ version: '3.8'
 
 services:
   c00006-mariadb:
-    image: mysql
+    image: linuxserver/mariadb
     container_name: c00006-mariadb
     environment:
-#      - PUID=1000
-#      - PGID=1000
+      - PUID=1000
+      - PGID=1000
       - MYSQL_ROOT_PASSWORD=***REMOVED***
       - TZ=Europe/London
       - MYSQL_DATABASE=francis
       - MYSQL_USER=francis
       - MYSQL_PASSWORD=***REMOVED***
+#    volumes:
+#      - ./mariadb-config:/config
     ports:
       - 3306:3306
     restart: unless-stopped
