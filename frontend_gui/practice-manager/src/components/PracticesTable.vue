@@ -12,6 +12,7 @@
 
             <b-table
                 :data="data"
+                :loading="loading"
                 :paginated="isPaginated"
                 :per-page="perPage"
                 :current-page.sync="currentPage"
@@ -73,6 +74,7 @@
         data() {
             return {
                 data: [],
+                loading: false,
                 isPaginated: true,
                 isPaginationSimple: false,
                 paginationPosition: 'bottom',
@@ -83,10 +85,12 @@
                 perPage: 20
             }
         },
-        created () {    
-            client.get(`api/v1/practice/`, {params: { skip: 0, limit: 50 }})
+        created () {  
+            this.loading = true  
+            client.get(`api/v1/practice/`, {params: { skip: 0, limit: 1000 }})
             .then(response => {
                 this.data = response.data
+                this.loading = false
             })
         },
         methods: {
