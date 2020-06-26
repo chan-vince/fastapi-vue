@@ -23,17 +23,17 @@ class Practice(Base):
     __tablename__ = "practices"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(length=255), nullable=False)
+    name = Column(String(length=255), nullable=False, unique=True)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
     phone_num = Column(String(length=255))
     national_code = Column(String(length=255))
-    emis_cdb_practice_code = Column(String(length=255), nullable=False)
+    emis_cdb_practice_code = Column(String(length=255), nullable=False,  unique=True)
     go_live_date = Column(DateTime)
     closed = Column(Boolean, default=False)
 
     Index('idx_practice_id', 'id')
-    Index('idx_practice_name', 'name', unique=True)
-    Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code', unique=True)
+    Index('idx_practice_name', 'name')
+    Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     access_systems = relationship("AccessSystem", secondary=association_practice_systems)
@@ -49,7 +49,7 @@ class Employee(Base):
     id = Column(Integer, primary_key=True)
     first_name = Column(String(length=255), nullable=False)
     last_name = Column(String(length=255), nullable=False)
-    email = Column(String(length=255), nullable=False)
+    email = Column(String(length=255), nullable=False, unique=True)
     professional_num = Column(String(length=255), nullable=False)
     desktop_num = Column(String(length=255), nullable=True)
     it_portal_num = Column(String(length=255), nullable=True)
