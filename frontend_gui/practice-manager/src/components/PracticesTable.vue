@@ -5,7 +5,7 @@
                 <div class="column">
                     <h1 class="subsection">GP Practices</h1>
                 </div>
-                <div class="column is-three-fifths" style="margin-top: 80px">
+                <div class="column is-three-fifths" style="padding-top: 35px">
                     <b-input
                     v-model="practiceSearch"
                     v-on:input="getPractice"
@@ -178,8 +178,8 @@
     font-weight: bold;
     font-size: 30pt;
     text-align: left;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    /* margin-top: 50px; */
+    /* margin-bottom: 20px; */
     padding-left: 0px;
     }
 </style>
