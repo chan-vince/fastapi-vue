@@ -2,19 +2,19 @@
   <div id="app">
     <NavBar/>
     <h1 class="subsection">GP Practices</h1>
-    <Table/>
+    <PracticesTable/>
   </div>
 </template>
 
 <script>
-import Table from '../components/Table.vue'
+import PracticesTable from '../components/PracticesTable.vue'
 import NavBar from '../components/NavBar.vue'
 
 export default {
   name: 'AdminPage',
   components: {
     NavBar,
-    Table
+    PracticesTable
   }
 }
 </script>
@@ -33,8 +33,8 @@ h1.subsection {
   font-weight: bold;
   font-size: 30pt;
   text-align: left;
-  padding-top: 30px;
-  padding-bottom: 10px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   padding-left: 30px;
 }
 </style>
