@@ -28,39 +28,29 @@
                 aria-current-label="Current page">
 
                 <template slot-scope="props">
-                    <b-table-column field="id" label="ID" width="40" sortable numeric>
-                        {{ props.row.id }}
+                <template v-for="column in columns">
+                    <b-table-column :key="column.id" v-bind="column">
+                        <template
+                            v-if="column.searchable"
+                            slot="searchable"
+                            slot-scope="props">
+                            <b-input
+                                v-model="props.filters[props.column.field]"
+                                placeholder="Search..."
+                                icon="magnify"
+                                size="is-small" />
+                        </template>
+                        <template
+                            v-if="!('list_target' in column)">
+                            {{ props.row[column.field] }}
+                        </template>
+                        <template
+                            v-else>
+                            {{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}
+                        </template>
                     </b-table-column>
-
-                    <b-table-column field="created_date" label="Date Created" sortable>
-                        {{ displayDate(props.row.created_date) }}
-                    </b-table-column>
-
-                    <b-table-column field="name" label="Practice Name" sortable>
-                        {{ props.row.name }}
-                    </b-table-column>
-
-                    <b-table-column field="national_code" label="National Code" sortable>
-                        {{ props.row.national_code }}
-                    </b-table-column>
-
-                    <b-table-column field="emis_cdb_practice_code" label="EMIS CDB Practice Code" sortable>
-                        {{ props.row.emis_cdb_practice_code }}
-                    </b-table-column>
-
-                     <b-table-column field="access_systems" label="Access Systems">
-                        {{props.row.access_systems.map(a => a.name).join(", ")}}
-                    </b-table-column>
-
-                    <b-table-column field="ip_ranges" label="IP Ranges">
-                        {{props.row.ip_ranges.map(a => a.cidr).join(", ")}}
-                    </b-table-column>
-
-                    <b-table-column field="phone_num" label="Phone Number">
-                        {{ props.row.phone_num }}
-                    </b-table-column>
-
                 </template>
+            </template>
             </b-table>
         </section>
     </div>
@@ -74,6 +64,14 @@
         data() {
             return {
                 data: [],
+                columns: [{field: 'id',label: 'ID', width: '100', numeric: true},
+                          {field: 'created_date', label: 'Date Created', searchable: true,},
+                          {field: 'name', label: 'Practice Name', searchable: true,},
+                          {field: 'national_code', label: 'National Code', searchable: true,},
+                          {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code', searchable: true,},
+                          {field: 'access_systems', label: 'Access System(s)', list_target: 'name',},
+                          {field: 'ip_ranges', label: 'IP Range(s)', list_target: 'cidr',},
+                          {field: 'phone_num', label: 'Phone Number', searchable: true,}],
                 loading: false,
                 isPaginated: true,
                 isPaginationSimple: false,
