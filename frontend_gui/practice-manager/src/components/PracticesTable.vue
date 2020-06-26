@@ -110,10 +110,10 @@
             },
             getPractice(){
                 if (this.practiceSearch.length > 0){
+                    this.loading = true
                     var names = this.practice_names.filter(name => name.toLowerCase().includes(this.practiceSearch.toLowerCase()))
                     var practice_details = []
                     var promises = []
-                    this.loading = true
                     for (const name of names) {
                         promises.push(
                             client.get(`api/v1/practice/name/`, {params: {name: name} })
@@ -123,15 +123,18 @@
                         )
                     }
                     Promise.all(promises).then(() => {
-                        this.total = practice_details.length
+                        // Need to check the length again once the promise returns as its likely that the search input is deleted before the return
+                        if (this.practiceSearch.length != 0){
+                            this.total = practice_details.length
+                        }
                         this.data = practice_details
                         this.currentPage = 1
                         this.loading = false
                     });                    
                 }
                 else{
-                    this.getTotalPractices()
                     this.getPractices(0, this.perPage)
+                    this.getTotalPractices()
                 }
             },
             getTotalPractices(){
