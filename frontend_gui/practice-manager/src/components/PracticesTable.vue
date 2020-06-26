@@ -18,7 +18,7 @@
                 paginated
                 :per-page="perPage"
                 @page-change="onPageChange"
-
+                :current-page.sync="currentPage"
                 :default-sort-direction="defaultSortDirection"
                 :sort-icon="sortIcon"
                 :sort-icon-size="sortIconSize"
@@ -84,8 +84,8 @@
                 defaultSortDirection: 'asc',
                 sortIcon: 'chevron-up',
                 sortIconSize: 'is-small',
-                page: 1,
                 perPage: 15,
+                currentPage: 1,
                 practiceSearch: ""
             }
         },
@@ -101,20 +101,19 @@
                 })
             },
             onPageChange(page) {
-                this.page = page
                 let skip = (page * this.perPage) - this.perPage
                 let limit = this.perPage
+                this.currentPage = page
                 if(this.practiceSearch.length == 0){
                     this.getPractices(skip, limit)
                 }
             },
             getPractice(){
                 if (this.practiceSearch.length > 0){
-                    var names = this.practice_names.filter(name => name.includes(this.practiceSearch))
+                    var names = this.practice_names.filter(name => name.toLowerCase().includes(this.practiceSearch.toLowerCase()))
                     var practice_details = []
                     var promises = []
                     this.loading = true
-                    this.page = 1
                     for (const name of names) {
                         promises.push(
                             client.get(`api/v1/practice/name/`, {params: {name: name} })
@@ -126,8 +125,8 @@
                     Promise.all(promises).then(() => {
                         this.total = practice_details.length
                         this.data = practice_details
+                        this.currentPage = 1
                         this.loading = false
-                        console.log(this.practiceSearch)
                     });                    
                 }
                 else{
