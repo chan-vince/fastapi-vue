@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -22,14 +22,18 @@ association_practice_partners = Table('_association_practice_partners', Base.met
 class Practice(Base):
     __tablename__ = "practices"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String(length=255), nullable=False, unique=True)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(length=255), nullable=False)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
     phone_num = Column(String(length=255))
     national_code = Column(String(length=255))
-    emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
+    emis_cdb_practice_code = Column(String(length=255), nullable=False)
     go_live_date = Column(DateTime)
     closed = Column(Boolean, default=False)
+
+    Index('idx_practice_id', 'id')
+    Index('idx_practice_name', 'name', unique=True)
+    Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code', unique=True)
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     access_systems = relationship("AccessSystem", secondary=association_practice_systems)
@@ -42,15 +46,18 @@ class Practice(Base):
 class Employee(Base):
     __tablename__ = "employees"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     first_name = Column(String(length=255), nullable=False)
     last_name = Column(String(length=255), nullable=False)
-    email = Column(String(length=255), nullable=False, unique=True)
+    email = Column(String(length=255), nullable=False)
     professional_num = Column(String(length=255), nullable=False)
     desktop_num = Column(String(length=255), nullable=True)
     it_portal_num = Column(String(length=255), nullable=True)
     active = Column(Boolean, default=True)
     job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
+
+    Index('idx_employee_id', 'id')
+    Index('idx_employee_email', 'email', unique=True)
 
     job_title = relationship("JobTitle", uselist=False)
     practices = relationship("Practice", secondary=association_practice_employee, back_populates="employees")
