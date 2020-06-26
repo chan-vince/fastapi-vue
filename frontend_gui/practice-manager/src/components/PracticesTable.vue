@@ -7,6 +7,7 @@
                 </div>
                 <div class="column is-three-fifths" style="padding-top: 35px">
                     <b-input
+                    autofocus
                     v-model="practiceSearch"
                     v-on:input="getPractice"
                     placeholder="Search Practice Name..."
