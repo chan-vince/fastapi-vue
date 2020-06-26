@@ -104,14 +104,17 @@
                 this.page = page
                 let skip = (page * this.perPage) - this.perPage
                 let limit = this.perPage
-                this.getPractices(skip, limit)
+                if(this.practiceSearch.length == 0){
+                    this.getPractices(skip, limit)
+                }
             },
-            getPractice(search_term){
-                if (search_term.length > 0){
-                    var names = this.practice_names.filter(name => name.includes(search_term))
+            getPractice(){
+                if (this.practiceSearch.length > 0){
+                    var names = this.practice_names.filter(name => name.includes(this.practiceSearch))
                     var practice_details = []
                     var promises = []
                     this.loading = true
+                    this.page = 1
                     for (const name of names) {
                         promises.push(
                             client.get(`api/v1/practice/name/`, {params: {name: name} })
@@ -124,6 +127,7 @@
                         this.total = practice_details.length
                         this.data = practice_details
                         this.loading = false
+                        console.log(this.practiceSearch)
                     });                    
                 }
                 else{
