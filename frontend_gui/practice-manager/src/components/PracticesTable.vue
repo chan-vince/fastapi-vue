@@ -76,6 +76,7 @@
                     {field: 'phone_num', label: 'Phone Number', searchable: true,}
                 ],
                 total: 0,
+                practice_names: [],
                 loading: false,
                 isPaginated: true,
                 isPaginationSimple: false,
@@ -105,19 +106,48 @@
                 let limit = this.perPage
                 this.getPractices(skip, limit)
             },
-            getPractice(name){
-                console.log(name)
+            getPractice(search_term){
+                if (search_term.length > 0){
+                    var names = this.practice_names.filter(name => name.includes(search_term))
+                    var practice_details = []
+                    var promises = []
+                    this.loading = true
+                    for (const name of names) {
+                        promises.push(
+                            client.get(`api/v1/practice/name/`, {params: {name: name} })
+                            .then(response => {
+                                practice_details.push(response.data)
+                            })
+                        )
+                    }
+                    Promise.all(promises).then(() => {
+                        this.total = practice_details.length
+                        this.data = practice_details
+                        this.loading = false
+                    });                    
+                }
+                else{
+                    this.getTotalPractices()
+                    this.getPractices(0, this.perPage)
+                }
             },
             getTotalPractices(){
                 client.get(`api/v1/practice/count`)
                 .then(response => {
                     this.total = response.data.count
                 })
-            }
+            },
+            getAllPracticeNames(){
+                client.get(`api/v1/practice/names`)
+                .then(response => {
+                    this.practice_names = response.data.names
+                })
+            },
         },
         created () {  
             this.loading = true
-            this.getTotalPractices()    
+            this.getTotalPractices()
+            this.getAllPracticeNames()
             this.getPractices(0, this.perPage)    
         },
     }
