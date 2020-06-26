@@ -48,7 +48,7 @@ def get_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
 
 @router.get("/practice/name/", response_model=schemas.Practice)
 def get_practice_by_name(name: str, db: Session = Depends(get_db)):
-    practice: schemas.Practice = crud_practices.read_practice_by_name(db, gp_name=name)
+    practice: schemas.Practice = crud_practices.read_practice_by_name(db, practice_name=name)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with name {name} not found")
     return practice
