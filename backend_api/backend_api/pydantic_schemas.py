@@ -117,3 +117,10 @@ class Employee(EmployeeBase):
 
     class Config:
         orm_mode = True
+
+
+class PracticeCount(BaseModel):
+    count: int
+
+    class Config:
+        orm_mode = True

@@ -139,3 +139,7 @@ def unassign_employee_as_main_partner_of_practice(db: Session, employee_id: int,
             practice.main_partners.pop(index)
 
     return practice
+
+
+def read_total_number_of_practices(db: Session):
+    return db.query(tables.Practice).count()

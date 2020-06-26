@@ -95,3 +95,8 @@ def assign_a_main_partner_to_practice(practice_id: int, employee_id: int, db: Se
 @router.delete("/practice/main_partner", response_model=schemas.Practice)
 def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
     return crud_practices.unassign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
+
+
+@router.get("/practice/count", response_model=schemas.PracticeCount)
+def get_total_number_practices(db: Session = Depends(get_db)):
+    return schemas.PracticeCount(count=crud_practices.read_total_number_of_practices(db))
