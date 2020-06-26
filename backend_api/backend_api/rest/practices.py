@@ -100,3 +100,8 @@ def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db
 @router.get("/practice/count", response_model=schemas.PracticeCount)
 def get_total_number_practices(db: Session = Depends(get_db)):
     return schemas.PracticeCount(count=crud_practices.read_total_number_of_practices(db))
+
+
+@router.get("/practice/names", response_model=schemas.PracticeNames)
+def get_names_of_practices(db: Session = Depends(get_db)):
+    return schemas.PracticeNames(names=crud_practices.read_all_practice_names(db))
