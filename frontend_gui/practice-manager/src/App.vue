@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <div>
+        <vue-headful
+            title="GP Data Access Manager"
+        />
+    </div>
     <router-view/>
   </div>
 </template>

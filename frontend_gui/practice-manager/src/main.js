@@ -4,8 +4,11 @@ import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 
 import App from './App.vue'
+import vueHeadful from 'vue-headful';
+
 
 Vue.config.productionTip = false
+Vue.component('vue-headful', vueHeadful);
 Vue.use(Buefy)
 
 
