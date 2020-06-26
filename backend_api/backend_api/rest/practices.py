@@ -78,8 +78,8 @@ def remove_access_system_from_practice_by_id(practice_id: int, access_system_id:
 
 
 @router.put("/practice/ip_range/", response_model=schemas.Practice)
-def add_ip_range_to_practice_by_id(practice_id: int, ip_range: schemas.IPRangeCreate, db: Session = Depends(get_db)):
-    return crud_practices.assign_ip_range_to_practice(db, ip_range, practice_id)
+def add_ip_range_to_practice_by_id(ip_range: schemas.IPRangeCreate, db: Session = Depends(get_db)):
+    return crud_practices.assign_ip_range_to_practice(db, ip_range)
 
 
 @router.delete("/practice/ip_range/", response_model=schemas.Practice)
