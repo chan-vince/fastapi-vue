@@ -13,11 +13,12 @@
             <b-table
                 :data="data"
                 :loading="loading"
-                :paginated="isPaginated"
+                :total="total"
+                backend-pagination
+                paginated
                 :per-page="perPage"
-                :current-page.sync="currentPage"
-                :pagination-simple="isPaginationSimple"
-                :pagination-position="paginationPosition"
+                @page-change="onPageChange"
+
                 :default-sort-direction="defaultSortDirection"
                 :sort-icon="sortIcon"
                 :sort-icon-size="sortIconSize"
@@ -32,10 +33,10 @@
                     <b-table-column :key="column.id" v-bind="column">
                         <template
                             v-if="column.searchable"
-                            slot="searchable"
-                            slot-scope="props">
+                            slot="searchable">
                             <b-input
-                                v-model="props.filters[props.column.field]"
+                                v-model="practiceSearch"
+                                v-on:input="getPractice"
                                 placeholder="Search..."
                                 icon="magnify"
                                 size="is-small" />
@@ -64,14 +65,17 @@
         data() {
             return {
                 data: [],
-                columns: [{field: 'id',label: 'ID', width: '100', numeric: true},
-                          {field: 'created_date', label: 'Date Created', searchable: true,},
-                          {field: 'name', label: 'Practice Name', searchable: true,},
-                          {field: 'national_code', label: 'National Code', searchable: true,},
-                          {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code', searchable: true,},
-                          {field: 'access_systems', label: 'Access System(s)', list_target: 'name',},
-                          {field: 'ip_ranges', label: 'IP Range(s)', list_target: 'cidr',},
-                          {field: 'phone_num', label: 'Phone Number', searchable: true,}],
+                columns: [
+                    {field: 'id',label: 'ID', width: '100', numeric: true},
+                    {field: 'created_date', label: 'Date Created', searchable: true,},
+                    {field: 'name', label: 'Practice Name', searchable: true,},
+                    {field: 'national_code', label: 'National Code', searchable: true,},
+                    {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code', searchable: true,},
+                    {field: 'access_systems', label: 'Access System(s)', list_target: 'name',},
+                    {field: 'ip_ranges', label: 'IP Range(s)', list_target: 'cidr',},
+                    {field: 'phone_num', label: 'Phone Number', searchable: true,}
+                ],
+                total: 0,
                 loading: false,
                 isPaginated: true,
                 isPaginationSimple: false,
@@ -79,23 +83,43 @@
                 defaultSortDirection: 'asc',
                 sortIcon: 'chevron-up',
                 sortIconSize: 'is-small',
-                currentPage: 1,
-                perPage: 20
+                page: 1,
+                perPage: 15,
+                practiceSearch: ""
             }
-        },
-        created () {  
-            this.loading = true  
-            client.get(`api/v1/practice/`, {params: { skip: 0, limit: 1000 }})
-            .then(response => {
-                this.data = response.data
-                this.loading = false
-            })
         },
         methods: {
             displayDate (datestring) {
                 return moment(datestring).format("Do MMM YYYY")
+            },
+            getPractices(skip, limit) {
+                client.get(`api/v1/practice/`, {params: { skip: skip, limit: limit }})
+                .then(response => {
+                    this.data = response.data
+                    this.loading = false
+                })
+            },
+            onPageChange(page) {
+                this.page = page
+                let skip = (page * this.perPage) - this.perPage
+                let limit = this.perPage
+                this.getPractices(skip, limit)
+            },
+            getPractice(name){
+                console.log(name)
+            },
+            getTotalPractices(){
+                client.get(`api/v1/practice/count`)
+                .then(response => {
+                    this.total = response.data.count
+                })
             }
-        }
+        },
+        created () {  
+            this.loading = true
+            this.getTotalPractices()    
+            this.getPractices(0, this.perPage)    
+        },
     }
 </script>
 
