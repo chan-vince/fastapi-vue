@@ -1,8 +1,23 @@
 <template>
     <div class="table-div">
         <section>
+            <div class="columns">
+                <div class="column">
+                    <h1 class="subsection">GP Practices</h1>
+                </div>
+                <div class="column is-three-fifths" style="margin-top: 80px">
+                    <b-input
+                    v-model="practiceSearch"
+                    v-on:input="getPractice"
+                    placeholder="Search Practice Name..."
+                    icon="magnify"
+                    size="is-large"/>
+                </div>
+                <div class="column">
+                </div>
+            </div>
             <b-field grouped group-multiline>
-                <b-select v-model="perPage" :disabled="!isPaginated">
+                <b-select v-model="perPage">
                     <option value="5">5 per page</option>
                     <option value="10">10 per page</option>
                     <option value="15">15 per page</option>
@@ -29,29 +44,23 @@
                 aria-current-label="Current page">
 
                 <template slot-scope="props">
-                <template v-for="column in columns">
-                    <b-table-column :key="column.id" v-bind="column">
-                        <template
-                            v-if="column.searchable"
-                            slot="searchable">
-                            <b-input
-                                v-model="practiceSearch"
-                                v-on:input="getPractice"
-                                placeholder="Search..."
-                                icon="magnify"
-                                size="is-small" />
-                        </template>
-                        <template
-                            v-if="!('list_target' in column)">
-                            {{ props.row[column.field] }}
-                        </template>
-                        <template
-                            v-else>
-                            {{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}
-                        </template>
-                    </b-table-column>
+                    <template v-for="column in columns">
+                        <b-table-column :key="column.id" v-bind="column">
+                            <template
+                                v-if="!('list_target' in column) && !column.date">
+                                {{ props.row[column.field] }}
+                            </template>
+                            <template
+                                v-else-if="column.date">
+                                {{ displayDate(props.row[column.field]) }}
+                            </template>
+                            <template
+                                v-else>
+                                {{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}
+                            </template>
+                        </b-table-column>
+                    </template>
                 </template>
-            </template>
             </b-table>
         </section>
     </div>
@@ -67,13 +76,13 @@
                 data: [],
                 columns: [
                     {field: 'id',label: 'ID', width: '100', numeric: true},
-                    {field: 'created_date', label: 'Date Created', searchable: true,},
-                    {field: 'name', label: 'Practice Name', searchable: true,},
-                    {field: 'national_code', label: 'National Code', searchable: true,},
-                    {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code', searchable: true,},
+                    {field: 'created_date', label: 'Date Created', date: true},
+                    {field: 'name', label: 'Practice Name',},
+                    {field: 'national_code', label: 'National Code',},
+                    {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code',},
                     {field: 'access_systems', label: 'Access System(s)', list_target: 'name',},
                     {field: 'ip_ranges', label: 'IP Range(s)', list_target: 'cidr',},
-                    {field: 'phone_num', label: 'Phone Number', searchable: true,}
+                    {field: 'phone_num', label: 'Phone Number',}
                 ],
                 total: 0,
                 practice_names: [],
@@ -154,7 +163,7 @@
             this.loading = true
             this.getTotalPractices()
             this.getAllPracticeNames()
-            this.getPractices(0, this.perPage)    
+            this.getPractices(0, 20)
         },
     }
 </script>
@@ -164,5 +173,13 @@
     .table-div {
         padding-left: 30px;
         padding-right: 30px;
+    }
+    h1.subsection {
+    font-weight: bold;
+    font-size: 30pt;
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 0px;
     }
 </style>

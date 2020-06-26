@@ -7,7 +7,7 @@
                 <b-input value=""></b-input>
             </b-field>
             <b-field label="Password" style="text-align:left" >
-                <b-input type="password" maxlength="30"></b-input>
+                <b-input type="password" maxlength="30" password-reveal="true"></b-input>
             </b-field>
         </section>
     </section>
