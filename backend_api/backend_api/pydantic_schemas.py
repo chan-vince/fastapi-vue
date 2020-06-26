@@ -56,6 +56,7 @@ class JobTitle(JobTitleBase):
 
 class IPRangeBase(BaseModel):
     cidr: str
+    practice: int
 
 
 class IPRangeCreate(IPRangeBase):
@@ -64,7 +65,6 @@ class IPRangeCreate(IPRangeBase):
 
 class IPRange(IPRangeBase):
     id: int
-    practice: int
 
     class Config:
         orm_mode = True
