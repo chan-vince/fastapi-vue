@@ -124,3 +124,10 @@ class PracticeCount(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class PracticeNames(BaseModel):
+    names: List[str]
+
+    class Config:
+        orm_mode = True
