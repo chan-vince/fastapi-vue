@@ -5,7 +5,7 @@
                 <div class="column">
                     <h1 class="subsection">GP Practices</h1>
                 </div>
-                <div class="column is-three-fifths" style="padding-top: 35px">
+                <div class="column is-three-fifths" style="padding-top: 50px">
                     <b-input
                     autofocus
                     v-model="practiceSearch"
@@ -24,6 +24,11 @@
                     <option value="15">15 per page</option>
                     <option value="20">20 per page</option>
                 </b-select>
+                <button class="button field is-danger" @click="selected = null"
+                    :disabled="!selected">
+                    <b-icon icon="close"></b-icon>
+                    <span>Clear selected</span>
+                </button>
             </b-field>
 
             <b-table
@@ -38,11 +43,12 @@
                 :default-sort-direction="defaultSortDirection"
                 :sort-icon="sortIcon"
                 :sort-icon-size="sortIconSize"
-                default-sort="name"
                 aria-next-label="Next page"
                 aria-previous-label="Previous page"
                 aria-page-label="Page"
-                aria-current-label="Current page">
+                aria-current-label="Current page"
+                :selected.sync="selected"
+                @dblclick="onDoubleClick">
 
                 <template slot-scope="props">
                     <template v-for="column in columns">
@@ -71,7 +77,8 @@
     import {client} from '../api.js'
     import moment from 'moment'
 
-    export default {
+    export default { 
+        name: 'PracticesTable',
         data() {
             return {
                 data: [],
@@ -96,10 +103,14 @@
                 sortIconSize: 'is-small',
                 perPage: 15,
                 currentPage: 1,
-                practiceSearch: ""
+                practiceSearch: "",
+                selected: null
             }
         },
         methods: {
+            onDoubleClick (rowObject) {
+                this.$router.push({ path: `/practice/${rowObject['name']}`} )
+            },
             displayDate (datestring) {
                 return moment(datestring).format("Do MMM YYYY")
             },
@@ -167,7 +178,7 @@
             this.loading = true
             this.getTotalPractices()
             this.getAllPracticeNames()
-            this.getPractices(0, 20)
+            this.getPractices(0, 15)
         },
     }
 </script>
@@ -175,14 +186,14 @@
 
 <style scoped>
     .table-div {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
     }
     h1.subsection {
     font-weight: bold;
     font-size: 30pt;
     text-align: left;
-    /* margin-top: 50px; */
+    margin-top: 10px;
     /* margin-bottom: 20px; */
     padding-left: 0px;
     }
