@@ -18,7 +18,7 @@
                 </div>
             </div>
             <b-field grouped group-multiline>
-                <b-select v-model="perPage">
+                <b-select v-model="perPage" v-on:input="perPageModified">
                     <option value="5">5 per page</option>
                     <option value="10">10 per page</option>
                     <option value="15">15 per page</option>
@@ -117,6 +117,9 @@
                 if(this.practiceSearch.length == 0){
                     this.getPractices(skip, limit)
                 }
+            },
+            perPageModified() {
+                this.onPageChange(this.currentPage)
             },
             getPractice(){
                 if (this.practiceSearch.length > 0){
