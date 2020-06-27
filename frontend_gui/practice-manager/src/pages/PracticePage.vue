@@ -1,19 +1,28 @@
 <template>
   <div id="login">
       <NavBar/>
-    <h1>Practice view</h1>
+    <PracticeForm v-bind:practice_name="practice_name" />
   </div>
 </template>
 
 <script>
 
 import NavBar from '../components/NavBar'
+import PracticeForm from '../components/PracticeForm'
 
 export default {
-  name: 'LoginPage',
+  name: 'PracticePage',
   components: {
-    NavBar
-  }
+    NavBar,
+    PracticeForm
+  },
+  data (){
+    return {
+      practice_name: this.$route.params.name
+    }
+  },
+  created () {  
+    }
 }
 </script>
 
