@@ -1,11 +1,11 @@
 <template>
     <div style="padding-left: 20px">
-        <b-navbar>
+        <b-navbar spaced shadow>
             <template slot="brand">
                 <b-navbar-item tag="router-link" :to="{ path: '/admin' }" style="padding-right: 40px">
                     <img
                         src="../../public/logo.png"
-                        alt="Lightweight UI components for Vue.js based on Bulma"
+                        alt="GP Data Access System"
                     >
                 </b-navbar-item>
             </template>
@@ -16,7 +16,7 @@
                 <b-navbar-item v-show="isAdmin" href="#">
                     Pending Approvals
                 </b-navbar-item>
-                <b-navbar-dropdown v-show="isAdmin" label="Practices">
+                <b-navbar-dropdown v-show="isAdmin" label="Practices" hoverable>
                     <b-navbar-item href="#">
                         Add New Practice
                     </b-navbar-item>
@@ -24,7 +24,7 @@
                         Edit Practice Details
                     </b-navbar-item>
                 </b-navbar-dropdown>
-                <b-navbar-dropdown v-show="isAdmin" label="Employees">
+                <b-navbar-dropdown v-show="isAdmin" label="Employees" hoverable>
                     <b-navbar-item href="#">
                         Add New Employee
                     </b-navbar-item>
@@ -35,7 +35,7 @@
             </template>
 
             <template slot="end">
-                <b-navbar-dropdown label="Switch View">
+                <b-navbar-dropdown label="Switch View" hoverable>
                     <router-link to='/login'><b-navbar-item>Login</b-navbar-item></router-link>
                     <router-link to='/admin'><b-navbar-item>Admin</b-navbar-item></router-link>
                     <router-link to='/practice'><b-navbar-item>GP Practice</b-navbar-item></router-link>
