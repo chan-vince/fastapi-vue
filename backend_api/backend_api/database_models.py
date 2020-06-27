@@ -76,6 +76,9 @@ class Address(Base):
     dts_email = Column(String(length=255), nullable=False)
     practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
+    # Ensure that each address is unique in its combination of fields
+    Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', unique=True)
+
     practice = relationship("Practice", back_populates="addresses")
 
 
