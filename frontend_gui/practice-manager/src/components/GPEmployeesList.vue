@@ -77,16 +77,6 @@ export default {
             employees: [],
             main_partners: [],
             selected: null,
-            // columns: [
-            //     {field: 'first_name', label: 'First Name(s)',},
-            //     {field: 'last_name', label: 'Last Name',},
-            //     {field: 'email', label: 'Email',},
-            //     {field: 'job_title.title', label: 'Job Title',},
-            //     {field: 'professional_num', label: 'Professional ID',},
-            //     {field: 'it_portal_num', label: 'IT Portal ID',},
-            //     {field: 'desktop_num', label: 'Desktop ID',},
-            //     {field: 'active', label: 'Active',}
-            // ],
         }
     },
     watch: {

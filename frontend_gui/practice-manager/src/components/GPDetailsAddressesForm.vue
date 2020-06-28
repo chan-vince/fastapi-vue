@@ -1,9 +1,18 @@
 <template>
     <div class="card">
-        <div class="card-header-title">
-            <p class="title is-3">
-                Branches
-            </p>
+        <div class="level" style="margin: 30px 75px 0px 10px">
+            <div class="level-left">
+                <div class="card-header-title">
+                    <p class="title is-3">
+                        Branches
+                    </p>
+                </div>
+            </div>
+            <div class="level-right">
+                <b-button type="is-primary" outlined icon-left="plus">
+                    Add
+                </b-button>
+            </div>
         </div>
         <div class="card-content">
             <div class="card" v-for="(address, index) in addresses" :key="address.id">
@@ -38,7 +47,7 @@
                             placeholder="Contact email"></b-input>
                     </b-field>
                     <div class="level-right" style="padding-top: 20px">
-                        <b-button type="is-primary" outlined>Save</b-button>
+                        <b-button type="is-primary" outlined icon-left="content-save">Save</b-button>
                     </div>
                 </div>
             </div>

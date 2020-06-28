@@ -12,22 +12,6 @@
                 <b-tab-item label="Employees">
                     <GPEmployeesList v-bind:practice_id="practice_id"/>
                 </b-tab-item>
-
-                <b-tab-item label="Access Systems">
-                    What light is light, if Silvia be not seen? <br>
-                    What joy is joy, if Silvia be not by— <br>
-                    Unless it be to think that she is by <br>
-                    And feed upon the shadow of perfection? <br>
-                    Except I be by Silvia in the night, <br>
-                    There is no music in the nightingale.
-                </b-tab-item>
-
-                <b-tab-item label="IP Address Ranges">
-                    Nunc nec velit nec libero vestibulum eleifend.
-                    Curabitur pulvinar congue luctus.
-                    Nullam hendrerit iaculis augue vitae ornare.
-                    Maecenas vehicula pulvinar tellus, id sodales felis lobortis eget.
-                </b-tab-item>
             </b-tabs>
         </div>
     </div>
