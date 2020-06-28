@@ -81,10 +81,10 @@ def assign_employee_to_practice(employee_id: int, practice_id: int, db: Session 
     return crud_employees.assign_employee_to_practice(db, employee_id, practice_id)
 
 
-# Remove an employee from a practice
+# Remove an employee from all practices
 @router.delete("/employee/practice", response_model=schemas.Employee)
 def unassign_employee_from_practice(employee_id: int, db: Session = Depends(get_db)):
-    return crud_employees.unassign_employee_from_practice(db, employee_id)
+    return crud_employees.unassign_employee_from_all_practices(db, employee_id)
 
 
 @router.put("/employee/job_title", response_model=schemas.Employee)
