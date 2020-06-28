@@ -104,7 +104,7 @@ class EmployeeBase(BaseModel):
     desktop_num: str = None
     it_portal_num: str = None
     active: bool = True
-    job_title_id: int = None
+    job_title: JobTitle = None
 
 
 class EmployeeCreate(EmployeeBase):
