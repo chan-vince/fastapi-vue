@@ -98,7 +98,7 @@ def modify_job_title_for_employee_id(db: Session, job_title_id: int, employee_id
     return employee
 
 
-def get_all_employees(db: Session, practice_id: int):
+def get_all_employees_for_practice_id(db: Session, practice_id: int):
     practice_employee = db.query(tables.association_practice_employee)\
         .filter(tables.association_practice_employee.columns.practice_id == practice_id)\
         .all()
