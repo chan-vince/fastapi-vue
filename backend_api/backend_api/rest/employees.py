@@ -96,3 +96,8 @@ def modify_job_title_for_employee(employee_id: int, job_title_id: int, db: Sessi
 def get_all_employees_for_practice(practice_id: int, db: Session = Depends(get_db)):
     employees = crud_employees.get_all_employees_for_practice_id(db, practice_id)
     return {"practice_id": practice_id, "employees": employees}
+
+
+@router.get("/employees/main_partners", response_model=List[schemas.Employee])
+def get_main_partners_for_practice(practice_id: int, db: Session = Depends(get_db)):
+    return crud_employees.get_main_partners_for_practice_id(db, practice_id)

@@ -112,3 +112,16 @@ def get_all_employees_for_practice_id(db: Session, practice_id: int):
     # Get each employee in the list of IDs to get a list of the employee objects
     employees: List[schemas.Employee] = [read_employee_by_id(db, employee_id) for employee_id in employee_ids]
     return employees
+
+
+def get_main_partners_for_practice_id(db: Session, practice_id: int):
+    practice_partners = db.query(tables.association_practice_partners)\
+        .filter(tables.association_practice_partners.columns.practice_id == practice_id)\
+        .all()
+
+    if len(practice_partners) == 0:
+        return backend_api.exc.EmployeeNotFoundError
+
+    partners = sorted([pair[1] for pair in practice_partners])
+
+    return [read_employee_by_id(db, employee_id) for employee_id in partners]
