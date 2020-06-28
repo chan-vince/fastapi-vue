@@ -37,10 +37,8 @@
                         <b-input v-model="address.dts_email" size="is-default"
                             placeholder="Contact email"></b-input>
                     </b-field>
-                    <div class="columns is-mobile">
-                        <div class="column is-1 is-offset-11" style="padding-right: 0px">
-                            <b-button type="is-primary" outlined>Save</b-button>
-                        </div>
+                    <div class="level-right" style="padding-top: 20px">
+                        <b-button type="is-primary" outlined>Save</b-button>
                     </div>
                 </div>
             </div>
