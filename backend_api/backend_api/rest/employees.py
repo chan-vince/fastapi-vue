@@ -101,3 +101,8 @@ def get_all_employees_for_practice(practice_id: int, db: Session = Depends(get_d
 @router.get("/employees/main_partners", response_model=List[schemas.Employee])
 def get_main_partners_for_practice(practice_id: int, db: Session = Depends(get_db)):
     return crud_employees.get_main_partners_for_practice_id(db, practice_id)
+
+
+@router.get("/job_titles", response_model=List[schemas.JobTitle])
+def get_all_job_titles(db: Session = Depends(get_db)):
+    return crud_employees.get_all_job_titles(db)
