@@ -92,7 +92,7 @@ def modify_job_title_for_employee(employee_id: int, job_title_id: int, db: Sessi
     return crud_employees.modify_job_title_for_employee_id(db, job_title_id, employee_id)
 
 
-@router.get("/employess/", response_model=schemas.EmployeesForPractice)
+@router.get("/employees/practice", response_model=schemas.EmployeesForPractice)
 def get_all_employees_for_practice(practice_id: int, db: Session = Depends(get_db)):
-    employees = crud_employees.get_all_employees(db, practice_id)
+    employees = crud_employees.get_all_employees_for_practice_id(db, practice_id)
     return {"practice_id": practice_id, "employees": employees}

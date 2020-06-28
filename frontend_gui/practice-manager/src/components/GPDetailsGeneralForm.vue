@@ -6,7 +6,7 @@
             </p>
         </div>
         <div class="card-content">
-            <section>
+            <section style="padding-right: 50px">
                 <b-field label="Name" horizontal>
                     <b-input v-model="name" size="is-default"
                     placeholder="Enter a GP Practice Name"></b-input>
@@ -37,18 +37,18 @@
                         </button>
                     </b-datepicker>
                 </b-field>
-                <br><br>
-                <div class="field" horizontal>
-                    <b-checkbox v-model="closed" style="margin-right: 80%"
-                        type="is-primary">
-                            Practice closed
-                    </b-checkbox>
-                </div>
-                <div class="columns is-mobile">
-                        <div class="column is-1 is-offset-11" style="padding-right: 0px">
-                            <b-button type="is-primary" outlined>Save</b-button>
-                        </div>
+                <br>
+                <div class="level">
+                    <div class="level-left field" horizontal>
+                        <b-checkbox v-model="closed"
+                            type="is-primary">
+                                Practice closed
+                        </b-checkbox>
                     </div>
+                    <div class="level-right" style="padding-top: 20px">
+                        <b-button type="is-primary" outlined>Save</b-button>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
