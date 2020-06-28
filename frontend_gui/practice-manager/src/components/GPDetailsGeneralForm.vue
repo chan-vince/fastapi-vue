@@ -90,6 +90,7 @@ export default {
             this.emis_cdb_practice_code = details['emis_cdb_practice_code']
             this.go_live_date = new Date(details['go_live_date'])
             this.closed = details['closed']
+            this.checkboxGroup = details['access_systems'].map((item) => item["name"])
         }
     },
     methods: {
