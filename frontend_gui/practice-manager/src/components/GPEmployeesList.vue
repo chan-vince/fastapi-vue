@@ -1,6 +1,28 @@
 <template>
     <div class="columns">
         <div class="column is-full">
+            <div class="level" style="margin-top: 30px">
+                <p class="level-left title is-5">Main Partners</p>
+                <b-button class="level-right" type="is-primary" outlined icon-left="plus">Add</b-button>
+            </div>
+            <div class="columns">
+                <div class="column is-4" v-for="partner in main_partners" :key="partner.id">
+                    <div class="card" style="margin-bottom: 20px">
+                        <div class="card-content">
+                            <p class="title is-6 level-left">
+                                {{ `${partner.first_name} ${partner.last_name}, ${partner.job_title.title}`}}
+                            </p>
+                            <p class="content level-left">
+                                {{ partner.email }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="level" style="margin-top: 60px">
+                <p class="title is-5">Employees</p>
+                <b-button class="level-right" type="is-primary" outlined icon-left="plus">Add</b-button>
+            </div>
             <div class="card">
                 <b-table
                     :data="employees"
@@ -53,6 +75,7 @@ export default {
     data () {
         return {
             employees: [],
+            main_partners: [],
             selected: null,
             // columns: [
             //     {field: 'first_name', label: 'First Name(s)',},
@@ -70,6 +93,7 @@ export default {
         practice_id: function(practice_id) {
             this.practice_id = practice_id
             this.getEmployeesForPractice()
+            this.getMainPartnersForPractice()
         }
     },
     created () {
@@ -79,6 +103,12 @@ export default {
             client.get(`api/v1/employees/practice`, {params: {practice_id: this.practice_id} })
             .then(response => {
                 this.employees = response.data["employees"]
+            })
+        },
+        getMainPartnersForPractice(){
+            client.get(`api/v1/employees/main_partners`, {params: {practice_id: this.practice_id} })
+            .then(response => {
+                this.main_partners = response.data
             })
         },
     }
