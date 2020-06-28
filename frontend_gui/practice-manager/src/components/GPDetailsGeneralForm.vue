@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header-title">
+        <div class="card-header-title" style="margin: 30px 75px 0px 10px">
             <p class="title is-3">
                 General
             </p>
@@ -38,15 +38,24 @@
                     </b-datepicker>
                 </b-field>
                 <br>
+                <div class="field level-left" horizontal>
+                    <b-checkbox v-model="closed"
+                        type="is-primary">
+                            Practice closed
+                    </b-checkbox>
+                </div>
                 <div class="level">
-                    <div class="level-left field" horizontal>
-                        <b-checkbox v-model="closed"
-                            type="is-primary">
-                                Practice closed
-                        </b-checkbox>
-                    </div>
+                    <b-field class="level-left">
+                        <b-checkbox-button v-model="checkboxGroup" v-for="system in access_systems" :key="system.id"
+                            :native-value="system.name"
+                            type="is-success"
+                            v-on:input="printSelected">
+                            <span>{{system.name}}</span>
+                        </b-checkbox-button>
+                    </b-field>
+
                     <div class="level-right" style="padding-top: 20px">
-                        <b-button type="is-primary" outlined>Save</b-button>
+                        <b-button type="is-primary" outlined icon-left="content-save">Save</b-button>
                     </div>
                 </div>
             </section>
@@ -55,6 +64,8 @@
 </template>
 
 <script>
+import {client} from '../api.js'
+
 
 export default {
     name: 'GPDetailsGeneralForm',
@@ -68,6 +79,8 @@ export default {
             national_code: '',
             emis_cdb_practice_code: '',
             closed: false,
+            access_systems: [],
+            checkboxGroup: []
         }
     },
     watch: { 
@@ -79,7 +92,19 @@ export default {
             this.closed = details['closed']
         }
     },
+    methods: {
+        getAllAccessSystems(){
+            client.get(`api/v1/access_system`)
+            .then(response => {
+                this.access_systems = response.data
+            })
+        },
+        printSelected () {
+            console.log(this.checkboxGroup)
+        }
+    },
     created() {
+        this.access_systems = this.getAllAccessSystems()
     }
 }
 </script>
