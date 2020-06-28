@@ -125,3 +125,7 @@ def get_main_partners_for_practice_id(db: Session, practice_id: int):
     partners = sorted([pair[1] for pair in practice_partners])
 
     return [read_employee_by_id(db, employee_id) for employee_id in partners]
+
+
+def get_all_job_titles(db: Session):
+    return db.query(tables.JobTitle).all()
