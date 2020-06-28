@@ -1,3 +1,5 @@
+from typing import List
+
 import sqlalchemy.exc
 from sqlalchemy.orm import Session
 
@@ -94,3 +96,19 @@ def modify_job_title_for_employee_id(db: Session, job_title_id: int, employee_id
     db.query(tables.Employee).filter(tables.Employee.id == employee_id).update({"job_title_id": job_title_id})
     db.commit()
     return employee
+
+
+def get_all_employees(db: Session, practice_id: int):
+    practice_employee = db.query(tables.association_practice_employee)\
+        .filter(tables.association_practice_employee.columns.practice_id == practice_id)\
+        .all()
+
+    if len(practice_employee) == 0:
+        return backend_api.exc.EmployeeNotFoundError
+
+    # Extract the list of employee IDs from the db results
+    employee_ids = sorted([pair[1] for pair in practice_employee])
+
+    # Get each employee in the list of IDs to get a list of the employee objects
+    employees: List[schemas.Employee] = [read_employee_by_id(db, employee_id) for employee_id in employee_ids]
+    return employees

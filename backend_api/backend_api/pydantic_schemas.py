@@ -113,7 +113,6 @@ class EmployeeCreate(EmployeeBase):
 
 class Employee(EmployeeBase):
     id: int
-    practices: List[Practice]
 
     class Config:
         orm_mode = True
@@ -128,6 +127,14 @@ class PracticeCount(BaseModel):
 
 class PracticeNames(BaseModel):
     names: List[str]
+
+    class Config:
+        orm_mode = True
+
+
+class EmployeesForPractice(BaseModel):
+    practice_id: int
+    employees: List[Employee]
 
     class Config:
         orm_mode = True

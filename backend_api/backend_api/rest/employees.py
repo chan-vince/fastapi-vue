@@ -90,3 +90,9 @@ def unassign_employee_from_practice(employee_id: int, db: Session = Depends(get_
 @router.put("/employee/job_title", response_model=schemas.Employee)
 def modify_job_title_for_employee(employee_id: int, job_title_id: int, db: Session = Depends(get_db)):
     return crud_employees.modify_job_title_for_employee_id(db, job_title_id, employee_id)
+
+
+@router.get("/employess/", response_model=schemas.EmployeesForPractice)
+def get_all_employees_for_practice(practice_id: int, db: Session = Depends(get_db)):
+    employees = crud_employees.get_all_employees(db, practice_id)
+    return {"practice_id": practice_id, "employees": employees}
