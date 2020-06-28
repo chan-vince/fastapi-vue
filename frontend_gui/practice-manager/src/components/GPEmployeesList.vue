@@ -3,7 +3,7 @@
         <div class="column is-full">
             <div class="level" style="margin-top: 30px">
                 <p class="level-left title is-5">Main Partners</p>
-                <b-button class="level-right" type="is-primary" outlined icon-left="plus">Add</b-button>
+                <b-button class="level-right" type="is-primary" outlined icon-left="plus" @click="showAddMainPartnerModal">Add</b-button>
             </div>
             <div class="columns">
                 <div class="column is-4" v-for="partner in main_partners" :key="partner.id">
@@ -21,14 +21,16 @@
             </div>
             <div class="level" style="margin-top: 60px">
                 <p class="title is-5">Employees</p>
-                <b-button class="level-right" type="is-primary" outlined icon-left="plus">Add</b-button>
+                <b-button class="level-right" type="is-primary" outlined icon-left="plus" @click="onDoubleClick()">Add</b-button>
             </div>
             <div class="card">
                 <b-table
                     :data="employees"
                     :selected.sync="selected"
                     default-sort="first_name"
-                    sortable>
+                    sortable
+                    @dblclick="onDoubleClick">
+
                     <template slot-scope="props">
                         <b-table-column field="first_name" label="Name" sortable>
                             {{ `${props.row.first_name} ${props.row.last_name}`}}
@@ -67,7 +69,8 @@
 
 <script>
 import {client} from '../api.js'
- 
+import EmployeeEditModal from '../components/EmployeeEditModal'
+import AddMainPartnerModal from '../components/AddMainPartnerModal'
 
 export default {
     name: 'GPEmployeesList',
@@ -77,6 +80,7 @@ export default {
             employees: [],
             main_partners: [],
             selected: null,
+            isComponentModalActive: false
         }
     },
     watch: {
@@ -84,6 +88,7 @@ export default {
             this.practice_id = practice_id
             this.getEmployeesForPractice()
             this.getMainPartnersForPractice()
+            this.getJobTitles()
         }
     },
     created () {
@@ -101,6 +106,59 @@ export default {
                 this.main_partners = response.data
             })
         },
+        getJobTitles(){
+            client.get(`api/v1/job_titles`)
+            .then(response => {
+                this.job_titles = response.data
+            })
+        },
+        onDoubleClick (rowObject) {
+            if (rowObject == null){
+                rowObject = {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "professional_num": "",
+                    "desktop_num": "",
+                    "it_portal_num": "",
+                    "active": true,
+                    "job_title": {
+                        "title": "Administrator",
+                        "id": 5
+                    }
+                }
+                var action = "Add"
+            }
+            else {
+                action = "Edit"
+            }
+            this.$buefy.modal.open({
+                parent: this,
+                component: EmployeeEditModal,
+                hasModalCard: true,
+                trapFocus: true,
+                props: {
+                    rowObject: rowObject,
+                    jobTitles: this.job_titles,
+                    action: action
+                }
+            })
+        },
+        showAddMainPartnerModal () {
+            this.$buefy.modal.open({
+                parent: this,
+                component: AddMainPartnerModal,
+                hasModalCard: true,
+                trapFocus: true,
+                props: {
+                    employees: this.employees.filter(
+                        (employee) => (
+                            !(this.main_partners.map((partner) => partner["id"])).includes(employee["id"])
+                        )
+                    ),
+                }
+            })
+        }
     }
 }
 </script>
