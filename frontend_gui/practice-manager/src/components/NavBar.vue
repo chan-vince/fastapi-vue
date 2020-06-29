@@ -10,12 +10,6 @@
                 </b-navbar-item>
             </template>
             <template slot="start">
-                <b-navbar-item v-show="isAdmin" href="#">
-                    Access Systems
-                </b-navbar-item>
-                <b-navbar-item v-show="isAdmin" href="#">
-                    Pending Approvals
-                </b-navbar-item>
                 <b-navbar-dropdown v-show="isAdmin" label="Practices" hoverable>
                     <b-navbar-item href="#">
                         Add New Practice
@@ -32,13 +26,16 @@
                         Edit Employee Details
                     </b-navbar-item>
                 </b-navbar-dropdown>
+                <b-navbar-item v-show="isAdmin" href="/approvals">
+                    Pending Approvals
+                </b-navbar-item>
             </template>
 
             <template slot="end">
                 <b-navbar-dropdown label="Switch View" hoverable>
-                    <router-link to='/login'><b-navbar-item>Login</b-navbar-item></router-link>
-                    <router-link to='/admin'><b-navbar-item>Admin</b-navbar-item></router-link>
-                    <router-link to='/practice'><b-navbar-item>GP Practice</b-navbar-item></router-link>
+                    <router-link to='/login'><b-navbar-item>Login Page</b-navbar-item></router-link>
+                    <router-link to='/admin'><b-navbar-item>Admin View</b-navbar-item></router-link>
+                    <router-link to='/practice'><b-navbar-item>GP User View</b-navbar-item></router-link>
                 </b-navbar-dropdown>
                 <!-- <b-navbar-item tag="div">
                     <div class="buttons">
