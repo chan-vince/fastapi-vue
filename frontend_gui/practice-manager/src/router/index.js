@@ -3,6 +3,7 @@ import VueRouter from  'vue-router'
 import LoginPage from '../pages/LoginPage.vue'
 import AdminPage from '../pages/AdminPage.vue'
 import PracticePage from '../pages/PracticePage.vue'
+import PendingApprovalsPage from '../pages/PendingApprovalsPage.vue'
 import TestPage from '../pages/TestPage.vue'
 
 Vue.use(VueRouter);
@@ -47,6 +48,23 @@ const routes = [
       component: PracticePage,
       meta: {
         title: 'GP Portal - GP Access System',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'The about page of our example app.'
+          },
+          {
+            property: 'og:description',
+            content: 'The about page of our example app.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/approvals',
+      component: PendingApprovalsPage,
+      meta: {
+        title: 'Approvals',
         metaTags: [
           {
             name: 'description',
