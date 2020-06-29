@@ -2,7 +2,7 @@
     <div class="columns">
         <div class="column is-full">
             <div class="level" style="margin-top: 30px">
-                <p class="level-left title is-5">Main Partners</p>
+                <p class="level-left title is-5">Main Partner(s)</p>
                 <b-button class="level-right" type="is-primary" outlined icon-left="plus" @click="showAddMainPartnerModal">Add</b-button>
             </div>
             <div class="columns">
