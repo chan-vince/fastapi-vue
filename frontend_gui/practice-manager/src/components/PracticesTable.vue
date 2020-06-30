@@ -62,6 +62,10 @@
                                 {{ displayDate(props.row[column.field]) }}
                             </template>
                             <template
+                                v-else-if="column.parent">
+                                {{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}
+                            </template>
+                            <template
                                 v-else>
                                 {{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}
                             </template>
@@ -89,8 +93,8 @@
                     {field: 'national_code', label: 'National Code',},
                     {field: 'emis_cdb_practice_code', label: 'EMIS CDB Practice Code',},
                     {field: 'access_systems', label: 'Access System(s)', list_target: 'name',},
-                    {field: 'ip_ranges', label: 'IP Range(s)', list_target: 'cidr',},
-                    {field: 'phone_num', label: 'Phone Number',}
+                    {field: 'ip_ranges', parent: "addresses", label: 'IP Range(s)', list_target: 'cidr',},
+                    {field: 'phone_num', parent: "addresses", label: 'Phone Number',}
                 ],
                 total: 0,
                 practice_names: [],
@@ -118,6 +122,7 @@
                 client.get(`api/v1/practice/`, {params: { skip: skip, limit: limit }})
                 .then(response => {
                     this.data = response.data
+                    console.log(this.data[1]["addresses"][0]["ip_ranges"])
                     this.loading = false
                 })
             },

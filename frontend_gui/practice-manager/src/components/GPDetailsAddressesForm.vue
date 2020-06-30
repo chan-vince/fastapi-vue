@@ -50,6 +50,16 @@
                         <b-input v-model="address.phone_num" size="is-default"
                             placeholder="Contact phone number"></b-input>
                     </b-field>
+                    <hr>
+                    <div v-for="(cidr, index) in address.ip_ranges" :key="cidr.id">
+                        <div style="margin-bottom: 10px">
+                            <b-field :label="`CIDR ${index + 1}`" horizontal>
+                                <b-input v-model="cidr.cidr" size="is-default"
+                                    placeholder="CIDR Range"></b-input>
+                            </b-field>
+                        </div>
+                    </div>
+
                     <div class="level-right" style="padding-top: 20px">
                         <b-button type="is-primary" outlined icon-left="content-save">Save</b-button>
                     </div>
