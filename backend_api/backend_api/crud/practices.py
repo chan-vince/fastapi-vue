@@ -88,31 +88,6 @@ def add_ip_range(db: Session, new_ip_range: schemas.IPRangeCreate):
     return ip_range
 
 
-def assign_ip_range_to_practice(db: Session, ip_range: schemas.IPRangeCreate):
-    practice: tables.Practice = read_practice_by_id(db, ip_range.practice)
-    if practice is None:
-        raise backend_api.exc.PracticeNotFoundError
-
-    ip_range = tables.IPRange(**ip_range.dict())
-    db.add(ip_range)
-    db.commit()
-    return practice
-
-
-def unassign_ip_range_from_practice(db: Session, ip_range_id: int, practice_id: int):
-    practice: tables.Practice = read_practice_by_id(db, practice_id)
-    if practice is None:
-        raise backend_api.exc.PracticeNotFoundError
-
-    for index, ip in enumerate(practice.ip_ranges):
-        if ip.id == ip_range_id:
-            practice.ip_ranges.pop(index)
-
-    db.add(practice)
-    db.commit()
-    return practice
-
-
 def assign_employee_as_main_partner_of_practice(db: Session, employee_id: int, practice_id: int):
     employee: tables.Employee = db.query(tables.Employee).filter(tables.Employee.id == employee_id).first()
 

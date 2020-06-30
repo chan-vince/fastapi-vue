@@ -39,7 +39,6 @@ class Practice(Base):
     addresses = relationship("Address", back_populates="practice")
     employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
-    ip_ranges = relationship("IPRange")
 
 
 class Employee(Base):
@@ -80,6 +79,7 @@ class Address(Base):
     Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', unique=True)
 
     practice = relationship("Practice", back_populates="addresses")
+    ip_ranges = relationship("IPRange")
 
 
 class JobTitle(Base):
@@ -101,7 +101,7 @@ class IPRange(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     cidr = Column(String(length=255), nullable=False, unique=True)
-    practice = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
+    address_id = Column(Integer, ForeignKey("addresses.id", ondelete='CASCADE'))
 
 
 # class SystemUser(Base):
