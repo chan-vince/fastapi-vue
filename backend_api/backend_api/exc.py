@@ -10,3 +10,7 @@ class PracticeNotFoundError(Exception):
 
 class JobTitleNotFoundError(Exception):
     pass
+
+
+class AddressNotFoundError(Exception):
+    pass

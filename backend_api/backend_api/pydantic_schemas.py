@@ -3,6 +3,22 @@ from typing import List, Any, Union
 from pydantic import BaseModel
 
 
+class IPRangeBase(BaseModel):
+    cidr: str
+    address_id: int
+
+
+class IPRangeCreate(IPRangeBase):
+    pass
+
+
+class IPRange(IPRangeBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
 class AddressBase(BaseModel):
     line_1: str
     line_2: Union[str, None]
@@ -20,6 +36,7 @@ class AddressCreate(AddressBase):
 class Address(AddressBase):
     id: int
     practice_id: Union[int, None]
+    ip_ranges: List[IPRange] = []
 
     class Config:
         orm_mode = True
@@ -55,22 +72,6 @@ class JobTitle(JobTitleBase):
         orm_mode = True
 
 
-class IPRangeBase(BaseModel):
-    cidr: str
-    practice: int
-
-
-class IPRangeCreate(IPRangeBase):
-    pass
-
-
-class IPRange(IPRangeBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-
-
 class PracticeBase(BaseModel):
     name: str
     national_code: str
@@ -90,7 +91,6 @@ class Practice(PracticeBase):
     # employees: List[Employee] = []
     main_partners: List[Any] = []
     access_systems: List[AccessSystem] = []
-    ip_ranges: List[IPRange] = []
 
     class Config:
         orm_mode = True
