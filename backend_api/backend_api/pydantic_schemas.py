@@ -104,15 +104,15 @@ class EmployeeBase(BaseModel):
     desktop_num: str = None
     it_portal_num: str = None
     active: bool = True
-    job_title: JobTitle = None
 
 
 class EmployeeCreate(EmployeeBase):
-    pass
+    job_title_id: int
 
 
 class Employee(EmployeeBase):
     id: int
+    job_title: JobTitle = None
 
     class Config:
         orm_mode = True
