@@ -138,3 +138,14 @@ class EmployeesForPractice(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class StagingPracticeRequest(PracticeCreate):
+    source_id: int
+    requestor_id: int
+
+
+class StagingRequest(BaseModel):
+    last_modified: datetime.datetime
+    approver_id: int
+    approved: bool
