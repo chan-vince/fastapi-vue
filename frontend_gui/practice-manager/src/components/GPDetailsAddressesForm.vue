@@ -46,6 +46,10 @@
                         <b-input v-model="address.dts_email" size="is-default"
                             placeholder="Contact email"></b-input>
                     </b-field>
+                    <b-field label="Contact phone number" horizontal>
+                        <b-input v-model="address.phone_num" size="is-default"
+                            placeholder="Contact phone number"></b-input>
+                    </b-field>
                     <div class="level-right" style="padding-top: 20px">
                         <b-button type="is-primary" outlined icon-left="content-save">Save</b-button>
                     </div>
