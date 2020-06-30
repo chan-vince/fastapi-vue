@@ -9,6 +9,7 @@ class AddressBase(BaseModel):
     town: str
     county: str
     postcode: str
+    phone_num: str
     dts_email: str
 
 
@@ -72,7 +73,6 @@ class IPRange(IPRangeBase):
 
 class PracticeBase(BaseModel):
     name: str
-    phone_num: str
     national_code: str
     emis_cdb_practice_code: str
     go_live_date: datetime.datetime = None

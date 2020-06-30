@@ -25,7 +25,6 @@ class Practice(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(length=255), nullable=False, unique=True)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
-    phone_num = Column(String(length=255))
     national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False,  unique=True)
     go_live_date = Column(DateTime)
@@ -73,6 +72,7 @@ class Address(Base):
     town = Column(String(length=255), nullable=False)
     county = Column(String(length=255), nullable=False)
     postcode = Column(String(length=255), nullable=False)
+    phone_num = Column(String(length=255))
     dts_email = Column(String(length=255), nullable=False)
     practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
