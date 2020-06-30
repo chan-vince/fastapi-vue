@@ -147,5 +147,7 @@ class StagingPracticeRequest(PracticeCreate):
 
 class StagingRequest(BaseModel):
     last_modified: datetime.datetime
+    source_id: int
+    requestor_id: int
     approver_id: int
     approved: bool
