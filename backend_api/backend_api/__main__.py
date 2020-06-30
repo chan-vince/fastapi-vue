@@ -8,7 +8,7 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine
-from .rest import practices, employees, practice_addresses, access_systems
+from .rest import practices, employees, practice_addresses, access_systems, staging_practices
 from .dummy_data_loader import DummyDataLoader
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -40,6 +40,9 @@ app.include_router(
 )
 app.include_router(
     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
+)
+app.include_router(
+    staging_practices.router, tags=["Staging Practices"], prefix=f"/api/v1/staging"
 )
 
 

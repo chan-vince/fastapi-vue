@@ -149,5 +149,8 @@ class StagingRequest(BaseModel):
     last_modified: datetime.datetime
     source_id: int
     requestor_id: int
-    approver_id: int
-    approved: bool
+    approver_id: int = None
+    approved: bool = None
+
+    class Config:
+        orm_mode = True
