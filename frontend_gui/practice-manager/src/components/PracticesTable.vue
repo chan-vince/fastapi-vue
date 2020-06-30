@@ -62,8 +62,12 @@
                                 {{ displayDate(props.row[column.field]) }}
                             </template>
                             <template
-                                v-else-if="column.parent">
+                                v-else-if="column.list_target && column.parent">
                                 {{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}
+                            </template>
+                            <template
+                                v-else-if="!(column.list_target) && column.parent">
+                                {{ props.row[column.field].map(a => a[column.field]).join(", ") }}
                             </template>
                             <template
                                 v-else>

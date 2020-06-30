@@ -57,10 +57,10 @@ class StagingPractice(Base):
     Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
-    access_systems = relationship("AccessSystem", secondary=association_practice_systems)
-    addresses = relationship("Address", back_populates="practice")
-    employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
-    main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
+    # access_systems = relationship("AccessSystem", secondary=association_practice_systems)
+    # addresses = relationship("Address", back_populates="practice")
+    # employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
+    # main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
 
     # Extra stuff for staging table
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp()) # try TIMESTAMP if broken
