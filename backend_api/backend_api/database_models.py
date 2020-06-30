@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index, func
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -39,6 +39,37 @@ class Practice(Base):
     addresses = relationship("Address", back_populates="practice")
     employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
     main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
+
+
+class StagingPractice(Base):
+    __tablename__ = "_staging_practices"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(length=255), nullable=False, unique=True)
+    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+    national_code = Column(String(length=255))
+    emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
+    go_live_date = Column(DateTime)
+    closed = Column(Boolean, default=False)
+
+    Index('idx_practice_id', 'id')
+    Index('idx_practice_name', 'name')
+    Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
+
+    # These relationships allow SQLAlchemy to automatically load data from automatic table joins
+    access_systems = relationship("AccessSystem", secondary=association_practice_systems)
+    addresses = relationship("Address", back_populates="practice")
+    employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
+    main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
+
+    # Extra stuff for staging table
+    last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp()) # try TIMESTAMP if broken
+    source_id = Column(Integer, ForeignKey('practices.id'), unique=True)
+    requestor_id = Column(Integer, ForeignKey('employees.id'))
+    approver_id = Column(Integer, ForeignKey('employees.id'))
+    approved = Column(Boolean, default=False)
+
+    Index('idx_staging_practice_id', 'id')
 
 
 class Employee(Base):
