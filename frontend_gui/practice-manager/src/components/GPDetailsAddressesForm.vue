@@ -75,10 +75,10 @@ export default {
     name: 'GPDetailsAddressesForm',
     props: ['practice_details'],
     data() {
-        const today = new Date()
+        // const today = new Date()
         return {
-            go_live_date: new Date(),
-            minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            // go_live_date: new Date(),
+            // minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
             addresses: []
         }
     },
