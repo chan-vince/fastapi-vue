@@ -44,7 +44,6 @@ class Practice(Base):
 class StagingPractice(Base):
     __tablename__ = "_staging_practices"
 
-    id = Column(Integer, primary_key=True)
     name = Column(String(length=255), nullable=False, unique=True)
     created_date = Column(DateTime, default=datetime.datetime.utcnow)
     national_code = Column(String(length=255))
@@ -64,10 +63,12 @@ class StagingPractice(Base):
 
     # Extra stuff for staging table
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp()) # try TIMESTAMP if broken
-    source_id = Column(Integer, ForeignKey('practices.id'), unique=True)
+    source_id = Column(Integer, ForeignKey('practices.id'), primary_key=True)
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
     approved = Column(Boolean, default=False)
+
+    source = relationship("Practice")
 
     Index('idx_staging_practice_id', 'id')
 
