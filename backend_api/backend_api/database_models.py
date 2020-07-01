@@ -66,9 +66,11 @@ class StagingPractice(Base):
     source_id = Column(Integer, ForeignKey('practices.id'), primary_key=True)
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
-    approved = Column(Boolean, default=False)
+    approved = Column(Boolean)
 
     source = relationship("Practice")
+    requestor = relationship("Employee", foreign_keys=[requestor_id])
+    approver = relationship("Employee", foreign_keys=[approver_id])
 
     Index('idx_staging_practice_id', 'id')
 

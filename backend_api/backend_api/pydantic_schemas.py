@@ -145,12 +145,12 @@ class StagingPracticeRequest(PracticeCreate):
     requestor_id: int
 
 
-class StagingRequest(BaseModel):
+class StagingRequest(PracticeCreate):
     last_modified: datetime.datetime
     source_id: int
     source: Practice
-    requestor_id: int
-    approver_id: int = None
+    requestor: Employee
+    approver: Employee = None
     approved: bool = None
 
     class Config:
