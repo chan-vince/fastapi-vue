@@ -16,10 +16,15 @@ logger = logging.getLogger("REST:Practices")
 router = APIRouter()
 
 
-@router.put("/practice/", response_model=schemas.StagingRequest)
+@router.put("/practice", response_model=schemas.StagingRequest)
 def modify_practice_details(changed_practice: schemas.StagingPracticeRequest, db: Session = Depends(get_db)):
     practice = crud_practices.read_practice_by_id(db, changed_practice.source_id)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with ID {changed_practice.source_id} doesn't exist")
 
     return crud__staging_practices.update_staging_practice(db, changed_practice)
+
+
+@router.get("/practice", response_model=List[schemas.StagingRequest])
+def get_all_staging_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud__staging_practices.read_all_staging_practices(db, skip=skip, limit=limit)
