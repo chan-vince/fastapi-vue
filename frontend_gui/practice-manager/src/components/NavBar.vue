@@ -28,6 +28,9 @@
                 </b-navbar-dropdown>
                 <b-navbar-item v-show="isAdmin" href="/approvals">
                     Pending Approvals
+                    <template v-if="pending_count > 0">
+                        ({{pending_count}})
+                    </template>
                 </b-navbar-item>
             </template>
 
@@ -50,6 +53,9 @@
 </template>
 
 <script>
+import {client} from '../api.js'
+
+
 export default {
     name: 'NavBar',
     computed: {
@@ -60,7 +66,23 @@ export default {
           return true
         }
       }
-    } 
+    },
+    data () {
+        return {
+            pending_count: 0
+        }
+    },
+    created () {
+        this.getPendingApprovalsCount()
+    },
+    methods: {
+        getPendingApprovalsCount(){
+            client.get(`api/v1/staging/practice/count/pending`)
+            .then(response => {
+                this.pending_count = response.data
+            })
+        },
+    }
 //   props: {
 //     msg: String
 //   }
