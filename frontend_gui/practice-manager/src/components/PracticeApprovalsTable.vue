@@ -68,17 +68,19 @@
                 <div v-for="item in diff_data" :key="item.name">
                     <template v-if="props.row.source[item.field] != props.row[item.field]">
                         <div class="columns" style="max-width: 800px">
-                            <div class="column is-2">
-                                <strong>{{ item.label }}:</strong>
-                            </div>
-                            <div class="column">
-                                <b-tag size="is-medium" type="is-danger">{{props.row.source[item.field]}}</b-tag>
-                            </div>
-                            <div class="column is-1">
-                                <b-icon icon="arrow-right"></b-icon>
-                            </div>
-                            <div class="column">
-                                <b-tag size="is-medium" type="is-success">{{props.row[item.field]}}</b-tag>
+                            <div class="level">
+                                <div class="column is-4">
+                                    <strong>{{ item.label }}:</strong>
+                                </div>
+                                <div class="column">
+                                    <b-tag size="is-medium" type="is-danger">{{props.row.source[item.field]}}</b-tag>
+                                </div>
+                                <div class="column is-1">
+                                    <b-icon icon="arrow-right"></b-icon>
+                                </div>
+                                <div class="column">
+                                    <b-tag size="is-medium" type="is-success">{{props.row[item.field]}}</b-tag>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -116,7 +118,7 @@
                 client.get(`api/v1/staging/practice/`, {params: { skip: skip, limit: limit }})
                 .then(response => {
                     if(this.$props.pendingOnly){
-                        this.data = response.data.filter(item => item.approved == null)    
+                        this.data = response.data.filter(item => item.approved == null)
                     }
                     else{
                         this.data = response.data.filter(item => item.approved != null)
