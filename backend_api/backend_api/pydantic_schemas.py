@@ -76,7 +76,7 @@ class PracticeBase(BaseModel):
     name: str
     national_code: str
     emis_cdb_practice_code: str
-    go_live_date: datetime.datetime = None
+    go_live_date: datetime.date = None
     closed: bool
 
 
