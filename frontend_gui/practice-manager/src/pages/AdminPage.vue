@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <NavBar/>
-    <PracticesTable/>
+    <div class="container" style="max-width: 1920px">
+      <PracticesTable/>
+    </div>
   </div>
 </template>
 
