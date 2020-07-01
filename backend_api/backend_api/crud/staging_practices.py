@@ -24,3 +24,7 @@ def update_staging_practice(db: Session, staging_practice: schemas.StagingPracti
 
 def read_staging_practice(db: Session, staging_practice: schemas.StagingPracticeRequest):
     return db.query(tables.StagingPractice).filter(tables.StagingPractice.source_id == staging_practice.source_id).first()
+
+
+def read_all_staging_practices(db: Session, skip: int, limit: int):
+    return db.query(tables.StagingPractice).offset(skip).limit(limit).all()
