@@ -28,3 +28,8 @@ def modify_practice_details(changed_practice: schemas.StagingPracticeRequest, db
 @router.get("/practice", response_model=List[schemas.StagingRequest])
 def get_all_staging_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return crud__staging_practices.read_all_staging_practices(db, skip=skip, limit=limit)
+
+
+@router.get("/practice/count/pending")
+def get_staging_practice_count(db: Session = Depends(get_db)):
+    return crud__staging_practices.read_staging_practices_count_pending(db)

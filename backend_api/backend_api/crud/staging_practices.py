@@ -28,3 +28,7 @@ def read_staging_practice(db: Session, staging_practice: schemas.StagingPractice
 
 def read_all_staging_practices(db: Session, skip: int, limit: int):
     return db.query(tables.StagingPractice).offset(skip).limit(limit).all()
+
+
+def read_staging_practices_count_pending(db: Session):
+    return db.query(tables.StagingPractice).filter(tables.StagingPractice.approved == None).count()
