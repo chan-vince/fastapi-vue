@@ -54,10 +54,10 @@ export default {
     name: 'NavBar',
     computed: {
       isAdmin() {
-        if(this.$route.path == "/admin") {
-          return true
-        } else {
+        if( (this.$route.path == "/login" || this.$route.path == "/practice")) {
           return false
+        } else {
+          return true
         }
       }
     } 
