@@ -22,8 +22,7 @@
                 <b-field label="Go Live Date" horizontal>
                     <b-datepicker v-model="go_live_date"
                         :first-day-of-week="1"
-                        placeholder="Click to select...">
-
+                        placeholder="Click to select...">                        
                         <button class="button is-primary"
                             @click="go_live_date = new Date()">
                             <b-icon icon="calendar-today"></b-icon>
@@ -55,7 +54,7 @@
                     </b-field>
 
                     <div class="level-right" style="padding-top: 20px">
-                        <b-button type="is-primary" outlined icon-left="content-save">Save</b-button>
+                        <b-button v-on:click="saveDetails" type="is-primary" outlined icon-left="content-save">Save</b-button>
                     </div>
                 </div>
             </section>
@@ -73,7 +72,7 @@ export default {
     data() {
         const today = new Date()
         return {
-            go_live_date: new Date(),
+            go_live_date: today,
             minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
             name: '',
             national_code: '',
@@ -85,6 +84,7 @@ export default {
     },
     watch: { 
           practice_details: function(details) {
+            this.practice_id = details['id']
             this.name = details['name']
             this.national_code = details['national_code']
             this.emis_cdb_practice_code = details['emis_cdb_practice_code']
@@ -102,6 +102,21 @@ export default {
         },
         printSelected () {
             console.log(this.checkboxGroup)
+        },
+        saveDetails() {
+            var payload = {
+                "name": this.name,
+                "national_code": this.national_code,
+                "emis_cdb_practice_code": this.emis_cdb_practice_code,
+                "go_live_date": this.go_live_date.toISOString().split('T')[0],
+                "closed": this.closed,
+                "source_id": this.practice_id,
+                "requestor_id": 1
+            }
+            client.put(`api/v1/staging/practice`, payload)
+            .then(response => {
+                console.log(response.data)
+            })
         }
     },
     created() {
