@@ -7,11 +7,11 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - MYSQL_ROOT_PASSWORD=***REMOVED***
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - TZ=Europe/London
       - MYSQL_DATABASE=francis
       - MYSQL_USER=francis
-      - MYSQL_PASSWORD=***REMOVED***
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
 #    volumes:
 #      - ./mariadb-config:/config
     ports:
