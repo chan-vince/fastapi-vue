@@ -2,12 +2,23 @@
     <div>
       <NavBar/>
       <div class=card id=spacing-margins-card>
-          <div class=card-header-title>
-            Pending Approvals
-          </div>
-          <b-tabs v-model="activeTab" id=spacing-margins-tabs>
+          <b-tabs id=spacing-margins-tabs>
             <b-tab-item label="Practices">
-                insert practices table component
+                <br>
+                <div class="card-header-title">
+                    Pending Approvals
+                </div>
+                <div class="card">
+                    <PracticeApprovalsTable v-bind:pendingOnly="true" style="margin: 0px 20px 120px 20px"/>
+                </div>
+                
+                <hr>
+                <div class=card-header-title>
+                    Approval History
+                </div>
+                <div class="card">
+                    <PracticeApprovalsTable v-bind:pendingOnly="false" style="margin: 0px 20px 0px 20px"/>
+                </div>
             </b-tab-item>
             <b-tab-item label="Employees">
                 insert employees table
@@ -20,12 +31,16 @@
 <script>
 
 import NavBar from '../components/NavBar'
+import PracticeApprovalsTable from '../components/PracticeApprovalsTable'
 
 export default {
     name: "PendingApprovalsPage",
     components: {
-        NavBar
+        NavBar,
+        PracticeApprovalsTable
     },
+    // data() {
+    // },
     created () {
         console.log("Pending Approvals Page")
     }
