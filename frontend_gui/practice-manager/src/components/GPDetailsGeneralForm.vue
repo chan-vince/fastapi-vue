@@ -8,15 +8,15 @@
         <div class="card-content">
             <section style="padding-right: 50px">
                 <b-field label="Name" horizontal>
-                    <b-input v-model="name" size="is-default"
+                    <b-input v-model="name" size="is-default" required
                     placeholder="Enter a GP Practice Name"></b-input>
                 </b-field>
                 <b-field label="National Code" horizontal>
-                    <b-input v-model="national_code" size="is-default" 
+                    <b-input v-model="national_code" size="is-default" required
                     placeholder="Enter a National Code"></b-input>
                 </b-field>
                 <b-field label="EMIS CDB Practice Code" horizontal>
-                    <b-input v-model="emis_cdb_practice_code" size="is-default" 
+                    <b-input v-model="emis_cdb_practice_code" size="is-default" required
                     placeholder="Enter a National Code"></b-input>
                 </b-field>
                 <b-field label="Go Live Date" horizontal>
