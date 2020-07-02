@@ -1,3 +1,5 @@
+from typing import Union
+
 from sqlalchemy.orm import Session
 import sqlalchemy.exc
 import backend_api.exc
@@ -38,9 +40,9 @@ def read_staging_practices_count_pending(db: Session):
     return db.query(tables.StagingPractice).filter(tables.StagingPractice.approved == None).count()
 
 
-def reject_pending_changes_to_practice_by_id(db: Session, id: int):
+def action_pending_changes_to_practice_by_id(db: Session, id: int, approved: Union[bool, None]):
     record: schemas.StagingRequest = db.query(tables.StagingPractice).filter(tables.StagingPractice.source_id == id).first()
-    record.approved = False
+    record.approved = approved
     db.add(record)
     db.commit()
     return record
