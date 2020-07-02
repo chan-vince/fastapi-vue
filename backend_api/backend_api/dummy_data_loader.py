@@ -26,6 +26,7 @@ class DummyDataLoader:
             except Exception as e:
                 logger.debug(e)
                 self.db.rollback()
+                raise
         logger.info("..done.")
 
     def write_address_mock_data(self, json_file: pathlib.Path):
@@ -39,6 +40,7 @@ class DummyDataLoader:
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
+                raise
         logger.info("..done.")
 
     def write_job_title_mock_data(self, json_file: pathlib.Path):
@@ -59,12 +61,14 @@ class DummyDataLoader:
             data = json.loads(file.read())
 
         logger.info(f"Writing mock data for {len(data)}  Employees...")
-        for index, item in enumerate(data, 1):
-            try:
-                employees.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))
-            except Exception as e:
-                logger.debug(f"{index} {e}")
-                self.db.rollback()
+        employees.add_employee_bulk(self.db, [schemas.EmployeeCreate(**item, active=True) for item in data])
+        # for index, item in enumerate(data, 1):
+        #     try:
+        #         employees.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))
+        #     except Exception as e:
+        #         logger.debug(f"{index} {e}")
+        #         self.db.rollback()
+        #         raise
         logger.info("..done.")
 
     def write_access_system_mock_data(self, json_file: pathlib.Path):
@@ -78,6 +82,7 @@ class DummyDataLoader:
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
+                raise
         logger.info("..done.")
 
     def write_ip_range_mock_data(self, json_file:pathlib.Path):
@@ -91,6 +96,7 @@ class DummyDataLoader:
             except Exception as e:
                 logger.debug(f"{index} {e}")
                 self.db.rollback()
+                raise
         logger.info("..done.")
 
     def assign_employees_to_practice(self):
