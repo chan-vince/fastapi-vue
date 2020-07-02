@@ -47,13 +47,12 @@ class StagingPractice(Base):
     name = Column(String(length=255), nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     national_code = Column(String(length=255))
-    emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
+    emis_cdb_practice_code = Column(String(length=255), nullable=False)
     go_live_date = Column(Date)
     closed = Column(Boolean, default=False)
 
-    Index('idx_practice_id', 'id')
-    Index('idx_practice_name', 'name')
-    Index('idx_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
+    Index('idx_staging_practice_name', 'name')
+    Index('idx_staging_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
 
     # These relationships allow SQLAlchemy to automatically load data from automatic table joins
     # access_systems = relationship("AccessSystem", secondary=association_practice_systems)
@@ -62,8 +61,9 @@ class StagingPractice(Base):
     # main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
 
     # Extra stuff for staging table
+    id = Column(Integer, primary_key=True)
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp()) # try TIMESTAMP if broken
-    source_id = Column(Integer, ForeignKey('practices.id'), primary_key=True)
+    source_id = Column(Integer, ForeignKey('practices.id'))
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
     approved = Column(Boolean)
