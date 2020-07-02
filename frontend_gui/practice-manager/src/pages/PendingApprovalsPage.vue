@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavBar/>
+        <NavBar ref="navBar"/>
         <div class="container" style="max-width: 1920px">
             <div class="card" id=spacing-margins-card>
                 <b-tabs id=spacing-margins-tabs>
@@ -10,7 +10,11 @@
                             Pending Approvals
                         </div>
                         <div class="card">
-                            <PracticeApprovalsTable v-bind:pendingOnly="true" style="margin: 0px 20px 120px 20px"/>
+                            <PracticeApprovalsTable
+                            ref="pendingApprovals"
+                            v-bind:pendingOnly="true" 
+                            @refresh="refreshTables"
+                            style="margin: 0px 20px 120px 20px"/>
                         </div>
                         
                         <hr>
@@ -18,7 +22,11 @@
                             Approval History
                         </div>
                         <div class="card">
-                            <PracticeApprovalsTable v-bind:pendingOnly="false" style="margin: 0px 20px 0px 20px"/>
+                            <PracticeApprovalsTable
+                            ref="historicApprovals"
+                            v-bind:pendingOnly="false"
+                            @refresh="refreshTables"
+                            style="margin: 0px 20px 0px 20px"/>
                         </div>
                     </b-tab-item>
                     <b-tab-item label="Employees">
@@ -45,6 +53,14 @@ export default {
     // },
     created () {
         console.log("Pending Approvals Page")
+    },
+    methods: {
+        refreshTables() {
+            console.log("Time to refresh!")
+            this.$refs.pendingApprovals.getStagingPractices()
+            this.$refs.historicApprovals.getStagingPractices()
+            this.$refs.navBar.getPendingApprovalsCount()
+        }
     }
 }
 </script>

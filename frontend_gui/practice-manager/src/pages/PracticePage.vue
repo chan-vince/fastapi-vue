@@ -1,7 +1,9 @@
 <template>
   <div id="login">
-      <NavBar/>
-    <PracticeForm v-bind:practice_name="practice_name" />
+      <NavBar ref="navBar"/>
+    <PracticeForm
+      v-bind:practice_name="practice_name"
+      @newRequestGenerated="newRequestGenerated"/>
   </div>
 </template>
 
@@ -22,7 +24,12 @@ export default {
     }
   },
   created () {  
+    },
+  methods: {
+    newRequestGenerated () {
+      this.$refs.navBar.getPendingApprovalsCount()
     }
+  }
 }
 </script>
 

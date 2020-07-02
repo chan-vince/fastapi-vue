@@ -146,7 +146,7 @@
                         message: 'Accepted change successfully',
                         type: 'is-success'
                     })
-                    this.getStagingPractices()
+                    this.$emit('refresh');
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -166,7 +166,7 @@
                         message: 'Rejected change successfully',
                         type: 'is-success'
                     })
-                    this.getStagingPractices()
+                    this.$emit('refresh');
                 })
                 .catch(function (error) {
                     console.log(error);

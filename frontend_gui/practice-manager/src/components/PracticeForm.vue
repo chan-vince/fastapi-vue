@@ -5,6 +5,7 @@
             <b-tabs v-model="activeTab" :animated=false>
                 <b-tab-item label="GP Details">
                     <GPDetailsGeneralForm v-bind:practice_details="practice_details"
+                    @newRequestGenerated="newRequestGenerated"
                     style="margin-bottom: 15px"/>
                     <GPDetailsAddressesForm v-bind:practice_details="practice_details"/>
                 </b-tab-item>
@@ -51,6 +52,9 @@
                     this.practice_id = response.data["id"]
                 })
             },
+            newRequestGenerated(){
+                this.$emit('newRequestGenerated')
+            }
         }
     }
 </script>
