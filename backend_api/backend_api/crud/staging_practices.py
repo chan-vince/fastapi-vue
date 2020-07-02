@@ -8,18 +8,22 @@ from backend_api.pydantic_schemas import PracticeCreate
 
 def update_staging_practice(db: Session, staging_practice: schemas.StagingPracticeRequest):
 
+    existing_record_query = db.query(tables.StagingPractice)\
+        .filter(tables.StagingPractice.source_id == staging_practice.source_id)\
+        .filter(tables.StagingPractice.approved == None)
+    existing_record = existing_record_query.first()
+
     # If there's no existing staging record, create and insert one
-    existing_record = read_staging_practice(db, staging_practice)
-    if not existing_record:
+    if existing_record is None:
         new_entry = tables.StagingPractice(**staging_practice.dict())
         db.add(new_entry)
         db.commit()
         return new_entry
-    # Otherwise
-    else:
-        db.query(tables.StagingPractice).filter(tables.StagingPractice.source_id == staging_practice.source_id).update({**staging_practice.dict()})
-        db.commit()
-        return existing_record
+
+    # Update the existing pending record with updated values
+    existing_record_query.update({**staging_practice.dict()})
+    db.commit()
+    return existing_record
 
 
 def read_staging_practice(db: Session, staging_practice: schemas.StagingPracticeRequest):
@@ -32,3 +36,11 @@ def read_all_staging_practices(db: Session, skip: int, limit: int):
 
 def read_staging_practices_count_pending(db: Session):
     return db.query(tables.StagingPractice).filter(tables.StagingPractice.approved == None).count()
+
+
+def reject_pending_changes_to_practice_by_id(db: Session, id: int):
+    record: schemas.StagingRequest = db.query(tables.StagingPractice).filter(tables.StagingPractice.source_id == id).first()
+    record.approved = False
+    db.add(record)
+    db.commit()
+    return record
