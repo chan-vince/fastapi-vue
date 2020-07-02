@@ -27,11 +27,16 @@ def read_all_employees(db: Session, skip: int, limit: int):
 
 def add_employee(db: Session, new_gp_employee: schemas.EmployeeCreate):
     employee: tables.Employee = tables.Employee(**new_gp_employee.dict())
-    employee.job_title = db.query(tables.JobTitle).filter(tables.JobTitle.id == new_gp_employee.job_title_id).first()
     db.add(employee)
     db.commit()
     db.refresh(employee)
     return employee
+
+
+def add_employee_bulk(db: Session, new_gp_employees: List[schemas.EmployeeCreate]):
+    db.bulk_save_objects([tables.Employee(**employee.dict()) for employee in new_gp_employees])
+    db.commit()
+    return
 
 
 def update_employee(db: Session, employee_id: int, new_employee: schemas.EmployeeCreate):
