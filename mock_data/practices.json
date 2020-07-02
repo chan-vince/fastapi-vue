@@ -1,250 +1,2252 @@
-[{"id": 1, "name": "Becker-Sauer", "created_at": "2018-06-01 05:42:02", "emis_cdb_practice_code": 1251, "go_live_date": "2021-04-13 22:50:42", "closed": 1, "national_code": "E16712"},
-{"id": 2, "name": "Wisozk, Stracke and Mosciski", "created_at": "2020-01-12 19:43:17", "emis_cdb_practice_code": 3108, "go_live_date": "2019-07-19 17:25:27", "closed": 1, "national_code": "E20415"},
-{"id": 3, "name": "Schneider-Carroll", "created_at": "2018-12-18 01:12:51", "emis_cdb_practice_code": 7755, "go_live_date": "2019-01-28 02:35:22", "closed": 1, "national_code": "E17095"},
-{"id": 4, "name": "Mueller, Lockman and Stoltenberg", "created_at": "2019-02-03 07:57:05", "emis_cdb_practice_code": 3782, "go_live_date": "2018-12-10 12:23:29", "closed": 1, "national_code": "E46147"},
-{"id": 5, "name": "Renner Inc", "created_at": "2019-03-23 08:30:20", "emis_cdb_practice_code": 7504, "go_live_date": "2020-06-05 04:06:44", "closed": 1, "national_code": "E88122"},
-{"id": 6, "name": "Crist-Lakin", "created_at": "2019-03-16 14:03:22", "emis_cdb_practice_code": 2335, "go_live_date": "2018-06-14 14:52:09", "closed": 0, "national_code": "E49552"},
-{"id": 7, "name": "Thompson and Sons", "created_at": "2018-12-07 05:48:00", "emis_cdb_practice_code": 5809, "go_live_date": "2021-04-16 11:22:00", "closed": 1, "national_code": "E92140"},
-{"id": 8, "name": "Mills Inc", "created_at": "2019-07-01 11:38:37", "emis_cdb_practice_code": 1383, "go_live_date": "2021-05-24 18:30:22", "closed": 1, "national_code": "E57039"},
-{"id": 9, "name": "Jacobi-Hand", "created_at": "2018-09-22 16:36:40", "emis_cdb_practice_code": 3002, "go_live_date": "2019-07-10 22:33:42", "closed": 0, "national_code": "E95851"},
-{"id": 10, "name": "Cronin Inc", "created_at": "2018-11-18 00:36:04", "emis_cdb_practice_code": 5209, "go_live_date": "2020-09-07 16:17:49", "closed": 0, "national_code": "E35759"},
-{"id": 11, "name": "Torphy Inc", "created_at": "2018-12-19 21:06:53", "emis_cdb_practice_code": 4151, "go_live_date": "2021-05-15 01:41:08", "closed": 1, "national_code": "E42981"},
-{"id": 12, "name": "Brown-Bashirian", "created_at": "2019-04-19 10:04:52", "emis_cdb_practice_code": 4801, "go_live_date": "2020-05-21 05:36:46", "closed": 1, "national_code": "E62344"},
-{"id": 13, "name": "Johns LLC", "created_at": "2018-02-03 19:47:00", "emis_cdb_practice_code": 3530, "go_live_date": "2019-04-04 16:19:05", "closed": 0, "national_code": "E22888"},
-{"id": 14, "name": "Hammes, Connelly and Mayer", "created_at": "2019-04-05 07:43:09", "emis_cdb_practice_code": 5340, "go_live_date": "2018-12-13 21:34:47", "closed": 1, "national_code": "E67390"},
-{"id": 15, "name": "Breitenberg and Sons", "created_at": "2018-03-23 22:39:21", "emis_cdb_practice_code": 5915, "go_live_date": "2020-12-26 20:03:23", "closed": 0, "national_code": "E65333"},
-{"id": 16, "name": "Gaylord and Sons", "created_at": "2018-03-18 17:54:39", "emis_cdb_practice_code": 2816, "go_live_date": "2019-07-02 15:02:17", "closed": 0, "national_code": "E37211"},
-{"id": 17, "name": "Dietrich-Wilkinson", "created_at": "2019-05-02 22:52:27", "emis_cdb_practice_code": 7681, "go_live_date": "2020-06-14 19:39:43", "closed": 1, "national_code": "E27889"},
-{"id": 18, "name": "Bogisich Group", "created_at": "2018-12-01 06:55:41", "emis_cdb_practice_code": 1375, "go_live_date": "2020-02-28 12:09:19", "closed": 0, "national_code": "E61915"},
-{"id": 19, "name": "Hagenes, Nienow and Ferry", "created_at": "2018-05-15 00:33:24", "emis_cdb_practice_code": 1817, "go_live_date": "2018-10-07 16:43:00", "closed": 0, "national_code": "E10447"},
-{"id": 20, "name": "Witting-D'Amore", "created_at": "2018-04-13 06:45:37", "emis_cdb_practice_code": 1167, "go_live_date": "2021-03-27 07:10:14", "closed": 1, "national_code": "E43273"},
-{"id": 21, "name": "Raynor, Ankunding and Corkery", "created_at": "2020-01-26 08:39:05", "emis_cdb_practice_code": 8234, "go_live_date": "2020-08-26 10:40:27", "closed": 1, "national_code": "E52858"},
-{"id": 22, "name": "Collier, Muller and Veum", "created_at": "2018-05-02 09:48:52", "emis_cdb_practice_code": 1169, "go_live_date": "2020-08-03 08:57:15", "closed": 0, "national_code": "E21730"},
-{"id": 23, "name": "Nolan-Simonis", "created_at": "2019-08-31 02:50:55", "emis_cdb_practice_code": 5478, "go_live_date": "2018-05-30 00:08:36", "closed": 1, "national_code": "E72085"},
-{"id": 24, "name": "Ratke-Moen", "created_at": "2018-06-24 09:06:26", "emis_cdb_practice_code": 5389, "go_live_date": "2019-02-24 19:21:03", "closed": 0, "national_code": "E56152"},
-{"id": 25, "name": "Weimann, Wolff and Gorczany", "created_at": "2020-03-25 19:23:22", "emis_cdb_practice_code": 674, "go_live_date": "2019-12-03 15:17:10", "closed": 0, "national_code": "E13589"},
-{"id": 26, "name": "Schamberger LLC", "created_at": "2019-07-11 07:43:47", "emis_cdb_practice_code": 651, "go_live_date": "2019-09-30 09:17:25", "closed": 0, "national_code": "E98491"},
-{"id": 27, "name": "Beer Inc", "created_at": "2018-04-02 04:44:11", "emis_cdb_practice_code": 4714, "go_live_date": "2018-06-24 08:52:45", "closed": 0, "national_code": "E99265"},
-{"id": 28, "name": "Bradtke-Beer", "created_at": "2019-10-03 13:19:11", "emis_cdb_practice_code": 5785, "go_live_date": "2019-06-22 09:46:04", "closed": 1, "national_code": "E26953"},
-{"id": 29, "name": "Corkery LLC", "created_at": "2019-08-26 08:26:29", "emis_cdb_practice_code": 3542, "go_live_date": "2018-11-27 12:40:57", "closed": 0, "national_code": "E38356"},
-{"id": 30, "name": "Bergnaum, Wiegand and Walker", "created_at": "2020-02-26 06:55:24", "emis_cdb_practice_code": 1187, "go_live_date": "2019-03-29 04:04:30", "closed": 0, "national_code": "E61130"},
-{"id": 31, "name": "Leannon, Legros and Stanton", "created_at": "2019-09-19 21:29:43", "emis_cdb_practice_code": 1928, "go_live_date": "2018-08-28 19:57:01", "closed": 0, "national_code": "E88980"},
-{"id": 32, "name": "Pfeffer-Lakin", "created_at": "2019-09-07 04:14:42", "emis_cdb_practice_code": 7119, "go_live_date": "2019-07-30 01:24:56", "closed": 0, "national_code": "E16243"},
-{"id": 33, "name": "Schultz LLC", "created_at": "2019-10-08 22:09:07", "emis_cdb_practice_code": 3931, "go_live_date": "2020-12-01 00:23:05", "closed": 0, "national_code": "E84295"},
-{"id": 34, "name": "Balistreri and Sons", "created_at": "2018-01-20 14:47:45", "emis_cdb_practice_code": 7455, "go_live_date": "2018-10-15 02:59:57", "closed": 0, "national_code": "E69927"},
-{"id": 35, "name": "Funk-Miller", "created_at": "2019-09-11 01:03:53", "emis_cdb_practice_code": 8188, "go_live_date": "2019-02-23 02:37:12", "closed": 1, "national_code": "E78624"},
-{"id": 36, "name": "Leuschke Inc", "created_at": "2019-06-26 11:01:27", "emis_cdb_practice_code": 1256, "go_live_date": "2019-12-10 16:55:40", "closed": 0, "national_code": "E94070"},
-{"id": 37, "name": "Ward, Hane and Kohler", "created_at": "2018-08-19 01:13:09", "emis_cdb_practice_code": 4300, "go_live_date": "2020-08-23 00:28:20", "closed": 1, "national_code": "E77562"},
-{"id": 38, "name": "Dietrich-Rolfson", "created_at": "2018-07-30 11:12:10", "emis_cdb_practice_code": 6403, "go_live_date": "2018-08-01 06:47:58", "closed": 0, "national_code": "E34490"},
-{"id": 39, "name": "Mosciski and Sons", "created_at": "2018-03-08 02:35:35", "emis_cdb_practice_code": 6427, "go_live_date": "2018-10-17 06:32:38", "closed": 1, "national_code": "E67884"},
-{"id": 40, "name": "Kohler-Price", "created_at": "2020-04-03 08:03:35", "emis_cdb_practice_code": 7813, "go_live_date": "2021-04-06 20:09:32", "closed": 1, "national_code": "E56366"},
-{"id": 41, "name": "Gutmann-Lebsack", "created_at": "2019-07-11 22:47:23", "emis_cdb_practice_code": 9352, "go_live_date": "2018-08-11 07:14:05", "closed": 1, "national_code": "E97481"},
-{"id": 42, "name": "Senger-Leuschke", "created_at": "2018-10-11 18:49:44", "emis_cdb_practice_code": 9613, "go_live_date": "2019-08-01 01:28:15", "closed": 1, "national_code": "E41364"},
-{"id": 43, "name": "Medhurst-Murazik", "created_at": "2019-08-18 20:32:14", "emis_cdb_practice_code": 9242, "go_live_date": "2021-03-30 08:40:57", "closed": 1, "national_code": "E55962"},
-{"id": 44, "name": "Harvey-Jacobs", "created_at": "2020-02-21 18:25:08", "emis_cdb_practice_code": 964, "go_live_date": "2020-12-22 06:42:20", "closed": 1, "national_code": "E12214"},
-{"id": 45, "name": "Kulas Group", "created_at": "2020-01-05 22:08:46", "emis_cdb_practice_code": 8695, "go_live_date": "2021-05-14 09:44:54", "closed": 0, "national_code": "E61755"},
-{"id": 46, "name": "Kessler LLC", "created_at": "2019-08-07 17:19:25", "emis_cdb_practice_code": 7063, "go_live_date": "2020-09-05 12:08:14", "closed": 1, "national_code": "E47042"},
-{"id": 47, "name": "Blanda, Williamson and Schmidt", "created_at": "2018-07-24 02:33:38", "emis_cdb_practice_code": 4313, "go_live_date": "2018-08-04 03:37:26", "closed": 0, "national_code": "E96232"},
-{"id": 48, "name": "Osinski, Predovic and Paucek", "created_at": "2018-08-15 20:49:56", "emis_cdb_practice_code": 2112, "go_live_date": "2019-07-17 15:30:37", "closed": 0, "national_code": "E74135"},
-{"id": 49, "name": "White-Bode", "created_at": "2019-07-03 09:11:50", "emis_cdb_practice_code": 9110, "go_live_date": "2021-05-16 11:45:27", "closed": 1, "national_code": "E13567"},
-{"id": 50, "name": "Medhurst, Runolfsdottir and Fay", "created_at": "2018-10-02 15:19:07", "emis_cdb_practice_code": 5103, "go_live_date": "2020-01-12 23:45:09", "closed": 1, "national_code": "E87634"},
-{"id": 51, "name": "Effertz, Walter and Pfannerstill", "created_at": "2019-10-13 12:01:55", "emis_cdb_practice_code": 1141, "go_live_date": "2018-05-23 02:11:11", "closed": 0, "national_code": "E18787"},
-{"id": 52, "name": "Bode-Baumbach", "created_at": "2018-08-07 11:20:41", "emis_cdb_practice_code": 8939, "go_live_date": "2020-08-08 06:57:59", "closed": 1, "national_code": "E20843"},
-{"id": 53, "name": "Gulgowski-Marquardt", "created_at": "2019-12-03 10:58:17", "emis_cdb_practice_code": 7358, "go_live_date": "2019-10-07 17:36:13", "closed": 1, "national_code": "E22864"},
-{"id": 54, "name": "Koch-Fay", "created_at": "2019-08-19 19:01:39", "emis_cdb_practice_code": 1398, "go_live_date": "2018-10-26 16:39:31", "closed": 1, "national_code": "E51925"},
-{"id": 55, "name": "Koss and Sons", "created_at": "2018-03-27 01:10:43", "emis_cdb_practice_code": 8508, "go_live_date": "2019-09-16 07:13:18", "closed": 1, "national_code": "E49970"},
-{"id": 56, "name": "Powlowski, Gislason and Gottlieb", "created_at": "2019-08-11 13:35:40", "emis_cdb_practice_code": 8022, "go_live_date": "2020-03-21 16:35:11", "closed": 1, "national_code": "E82707"},
-{"id": 57, "name": "Bergstrom Inc", "created_at": "2019-09-20 21:28:53", "emis_cdb_practice_code": 466, "go_live_date": "2020-04-02 18:20:00", "closed": 0, "national_code": "E79004"},
-{"id": 58, "name": "Bergnaum-Paucek", "created_at": "2018-06-09 00:40:28", "emis_cdb_practice_code": 9977, "go_live_date": "2018-09-04 21:09:20", "closed": 1, "national_code": "E98313"},
-{"id": 59, "name": "Kunde-Ullrich", "created_at": "2019-03-18 03:21:57", "emis_cdb_practice_code": 8528, "go_live_date": "2019-07-22 15:56:59", "closed": 0, "national_code": "E59144"},
-{"id": 60, "name": "Simonis-Kuhn", "created_at": "2019-09-05 23:20:24", "emis_cdb_practice_code": 4325, "go_live_date": "2020-06-09 16:22:50", "closed": 0, "national_code": "E73940"},
-{"id": 61, "name": "Reynolds-Rosenbaum", "created_at": "2020-01-16 18:53:23", "emis_cdb_practice_code": 8351, "go_live_date": "2018-10-18 22:04:54", "closed": 0, "national_code": "E98994"},
-{"id": 62, "name": "Smith Inc", "created_at": "2019-12-27 21:14:58", "emis_cdb_practice_code": 7792, "go_live_date": "2019-01-09 02:19:01", "closed": 0, "national_code": "E32390"},
-{"id": 63, "name": "Gottlieb-Sawayn", "created_at": "2018-07-01 14:46:49", "emis_cdb_practice_code": 3604, "go_live_date": "2020-06-15 17:18:39", "closed": 1, "national_code": "E49231"},
-{"id": 64, "name": "Anderson, Walker and Crist", "created_at": "2019-01-18 12:13:23", "emis_cdb_practice_code": 6579, "go_live_date": "2019-10-05 14:38:17", "closed": 0, "national_code": "E42173"},
-{"id": 65, "name": "Wilkinson Inc", "created_at": "2018-10-24 16:19:32", "emis_cdb_practice_code": 3180, "go_live_date": "2020-12-06 18:24:18", "closed": 0, "national_code": "E52237"},
-{"id": 66, "name": "Hahn-Pouros", "created_at": "2018-09-22 02:02:49", "emis_cdb_practice_code": 537, "go_live_date": "2018-12-12 11:35:28", "closed": 0, "national_code": "E13084"},
-{"id": 67, "name": "Abernathy-Terry", "created_at": "2020-04-29 04:55:43", "emis_cdb_practice_code": 9909, "go_live_date": "2020-10-04 02:23:26", "closed": 1, "national_code": "E50535"},
-{"id": 68, "name": "Buckridge-Runte", "created_at": "2020-02-05 20:44:48", "emis_cdb_practice_code": 2167, "go_live_date": "2018-10-26 19:40:58", "closed": 0, "national_code": "E87092"},
-{"id": 69, "name": "Parisian and Sons", "created_at": "2019-01-30 04:25:20", "emis_cdb_practice_code": 4627, "go_live_date": "2019-09-11 01:41:38", "closed": 1, "national_code": "E18196"},
-{"id": 70, "name": "Moen-Stark", "created_at": "2019-09-21 00:00:49", "emis_cdb_practice_code": 7384, "go_live_date": "2019-06-17 08:33:54", "closed": 0, "national_code": "E80692"},
-{"id": 71, "name": "Schowalter, Zemlak and Gleichner", "created_at": "2019-01-01 01:39:07", "emis_cdb_practice_code": 5182, "go_live_date": "2019-05-02 09:53:26", "closed": 1, "national_code": "E47575"},
-{"id": 72, "name": "Runolfsson, Kassulke and Beatty", "created_at": "2018-09-28 10:27:23", "emis_cdb_practice_code": 5711, "go_live_date": "2019-12-10 18:32:11", "closed": 0, "national_code": "E95766"},
-{"id": 73, "name": "Cartwright, Bradtke and Schmitt", "created_at": "2019-04-22 07:38:54", "emis_cdb_practice_code": 7603, "go_live_date": "2021-03-18 23:51:52", "closed": 0, "national_code": "E36639"},
-{"id": 74, "name": "Labadie-Morissette", "created_at": "2019-06-24 02:54:17", "emis_cdb_practice_code": 1857, "go_live_date": "2021-05-14 18:59:15", "closed": 0, "national_code": "E63640"},
-{"id": 75, "name": "Stehr, Mayer and Hirthe", "created_at": "2020-05-11 12:39:59", "emis_cdb_practice_code": 9605, "go_live_date": "2020-08-06 18:16:51", "closed": 1, "national_code": "E98935"},
-{"id": 76, "name": "Mertz, Shields and Reichel", "created_at": "2020-05-12 08:57:54", "emis_cdb_practice_code": 8612, "go_live_date": "2019-08-05 13:04:16", "closed": 1, "national_code": "E76956"},
-{"id": 77, "name": "Schamberger, Parker and Johns", "created_at": "2019-08-16 14:32:56", "emis_cdb_practice_code": 4385, "go_live_date": "2019-10-30 02:05:20", "closed": 0, "national_code": "E32257"},
-{"id": 78, "name": "Lockman Group", "created_at": "2019-01-29 12:26:36", "emis_cdb_practice_code": 8984, "go_live_date": "2020-10-16 20:34:03", "closed": 0, "national_code": "E33421"},
-{"id": 79, "name": "Marquardt-Zboncak", "created_at": "2020-01-20 07:18:41", "emis_cdb_practice_code": 1844, "go_live_date": "2019-05-16 18:05:50", "closed": 1, "national_code": "E21292"},
-{"id": 80, "name": "Watsica, Schumm and Gorczany", "created_at": "2020-02-28 10:25:19", "emis_cdb_practice_code": 1430, "go_live_date": "2021-05-31 23:42:23", "closed": 0, "national_code": "E33389"},
-{"id": 81, "name": "Bins, Abshire and McLaughlin", "created_at": "2019-04-02 13:01:51", "emis_cdb_practice_code": 9027, "go_live_date": "2020-08-20 09:29:03", "closed": 0, "national_code": "E86950"},
-{"id": 82, "name": "Kihn Group", "created_at": "2018-04-16 22:48:50", "emis_cdb_practice_code": 7643, "go_live_date": "2020-05-08 22:18:36", "closed": 0, "national_code": "E53657"},
-{"id": 83, "name": "Haley-Jones", "created_at": "2019-08-31 16:36:55", "emis_cdb_practice_code": 195, "go_live_date": "2019-02-11 16:14:04", "closed": 1, "national_code": "E14469"},
-{"id": 84, "name": "Lang and Sons", "created_at": "2018-11-14 03:09:23", "emis_cdb_practice_code": 6913, "go_live_date": "2018-07-20 11:42:29", "closed": 1, "national_code": "E18554"},
-{"id": 85, "name": "Reynolds and Sons", "created_at": "2019-03-01 03:25:50", "emis_cdb_practice_code": 7964, "go_live_date": "2019-12-11 17:09:45", "closed": 0, "national_code": "E53047"},
-{"id": 86, "name": "Braun Group", "created_at": "2019-09-17 12:45:49", "emis_cdb_practice_code": 1012, "go_live_date": "2020-02-01 02:35:47", "closed": 1, "national_code": "E79987"},
-{"id": 87, "name": "Baumbach Inc", "created_at": "2020-05-09 09:39:56", "emis_cdb_practice_code": 9341, "go_live_date": "2020-05-19 00:18:00", "closed": 1, "national_code": "E39041"},
-{"id": 88, "name": "Lehner-Leannon", "created_at": "2018-08-31 22:15:12", "emis_cdb_practice_code": 1050, "go_live_date": "2018-06-24 19:05:15", "closed": 1, "national_code": "E92376"},
-{"id": 89, "name": "Wisoky-Abernathy", "created_at": "2018-11-30 13:17:55", "emis_cdb_practice_code": 2164, "go_live_date": "2021-04-27 15:11:07", "closed": 0, "national_code": "E97812"},
-{"id": 90, "name": "Murray, McDermott and Wunsch", "created_at": "2018-02-19 22:25:19", "emis_cdb_practice_code": 8285, "go_live_date": "2020-01-19 15:51:11", "closed": 0, "national_code": "E44403"},
-{"id": 91, "name": "Romaguera Inc", "created_at": "2018-03-14 00:03:09", "emis_cdb_practice_code": 4040, "go_live_date": "2019-07-20 06:56:44", "closed": 1, "national_code": "E46912"},
-{"id": 92, "name": "Cummings-Baumbach", "created_at": "2019-11-01 06:06:23", "emis_cdb_practice_code": 1762, "go_live_date": "2018-08-07 18:28:45", "closed": 0, "national_code": "E77350"},
-{"id": 93, "name": "Batz, Hessel and Wuckert", "created_at": "2019-10-28 09:05:03", "emis_cdb_practice_code": 157, "go_live_date": "2018-10-16 23:06:52", "closed": 1, "national_code": "E57426"},
-{"id": 94, "name": "Kessler, Hamill and Johnston", "created_at": "2018-11-05 21:35:25", "emis_cdb_practice_code": 3101, "go_live_date": "2018-10-14 22:38:01", "closed": 0, "national_code": "E64720"},
-{"id": 95, "name": "Thiel-McCullough", "created_at": "2018-09-04 06:40:22", "emis_cdb_practice_code": 6602, "go_live_date": "2021-03-08 20:23:58", "closed": 1, "national_code": "E48747"},
-{"id": 96, "name": "Russel, Jones and Hegmann", "created_at": "2018-10-22 17:47:26", "emis_cdb_practice_code": 3683, "go_live_date": "2019-04-12 21:30:23", "closed": 0, "national_code": "E15891"},
-{"id": 97, "name": "Runolfsdottir-Lockman", "created_at": "2018-05-12 16:15:08", "emis_cdb_practice_code": 641, "go_live_date": "2019-01-05 13:23:52", "closed": 0, "national_code": "E57688"},
-{"id": 98, "name": "Gaylord-Paucek", "created_at": "2020-01-03 12:02:31", "emis_cdb_practice_code": 8648, "go_live_date": "2019-02-28 16:15:14", "closed": 1, "national_code": "E79030"},
-{"id": 99, "name": "West-Johnson", "created_at": "2019-03-30 08:01:34", "emis_cdb_practice_code": 6682, "go_live_date": "2019-01-12 10:04:54", "closed": 0, "national_code": "E91157"},
-{"id": 100, "name": "McLaughlin LLC", "created_at": "2020-05-15 20:33:04", "emis_cdb_practice_code": 1271, "go_live_date": "2021-06-07 03:02:44", "closed": 1, "national_code": "E92628"},
-{"id": 101, "name": "Hettinger, Braun and Towne", "created_at": "2020-04-23 09:29:59", "emis_cdb_practice_code": 9351, "go_live_date": "2019-06-13 00:21:04", "closed": 1, "national_code": "E26543"},
-{"id": 102, "name": "Keeling-Sawayn", "created_at": "2019-08-09 06:55:10", "emis_cdb_practice_code": 6852, "go_live_date": "2018-12-10 05:38:10", "closed": 1, "national_code": "E89182"},
-{"id": 103, "name": "Shields-Kemmer", "created_at": "2018-09-22 16:39:34", "emis_cdb_practice_code": 1703, "go_live_date": "2018-12-06 18:00:19", "closed": 0, "national_code": "E31337"},
-{"id": 104, "name": "Reichert Inc", "created_at": "2020-01-06 04:56:11", "emis_cdb_practice_code": 4181, "go_live_date": "2019-10-26 05:07:58", "closed": 0, "national_code": "E68100"},
-{"id": 105, "name": "Schaden, Shields and MacGyver", "created_at": "2020-06-18 21:41:09", "emis_cdb_practice_code": 2305, "go_live_date": "2020-10-10 19:02:43", "closed": 1, "national_code": "E33853"},
-{"id": 106, "name": "Lubowitz, Christiansen and Ledner", "created_at": "2019-04-16 10:27:17", "emis_cdb_practice_code": 621, "go_live_date": "2020-03-24 23:49:49", "closed": 1, "national_code": "E32474"},
-{"id": 107, "name": "West-Kuhn", "created_at": "2018-05-01 11:44:16", "emis_cdb_practice_code": 6057, "go_live_date": "2020-12-20 04:22:23", "closed": 0, "national_code": "E13655"},
-{"id": 108, "name": "Zboncak, Goodwin and Emard", "created_at": "2019-03-01 03:33:57", "emis_cdb_practice_code": 2560, "go_live_date": "2020-07-05 23:00:40", "closed": 1, "national_code": "E88369"},
-{"id": 109, "name": "Kessler, Ritchie and Johns", "created_at": "2019-01-19 22:15:36", "emis_cdb_practice_code": 6836, "go_live_date": "2020-10-22 17:14:52", "closed": 0, "national_code": "E18196"},
-{"id": 110, "name": "Carter-Abernathy", "created_at": "2019-03-18 02:43:31", "emis_cdb_practice_code": 4731, "go_live_date": "2020-09-08 11:34:48", "closed": 1, "national_code": "E41313"},
-{"id": 111, "name": "Durgan-Kuhic", "created_at": "2019-03-27 02:41:39", "emis_cdb_practice_code": 7562, "go_live_date": "2020-02-14 11:13:58", "closed": 1, "national_code": "E65763"},
-{"id": 112, "name": "Donnelly, Larson and Schmeler", "created_at": "2019-09-28 01:49:01", "emis_cdb_practice_code": 7151, "go_live_date": "2020-03-22 03:54:42", "closed": 1, "national_code": "E43407"},
-{"id": 113, "name": "Spencer-Koelpin", "created_at": "2020-02-18 03:04:43", "emis_cdb_practice_code": 8960, "go_live_date": "2019-09-18 16:49:24", "closed": 0, "national_code": "E90723"},
-{"id": 114, "name": "Mills LLC", "created_at": "2020-02-05 03:14:41", "emis_cdb_practice_code": 1107, "go_live_date": "2020-11-09 12:51:46", "closed": 1, "national_code": "E94559"},
-{"id": 115, "name": "Gorczany Group", "created_at": "2019-12-28 18:59:16", "emis_cdb_practice_code": 7782, "go_live_date": "2019-09-02 19:50:02", "closed": 1, "national_code": "E40578"},
-{"id": 116, "name": "Corwin LLC", "created_at": "2018-02-11 02:01:55", "emis_cdb_practice_code": 6709, "go_live_date": "2019-12-13 12:14:08", "closed": 1, "national_code": "E11295"},
-{"id": 117, "name": "Mosciski, Cole and Keeling", "created_at": "2018-12-23 21:37:42", "emis_cdb_practice_code": 6283, "go_live_date": "2020-02-18 16:41:07", "closed": 1, "national_code": "E45511"},
-{"id": 118, "name": "Hudson and Sons", "created_at": "2018-09-17 11:24:14", "emis_cdb_practice_code": 8505, "go_live_date": "2019-07-18 16:19:47", "closed": 0, "national_code": "E11493"},
-{"id": 119, "name": "Keeling-Christiansen", "created_at": "2018-12-09 06:39:50", "emis_cdb_practice_code": 3796, "go_live_date": "2019-09-16 00:02:58", "closed": 1, "national_code": "E12992"},
-{"id": 120, "name": "Upton LLC", "created_at": "2018-11-22 20:55:45", "emis_cdb_practice_code": 8834, "go_live_date": "2018-06-06 21:18:49", "closed": 1, "national_code": "E67360"},
-{"id": 121, "name": "Maggio, Deckow and Ryan", "created_at": "2019-09-04 09:13:35", "emis_cdb_practice_code": 7399, "go_live_date": "2020-02-10 08:42:55", "closed": 0, "national_code": "E39147"},
-{"id": 122, "name": "Bode Inc", "created_at": "2018-12-11 08:20:58", "emis_cdb_practice_code": 364, "go_live_date": "2020-03-16 14:35:17", "closed": 1, "national_code": "E85989"},
-{"id": 123, "name": "Weissnat and Sons", "created_at": "2019-04-14 14:01:36", "emis_cdb_practice_code": 5473, "go_live_date": "2018-06-30 03:14:12", "closed": 1, "national_code": "E33843"},
-{"id": 124, "name": "Crooks, Koch and Bogan", "created_at": "2018-02-13 12:00:36", "emis_cdb_practice_code": 3390, "go_live_date": "2018-09-04 16:51:28", "closed": 1, "national_code": "E17928"},
-{"id": 125, "name": "Bailey, Gerlach and O'Hara", "created_at": "2020-01-15 16:20:36", "emis_cdb_practice_code": 2492, "go_live_date": "2018-12-01 02:30:54", "closed": 1, "national_code": "E71262"},
-{"id": 126, "name": "Gleason, Turner and O'Connell", "created_at": "2018-09-01 20:40:29", "emis_cdb_practice_code": 8403, "go_live_date": "2018-12-20 10:00:11", "closed": 1, "national_code": "E62099"},
-{"id": 127, "name": "Mayert, Jacobs and Hoeger", "created_at": "2020-02-27 01:06:44", "emis_cdb_practice_code": 4266, "go_live_date": "2020-07-09 00:14:16", "closed": 1, "national_code": "E21094"},
-{"id": 128, "name": "Weber LLC", "created_at": "2019-03-19 02:54:45", "emis_cdb_practice_code": 8, "go_live_date": "2018-09-28 06:55:06", "closed": 1, "national_code": "E41247"},
-{"id": 129, "name": "Adams Inc", "created_at": "2020-04-01 18:14:32", "emis_cdb_practice_code": 5388, "go_live_date": "2021-03-21 23:20:39", "closed": 0, "national_code": "E10408"},
-{"id": 130, "name": "Borer, Donnelly and Stokes", "created_at": "2020-03-16 12:09:40", "emis_cdb_practice_code": 4694, "go_live_date": "2019-05-16 17:33:44", "closed": 1, "national_code": "E55310"},
-{"id": 131, "name": "Wisoky-Feeney", "created_at": "2018-12-25 02:00:12", "emis_cdb_practice_code": 9963, "go_live_date": "2021-01-04 04:16:17", "closed": 0, "national_code": "E44651"},
-{"id": 132, "name": "Thiel-Hoppe", "created_at": "2018-06-03 23:12:57", "emis_cdb_practice_code": 1583, "go_live_date": "2019-03-30 06:23:07", "closed": 0, "national_code": "E86534"},
-{"id": 133, "name": "Hamill Inc", "created_at": "2019-05-20 10:38:16", "emis_cdb_practice_code": 5933, "go_live_date": "2019-04-30 00:25:31", "closed": 0, "national_code": "E18268"},
-{"id": 134, "name": "Lesch and Sons", "created_at": "2019-12-28 22:44:32", "emis_cdb_practice_code": 7981, "go_live_date": "2020-06-05 21:10:07", "closed": 0, "national_code": "E17552"},
-{"id": 135, "name": "Crona-Thiel", "created_at": "2020-06-01 19:00:57", "emis_cdb_practice_code": 87, "go_live_date": "2020-06-02 00:25:03", "closed": 0, "national_code": "E76541"},
-{"id": 136, "name": "Schuster Inc", "created_at": "2020-01-06 04:20:51", "emis_cdb_practice_code": 9892, "go_live_date": "2018-08-10 00:02:14", "closed": 1, "national_code": "E30386"},
-{"id": 137, "name": "Stoltenberg Group", "created_at": "2018-11-18 03:04:44", "emis_cdb_practice_code": 4486, "go_live_date": "2020-09-12 20:25:30", "closed": 0, "national_code": "E24495"},
-{"id": 138, "name": "Adams, Breitenberg and O'Keefe", "created_at": "2019-01-30 17:59:17", "emis_cdb_practice_code": 8121, "go_live_date": "2020-09-19 21:59:43", "closed": 1, "national_code": "E83916"},
-{"id": 139, "name": "Reynolds Group", "created_at": "2018-01-23 23:54:13", "emis_cdb_practice_code": 5318, "go_live_date": "2020-08-02 22:18:57", "closed": 0, "national_code": "E98767"},
-{"id": 140, "name": "Torp and Sons", "created_at": "2019-05-27 07:07:21", "emis_cdb_practice_code": 3680, "go_live_date": "2019-02-26 12:37:45", "closed": 1, "national_code": "E95086"},
-{"id": 141, "name": "Block and Sons", "created_at": "2020-02-15 09:57:01", "emis_cdb_practice_code": 8366, "go_live_date": "2020-10-12 04:49:24", "closed": 0, "national_code": "E31921"},
-{"id": 142, "name": "Renner LLC", "created_at": "2020-01-29 21:34:08", "emis_cdb_practice_code": 399, "go_live_date": "2021-03-30 06:41:54", "closed": 0, "national_code": "E55218"},
-{"id": 143, "name": "Crist Inc", "created_at": "2018-08-31 21:46:47", "emis_cdb_practice_code": 112, "go_live_date": "2019-11-18 22:51:35", "closed": 0, "national_code": "E88161"},
-{"id": 144, "name": "Robel-Daniel", "created_at": "2020-04-10 12:00:43", "emis_cdb_practice_code": 5180, "go_live_date": "2019-11-03 02:00:55", "closed": 1, "national_code": "E58385"},
-{"id": 145, "name": "Stehr Inc", "created_at": "2019-09-28 02:38:02", "emis_cdb_practice_code": 6184, "go_live_date": "2019-11-30 17:06:30", "closed": 0, "national_code": "E45379"},
-{"id": 146, "name": "Brekke-Boehm", "created_at": "2019-06-11 23:30:13", "emis_cdb_practice_code": 6705, "go_live_date": "2020-11-20 06:55:47", "closed": 1, "national_code": "E60928"},
-{"id": 147, "name": "Willms, Mayert and Labadie", "created_at": "2020-02-22 19:59:51", "emis_cdb_practice_code": 4050, "go_live_date": "2021-04-26 08:02:42", "closed": 0, "national_code": "E80491"},
-{"id": 148, "name": "Upton, Renner and Hahn", "created_at": "2018-07-14 14:18:58", "emis_cdb_practice_code": 3230, "go_live_date": "2019-06-05 05:12:56", "closed": 1, "national_code": "E83062"},
-{"id": 149, "name": "Price Inc", "created_at": "2019-12-30 07:48:49", "emis_cdb_practice_code": 4789, "go_live_date": "2021-04-04 10:03:24", "closed": 1, "national_code": "E18841"},
-{"id": 150, "name": "Kunze, Sporer and Gleason", "created_at": "2020-05-04 07:55:06", "emis_cdb_practice_code": 5210, "go_live_date": "2018-09-14 15:01:24", "closed": 1, "national_code": "E21552"},
-{"id": 151, "name": "Thompson, Kub and Lang", "created_at": "2019-05-08 22:24:58", "emis_cdb_practice_code": 2765, "go_live_date": "2019-08-17 09:38:42", "closed": 1, "national_code": "E94026"},
-{"id": 152, "name": "Veum-Farrell", "created_at": "2018-04-21 11:08:05", "emis_cdb_practice_code": 5023, "go_live_date": "2020-10-05 08:23:14", "closed": 0, "national_code": "E20091"},
-{"id": 153, "name": "Shanahan-Mills", "created_at": "2019-06-08 13:24:13", "emis_cdb_practice_code": 178, "go_live_date": "2018-06-20 21:54:44", "closed": 0, "national_code": "E88284"},
-{"id": 154, "name": "Pacocha, McGlynn and Zemlak", "created_at": "2018-03-24 12:23:21", "emis_cdb_practice_code": 2369, "go_live_date": "2018-06-15 11:26:40", "closed": 0, "national_code": "E91927"},
-{"id": 155, "name": "Bednar-Effertz", "created_at": "2019-06-29 12:11:04", "emis_cdb_practice_code": 4128, "go_live_date": "2020-02-03 11:30:09", "closed": 0, "national_code": "E71420"},
-{"id": 156, "name": "Mosciski Inc", "created_at": "2018-09-20 07:20:51", "emis_cdb_practice_code": 3593, "go_live_date": "2019-10-05 03:00:17", "closed": 0, "national_code": "E49536"},
-{"id": 157, "name": "Price-Dare", "created_at": "2019-03-02 12:13:53", "emis_cdb_practice_code": 9132, "go_live_date": "2019-12-23 07:32:12", "closed": 0, "national_code": "E37477"},
-{"id": 158, "name": "Simonis-Bartell", "created_at": "2020-03-14 16:47:30", "emis_cdb_practice_code": 4314, "go_live_date": "2019-06-02 04:49:46", "closed": 1, "national_code": "E27892"},
-{"id": 159, "name": "Nolan, Rippin and Buckridge", "created_at": "2019-07-21 10:38:03", "emis_cdb_practice_code": 7251, "go_live_date": "2019-07-19 00:13:26", "closed": 1, "national_code": "E52273"},
-{"id": 160, "name": "Spinka LLC", "created_at": "2019-05-25 07:04:37", "emis_cdb_practice_code": 4117, "go_live_date": "2019-11-09 20:42:25", "closed": 1, "national_code": "E71019"},
-{"id": 161, "name": "Batz, Moore and Blick", "created_at": "2018-11-22 10:39:54", "emis_cdb_practice_code": 9974, "go_live_date": "2019-04-06 07:15:27", "closed": 1, "national_code": "E81508"},
-{"id": 162, "name": "Stroman-Hirthe", "created_at": "2018-05-28 21:39:46", "emis_cdb_practice_code": 4268, "go_live_date": "2021-05-12 00:32:28", "closed": 1, "national_code": "E89411"},
-{"id": 163, "name": "Bergstrom-Koelpin", "created_at": "2020-04-07 04:38:54", "emis_cdb_practice_code": 5775, "go_live_date": "2020-09-08 00:55:39", "closed": 0, "national_code": "E94030"},
-{"id": 164, "name": "Zieme Group", "created_at": "2019-07-26 04:45:55", "emis_cdb_practice_code": 7508, "go_live_date": "2018-10-15 21:58:46", "closed": 0, "national_code": "E19007"},
-{"id": 165, "name": "Hettinger Inc", "created_at": "2019-11-08 21:02:45", "emis_cdb_practice_code": 7743, "go_live_date": "2019-02-28 07:55:29", "closed": 0, "national_code": "E50352"},
-{"id": 166, "name": "Terry, Runolfsdottir and Hudson", "created_at": "2019-04-29 03:18:08", "emis_cdb_practice_code": 4976, "go_live_date": "2019-08-16 15:56:07", "closed": 0, "national_code": "E44996"},
-{"id": 167, "name": "Murphy, Bergstrom and Steuber", "created_at": "2020-04-28 19:04:47", "emis_cdb_practice_code": 7997, "go_live_date": "2019-06-26 19:25:21", "closed": 0, "national_code": "E56651"},
-{"id": 168, "name": "Parker-Oberbrunner", "created_at": "2018-10-31 20:10:49", "emis_cdb_practice_code": 6259, "go_live_date": "2020-01-04 13:13:01", "closed": 1, "national_code": "E53381"},
-{"id": 169, "name": "Monahan-Lynch", "created_at": "2019-01-16 17:06:40", "emis_cdb_practice_code": 3268, "go_live_date": "2018-11-18 11:43:55", "closed": 0, "national_code": "E38916"},
-{"id": 170, "name": "Kreiger, Kunze and O'Conner", "created_at": "2019-08-05 16:32:06", "emis_cdb_practice_code": 1924, "go_live_date": "2018-07-12 09:09:02", "closed": 1, "national_code": "E62929"},
-{"id": 171, "name": "Larkin, Vandervort and Bergstrom", "created_at": "2018-12-27 10:42:55", "emis_cdb_practice_code": 8901, "go_live_date": "2020-09-13 10:46:22", "closed": 0, "national_code": "E97026"},
-{"id": 172, "name": "DuBuque Group", "created_at": "2018-08-03 15:47:30", "emis_cdb_practice_code": 7873, "go_live_date": "2020-06-04 14:29:53", "closed": 0, "national_code": "E67271"},
-{"id": 173, "name": "Treutel Group", "created_at": "2020-01-27 11:21:18", "emis_cdb_practice_code": 9799, "go_live_date": "2019-03-15 00:25:19", "closed": 1, "national_code": "E24154"},
-{"id": 174, "name": "Kunde-Howe", "created_at": "2019-11-12 17:55:10", "emis_cdb_practice_code": 7942, "go_live_date": "2021-05-22 02:51:21", "closed": 1, "national_code": "E65986"},
-{"id": 175, "name": "Daugherty, Hills and Schimmel", "created_at": "2018-02-01 17:30:37", "emis_cdb_practice_code": 9446, "go_live_date": "2018-09-26 23:51:46", "closed": 1, "national_code": "E29522"},
-{"id": 176, "name": "Davis-Jones", "created_at": "2018-02-21 09:16:40", "emis_cdb_practice_code": 7667, "go_live_date": "2021-03-19 15:30:42", "closed": 1, "national_code": "E48742"},
-{"id": 177, "name": "Schaden Group", "created_at": "2020-05-31 03:39:14", "emis_cdb_practice_code": 3275, "go_live_date": "2018-12-13 18:00:22", "closed": 0, "national_code": "E24434"},
-{"id": 178, "name": "Labadie-Jast", "created_at": "2019-03-06 17:40:30", "emis_cdb_practice_code": 9667, "go_live_date": "2020-10-03 16:22:13", "closed": 1, "national_code": "E88533"},
-{"id": 179, "name": "Eichmann-Robel", "created_at": "2018-03-03 19:27:35", "emis_cdb_practice_code": 6185, "go_live_date": "2018-09-07 00:23:49", "closed": 1, "national_code": "E58465"},
-{"id": 180, "name": "Runte, Orn and Streich", "created_at": "2019-07-14 15:33:55", "emis_cdb_practice_code": 3682, "go_live_date": "2020-12-30 07:48:55", "closed": 1, "national_code": "E12573"},
-{"id": 181, "name": "Harber, McKenzie and Schulist", "created_at": "2019-12-05 08:21:55", "emis_cdb_practice_code": 8080, "go_live_date": "2019-09-27 18:15:30", "closed": 0, "national_code": "E93289"},
-{"id": 182, "name": "Cormier-Rippin", "created_at": "2019-03-22 06:50:15", "emis_cdb_practice_code": 473, "go_live_date": "2018-07-16 13:27:38", "closed": 0, "national_code": "E70253"},
-{"id": 183, "name": "Beer-Upton", "created_at": "2019-12-02 20:48:03", "emis_cdb_practice_code": 5283, "go_live_date": "2018-08-27 23:07:40", "closed": 1, "national_code": "E71469"},
-{"id": 184, "name": "Baumbach, Schowalter and White", "created_at": "2018-06-15 22:29:42", "emis_cdb_practice_code": 3036, "go_live_date": "2021-04-01 19:45:08", "closed": 1, "national_code": "E15080"},
-{"id": 185, "name": "Lang Inc", "created_at": "2020-01-07 02:58:54", "emis_cdb_practice_code": 619, "go_live_date": "2020-12-27 14:42:21", "closed": 0, "national_code": "E84567"},
-{"id": 186, "name": "Thiel-Batz", "created_at": "2019-10-05 07:40:07", "emis_cdb_practice_code": 5776, "go_live_date": "2020-09-12 13:19:09", "closed": 0, "national_code": "E63649"},
-{"id": 187, "name": "Medhurst-Baumbach", "created_at": "2019-08-31 08:19:11", "emis_cdb_practice_code": 4804, "go_live_date": "2021-05-22 00:42:18", "closed": 0, "national_code": "E25851"},
-{"id": 188, "name": "McCullough-Abernathy", "created_at": "2018-12-03 23:12:17", "emis_cdb_practice_code": 1463, "go_live_date": "2021-01-19 13:22:25", "closed": 1, "national_code": "E29272"},
-{"id": 189, "name": "Runolfsdottir and Sons", "created_at": "2018-12-16 09:02:53", "emis_cdb_practice_code": 9051, "go_live_date": "2019-06-04 18:02:35", "closed": 0, "national_code": "E65783"},
-{"id": 190, "name": "Huels, Konopelski and Ondricka", "created_at": "2019-02-19 03:19:38", "emis_cdb_practice_code": 2891, "go_live_date": "2018-09-17 14:03:34", "closed": 0, "national_code": "E58003"},
-{"id": 191, "name": "Will-Feest", "created_at": "2019-06-23 14:59:34", "emis_cdb_practice_code": 4603, "go_live_date": "2019-12-24 00:49:09", "closed": 1, "national_code": "E69432"},
-{"id": 192, "name": "O'Reilly, Kemmer and Cummings", "created_at": "2020-03-23 06:11:23", "emis_cdb_practice_code": 3913, "go_live_date": "2019-07-16 03:49:04", "closed": 0, "national_code": "E93909"},
-{"id": 193, "name": "Wisoky, Kulas and Stark", "created_at": "2019-06-06 05:53:20", "emis_cdb_practice_code": 6025, "go_live_date": "2018-09-03 05:07:00", "closed": 0, "national_code": "E20273"},
-{"id": 194, "name": "Sawayn-Hayes", "created_at": "2018-11-18 08:53:37", "emis_cdb_practice_code": 1056, "go_live_date": "2021-03-17 14:25:12", "closed": 0, "national_code": "E48231"},
-{"id": 195, "name": "Romaguera, King and Wisozk", "created_at": "2018-04-01 08:41:44", "emis_cdb_practice_code": 2881, "go_live_date": "2020-07-01 05:37:59", "closed": 0, "national_code": "E93727"},
-{"id": 196, "name": "Kub, Bartoletti and Muller", "created_at": "2018-03-02 04:29:58", "emis_cdb_practice_code": 4658, "go_live_date": "2020-04-05 03:31:21", "closed": 0, "national_code": "E36603"},
-{"id": 197, "name": "Weissnat-Gutkowski", "created_at": "2018-05-14 05:31:16", "emis_cdb_practice_code": 2399, "go_live_date": "2020-07-26 01:23:38", "closed": 1, "national_code": "E82939"},
-{"id": 198, "name": "Labadie, Oberbrunner and Kub", "created_at": "2018-06-23 03:24:21", "emis_cdb_practice_code": 5227, "go_live_date": "2020-12-18 01:21:21", "closed": 1, "national_code": "E52361"},
-{"id": 199, "name": "MacGyver, Daugherty and Bradtke", "created_at": "2019-01-02 19:13:18", "emis_cdb_practice_code": 5355, "go_live_date": "2020-08-08 03:34:29", "closed": 0, "national_code": "E39375"},
-{"id": 200, "name": "McKenzie, Gibson and Johns", "created_at": "2018-12-25 09:56:28", "emis_cdb_practice_code": 363, "go_live_date": "2021-03-29 14:26:18", "closed": 0, "national_code": "E86243"},
-{"id": 201, "name": "Hodkiewicz Inc", "created_at": "2020-02-19 16:39:27", "emis_cdb_practice_code": 6090, "go_live_date": "2019-07-13 11:02:18", "closed": 1, "national_code": "E44875"},
-{"id": 202, "name": "Kiehn-Beer", "created_at": "2018-11-15 19:40:35", "emis_cdb_practice_code": 8570, "go_live_date": "2021-01-25 10:54:10", "closed": 0, "national_code": "E53288"},
-{"id": 203, "name": "Gaylord-Nikolaus", "created_at": "2020-01-12 21:27:34", "emis_cdb_practice_code": 6388, "go_live_date": "2018-12-24 06:38:14", "closed": 0, "national_code": "E45031"},
-{"id": 204, "name": "Halvorson LLC", "created_at": "2018-07-26 11:29:20", "emis_cdb_practice_code": 8310, "go_live_date": "2020-01-11 09:08:07", "closed": 1, "national_code": "E97171"},
-{"id": 205, "name": "Feest, Gislason and Waters", "created_at": "2018-03-27 02:12:13", "emis_cdb_practice_code": 1360, "go_live_date": "2019-03-30 18:35:53", "closed": 0, "national_code": "E76150"},
-{"id": 206, "name": "Adams-Kautzer", "created_at": "2018-05-15 22:24:02", "emis_cdb_practice_code": 5697, "go_live_date": "2019-11-13 07:39:41", "closed": 1, "national_code": "E23117"},
-{"id": 207, "name": "Kulas, Wyman and Braun", "created_at": "2019-07-11 10:52:51", "emis_cdb_practice_code": 5521, "go_live_date": "2019-10-21 16:36:46", "closed": 0, "national_code": "E70174"},
-{"id": 208, "name": "Hansen Inc", "created_at": "2018-04-02 06:35:14", "emis_cdb_practice_code": 837, "go_live_date": "2020-01-12 17:10:52", "closed": 0, "national_code": "E47518"},
-{"id": 209, "name": "O'Kon, Rempel and Stroman", "created_at": "2018-02-15 02:34:00", "emis_cdb_practice_code": 6364, "go_live_date": "2020-06-11 21:57:59", "closed": 1, "national_code": "E50277"},
-{"id": 210, "name": "McDermott-Hettinger", "created_at": "2019-07-27 13:46:10", "emis_cdb_practice_code": 4458, "go_live_date": "2021-04-11 19:32:33", "closed": 0, "national_code": "E57618"},
-{"id": 211, "name": "Bradtke-Quigley", "created_at": "2019-10-18 05:20:29", "emis_cdb_practice_code": 1621, "go_live_date": "2019-09-15 15:44:55", "closed": 0, "national_code": "E49283"},
-{"id": 212, "name": "Johns, Shanahan and Kub", "created_at": "2018-10-06 22:23:05", "emis_cdb_practice_code": 1418, "go_live_date": "2019-06-27 15:00:55", "closed": 1, "national_code": "E55521"},
-{"id": 213, "name": "Nolan, Douglas and Kilback", "created_at": "2018-08-15 11:55:56", "emis_cdb_practice_code": 6914, "go_live_date": "2020-07-03 19:30:13", "closed": 0, "national_code": "E69903"},
-{"id": 214, "name": "Kihn, Keeling and Dach", "created_at": "2018-03-29 20:05:42", "emis_cdb_practice_code": 2945, "go_live_date": "2018-10-27 01:18:11", "closed": 0, "national_code": "E95789"},
-{"id": 215, "name": "Dach-Crist", "created_at": "2019-08-21 15:14:38", "emis_cdb_practice_code": 1170, "go_live_date": "2020-10-05 08:38:37", "closed": 0, "national_code": "E89670"},
-{"id": 216, "name": "Lindgren LLC", "created_at": "2019-09-09 09:52:38", "emis_cdb_practice_code": 3810, "go_live_date": "2020-09-24 00:09:49", "closed": 0, "national_code": "E33447"},
-{"id": 217, "name": "Schiller LLC", "created_at": "2018-04-28 03:50:32", "emis_cdb_practice_code": 267, "go_live_date": "2020-12-08 18:45:05", "closed": 1, "national_code": "E84331"},
-{"id": 218, "name": "Fadel and Sons", "created_at": "2019-08-28 07:42:51", "emis_cdb_practice_code": 8897, "go_live_date": "2021-05-25 09:32:08", "closed": 0, "national_code": "E98963"},
-{"id": 219, "name": "Leannon LLC", "created_at": "2018-10-05 12:45:05", "emis_cdb_practice_code": 3570, "go_live_date": "2019-02-20 18:42:12", "closed": 0, "national_code": "E53136"},
-{"id": 220, "name": "Fritsch Inc", "created_at": "2020-03-04 03:36:31", "emis_cdb_practice_code": 9061, "go_live_date": "2018-07-02 07:45:30", "closed": 0, "national_code": "E12012"},
-{"id": 221, "name": "Rosenbaum, Brown and Emard", "created_at": "2018-10-11 04:33:07", "emis_cdb_practice_code": 9040, "go_live_date": "2021-03-19 12:43:44", "closed": 0, "national_code": "E23484"},
-{"id": 222, "name": "Boyle, Jones and Carroll", "created_at": "2018-12-09 10:04:09", "emis_cdb_practice_code": 8811, "go_live_date": "2018-06-29 23:15:21", "closed": 0, "national_code": "E53163"},
-{"id": 223, "name": "Bauch-Turner", "created_at": "2019-06-16 12:37:54", "emis_cdb_practice_code": 3358, "go_live_date": "2019-01-07 04:56:41", "closed": 1, "national_code": "E77086"},
-{"id": 224, "name": "Luettgen, Schulist and Kilback", "created_at": "2018-02-20 10:33:06", "emis_cdb_practice_code": 1795, "go_live_date": "2018-09-01 09:46:29", "closed": 0, "national_code": "E28566"},
-{"id": 225, "name": "Gleason, Trantow and Rosenbaum", "created_at": "2019-02-24 03:21:09", "emis_cdb_practice_code": 8604, "go_live_date": "2020-11-26 01:14:33", "closed": 0, "national_code": "E30210"},
-{"id": 226, "name": "Crooks-Romaguera", "created_at": "2020-03-25 11:47:53", "emis_cdb_practice_code": 7806, "go_live_date": "2020-08-11 21:26:44", "closed": 0, "national_code": "E13496"},
-{"id": 227, "name": "Reichert-Gutkowski", "created_at": "2019-06-21 16:00:25", "emis_cdb_practice_code": 7704, "go_live_date": "2020-10-04 06:44:40", "closed": 0, "national_code": "E31371"},
-{"id": 228, "name": "Lubowitz, Buckridge and Murray", "created_at": "2018-10-27 08:49:05", "emis_cdb_practice_code": 8474, "go_live_date": "2020-10-04 13:11:45", "closed": 1, "national_code": "E46679"},
-{"id": 229, "name": "Ruecker-Sauer", "created_at": "2019-06-21 06:01:58", "emis_cdb_practice_code": 6539, "go_live_date": "2020-11-23 04:13:25", "closed": 0, "national_code": "E93179"},
-{"id": 230, "name": "Weimann-Miller", "created_at": "2019-02-26 02:12:29", "emis_cdb_practice_code": 4861, "go_live_date": "2018-10-03 21:06:00", "closed": 1, "national_code": "E81121"},
-{"id": 231, "name": "Hamill, Dooley and Ward", "created_at": "2019-08-27 10:01:34", "emis_cdb_practice_code": 9436, "go_live_date": "2019-03-12 03:32:26", "closed": 0, "national_code": "E42355"},
-{"id": 232, "name": "Brekke Inc", "created_at": "2019-05-22 08:52:32", "emis_cdb_practice_code": 4218, "go_live_date": "2020-05-23 10:12:51", "closed": 1, "national_code": "E42472"},
-{"id": 233, "name": "Mraz Group", "created_at": "2018-12-20 19:03:23", "emis_cdb_practice_code": 8625, "go_live_date": "2021-01-02 07:17:18", "closed": 0, "national_code": "E22333"},
-{"id": 234, "name": "Stark LLC", "created_at": "2020-01-21 14:01:50", "emis_cdb_practice_code": 957, "go_live_date": "2019-07-15 13:06:05", "closed": 0, "national_code": "E61334"},
-{"id": 235, "name": "Cartwright and Sons", "created_at": "2018-05-06 13:57:36", "emis_cdb_practice_code": 465, "go_live_date": "2020-11-20 21:49:58", "closed": 1, "national_code": "E92715"},
-{"id": 236, "name": "Smith-Purdy", "created_at": "2019-08-14 17:47:13", "emis_cdb_practice_code": 5003, "go_live_date": "2021-03-18 03:29:31", "closed": 0, "national_code": "E91341"},
-{"id": 237, "name": "Torphy LLC", "created_at": "2018-10-01 08:19:56", "emis_cdb_practice_code": 1042, "go_live_date": "2021-05-22 14:47:16", "closed": 1, "national_code": "E61879"},
-{"id": 238, "name": "Yundt LLC", "created_at": "2019-06-19 00:33:25", "emis_cdb_practice_code": 7674, "go_live_date": "2020-12-31 08:41:45", "closed": 1, "national_code": "E74969"},
-{"id": 239, "name": "Bechtelar-Blick", "created_at": "2019-01-27 01:55:57", "emis_cdb_practice_code": 7804, "go_live_date": "2019-04-08 22:55:57", "closed": 0, "national_code": "E22439"},
-{"id": 240, "name": "Rosenbaum-Wehner", "created_at": "2019-08-18 15:03:12", "emis_cdb_practice_code": 9577, "go_live_date": "2018-12-19 18:40:23", "closed": 1, "national_code": "E10277"},
-{"id": 241, "name": "Feeney, Carter and Barrows", "created_at": "2019-11-07 02:36:52", "emis_cdb_practice_code": 6768, "go_live_date": "2019-06-03 18:46:23", "closed": 0, "national_code": "E63695"},
-{"id": 242, "name": "Lebsack-VonRueden", "created_at": "2019-01-03 09:54:50", "emis_cdb_practice_code": 6196, "go_live_date": "2020-07-08 21:13:11", "closed": 0, "national_code": "E26757"},
-{"id": 243, "name": "Bednar and Sons", "created_at": "2020-02-18 05:35:29", "emis_cdb_practice_code": 4809, "go_live_date": "2019-05-22 19:29:45", "closed": 0, "national_code": "E76069"},
-{"id": 244, "name": "Gorczany, Dibbert and Towne", "created_at": "2019-03-23 09:31:49", "emis_cdb_practice_code": 9702, "go_live_date": "2020-11-26 03:17:14", "closed": 0, "national_code": "E92029"},
-{"id": 245, "name": "Stanton Inc", "created_at": "2018-10-02 16:06:07", "emis_cdb_practice_code": 8803, "go_live_date": "2018-10-17 21:44:19", "closed": 0, "national_code": "E40213"},
-{"id": 246, "name": "Doyle Group", "created_at": "2019-08-12 02:20:03", "emis_cdb_practice_code": 2203, "go_live_date": "2019-12-19 00:32:10", "closed": 0, "national_code": "E41075"},
-{"id": 247, "name": "Hahn-Johnson", "created_at": "2020-01-27 20:06:51", "emis_cdb_practice_code": 2127, "go_live_date": "2020-03-01 18:22:36", "closed": 0, "national_code": "E94186"},
-{"id": 248, "name": "Huels Group", "created_at": "2018-03-27 02:42:45", "emis_cdb_practice_code": 5391, "go_live_date": "2020-11-13 14:29:01", "closed": 1, "national_code": "E99550"},
-{"id": 249, "name": "Koepp, DuBuque and Wyman", "created_at": "2018-03-09 15:45:48", "emis_cdb_practice_code": 7243, "go_live_date": "2020-12-06 10:44:01", "closed": 1, "national_code": "E97379"},
-{"id": 250, "name": "Hoeger, Littel and Pfeffer", "created_at": "2018-07-09 19:07:02", "emis_cdb_practice_code": 8934, "go_live_date": "2020-06-10 12:36:43", "closed": 0, "national_code": "E17904"}]
+[
+    {
+        "id": 1,
+        "name": "Becker-Sauer",
+        "created_at": "2018-06-01 05:42:02",
+        "emis_cdb_practice_code": 1251,
+        "go_live_date": "2021-04-13",
+        "closed": 1,
+        "national_code": "E16712"
+    },
+    {
+        "id": 2,
+        "name": "Wisozk, Stracke and Mosciski",
+        "created_at": "2020-01-12 19:43:17",
+        "emis_cdb_practice_code": 3108,
+        "go_live_date": "2019-07-19",
+        "closed": 1,
+        "national_code": "E20415"
+    },
+    {
+        "id": 3,
+        "name": "Schneider-Carroll",
+        "created_at": "2018-12-18 01:12:51",
+        "emis_cdb_practice_code": 7755,
+        "go_live_date": "2019-01-28",
+        "closed": 1,
+        "national_code": "E17095"
+    },
+    {
+        "id": 4,
+        "name": "Mueller, Lockman and Stoltenberg",
+        "created_at": "2019-02-03 07:57:05",
+        "emis_cdb_practice_code": 3782,
+        "go_live_date": "2018-12-10",
+        "closed": 1,
+        "national_code": "E46147"
+    },
+    {
+        "id": 5,
+        "name": "Renner Inc",
+        "created_at": "2019-03-23 08:30:20",
+        "emis_cdb_practice_code": 7504,
+        "go_live_date": "2020-06-05",
+        "closed": 1,
+        "national_code": "E88122"
+    },
+    {
+        "id": 6,
+        "name": "Crist-Lakin",
+        "created_at": "2019-03-16 14:03:22",
+        "emis_cdb_practice_code": 2335,
+        "go_live_date": "2018-06-14",
+        "closed": 0,
+        "national_code": "E49552"
+    },
+    {
+        "id": 7,
+        "name": "Thompson and Sons",
+        "created_at": "2018-12-07 05:48:00",
+        "emis_cdb_practice_code": 5809,
+        "go_live_date": "2021-04-16",
+        "closed": 1,
+        "national_code": "E92140"
+    },
+    {
+        "id": 8,
+        "name": "Mills Inc",
+        "created_at": "2019-07-01 11:38:37",
+        "emis_cdb_practice_code": 1383,
+        "go_live_date": "2021-05-24",
+        "closed": 1,
+        "national_code": "E57039"
+    },
+    {
+        "id": 9,
+        "name": "Jacobi-Hand",
+        "created_at": "2018-09-22 16:36:40",
+        "emis_cdb_practice_code": 3002,
+        "go_live_date": "2019-07-10",
+        "closed": 0,
+        "national_code": "E95851"
+    },
+    {
+        "id": 10,
+        "name": "Cronin Inc",
+        "created_at": "2018-11-18 00:36:04",
+        "emis_cdb_practice_code": 5209,
+        "go_live_date": "2020-09-07",
+        "closed": 0,
+        "national_code": "E35759"
+    },
+    {
+        "id": 11,
+        "name": "Torphy Inc",
+        "created_at": "2018-12-19 21:06:53",
+        "emis_cdb_practice_code": 4151,
+        "go_live_date": "2021-05-15",
+        "closed": 1,
+        "national_code": "E42981"
+    },
+    {
+        "id": 12,
+        "name": "Brown-Bashirian",
+        "created_at": "2019-04-19 10:04:52",
+        "emis_cdb_practice_code": 4801,
+        "go_live_date": "2020-05-21",
+        "closed": 1,
+        "national_code": "E62344"
+    },
+    {
+        "id": 13,
+        "name": "Johns LLC",
+        "created_at": "2018-02-03 19:47:00",
+        "emis_cdb_practice_code": 3530,
+        "go_live_date": "2019-04-04",
+        "closed": 0,
+        "national_code": "E22888"
+    },
+    {
+        "id": 14,
+        "name": "Hammes, Connelly and Mayer",
+        "created_at": "2019-04-05 07:43:09",
+        "emis_cdb_practice_code": 5340,
+        "go_live_date": "2018-12-13",
+        "closed": 1,
+        "national_code": "E67390"
+    },
+    {
+        "id": 15,
+        "name": "Breitenberg and Sons",
+        "created_at": "2018-03-23 22:39:21",
+        "emis_cdb_practice_code": 5915,
+        "go_live_date": "2020-12-26",
+        "closed": 0,
+        "national_code": "E65333"
+    },
+    {
+        "id": 16,
+        "name": "Gaylord and Sons",
+        "created_at": "2018-03-18 17:54:39",
+        "emis_cdb_practice_code": 2816,
+        "go_live_date": "2019-07-02",
+        "closed": 0,
+        "national_code": "E37211"
+    },
+    {
+        "id": 17,
+        "name": "Dietrich-Wilkinson",
+        "created_at": "2019-05-02 22:52:27",
+        "emis_cdb_practice_code": 7681,
+        "go_live_date": "2020-06-14",
+        "closed": 1,
+        "national_code": "E27889"
+    },
+    {
+        "id": 18,
+        "name": "Bogisich Group",
+        "created_at": "2018-12-01 06:55:41",
+        "emis_cdb_practice_code": 1375,
+        "go_live_date": "2020-02-28",
+        "closed": 0,
+        "national_code": "E61915"
+    },
+    {
+        "id": 19,
+        "name": "Hagenes, Nienow and Ferry",
+        "created_at": "2018-05-15 00:33:24",
+        "emis_cdb_practice_code": 1817,
+        "go_live_date": "2018-10-07",
+        "closed": 0,
+        "national_code": "E10447"
+    },
+    {
+        "id": 20,
+        "name": "Witting-D'Amore",
+        "created_at": "2018-04-13 06:45:37",
+        "emis_cdb_practice_code": 1167,
+        "go_live_date": "2021-03-27",
+        "closed": 1,
+        "national_code": "E43273"
+    },
+    {
+        "id": 21,
+        "name": "Raynor, Ankunding and Corkery",
+        "created_at": "2020-01-26 08:39:05",
+        "emis_cdb_practice_code": 8234,
+        "go_live_date": "2020-08-26",
+        "closed": 1,
+        "national_code": "E52858"
+    },
+    {
+        "id": 22,
+        "name": "Collier, Muller and Veum",
+        "created_at": "2018-05-02 09:48:52",
+        "emis_cdb_practice_code": 1169,
+        "go_live_date": "2020-08-03",
+        "closed": 0,
+        "national_code": "E21730"
+    },
+    {
+        "id": 23,
+        "name": "Nolan-Simonis",
+        "created_at": "2019-08-31 02:50:55",
+        "emis_cdb_practice_code": 5478,
+        "go_live_date": "2018-05-30",
+        "closed": 1,
+        "national_code": "E72085"
+    },
+    {
+        "id": 24,
+        "name": "Ratke-Moen",
+        "created_at": "2018-06-24 09:06:26",
+        "emis_cdb_practice_code": 5389,
+        "go_live_date": "2019-02-24",
+        "closed": 0,
+        "national_code": "E56152"
+    },
+    {
+        "id": 25,
+        "name": "Weimann, Wolff and Gorczany",
+        "created_at": "2020-03-25 19:23:22",
+        "emis_cdb_practice_code": 674,
+        "go_live_date": "2019-12-03",
+        "closed": 0,
+        "national_code": "E13589"
+    },
+    {
+        "id": 26,
+        "name": "Schamberger LLC",
+        "created_at": "2019-07-11 07:43:47",
+        "emis_cdb_practice_code": 651,
+        "go_live_date": "2019-09-30",
+        "closed": 0,
+        "national_code": "E98491"
+    },
+    {
+        "id": 27,
+        "name": "Beer Inc",
+        "created_at": "2018-04-02 04:44:11",
+        "emis_cdb_practice_code": 4714,
+        "go_live_date": "2018-06-24",
+        "closed": 0,
+        "national_code": "E99265"
+    },
+    {
+        "id": 28,
+        "name": "Bradtke-Beer",
+        "created_at": "2019-10-03 13:19:11",
+        "emis_cdb_practice_code": 5785,
+        "go_live_date": "2019-06-22",
+        "closed": 1,
+        "national_code": "E26953"
+    },
+    {
+        "id": 29,
+        "name": "Corkery LLC",
+        "created_at": "2019-08-26 08:26:29",
+        "emis_cdb_practice_code": 3542,
+        "go_live_date": "2018-11-27",
+        "closed": 0,
+        "national_code": "E38356"
+    },
+    {
+        "id": 30,
+        "name": "Bergnaum, Wiegand and Walker",
+        "created_at": "2020-02-26 06:55:24",
+        "emis_cdb_practice_code": 1187,
+        "go_live_date": "2019-03-29",
+        "closed": 0,
+        "national_code": "E61130"
+    },
+    {
+        "id": 31,
+        "name": "Leannon, Legros and Stanton",
+        "created_at": "2019-09-19 21:29:43",
+        "emis_cdb_practice_code": 1928,
+        "go_live_date": "2018-08-28",
+        "closed": 0,
+        "national_code": "E88980"
+    },
+    {
+        "id": 32,
+        "name": "Pfeffer-Lakin",
+        "created_at": "2019-09-07 04:14:42",
+        "emis_cdb_practice_code": 7119,
+        "go_live_date": "2019-07-30",
+        "closed": 0,
+        "national_code": "E16243"
+    },
+    {
+        "id": 33,
+        "name": "Schultz LLC",
+        "created_at": "2019-10-08 22:09:07",
+        "emis_cdb_practice_code": 3931,
+        "go_live_date": "2020-12-01",
+        "closed": 0,
+        "national_code": "E84295"
+    },
+    {
+        "id": 34,
+        "name": "Balistreri and Sons",
+        "created_at": "2018-01-20 14:47:45",
+        "emis_cdb_practice_code": 7455,
+        "go_live_date": "2018-10-15",
+        "closed": 0,
+        "national_code": "E69927"
+    },
+    {
+        "id": 35,
+        "name": "Funk-Miller",
+        "created_at": "2019-09-11 01:03:53",
+        "emis_cdb_practice_code": 8188,
+        "go_live_date": "2019-02-23",
+        "closed": 1,
+        "national_code": "E78624"
+    },
+    {
+        "id": 36,
+        "name": "Leuschke Inc",
+        "created_at": "2019-06-26 11:01:27",
+        "emis_cdb_practice_code": 1256,
+        "go_live_date": "2019-12-10",
+        "closed": 0,
+        "national_code": "E94070"
+    },
+    {
+        "id": 37,
+        "name": "Ward, Hane and Kohler",
+        "created_at": "2018-08-19 01:13:09",
+        "emis_cdb_practice_code": 4300,
+        "go_live_date": "2020-08-23",
+        "closed": 1,
+        "national_code": "E77562"
+    },
+    {
+        "id": 38,
+        "name": "Dietrich-Rolfson",
+        "created_at": "2018-07-30 11:12:10",
+        "emis_cdb_practice_code": 6403,
+        "go_live_date": "2018-08-01",
+        "closed": 0,
+        "national_code": "E34490"
+    },
+    {
+        "id": 39,
+        "name": "Mosciski and Sons",
+        "created_at": "2018-03-08 02:35:35",
+        "emis_cdb_practice_code": 6427,
+        "go_live_date": "2018-10-17",
+        "closed": 1,
+        "national_code": "E67884"
+    },
+    {
+        "id": 40,
+        "name": "Kohler-Price",
+        "created_at": "2020-04-03 08:03:35",
+        "emis_cdb_practice_code": 7813,
+        "go_live_date": "2021-04-06",
+        "closed": 1,
+        "national_code": "E56366"
+    },
+    {
+        "id": 41,
+        "name": "Gutmann-Lebsack",
+        "created_at": "2019-07-11 22:47:23",
+        "emis_cdb_practice_code": 9352,
+        "go_live_date": "2018-08-11",
+        "closed": 1,
+        "national_code": "E97481"
+    },
+    {
+        "id": 42,
+        "name": "Senger-Leuschke",
+        "created_at": "2018-10-11 18:49:44",
+        "emis_cdb_practice_code": 9613,
+        "go_live_date": "2019-08-01",
+        "closed": 1,
+        "national_code": "E41364"
+    },
+    {
+        "id": 43,
+        "name": "Medhurst-Murazik",
+        "created_at": "2019-08-18 20:32:14",
+        "emis_cdb_practice_code": 9242,
+        "go_live_date": "2021-03-30",
+        "closed": 1,
+        "national_code": "E55962"
+    },
+    {
+        "id": 44,
+        "name": "Harvey-Jacobs",
+        "created_at": "2020-02-21 18:25:08",
+        "emis_cdb_practice_code": 964,
+        "go_live_date": "2020-12-22",
+        "closed": 1,
+        "national_code": "E12214"
+    },
+    {
+        "id": 45,
+        "name": "Kulas Group",
+        "created_at": "2020-01-05 22:08:46",
+        "emis_cdb_practice_code": 8695,
+        "go_live_date": "2021-05-14",
+        "closed": 0,
+        "national_code": "E61755"
+    },
+    {
+        "id": 46,
+        "name": "Kessler LLC",
+        "created_at": "2019-08-07 17:19:25",
+        "emis_cdb_practice_code": 7063,
+        "go_live_date": "2020-09-05",
+        "closed": 1,
+        "national_code": "E47042"
+    },
+    {
+        "id": 47,
+        "name": "Blanda, Williamson and Schmidt",
+        "created_at": "2018-07-24 02:33:38",
+        "emis_cdb_practice_code": 4313,
+        "go_live_date": "2018-08-04",
+        "closed": 0,
+        "national_code": "E96232"
+    },
+    {
+        "id": 48,
+        "name": "Osinski, Predovic and Paucek",
+        "created_at": "2018-08-15 20:49:56",
+        "emis_cdb_practice_code": 2112,
+        "go_live_date": "2019-07-17",
+        "closed": 0,
+        "national_code": "E74135"
+    },
+    {
+        "id": 49,
+        "name": "White-Bode",
+        "created_at": "2019-07-03 09:11:50",
+        "emis_cdb_practice_code": 9110,
+        "go_live_date": "2021-05-16",
+        "closed": 1,
+        "national_code": "E13567"
+    },
+    {
+        "id": 50,
+        "name": "Medhurst, Runolfsdottir and Fay",
+        "created_at": "2018-10-02 15:19:07",
+        "emis_cdb_practice_code": 5103,
+        "go_live_date": "2020-01-12",
+        "closed": 1,
+        "national_code": "E87634"
+    },
+    {
+        "id": 51,
+        "name": "Effertz, Walter and Pfannerstill",
+        "created_at": "2019-10-13 12:01:55",
+        "emis_cdb_practice_code": 1141,
+        "go_live_date": "2018-05-23",
+        "closed": 0,
+        "national_code": "E18787"
+    },
+    {
+        "id": 52,
+        "name": "Bode-Baumbach",
+        "created_at": "2018-08-07 11:20:41",
+        "emis_cdb_practice_code": 8939,
+        "go_live_date": "2020-08-08",
+        "closed": 1,
+        "national_code": "E20843"
+    },
+    {
+        "id": 53,
+        "name": "Gulgowski-Marquardt",
+        "created_at": "2019-12-03 10:58:17",
+        "emis_cdb_practice_code": 7358,
+        "go_live_date": "2019-10-07",
+        "closed": 1,
+        "national_code": "E22864"
+    },
+    {
+        "id": 54,
+        "name": "Koch-Fay",
+        "created_at": "2019-08-19 19:01:39",
+        "emis_cdb_practice_code": 1398,
+        "go_live_date": "2018-10-26",
+        "closed": 1,
+        "national_code": "E51925"
+    },
+    {
+        "id": 55,
+        "name": "Koss and Sons",
+        "created_at": "2018-03-27 01:10:43",
+        "emis_cdb_practice_code": 8508,
+        "go_live_date": "2019-09-16",
+        "closed": 1,
+        "national_code": "E49970"
+    },
+    {
+        "id": 56,
+        "name": "Powlowski, Gislason and Gottlieb",
+        "created_at": "2019-08-11 13:35:40",
+        "emis_cdb_practice_code": 8022,
+        "go_live_date": "2020-03-21",
+        "closed": 1,
+        "national_code": "E82707"
+    },
+    {
+        "id": 57,
+        "name": "Bergstrom Inc",
+        "created_at": "2019-09-20 21:28:53",
+        "emis_cdb_practice_code": 466,
+        "go_live_date": "2020-04-02",
+        "closed": 0,
+        "national_code": "E79004"
+    },
+    {
+        "id": 58,
+        "name": "Bergnaum-Paucek",
+        "created_at": "2018-06-09 00:40:28",
+        "emis_cdb_practice_code": 9977,
+        "go_live_date": "2018-09-04",
+        "closed": 1,
+        "national_code": "E98313"
+    },
+    {
+        "id": 59,
+        "name": "Kunde-Ullrich",
+        "created_at": "2019-03-18 03:21:57",
+        "emis_cdb_practice_code": 8528,
+        "go_live_date": "2019-07-22",
+        "closed": 0,
+        "national_code": "E59144"
+    },
+    {
+        "id": 60,
+        "name": "Simonis-Kuhn",
+        "created_at": "2019-09-05 23:20:24",
+        "emis_cdb_practice_code": 4325,
+        "go_live_date": "2020-06-09",
+        "closed": 0,
+        "national_code": "E73940"
+    },
+    {
+        "id": 61,
+        "name": "Reynolds-Rosenbaum",
+        "created_at": "2020-01-16 18:53:23",
+        "emis_cdb_practice_code": 8351,
+        "go_live_date": "2018-10-18",
+        "closed": 0,
+        "national_code": "E98994"
+    },
+    {
+        "id": 62,
+        "name": "Smith Inc",
+        "created_at": "2019-12-27 21:14:58",
+        "emis_cdb_practice_code": 7792,
+        "go_live_date": "2019-01-09",
+        "closed": 0,
+        "national_code": "E32390"
+    },
+    {
+        "id": 63,
+        "name": "Gottlieb-Sawayn",
+        "created_at": "2018-07-01 14:46:49",
+        "emis_cdb_practice_code": 3604,
+        "go_live_date": "2020-06-15",
+        "closed": 1,
+        "national_code": "E49231"
+    },
+    {
+        "id": 64,
+        "name": "Anderson, Walker and Crist",
+        "created_at": "2019-01-18 12:13:23",
+        "emis_cdb_practice_code": 6579,
+        "go_live_date": "2019-10-05",
+        "closed": 0,
+        "national_code": "E42173"
+    },
+    {
+        "id": 65,
+        "name": "Wilkinson Inc",
+        "created_at": "2018-10-24 16:19:32",
+        "emis_cdb_practice_code": 3180,
+        "go_live_date": "2020-12-06",
+        "closed": 0,
+        "national_code": "E52237"
+    },
+    {
+        "id": 66,
+        "name": "Hahn-Pouros",
+        "created_at": "2018-09-22 02:02:49",
+        "emis_cdb_practice_code": 537,
+        "go_live_date": "2018-12-12",
+        "closed": 0,
+        "national_code": "E13084"
+    },
+    {
+        "id": 67,
+        "name": "Abernathy-Terry",
+        "created_at": "2020-04-29 04:55:43",
+        "emis_cdb_practice_code": 9909,
+        "go_live_date": "2020-10-04",
+        "closed": 1,
+        "national_code": "E50535"
+    },
+    {
+        "id": 68,
+        "name": "Buckridge-Runte",
+        "created_at": "2020-02-05 20:44:48",
+        "emis_cdb_practice_code": 2167,
+        "go_live_date": "2018-10-26",
+        "closed": 0,
+        "national_code": "E87092"
+    },
+    {
+        "id": 69,
+        "name": "Parisian and Sons",
+        "created_at": "2019-01-30 04:25:20",
+        "emis_cdb_practice_code": 4627,
+        "go_live_date": "2019-09-11",
+        "closed": 1,
+        "national_code": "E18196"
+    },
+    {
+        "id": 70,
+        "name": "Moen-Stark",
+        "created_at": "2019-09-21 00:00:49",
+        "emis_cdb_practice_code": 7384,
+        "go_live_date": "2019-06-17",
+        "closed": 0,
+        "national_code": "E80692"
+    },
+    {
+        "id": 71,
+        "name": "Schowalter, Zemlak and Gleichner",
+        "created_at": "2019-01-01 01:39:07",
+        "emis_cdb_practice_code": 5182,
+        "go_live_date": "2019-05-02",
+        "closed": 1,
+        "national_code": "E47575"
+    },
+    {
+        "id": 72,
+        "name": "Runolfsson, Kassulke and Beatty",
+        "created_at": "2018-09-28 10:27:23",
+        "emis_cdb_practice_code": 5711,
+        "go_live_date": "2019-12-10",
+        "closed": 0,
+        "national_code": "E95766"
+    },
+    {
+        "id": 73,
+        "name": "Cartwright, Bradtke and Schmitt",
+        "created_at": "2019-04-22 07:38:54",
+        "emis_cdb_practice_code": 7603,
+        "go_live_date": "2021-03-18",
+        "closed": 0,
+        "national_code": "E36639"
+    },
+    {
+        "id": 74,
+        "name": "Labadie-Morissette",
+        "created_at": "2019-06-24 02:54:17",
+        "emis_cdb_practice_code": 1857,
+        "go_live_date": "2021-05-14",
+        "closed": 0,
+        "national_code": "E63640"
+    },
+    {
+        "id": 75,
+        "name": "Stehr, Mayer and Hirthe",
+        "created_at": "2020-05-11 12:39:59",
+        "emis_cdb_practice_code": 9605,
+        "go_live_date": "2020-08-06",
+        "closed": 1,
+        "national_code": "E98935"
+    },
+    {
+        "id": 76,
+        "name": "Mertz, Shields and Reichel",
+        "created_at": "2020-05-12 08:57:54",
+        "emis_cdb_practice_code": 8612,
+        "go_live_date": "2019-08-05",
+        "closed": 1,
+        "national_code": "E76956"
+    },
+    {
+        "id": 77,
+        "name": "Schamberger, Parker and Johns",
+        "created_at": "2019-08-16 14:32:56",
+        "emis_cdb_practice_code": 4385,
+        "go_live_date": "2019-10-30",
+        "closed": 0,
+        "national_code": "E32257"
+    },
+    {
+        "id": 78,
+        "name": "Lockman Group",
+        "created_at": "2019-01-29 12:26:36",
+        "emis_cdb_practice_code": 8984,
+        "go_live_date": "2020-10-16",
+        "closed": 0,
+        "national_code": "E33421"
+    },
+    {
+        "id": 79,
+        "name": "Marquardt-Zboncak",
+        "created_at": "2020-01-20 07:18:41",
+        "emis_cdb_practice_code": 1844,
+        "go_live_date": "2019-05-16",
+        "closed": 1,
+        "national_code": "E21292"
+    },
+    {
+        "id": 80,
+        "name": "Watsica, Schumm and Gorczany",
+        "created_at": "2020-02-28 10:25:19",
+        "emis_cdb_practice_code": 1430,
+        "go_live_date": "2021-05-31",
+        "closed": 0,
+        "national_code": "E33389"
+    },
+    {
+        "id": 81,
+        "name": "Bins, Abshire and McLaughlin",
+        "created_at": "2019-04-02 13:01:51",
+        "emis_cdb_practice_code": 9027,
+        "go_live_date": "2020-08-20",
+        "closed": 0,
+        "national_code": "E86950"
+    },
+    {
+        "id": 82,
+        "name": "Kihn Group",
+        "created_at": "2018-04-16 22:48:50",
+        "emis_cdb_practice_code": 7643,
+        "go_live_date": "2020-05-08",
+        "closed": 0,
+        "national_code": "E53657"
+    },
+    {
+        "id": 83,
+        "name": "Haley-Jones",
+        "created_at": "2019-08-31 16:36:55",
+        "emis_cdb_practice_code": 195,
+        "go_live_date": "2019-02-11",
+        "closed": 1,
+        "national_code": "E14469"
+    },
+    {
+        "id": 84,
+        "name": "Lang and Sons",
+        "created_at": "2018-11-14 03:09:23",
+        "emis_cdb_practice_code": 6913,
+        "go_live_date": "2018-07-20",
+        "closed": 1,
+        "national_code": "E18554"
+    },
+    {
+        "id": 85,
+        "name": "Reynolds and Sons",
+        "created_at": "2019-03-01 03:25:50",
+        "emis_cdb_practice_code": 7964,
+        "go_live_date": "2019-12-11",
+        "closed": 0,
+        "national_code": "E53047"
+    },
+    {
+        "id": 86,
+        "name": "Braun Group",
+        "created_at": "2019-09-17 12:45:49",
+        "emis_cdb_practice_code": 1012,
+        "go_live_date": "2020-02-01",
+        "closed": 1,
+        "national_code": "E79987"
+    },
+    {
+        "id": 87,
+        "name": "Baumbach Inc",
+        "created_at": "2020-05-09 09:39:56",
+        "emis_cdb_practice_code": 9341,
+        "go_live_date": "2020-05-19",
+        "closed": 1,
+        "national_code": "E39041"
+    },
+    {
+        "id": 88,
+        "name": "Lehner-Leannon",
+        "created_at": "2018-08-31 22:15:12",
+        "emis_cdb_practice_code": 1050,
+        "go_live_date": "2018-06-24",
+        "closed": 1,
+        "national_code": "E92376"
+    },
+    {
+        "id": 89,
+        "name": "Wisoky-Abernathy",
+        "created_at": "2018-11-30 13:17:55",
+        "emis_cdb_practice_code": 2164,
+        "go_live_date": "2021-04-27",
+        "closed": 0,
+        "national_code": "E97812"
+    },
+    {
+        "id": 90,
+        "name": "Murray, McDermott and Wunsch",
+        "created_at": "2018-02-19 22:25:19",
+        "emis_cdb_practice_code": 8285,
+        "go_live_date": "2020-01-19",
+        "closed": 0,
+        "national_code": "E44403"
+    },
+    {
+        "id": 91,
+        "name": "Romaguera Inc",
+        "created_at": "2018-03-14 00:03:09",
+        "emis_cdb_practice_code": 4040,
+        "go_live_date": "2019-07-20",
+        "closed": 1,
+        "national_code": "E46912"
+    },
+    {
+        "id": 92,
+        "name": "Cummings-Baumbach",
+        "created_at": "2019-11-01 06:06:23",
+        "emis_cdb_practice_code": 1762,
+        "go_live_date": "2018-08-07",
+        "closed": 0,
+        "national_code": "E77350"
+    },
+    {
+        "id": 93,
+        "name": "Batz, Hessel and Wuckert",
+        "created_at": "2019-10-28 09:05:03",
+        "emis_cdb_practice_code": 157,
+        "go_live_date": "2018-10-16",
+        "closed": 1,
+        "national_code": "E57426"
+    },
+    {
+        "id": 94,
+        "name": "Kessler, Hamill and Johnston",
+        "created_at": "2018-11-05 21:35:25",
+        "emis_cdb_practice_code": 3101,
+        "go_live_date": "2018-10-14",
+        "closed": 0,
+        "national_code": "E64720"
+    },
+    {
+        "id": 95,
+        "name": "Thiel-McCullough",
+        "created_at": "2018-09-04 06:40:22",
+        "emis_cdb_practice_code": 6602,
+        "go_live_date": "2021-03-08",
+        "closed": 1,
+        "national_code": "E48747"
+    },
+    {
+        "id": 96,
+        "name": "Russel, Jones and Hegmann",
+        "created_at": "2018-10-22 17:47:26",
+        "emis_cdb_practice_code": 3683,
+        "go_live_date": "2019-04-12",
+        "closed": 0,
+        "national_code": "E15891"
+    },
+    {
+        "id": 97,
+        "name": "Runolfsdottir-Lockman",
+        "created_at": "2018-05-12 16:15:08",
+        "emis_cdb_practice_code": 641,
+        "go_live_date": "2019-01-05",
+        "closed": 0,
+        "national_code": "E57688"
+    },
+    {
+        "id": 98,
+        "name": "Gaylord-Paucek",
+        "created_at": "2020-01-03 12:02:31",
+        "emis_cdb_practice_code": 8648,
+        "go_live_date": "2019-02-28",
+        "closed": 1,
+        "national_code": "E79030"
+    },
+    {
+        "id": 99,
+        "name": "West-Johnson",
+        "created_at": "2019-03-30 08:01:34",
+        "emis_cdb_practice_code": 6682,
+        "go_live_date": "2019-01-12",
+        "closed": 0,
+        "national_code": "E91157"
+    },
+    {
+        "id": 100,
+        "name": "McLaughlin LLC",
+        "created_at": "2020-05-15 20:33:04",
+        "emis_cdb_practice_code": 1271,
+        "go_live_date": "2021-06-07",
+        "closed": 1,
+        "national_code": "E92628"
+    },
+    {
+        "id": 101,
+        "name": "Hettinger, Braun and Towne",
+        "created_at": "2020-04-23 09:29:59",
+        "emis_cdb_practice_code": 9351,
+        "go_live_date": "2019-06-13",
+        "closed": 1,
+        "national_code": "E26543"
+    },
+    {
+        "id": 102,
+        "name": "Keeling-Sawayn",
+        "created_at": "2019-08-09 06:55:10",
+        "emis_cdb_practice_code": 6852,
+        "go_live_date": "2018-12-10",
+        "closed": 1,
+        "national_code": "E89182"
+    },
+    {
+        "id": 103,
+        "name": "Shields-Kemmer",
+        "created_at": "2018-09-22 16:39:34",
+        "emis_cdb_practice_code": 1703,
+        "go_live_date": "2018-12-06",
+        "closed": 0,
+        "national_code": "E31337"
+    },
+    {
+        "id": 104,
+        "name": "Reichert Inc",
+        "created_at": "2020-01-06 04:56:11",
+        "emis_cdb_practice_code": 4181,
+        "go_live_date": "2019-10-26",
+        "closed": 0,
+        "national_code": "E68100"
+    },
+    {
+        "id": 105,
+        "name": "Schaden, Shields and MacGyver",
+        "created_at": "2020-06-18 21:41:09",
+        "emis_cdb_practice_code": 2305,
+        "go_live_date": "2020-10-10",
+        "closed": 1,
+        "national_code": "E33853"
+    },
+    {
+        "id": 106,
+        "name": "Lubowitz, Christiansen and Ledner",
+        "created_at": "2019-04-16 10:27:17",
+        "emis_cdb_practice_code": 621,
+        "go_live_date": "2020-03-24",
+        "closed": 1,
+        "national_code": "E32474"
+    },
+    {
+        "id": 107,
+        "name": "West-Kuhn",
+        "created_at": "2018-05-01 11:44:16",
+        "emis_cdb_practice_code": 6057,
+        "go_live_date": "2020-12-20",
+        "closed": 0,
+        "national_code": "E13655"
+    },
+    {
+        "id": 108,
+        "name": "Zboncak, Goodwin and Emard",
+        "created_at": "2019-03-01 03:33:57",
+        "emis_cdb_practice_code": 2560,
+        "go_live_date": "2020-07-05",
+        "closed": 1,
+        "national_code": "E88369"
+    },
+    {
+        "id": 109,
+        "name": "Kessler, Ritchie and Johns",
+        "created_at": "2019-01-19 22:15:36",
+        "emis_cdb_practice_code": 6836,
+        "go_live_date": "2020-10-22",
+        "closed": 0,
+        "national_code": "E18196"
+    },
+    {
+        "id": 110,
+        "name": "Carter-Abernathy",
+        "created_at": "2019-03-18 02:43:31",
+        "emis_cdb_practice_code": 4731,
+        "go_live_date": "2020-09-08",
+        "closed": 1,
+        "national_code": "E41313"
+    },
+    {
+        "id": 111,
+        "name": "Durgan-Kuhic",
+        "created_at": "2019-03-27 02:41:39",
+        "emis_cdb_practice_code": 7562,
+        "go_live_date": "2020-02-14",
+        "closed": 1,
+        "national_code": "E65763"
+    },
+    {
+        "id": 112,
+        "name": "Donnelly, Larson and Schmeler",
+        "created_at": "2019-09-28 01:49:01",
+        "emis_cdb_practice_code": 7151,
+        "go_live_date": "2020-03-22",
+        "closed": 1,
+        "national_code": "E43407"
+    },
+    {
+        "id": 113,
+        "name": "Spencer-Koelpin",
+        "created_at": "2020-02-18 03:04:43",
+        "emis_cdb_practice_code": 8960,
+        "go_live_date": "2019-09-18",
+        "closed": 0,
+        "national_code": "E90723"
+    },
+    {
+        "id": 114,
+        "name": "Mills LLC",
+        "created_at": "2020-02-05 03:14:41",
+        "emis_cdb_practice_code": 1107,
+        "go_live_date": "2020-11-09",
+        "closed": 1,
+        "national_code": "E94559"
+    },
+    {
+        "id": 115,
+        "name": "Gorczany Group",
+        "created_at": "2019-12-28 18:59:16",
+        "emis_cdb_practice_code": 7782,
+        "go_live_date": "2019-09-02",
+        "closed": 1,
+        "national_code": "E40578"
+    },
+    {
+        "id": 116,
+        "name": "Corwin LLC",
+        "created_at": "2018-02-11 02:01:55",
+        "emis_cdb_practice_code": 6709,
+        "go_live_date": "2019-12-13",
+        "closed": 1,
+        "national_code": "E11295"
+    },
+    {
+        "id": 117,
+        "name": "Mosciski, Cole and Keeling",
+        "created_at": "2018-12-23 21:37:42",
+        "emis_cdb_practice_code": 6283,
+        "go_live_date": "2020-02-18",
+        "closed": 1,
+        "national_code": "E45511"
+    },
+    {
+        "id": 118,
+        "name": "Hudson and Sons",
+        "created_at": "2018-09-17 11:24:14",
+        "emis_cdb_practice_code": 8505,
+        "go_live_date": "2019-07-18",
+        "closed": 0,
+        "national_code": "E11493"
+    },
+    {
+        "id": 119,
+        "name": "Keeling-Christiansen",
+        "created_at": "2018-12-09 06:39:50",
+        "emis_cdb_practice_code": 3796,
+        "go_live_date": "2019-09-16",
+        "closed": 1,
+        "national_code": "E12992"
+    },
+    {
+        "id": 120,
+        "name": "Upton LLC",
+        "created_at": "2018-11-22 20:55:45",
+        "emis_cdb_practice_code": 8834,
+        "go_live_date": "2018-06-06",
+        "closed": 1,
+        "national_code": "E67360"
+    },
+    {
+        "id": 121,
+        "name": "Maggio, Deckow and Ryan",
+        "created_at": "2019-09-04 09:13:35",
+        "emis_cdb_practice_code": 7399,
+        "go_live_date": "2020-02-10",
+        "closed": 0,
+        "national_code": "E39147"
+    },
+    {
+        "id": 122,
+        "name": "Bode Inc",
+        "created_at": "2018-12-11 08:20:58",
+        "emis_cdb_practice_code": 364,
+        "go_live_date": "2020-03-16",
+        "closed": 1,
+        "national_code": "E85989"
+    },
+    {
+        "id": 123,
+        "name": "Weissnat and Sons",
+        "created_at": "2019-04-14 14:01:36",
+        "emis_cdb_practice_code": 5473,
+        "go_live_date": "2018-06-30",
+        "closed": 1,
+        "national_code": "E33843"
+    },
+    {
+        "id": 124,
+        "name": "Crooks, Koch and Bogan",
+        "created_at": "2018-02-13 12:00:36",
+        "emis_cdb_practice_code": 3390,
+        "go_live_date": "2018-09-04",
+        "closed": 1,
+        "national_code": "E17928"
+    },
+    {
+        "id": 125,
+        "name": "Bailey, Gerlach and O'Hara",
+        "created_at": "2020-01-15 16:20:36",
+        "emis_cdb_practice_code": 2492,
+        "go_live_date": "2018-12-01",
+        "closed": 1,
+        "national_code": "E71262"
+    },
+    {
+        "id": 126,
+        "name": "Gleason, Turner and O'Connell",
+        "created_at": "2018-09-01 20:40:29",
+        "emis_cdb_practice_code": 8403,
+        "go_live_date": "2018-12-20",
+        "closed": 1,
+        "national_code": "E62099"
+    },
+    {
+        "id": 127,
+        "name": "Mayert, Jacobs and Hoeger",
+        "created_at": "2020-02-27 01:06:44",
+        "emis_cdb_practice_code": 4266,
+        "go_live_date": "2020-07-09",
+        "closed": 1,
+        "national_code": "E21094"
+    },
+    {
+        "id": 128,
+        "name": "Weber LLC",
+        "created_at": "2019-03-19 02:54:45",
+        "emis_cdb_practice_code": 8,
+        "go_live_date": "2018-09-28",
+        "closed": 1,
+        "national_code": "E41247"
+    },
+    {
+        "id": 129,
+        "name": "Adams Inc",
+        "created_at": "2020-04-01 18:14:32",
+        "emis_cdb_practice_code": 5388,
+        "go_live_date": "2021-03-21",
+        "closed": 0,
+        "national_code": "E10408"
+    },
+    {
+        "id": 130,
+        "name": "Borer, Donnelly and Stokes",
+        "created_at": "2020-03-16 12:09:40",
+        "emis_cdb_practice_code": 4694,
+        "go_live_date": "2019-05-16",
+        "closed": 1,
+        "national_code": "E55310"
+    },
+    {
+        "id": 131,
+        "name": "Wisoky-Feeney",
+        "created_at": "2018-12-25 02:00:12",
+        "emis_cdb_practice_code": 9963,
+        "go_live_date": "2021-01-04",
+        "closed": 0,
+        "national_code": "E44651"
+    },
+    {
+        "id": 132,
+        "name": "Thiel-Hoppe",
+        "created_at": "2018-06-03 23:12:57",
+        "emis_cdb_practice_code": 1583,
+        "go_live_date": "2019-03-30",
+        "closed": 0,
+        "national_code": "E86534"
+    },
+    {
+        "id": 133,
+        "name": "Hamill Inc",
+        "created_at": "2019-05-20 10:38:16",
+        "emis_cdb_practice_code": 5933,
+        "go_live_date": "2019-04-30",
+        "closed": 0,
+        "national_code": "E18268"
+    },
+    {
+        "id": 134,
+        "name": "Lesch and Sons",
+        "created_at": "2019-12-28 22:44:32",
+        "emis_cdb_practice_code": 7981,
+        "go_live_date": "2020-06-05",
+        "closed": 0,
+        "national_code": "E17552"
+    },
+    {
+        "id": 135,
+        "name": "Crona-Thiel",
+        "created_at": "2020-06-01 19:00:57",
+        "emis_cdb_practice_code": 87,
+        "go_live_date": "2020-06-02",
+        "closed": 0,
+        "national_code": "E76541"
+    },
+    {
+        "id": 136,
+        "name": "Schuster Inc",
+        "created_at": "2020-01-06 04:20:51",
+        "emis_cdb_practice_code": 9892,
+        "go_live_date": "2018-08-10",
+        "closed": 1,
+        "national_code": "E30386"
+    },
+    {
+        "id": 137,
+        "name": "Stoltenberg Group",
+        "created_at": "2018-11-18 03:04:44",
+        "emis_cdb_practice_code": 4486,
+        "go_live_date": "2020-09-12",
+        "closed": 0,
+        "national_code": "E24495"
+    },
+    {
+        "id": 138,
+        "name": "Adams, Breitenberg and O'Keefe",
+        "created_at": "2019-01-30 17:59:17",
+        "emis_cdb_practice_code": 8121,
+        "go_live_date": "2020-09-19",
+        "closed": 1,
+        "national_code": "E83916"
+    },
+    {
+        "id": 139,
+        "name": "Reynolds Group",
+        "created_at": "2018-01-23 23:54:13",
+        "emis_cdb_practice_code": 5318,
+        "go_live_date": "2020-08-02",
+        "closed": 0,
+        "national_code": "E98767"
+    },
+    {
+        "id": 140,
+        "name": "Torp and Sons",
+        "created_at": "2019-05-27 07:07:21",
+        "emis_cdb_practice_code": 3680,
+        "go_live_date": "2019-02-26",
+        "closed": 1,
+        "national_code": "E95086"
+    },
+    {
+        "id": 141,
+        "name": "Block and Sons",
+        "created_at": "2020-02-15 09:57:01",
+        "emis_cdb_practice_code": 8366,
+        "go_live_date": "2020-10-12",
+        "closed": 0,
+        "national_code": "E31921"
+    },
+    {
+        "id": 142,
+        "name": "Renner LLC",
+        "created_at": "2020-01-29 21:34:08",
+        "emis_cdb_practice_code": 399,
+        "go_live_date": "2021-03-30",
+        "closed": 0,
+        "national_code": "E55218"
+    },
+    {
+        "id": 143,
+        "name": "Crist Inc",
+        "created_at": "2018-08-31 21:46:47",
+        "emis_cdb_practice_code": 112,
+        "go_live_date": "2019-11-18",
+        "closed": 0,
+        "national_code": "E88161"
+    },
+    {
+        "id": 144,
+        "name": "Robel-Daniel",
+        "created_at": "2020-04-10 12:00:43",
+        "emis_cdb_practice_code": 5180,
+        "go_live_date": "2019-11-03",
+        "closed": 1,
+        "national_code": "E58385"
+    },
+    {
+        "id": 145,
+        "name": "Stehr Inc",
+        "created_at": "2019-09-28 02:38:02",
+        "emis_cdb_practice_code": 6184,
+        "go_live_date": "2019-11-30",
+        "closed": 0,
+        "national_code": "E45379"
+    },
+    {
+        "id": 146,
+        "name": "Brekke-Boehm",
+        "created_at": "2019-06-11 23:30:13",
+        "emis_cdb_practice_code": 6705,
+        "go_live_date": "2020-11-20",
+        "closed": 1,
+        "national_code": "E60928"
+    },
+    {
+        "id": 147,
+        "name": "Willms, Mayert and Labadie",
+        "created_at": "2020-02-22 19:59:51",
+        "emis_cdb_practice_code": 4050,
+        "go_live_date": "2021-04-26",
+        "closed": 0,
+        "national_code": "E80491"
+    },
+    {
+        "id": 148,
+        "name": "Upton, Renner and Hahn",
+        "created_at": "2018-07-14 14:18:58",
+        "emis_cdb_practice_code": 3230,
+        "go_live_date": "2019-06-05",
+        "closed": 1,
+        "national_code": "E83062"
+    },
+    {
+        "id": 149,
+        "name": "Price Inc",
+        "created_at": "2019-12-30 07:48:49",
+        "emis_cdb_practice_code": 4789,
+        "go_live_date": "2021-04-04",
+        "closed": 1,
+        "national_code": "E18841"
+    },
+    {
+        "id": 150,
+        "name": "Kunze, Sporer and Gleason",
+        "created_at": "2020-05-04 07:55:06",
+        "emis_cdb_practice_code": 5210,
+        "go_live_date": "2018-09-14",
+        "closed": 1,
+        "national_code": "E21552"
+    },
+    {
+        "id": 151,
+        "name": "Thompson, Kub and Lang",
+        "created_at": "2019-05-08 22:24:58",
+        "emis_cdb_practice_code": 2765,
+        "go_live_date": "2019-08-17",
+        "closed": 1,
+        "national_code": "E94026"
+    },
+    {
+        "id": 152,
+        "name": "Veum-Farrell",
+        "created_at": "2018-04-21 11:08:05",
+        "emis_cdb_practice_code": 5023,
+        "go_live_date": "2020-10-05",
+        "closed": 0,
+        "national_code": "E20091"
+    },
+    {
+        "id": 153,
+        "name": "Shanahan-Mills",
+        "created_at": "2019-06-08 13:24:13",
+        "emis_cdb_practice_code": 178,
+        "go_live_date": "2018-06-20",
+        "closed": 0,
+        "national_code": "E88284"
+    },
+    {
+        "id": 154,
+        "name": "Pacocha, McGlynn and Zemlak",
+        "created_at": "2018-03-24 12:23:21",
+        "emis_cdb_practice_code": 2369,
+        "go_live_date": "2018-06-15",
+        "closed": 0,
+        "national_code": "E91927"
+    },
+    {
+        "id": 155,
+        "name": "Bednar-Effertz",
+        "created_at": "2019-06-29 12:11:04",
+        "emis_cdb_practice_code": 4128,
+        "go_live_date": "2020-02-03",
+        "closed": 0,
+        "national_code": "E71420"
+    },
+    {
+        "id": 156,
+        "name": "Mosciski Inc",
+        "created_at": "2018-09-20 07:20:51",
+        "emis_cdb_practice_code": 3593,
+        "go_live_date": "2019-10-05",
+        "closed": 0,
+        "national_code": "E49536"
+    },
+    {
+        "id": 157,
+        "name": "Price-Dare",
+        "created_at": "2019-03-02 12:13:53",
+        "emis_cdb_practice_code": 9132,
+        "go_live_date": "2019-12-23",
+        "closed": 0,
+        "national_code": "E37477"
+    },
+    {
+        "id": 158,
+        "name": "Simonis-Bartell",
+        "created_at": "2020-03-14 16:47:30",
+        "emis_cdb_practice_code": 4314,
+        "go_live_date": "2019-06-02",
+        "closed": 1,
+        "national_code": "E27892"
+    },
+    {
+        "id": 159,
+        "name": "Nolan, Rippin and Buckridge",
+        "created_at": "2019-07-21 10:38:03",
+        "emis_cdb_practice_code": 7251,
+        "go_live_date": "2019-07-19",
+        "closed": 1,
+        "national_code": "E52273"
+    },
+    {
+        "id": 160,
+        "name": "Spinka LLC",
+        "created_at": "2019-05-25 07:04:37",
+        "emis_cdb_practice_code": 4117,
+        "go_live_date": "2019-11-09",
+        "closed": 1,
+        "national_code": "E71019"
+    },
+    {
+        "id": 161,
+        "name": "Batz, Moore and Blick",
+        "created_at": "2018-11-22 10:39:54",
+        "emis_cdb_practice_code": 9974,
+        "go_live_date": "2019-04-06",
+        "closed": 1,
+        "national_code": "E81508"
+    },
+    {
+        "id": 162,
+        "name": "Stroman-Hirthe",
+        "created_at": "2018-05-28 21:39:46",
+        "emis_cdb_practice_code": 4268,
+        "go_live_date": "2021-05-12",
+        "closed": 1,
+        "national_code": "E89411"
+    },
+    {
+        "id": 163,
+        "name": "Bergstrom-Koelpin",
+        "created_at": "2020-04-07 04:38:54",
+        "emis_cdb_practice_code": 5775,
+        "go_live_date": "2020-09-08",
+        "closed": 0,
+        "national_code": "E94030"
+    },
+    {
+        "id": 164,
+        "name": "Zieme Group",
+        "created_at": "2019-07-26 04:45:55",
+        "emis_cdb_practice_code": 7508,
+        "go_live_date": "2018-10-15",
+        "closed": 0,
+        "national_code": "E19007"
+    },
+    {
+        "id": 165,
+        "name": "Hettinger Inc",
+        "created_at": "2019-11-08 21:02:45",
+        "emis_cdb_practice_code": 7743,
+        "go_live_date": "2019-02-28",
+        "closed": 0,
+        "national_code": "E50352"
+    },
+    {
+        "id": 166,
+        "name": "Terry, Runolfsdottir and Hudson",
+        "created_at": "2019-04-29 03:18:08",
+        "emis_cdb_practice_code": 4976,
+        "go_live_date": "2019-08-16",
+        "closed": 0,
+        "national_code": "E44996"
+    },
+    {
+        "id": 167,
+        "name": "Murphy, Bergstrom and Steuber",
+        "created_at": "2020-04-28 19:04:47",
+        "emis_cdb_practice_code": 7997,
+        "go_live_date": "2019-06-26",
+        "closed": 0,
+        "national_code": "E56651"
+    },
+    {
+        "id": 168,
+        "name": "Parker-Oberbrunner",
+        "created_at": "2018-10-31 20:10:49",
+        "emis_cdb_practice_code": 6259,
+        "go_live_date": "2020-01-04",
+        "closed": 1,
+        "national_code": "E53381"
+    },
+    {
+        "id": 169,
+        "name": "Monahan-Lynch",
+        "created_at": "2019-01-16 17:06:40",
+        "emis_cdb_practice_code": 3268,
+        "go_live_date": "2018-11-18",
+        "closed": 0,
+        "national_code": "E38916"
+    },
+    {
+        "id": 170,
+        "name": "Kreiger, Kunze and O'Conner",
+        "created_at": "2019-08-05 16:32:06",
+        "emis_cdb_practice_code": 1924,
+        "go_live_date": "2018-07-12",
+        "closed": 1,
+        "national_code": "E62929"
+    },
+    {
+        "id": 171,
+        "name": "Larkin, Vandervort and Bergstrom",
+        "created_at": "2018-12-27 10:42:55",
+        "emis_cdb_practice_code": 8901,
+        "go_live_date": "2020-09-13",
+        "closed": 0,
+        "national_code": "E97026"
+    },
+    {
+        "id": 172,
+        "name": "DuBuque Group",
+        "created_at": "2018-08-03 15:47:30",
+        "emis_cdb_practice_code": 7873,
+        "go_live_date": "2020-06-04",
+        "closed": 0,
+        "national_code": "E67271"
+    },
+    {
+        "id": 173,
+        "name": "Treutel Group",
+        "created_at": "2020-01-27 11:21:18",
+        "emis_cdb_practice_code": 9799,
+        "go_live_date": "2019-03-15",
+        "closed": 1,
+        "national_code": "E24154"
+    },
+    {
+        "id": 174,
+        "name": "Kunde-Howe",
+        "created_at": "2019-11-12 17:55:10",
+        "emis_cdb_practice_code": 7942,
+        "go_live_date": "2021-05-22",
+        "closed": 1,
+        "national_code": "E65986"
+    },
+    {
+        "id": 175,
+        "name": "Daugherty, Hills and Schimmel",
+        "created_at": "2018-02-01 17:30:37",
+        "emis_cdb_practice_code": 9446,
+        "go_live_date": "2018-09-26",
+        "closed": 1,
+        "national_code": "E29522"
+    },
+    {
+        "id": 176,
+        "name": "Davis-Jones",
+        "created_at": "2018-02-21 09:16:40",
+        "emis_cdb_practice_code": 7667,
+        "go_live_date": "2021-03-19",
+        "closed": 1,
+        "national_code": "E48742"
+    },
+    {
+        "id": 177,
+        "name": "Schaden Group",
+        "created_at": "2020-05-31 03:39:14",
+        "emis_cdb_practice_code": 3275,
+        "go_live_date": "2018-12-13",
+        "closed": 0,
+        "national_code": "E24434"
+    },
+    {
+        "id": 178,
+        "name": "Labadie-Jast",
+        "created_at": "2019-03-06 17:40:30",
+        "emis_cdb_practice_code": 9667,
+        "go_live_date": "2020-10-03",
+        "closed": 1,
+        "national_code": "E88533"
+    },
+    {
+        "id": 179,
+        "name": "Eichmann-Robel",
+        "created_at": "2018-03-03 19:27:35",
+        "emis_cdb_practice_code": 6185,
+        "go_live_date": "2018-09-07",
+        "closed": 1,
+        "national_code": "E58465"
+    },
+    {
+        "id": 180,
+        "name": "Runte, Orn and Streich",
+        "created_at": "2019-07-14 15:33:55",
+        "emis_cdb_practice_code": 3682,
+        "go_live_date": "2020-12-30",
+        "closed": 1,
+        "national_code": "E12573"
+    },
+    {
+        "id": 181,
+        "name": "Harber, McKenzie and Schulist",
+        "created_at": "2019-12-05 08:21:55",
+        "emis_cdb_practice_code": 8080,
+        "go_live_date": "2019-09-27",
+        "closed": 0,
+        "national_code": "E93289"
+    },
+    {
+        "id": 182,
+        "name": "Cormier-Rippin",
+        "created_at": "2019-03-22 06:50:15",
+        "emis_cdb_practice_code": 473,
+        "go_live_date": "2018-07-16",
+        "closed": 0,
+        "national_code": "E70253"
+    },
+    {
+        "id": 183,
+        "name": "Beer-Upton",
+        "created_at": "2019-12-02 20:48:03",
+        "emis_cdb_practice_code": 5283,
+        "go_live_date": "2018-08-27",
+        "closed": 1,
+        "national_code": "E71469"
+    },
+    {
+        "id": 184,
+        "name": "Baumbach, Schowalter and White",
+        "created_at": "2018-06-15 22:29:42",
+        "emis_cdb_practice_code": 3036,
+        "go_live_date": "2021-04-01",
+        "closed": 1,
+        "national_code": "E15080"
+    },
+    {
+        "id": 185,
+        "name": "Lang Inc",
+        "created_at": "2020-01-07 02:58:54",
+        "emis_cdb_practice_code": 619,
+        "go_live_date": "2020-12-27",
+        "closed": 0,
+        "national_code": "E84567"
+    },
+    {
+        "id": 186,
+        "name": "Thiel-Batz",
+        "created_at": "2019-10-05 07:40:07",
+        "emis_cdb_practice_code": 5776,
+        "go_live_date": "2020-09-12",
+        "closed": 0,
+        "national_code": "E63649"
+    },
+    {
+        "id": 187,
+        "name": "Medhurst-Baumbach",
+        "created_at": "2019-08-31 08:19:11",
+        "emis_cdb_practice_code": 4804,
+        "go_live_date": "2021-05-22",
+        "closed": 0,
+        "national_code": "E25851"
+    },
+    {
+        "id": 188,
+        "name": "McCullough-Abernathy",
+        "created_at": "2018-12-03 23:12:17",
+        "emis_cdb_practice_code": 1463,
+        "go_live_date": "2021-01-19",
+        "closed": 1,
+        "national_code": "E29272"
+    },
+    {
+        "id": 189,
+        "name": "Runolfsdottir and Sons",
+        "created_at": "2018-12-16 09:02:53",
+        "emis_cdb_practice_code": 9051,
+        "go_live_date": "2019-06-04",
+        "closed": 0,
+        "national_code": "E65783"
+    },
+    {
+        "id": 190,
+        "name": "Huels, Konopelski and Ondricka",
+        "created_at": "2019-02-19 03:19:38",
+        "emis_cdb_practice_code": 2891,
+        "go_live_date": "2018-09-17",
+        "closed": 0,
+        "national_code": "E58003"
+    },
+    {
+        "id": 191,
+        "name": "Will-Feest",
+        "created_at": "2019-06-23 14:59:34",
+        "emis_cdb_practice_code": 4603,
+        "go_live_date": "2019-12-24",
+        "closed": 1,
+        "national_code": "E69432"
+    },
+    {
+        "id": 192,
+        "name": "O'Reilly, Kemmer and Cummings",
+        "created_at": "2020-03-23 06:11:23",
+        "emis_cdb_practice_code": 3913,
+        "go_live_date": "2019-07-16",
+        "closed": 0,
+        "national_code": "E93909"
+    },
+    {
+        "id": 193,
+        "name": "Wisoky, Kulas and Stark",
+        "created_at": "2019-06-06 05:53:20",
+        "emis_cdb_practice_code": 6025,
+        "go_live_date": "2018-09-03",
+        "closed": 0,
+        "national_code": "E20273"
+    },
+    {
+        "id": 194,
+        "name": "Sawayn-Hayes",
+        "created_at": "2018-11-18 08:53:37",
+        "emis_cdb_practice_code": 1056,
+        "go_live_date": "2021-03-17",
+        "closed": 0,
+        "national_code": "E48231"
+    },
+    {
+        "id": 195,
+        "name": "Romaguera, King and Wisozk",
+        "created_at": "2018-04-01 08:41:44",
+        "emis_cdb_practice_code": 2881,
+        "go_live_date": "2020-07-01",
+        "closed": 0,
+        "national_code": "E93727"
+    },
+    {
+        "id": 196,
+        "name": "Kub, Bartoletti and Muller",
+        "created_at": "2018-03-02 04:29:58",
+        "emis_cdb_practice_code": 4658,
+        "go_live_date": "2020-04-05",
+        "closed": 0,
+        "national_code": "E36603"
+    },
+    {
+        "id": 197,
+        "name": "Weissnat-Gutkowski",
+        "created_at": "2018-05-14 05:31:16",
+        "emis_cdb_practice_code": 2399,
+        "go_live_date": "2020-07-26",
+        "closed": 1,
+        "national_code": "E82939"
+    },
+    {
+        "id": 198,
+        "name": "Labadie, Oberbrunner and Kub",
+        "created_at": "2018-06-23 03:24:21",
+        "emis_cdb_practice_code": 5227,
+        "go_live_date": "2020-12-18",
+        "closed": 1,
+        "national_code": "E52361"
+    },
+    {
+        "id": 199,
+        "name": "MacGyver, Daugherty and Bradtke",
+        "created_at": "2019-01-02 19:13:18",
+        "emis_cdb_practice_code": 5355,
+        "go_live_date": "2020-08-08",
+        "closed": 0,
+        "national_code": "E39375"
+    },
+    {
+        "id": 200,
+        "name": "McKenzie, Gibson and Johns",
+        "created_at": "2018-12-25 09:56:28",
+        "emis_cdb_practice_code": 363,
+        "go_live_date": "2021-03-29",
+        "closed": 0,
+        "national_code": "E86243"
+    },
+    {
+        "id": 201,
+        "name": "Hodkiewicz Inc",
+        "created_at": "2020-02-19 16:39:27",
+        "emis_cdb_practice_code": 6090,
+        "go_live_date": "2019-07-13",
+        "closed": 1,
+        "national_code": "E44875"
+    },
+    {
+        "id": 202,
+        "name": "Kiehn-Beer",
+        "created_at": "2018-11-15 19:40:35",
+        "emis_cdb_practice_code": 8570,
+        "go_live_date": "2021-01-25",
+        "closed": 0,
+        "national_code": "E53288"
+    },
+    {
+        "id": 203,
+        "name": "Gaylord-Nikolaus",
+        "created_at": "2020-01-12 21:27:34",
+        "emis_cdb_practice_code": 6388,
+        "go_live_date": "2018-12-24",
+        "closed": 0,
+        "national_code": "E45031"
+    },
+    {
+        "id": 204,
+        "name": "Halvorson LLC",
+        "created_at": "2018-07-26 11:29:20",
+        "emis_cdb_practice_code": 8310,
+        "go_live_date": "2020-01-11",
+        "closed": 1,
+        "national_code": "E97171"
+    },
+    {
+        "id": 205,
+        "name": "Feest, Gislason and Waters",
+        "created_at": "2018-03-27 02:12:13",
+        "emis_cdb_practice_code": 1360,
+        "go_live_date": "2019-03-30",
+        "closed": 0,
+        "national_code": "E76150"
+    },
+    {
+        "id": 206,
+        "name": "Adams-Kautzer",
+        "created_at": "2018-05-15 22:24:02",
+        "emis_cdb_practice_code": 5697,
+        "go_live_date": "2019-11-13",
+        "closed": 1,
+        "national_code": "E23117"
+    },
+    {
+        "id": 207,
+        "name": "Kulas, Wyman and Braun",
+        "created_at": "2019-07-11 10:52:51",
+        "emis_cdb_practice_code": 5521,
+        "go_live_date": "2019-10-21",
+        "closed": 0,
+        "national_code": "E70174"
+    },
+    {
+        "id": 208,
+        "name": "Hansen Inc",
+        "created_at": "2018-04-02 06:35:14",
+        "emis_cdb_practice_code": 837,
+        "go_live_date": "2020-01-12",
+        "closed": 0,
+        "national_code": "E47518"
+    },
+    {
+        "id": 209,
+        "name": "O'Kon, Rempel and Stroman",
+        "created_at": "2018-02-15 02:34:00",
+        "emis_cdb_practice_code": 6364,
+        "go_live_date": "2020-06-11",
+        "closed": 1,
+        "national_code": "E50277"
+    },
+    {
+        "id": 210,
+        "name": "McDermott-Hettinger",
+        "created_at": "2019-07-27 13:46:10",
+        "emis_cdb_practice_code": 4458,
+        "go_live_date": "2021-04-11",
+        "closed": 0,
+        "national_code": "E57618"
+    },
+    {
+        "id": 211,
+        "name": "Bradtke-Quigley",
+        "created_at": "2019-10-18 05:20:29",
+        "emis_cdb_practice_code": 1621,
+        "go_live_date": "2019-09-15",
+        "closed": 0,
+        "national_code": "E49283"
+    },
+    {
+        "id": 212,
+        "name": "Johns, Shanahan and Kub",
+        "created_at": "2018-10-06 22:23:05",
+        "emis_cdb_practice_code": 1418,
+        "go_live_date": "2019-06-27",
+        "closed": 1,
+        "national_code": "E55521"
+    },
+    {
+        "id": 213,
+        "name": "Nolan, Douglas and Kilback",
+        "created_at": "2018-08-15 11:55:56",
+        "emis_cdb_practice_code": 6914,
+        "go_live_date": "2020-07-03",
+        "closed": 0,
+        "national_code": "E69903"
+    },
+    {
+        "id": 214,
+        "name": "Kihn, Keeling and Dach",
+        "created_at": "2018-03-29 20:05:42",
+        "emis_cdb_practice_code": 2945,
+        "go_live_date": "2018-10-27",
+        "closed": 0,
+        "national_code": "E95789"
+    },
+    {
+        "id": 215,
+        "name": "Dach-Crist",
+        "created_at": "2019-08-21 15:14:38",
+        "emis_cdb_practice_code": 1170,
+        "go_live_date": "2020-10-05",
+        "closed": 0,
+        "national_code": "E89670"
+    },
+    {
+        "id": 216,
+        "name": "Lindgren LLC",
+        "created_at": "2019-09-09 09:52:38",
+        "emis_cdb_practice_code": 3810,
+        "go_live_date": "2020-09-24",
+        "closed": 0,
+        "national_code": "E33447"
+    },
+    {
+        "id": 217,
+        "name": "Schiller LLC",
+        "created_at": "2018-04-28 03:50:32",
+        "emis_cdb_practice_code": 267,
+        "go_live_date": "2020-12-08",
+        "closed": 1,
+        "national_code": "E84331"
+    },
+    {
+        "id": 218,
+        "name": "Fadel and Sons",
+        "created_at": "2019-08-28 07:42:51",
+        "emis_cdb_practice_code": 8897,
+        "go_live_date": "2021-05-25",
+        "closed": 0,
+        "national_code": "E98963"
+    },
+    {
+        "id": 219,
+        "name": "Leannon LLC",
+        "created_at": "2018-10-05 12:45:05",
+        "emis_cdb_practice_code": 3570,
+        "go_live_date": "2019-02-20",
+        "closed": 0,
+        "national_code": "E53136"
+    },
+    {
+        "id": 220,
+        "name": "Fritsch Inc",
+        "created_at": "2020-03-04 03:36:31",
+        "emis_cdb_practice_code": 9061,
+        "go_live_date": "2018-07-02",
+        "closed": 0,
+        "national_code": "E12012"
+    },
+    {
+        "id": 221,
+        "name": "Rosenbaum, Brown and Emard",
+        "created_at": "2018-10-11 04:33:07",
+        "emis_cdb_practice_code": 9040,
+        "go_live_date": "2021-03-19",
+        "closed": 0,
+        "national_code": "E23484"
+    },
+    {
+        "id": 222,
+        "name": "Boyle, Jones and Carroll",
+        "created_at": "2018-12-09 10:04:09",
+        "emis_cdb_practice_code": 8811,
+        "go_live_date": "2018-06-29",
+        "closed": 0,
+        "national_code": "E53163"
+    },
+    {
+        "id": 223,
+        "name": "Bauch-Turner",
+        "created_at": "2019-06-16 12:37:54",
+        "emis_cdb_practice_code": 3358,
+        "go_live_date": "2019-01-07",
+        "closed": 1,
+        "national_code": "E77086"
+    },
+    {
+        "id": 224,
+        "name": "Luettgen, Schulist and Kilback",
+        "created_at": "2018-02-20 10:33:06",
+        "emis_cdb_practice_code": 1795,
+        "go_live_date": "2018-09-01",
+        "closed": 0,
+        "national_code": "E28566"
+    },
+    {
+        "id": 225,
+        "name": "Gleason, Trantow and Rosenbaum",
+        "created_at": "2019-02-24 03:21:09",
+        "emis_cdb_practice_code": 8604,
+        "go_live_date": "2020-11-26",
+        "closed": 0,
+        "national_code": "E30210"
+    },
+    {
+        "id": 226,
+        "name": "Crooks-Romaguera",
+        "created_at": "2020-03-25 11:47:53",
+        "emis_cdb_practice_code": 7806,
+        "go_live_date": "2020-08-11",
+        "closed": 0,
+        "national_code": "E13496"
+    },
+    {
+        "id": 227,
+        "name": "Reichert-Gutkowski",
+        "created_at": "2019-06-21 16:00:25",
+        "emis_cdb_practice_code": 7704,
+        "go_live_date": "2020-10-04",
+        "closed": 0,
+        "national_code": "E31371"
+    },
+    {
+        "id": 228,
+        "name": "Lubowitz, Buckridge and Murray",
+        "created_at": "2018-10-27 08:49:05",
+        "emis_cdb_practice_code": 8474,
+        "go_live_date": "2020-10-04",
+        "closed": 1,
+        "national_code": "E46679"
+    },
+    {
+        "id": 229,
+        "name": "Ruecker-Sauer",
+        "created_at": "2019-06-21 06:01:58",
+        "emis_cdb_practice_code": 6539,
+        "go_live_date": "2020-11-23",
+        "closed": 0,
+        "national_code": "E93179"
+    },
+    {
+        "id": 230,
+        "name": "Weimann-Miller",
+        "created_at": "2019-02-26 02:12:29",
+        "emis_cdb_practice_code": 4861,
+        "go_live_date": "2018-10-03",
+        "closed": 1,
+        "national_code": "E81121"
+    },
+    {
+        "id": 231,
+        "name": "Hamill, Dooley and Ward",
+        "created_at": "2019-08-27 10:01:34",
+        "emis_cdb_practice_code": 9436,
+        "go_live_date": "2019-03-12",
+        "closed": 0,
+        "national_code": "E42355"
+    },
+    {
+        "id": 232,
+        "name": "Brekke Inc",
+        "created_at": "2019-05-22 08:52:32",
+        "emis_cdb_practice_code": 4218,
+        "go_live_date": "2020-05-23",
+        "closed": 1,
+        "national_code": "E42472"
+    },
+    {
+        "id": 233,
+        "name": "Mraz Group",
+        "created_at": "2018-12-20 19:03:23",
+        "emis_cdb_practice_code": 8625,
+        "go_live_date": "2021-01-02",
+        "closed": 0,
+        "national_code": "E22333"
+    },
+    {
+        "id": 234,
+        "name": "Stark LLC",
+        "created_at": "2020-01-21 14:01:50",
+        "emis_cdb_practice_code": 957,
+        "go_live_date": "2019-07-15",
+        "closed": 0,
+        "national_code": "E61334"
+    },
+    {
+        "id": 235,
+        "name": "Cartwright and Sons",
+        "created_at": "2018-05-06 13:57:36",
+        "emis_cdb_practice_code": 465,
+        "go_live_date": "2020-11-20",
+        "closed": 1,
+        "national_code": "E92715"
+    },
+    {
+        "id": 236,
+        "name": "Smith-Purdy",
+        "created_at": "2019-08-14 17:47:13",
+        "emis_cdb_practice_code": 5003,
+        "go_live_date": "2021-03-18",
+        "closed": 0,
+        "national_code": "E91341"
+    },
+    {
+        "id": 237,
+        "name": "Torphy LLC",
+        "created_at": "2018-10-01 08:19:56",
+        "emis_cdb_practice_code": 1042,
+        "go_live_date": "2021-05-22",
+        "closed": 1,
+        "national_code": "E61879"
+    },
+    {
+        "id": 238,
+        "name": "Yundt LLC",
+        "created_at": "2019-06-19 00:33:25",
+        "emis_cdb_practice_code": 7674,
+        "go_live_date": "2020-12-31",
+        "closed": 1,
+        "national_code": "E74969"
+    },
+    {
+        "id": 239,
+        "name": "Bechtelar-Blick",
+        "created_at": "2019-01-27 01:55:57",
+        "emis_cdb_practice_code": 7804,
+        "go_live_date": "2019-04-08",
+        "closed": 0,
+        "national_code": "E22439"
+    },
+    {
+        "id": 240,
+        "name": "Rosenbaum-Wehner",
+        "created_at": "2019-08-18 15:03:12",
+        "emis_cdb_practice_code": 9577,
+        "go_live_date": "2018-12-19",
+        "closed": 1,
+        "national_code": "E10277"
+    },
+    {
+        "id": 241,
+        "name": "Feeney, Carter and Barrows",
+        "created_at": "2019-11-07 02:36:52",
+        "emis_cdb_practice_code": 6768,
+        "go_live_date": "2019-06-03",
+        "closed": 0,
+        "national_code": "E63695"
+    },
+    {
+        "id": 242,
+        "name": "Lebsack-VonRueden",
+        "created_at": "2019-01-03 09:54:50",
+        "emis_cdb_practice_code": 6196,
+        "go_live_date": "2020-07-08",
+        "closed": 0,
+        "national_code": "E26757"
+    },
+    {
+        "id": 243,
+        "name": "Bednar and Sons",
+        "created_at": "2020-02-18 05:35:29",
+        "emis_cdb_practice_code": 4809,
+        "go_live_date": "2019-05-22",
+        "closed": 0,
+        "national_code": "E76069"
+    },
+    {
+        "id": 244,
+        "name": "Gorczany, Dibbert and Towne",
+        "created_at": "2019-03-23 09:31:49",
+        "emis_cdb_practice_code": 9702,
+        "go_live_date": "2020-11-26",
+        "closed": 0,
+        "national_code": "E92029"
+    },
+    {
+        "id": 245,
+        "name": "Stanton Inc",
+        "created_at": "2018-10-02 16:06:07",
+        "emis_cdb_practice_code": 8803,
+        "go_live_date": "2018-10-17",
+        "closed": 0,
+        "national_code": "E40213"
+    },
+    {
+        "id": 246,
+        "name": "Doyle Group",
+        "created_at": "2019-08-12 02:20:03",
+        "emis_cdb_practice_code": 2203,
+        "go_live_date": "2019-12-19",
+        "closed": 0,
+        "national_code": "E41075"
+    },
+    {
+        "id": 247,
+        "name": "Hahn-Johnson",
+        "created_at": "2020-01-27 20:06:51",
+        "emis_cdb_practice_code": 2127,
+        "go_live_date": "2020-03-01",
+        "closed": 0,
+        "national_code": "E94186"
+    },
+    {
+        "id": 248,
+        "name": "Huels Group",
+        "created_at": "2018-03-27 02:42:45",
+        "emis_cdb_practice_code": 5391,
+        "go_live_date": "2020-11-13",
+        "closed": 1,
+        "national_code": "E99550"
+    },
+    {
+        "id": 249,
+        "name": "Koepp, DuBuque and Wyman",
+        "created_at": "2018-03-09 15:45:48",
+        "emis_cdb_practice_code": 7243,
+        "go_live_date": "2020-12-06",
+        "closed": 1,
+        "national_code": "E97379"
+    },
+    {
+        "id": 250,
+        "name": "Hoeger, Littel and Pfeffer",
+        "created_at": "2018-07-09 19:07:02",
+        "emis_cdb_practice_code": 8934,
+        "go_live_date": "2020-06-10",
+        "closed": 0,
+        "national_code": "E17904"
+    }
+]
