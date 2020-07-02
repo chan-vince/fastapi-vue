@@ -7,7 +7,7 @@
             paginated
             per-page="15"
             detailed
-            detail-key="source_id"
+            detail-key="id"
             :show-detail-icon="showDetailIcon"
             aria-next-label="Next page"
             aria-previous-label="Previous page"
@@ -86,10 +86,12 @@
                 <template v-if="pendingOnly">
                     <hr>
                     <div class="buttons">
-                        <b-button type="is-success" outlined icon-left="check">
+                        <b-button type="is-success" outlined icon-left="check"
+                        v-on:click="acceptChanges(props.row['id'])">
                             Accept
                         </b-button>
-                        <b-button type="is-danger" outlined icon-left="close">
+                        <b-button type="is-danger" outlined icon-left="close"
+                        v-on:click="rejectChanges(props.row['id'])">
                             Reject
                         </b-button>
                     </div>
@@ -132,6 +134,46 @@
                         this.data = response.data.filter(item => item.approved != null)
                     }
                     this.loading = false
+                })
+            },
+            acceptChanges(id) {
+                var current = this;
+                console.log(`Accepting changes for row id ${id}`)
+                client.put(`api/v1/staging/practice/approved`, null, {params: {"id": id, "approved": true}})
+                .then(response => {
+                    console.log(response.data)
+                    this.$buefy.toast.open({
+                        message: 'Accepted change successfully',
+                        type: 'is-success'
+                    })
+                    this.getStagingPractices()
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    current.$buefy.toast.open({
+                        message: 'Could not accept change',
+                        type: 'is-danger'
+                    })
+                })
+            },
+            rejectChanges(id) {
+                var current = this;
+                console.log(`Rejecting changes for row id ${id}`)
+                client.put(`api/v1/staging/practice/approved`, null, {params: {"id": id, "approved": false}})
+                .then(response => {
+                    console.log(response.data)
+                    this.$buefy.toast.open({
+                        message: 'Rejected change successfully',
+                        type: 'is-success'
+                    })
+                    this.getStagingPractices()
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    current.$buefy.toast.open({
+                        message: 'Could not reject change',
+                        type: 'is-danger'
+                    })
                 })
             }
         },
