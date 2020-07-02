@@ -63,28 +63,37 @@
 
             <template slot="detail" slot-scope="props">
                 <div class="title is-5">
-                    Change(s):
+                    Changes:
                 </div>
                 <div v-for="item in diff_data" :key="item.name">
                     <template v-if="props.row.source[item.field] != props.row[item.field]">
                         <div class="columns" style="max-width: 800px">
-                            <div class="level">
-                                <div class="column is-4">
-                                    <strong>{{ item.label }}:</strong>
-                                </div>
-                                <div class="column">
+                            <div class="column is-2">
+                                <strong>{{ item.label }}:</strong>
+                            </div>
+                            <div class="column">
+                                <div class="level">
+                                    <div class="level-left">
                                     <b-tag size="is-medium" type="is-danger">{{props.row.source[item.field]}}</b-tag>
-                                </div>
-                                <div class="column is-1">
                                     <b-icon icon="arrow-right"></b-icon>
-                                </div>
-                                <div class="column">
                                     <b-tag size="is-medium" type="is-success">{{props.row[item.field]}}</b-tag>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </template>
                 </div>
+                <template v-if="pendingOnly">
+                    <hr>
+                    <div class="buttons">
+                        <b-button type="is-success" outlined icon-left="check">
+                            Accept
+                        </b-button>
+                        <b-button type="is-danger" outlined icon-left="close">
+                            Reject
+                        </b-button>
+                    </div>
+                </template>
             </template>
         </b-table>
     </section>
@@ -92,7 +101,6 @@
 
 
 <script>
-    // const data = require('@/data/sample.json')
     import {client} from '../api.js'
 
 
@@ -124,7 +132,6 @@
                         this.data = response.data.filter(item => item.approved != null)
                     }
                     this.loading = false
-                    // this.$buefy.toast.open(`Expanded`)
                 })
             }
         },
