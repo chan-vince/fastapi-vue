@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index, func
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -24,10 +24,10 @@ class Practice(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(length=255), nullable=False, unique=True)
-    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.datetime.now())
     national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False,  unique=True)
-    go_live_date = Column(DateTime)
+    go_live_date = Column(Date)
     closed = Column(Boolean, default=False)
 
     Index('idx_practice_id', 'id')
@@ -44,11 +44,11 @@ class Practice(Base):
 class StagingPractice(Base):
     __tablename__ = "_staging_practices"
 
-    name = Column(String(length=255), nullable=False, unique=True)
-    created_date = Column(DateTime, default=datetime.datetime.utcnow)
+    name = Column(String(length=255), nullable=False)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
     national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False, unique=True)
-    go_live_date = Column(DateTime)
+    go_live_date = Column(Date)
     closed = Column(Boolean, default=False)
 
     Index('idx_practice_id', 'id')
