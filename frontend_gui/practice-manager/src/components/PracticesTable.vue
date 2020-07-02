@@ -54,7 +54,7 @@
                     <template v-for="column in columns">
                         <b-table-column :key="column.id" v-bind="column">
                             <template
-                                v-if="!('list_target' in column) && !column.date">
+                                v-if="!('list_target' in column) && !column.date && !(column.parent)">
                                 {{ props.row[column.field] }}
                             </template>
                             <template
@@ -67,7 +67,7 @@
                             </template>
                             <template
                                 v-else-if="!(column.list_target) && column.parent">
-                                {{ props.row[column.field].map(a => a[column.field]).join(", ") }}
+                                {{ props.row[column.parent].map(a => a[column.field]).join(", ") }}
                             </template>
                             <template
                                 v-else>
@@ -126,7 +126,6 @@
                 client.get(`api/v1/practice/`, {params: { skip: skip, limit: limit }})
                 .then(response => {
                     this.data = response.data
-                    console.log(this.data[1]["addresses"][0]["ip_ranges"])
                     this.loading = false
                 })
             },
