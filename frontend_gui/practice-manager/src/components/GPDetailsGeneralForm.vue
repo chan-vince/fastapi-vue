@@ -122,6 +122,7 @@ export default {
                     message: 'Request submitted successfully',
                     type: 'is-success'
                 })
+                this.$emit('newRequestGenerated')
             })
             .catch(function (error) {
                 console.log(error);
