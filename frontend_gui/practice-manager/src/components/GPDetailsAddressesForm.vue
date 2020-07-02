@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-content" style="padding-right: 50px">
                     <b-field label="Line 1" horizontal>
-                        <b-input v-model="address.line_1" size="is-default"
+                        <b-input v-model="address.line_1" size="is-default"  required
                             placeholder="Line 1 of Address"></b-input>
                     </b-field>
                     <b-field label="Line 2" horizontal>
@@ -31,7 +31,7 @@
                             placeholder="Line 2 of Address"></b-input>
                     </b-field>
                     <b-field label="Town" horizontal>
-                        <b-input v-model="address.town" size="is-default"
+                        <b-input v-model="address.town" size="is-default"  required
                             placeholder="Town"></b-input>
                     </b-field>
                     <b-field label="County" horizontal>
@@ -39,15 +39,15 @@
                             placeholder="County"></b-input>
                     </b-field>
                     <b-field label="Postcode" horizontal>
-                        <b-input v-model="address.postcode" size="is-default"
+                        <b-input v-model="address.postcode" size="is-default" required
                             placeholder="Postcode"></b-input>
                     </b-field>
                     <b-field label="Contact email (DTS)" horizontal>
-                        <b-input v-model="address.dts_email" size="is-default"
+                        <b-input v-model="address.dts_email" size="is-default" required
                             placeholder="Contact email"></b-input>
                     </b-field>
                     <b-field label="Contact phone number" horizontal>
-                        <b-input v-model="address.phone_num" size="is-default"
+                        <b-input v-model="address.phone_num" size="is-default"  required
                             placeholder="Contact phone number"></b-input>
                     </b-field>
                     <hr>
