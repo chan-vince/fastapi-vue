@@ -6,7 +6,7 @@
             ref="table"
             paginated
             per-page="15"
-            detailed
+            :detailed="pendingOnly"
             detail-key="id"
             :show-detail-icon="showDetailIcon"
             aria-next-label="Next page"
