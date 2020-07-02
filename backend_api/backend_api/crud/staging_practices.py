@@ -41,7 +41,17 @@ def read_staging_practices_count_pending(db: Session):
 
 
 def action_pending_changes_to_practice_by_id(db: Session, id: int, approved: Union[bool, None]):
-    record: schemas.StagingRequest = db.query(tables.StagingPractice).filter(tables.StagingPractice.id == id).first()
+    record: tables.StagingPractice = db.query(tables.StagingPractice).filter(tables.StagingPractice.id == id).first()
+
+    update_item = {
+        "name": record.name,
+        "national_code": record.national_code,
+        "emis_cdb_practice_code": record.emis_cdb_practice_code,
+        "go_live_date": record.go_live_date,
+        "closed": record.closed
+    }
+    # Use the record's source_id to find the real entry in the practice table
+    db.query(tables.Practice).filter(tables.Practice.id == record.source_id).update(update_item)
     record.approved = approved
     db.add(record)
     db.commit()
