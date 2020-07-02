@@ -76,7 +76,7 @@ class PracticeBase(BaseModel):
     name: str
     national_code: str
     emis_cdb_practice_code: str
-    go_live_date: datetime.date = None
+    go_live_date: datetime.date
     closed: bool
 
 
@@ -86,7 +86,7 @@ class PracticeCreate(PracticeBase):
 
 class Practice(PracticeBase):
     id: int
-    created_date: datetime.datetime
+    created_at: datetime.date
     addresses: List[Address] = []
     # employees: List[Employee] = []
     main_partners: List[Any] = []
