@@ -115,7 +115,7 @@
         },
         methods: {
             getStagingPractices(skip, limit) {
-                client.get(`api/v1/staging/practice/`, {params: { skip: skip, limit: limit }})
+                client.get(`api/v1/staging/practice`, {params: { skip: skip, limit: limit }})
                 .then(response => {
                     if(this.$props.pendingOnly){
                         this.data = response.data.filter(item => item.approved == null)
