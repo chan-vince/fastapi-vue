@@ -146,6 +146,7 @@ class StagingPracticeRequest(PracticeCreate):
 
 
 class StagingRequest(PracticeCreate):
+    id: int
     last_modified: datetime.datetime
     source_id: int
     source: Practice
