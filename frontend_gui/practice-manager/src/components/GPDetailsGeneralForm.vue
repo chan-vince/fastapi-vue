@@ -104,6 +104,7 @@ export default {
             console.log(this.checkboxGroup)
         },
         saveDetails() {
+            var current = this;
             var payload = {
                 "name": this.name,
                 "national_code": this.national_code,
@@ -111,11 +112,23 @@ export default {
                 "go_live_date": this.go_live_date.toISOString().split('T')[0],
                 "closed": this.closed,
                 "source_id": this.practice_id,
-                "requestor_id": 1
+                "requestor_id": 5000
             }
+            console.log(payload)
             client.put(`api/v1/staging/practice`, payload)
             .then(response => {
                 console.log(response.data)
+                this.$buefy.toast.open({
+                    message: 'Request submitted successfully',
+                    type: 'is-success'
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+                current.$buefy.toast.open({
+                    message: 'Request error',
+                    type: 'is-danger'
+                })
             })
         }
     },
