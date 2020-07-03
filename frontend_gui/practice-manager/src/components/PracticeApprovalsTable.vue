@@ -21,9 +21,9 @@
                     </span>
                 </b-table-column>
 
-                <b-table-column field="requestor.first_name" label="Requestor" sortable>
+                <b-table-column field="requestor.name" label="Requestor" sortable>
                     <template>
-                        {{ `${props.row.requestor.first_name} ${props.row.requestor.last_name}` }}
+                        {{ props.row.requestor.name }}
                     </template>
                 </b-table-column>
 
@@ -35,8 +35,7 @@
 
                 <b-table-column field="source.main_partners" label="Main Partner" sortable>
                     <template>
-                        {{ props.row.source.main_partners[0].first_name }}
-                        {{ props.row.source.main_partners[0].last_name }}
+                        {{ props.row.source.main_partners[0].name }}
                     </template>
                 </b-table-column>
 
@@ -52,9 +51,9 @@
                     </template>
                 </b-table-column>
 
-                <b-table-column field="approver.first_name" label="Approver" sortable>
+                <b-table-column field="approver.name" label="Approver" sortable>
                     <template v-if="props.row.approver">
-                        {{ `${props.row.approver.first_name} ${props.row.approver.last_name}` }}
+                        {{ props.row.approver.name }}
                     </template>
                 </b-table-column>
 

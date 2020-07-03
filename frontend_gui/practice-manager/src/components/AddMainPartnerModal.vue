@@ -7,10 +7,10 @@
             <b-field label="Employee" horizontal>
                 <b-select placeholder="">
                     <option
-                        v-for="employee in employees.sort((a, b) => a.first_name.localeCompare(b.first_name))"
-                        :value="`${employee.first_name} ${employee.last_name}`"
+                        v-for="employee in employees.sort((a, b) => a.name.localeCompare(b.name))"
+                        :value="`${employee.name} ${employee.last_name}`"
                         :key="employee.id">
-                        {{ `${employee.first_name} ${employee.last_name}` }}
+                        {{ `${employee.name} ${employee.last_name}` }}
                     </option>
                 </b-select>
             </b-field>
@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        name: 'AddMainPartnerModal',
+       name: 'AddMainPartnerModal',
         props: ["employees"],
         components: {
             

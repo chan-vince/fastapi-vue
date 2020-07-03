@@ -10,7 +10,7 @@
                     <div class="card" style="margin-bottom: 20px">
                         <div class="card-content">
                             <p class="title is-6 level-left">
-                                {{ `${partner.first_name} ${partner.last_name}, ${partner.job_title.title}`}}
+                                {{ `${partner.name}, ${partner.job_title.title}`}}
                             </p>
                             <p class="content level-left">
                                 {{ partner.email }}
@@ -27,13 +27,13 @@
                 <b-table
                     :data="employees"
                     :selected.sync="selected"
-                    default-sort="first_name"
+                    default-sort="name"
                     sortable
                     @dblclick="onDoubleClick">
 
                     <template slot-scope="props">
-                        <b-table-column field="first_name" label="Name" sortable>
-                            {{ `${props.row.first_name} ${props.row.last_name}`}}
+                        <b-table-column field="name" label="Name" sortable>
+                            {{ props.row.name }}
                         </b-table-column>
                         <b-table-column field="email" label="Email" sortable>
                             {{ props.row.email }}
