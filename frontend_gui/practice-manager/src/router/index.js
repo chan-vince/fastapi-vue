@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from  'vue-router'
 import LoginPage from '../pages/LoginPage.vue'
 import AllPracticesPage from '../pages/AllPracticesPage.vue'
+import AllEmployeesPage from '../pages/AllEmployeesPage.vue'
 import PracticePage from '../pages/PracticePage.vue'
 import PendingApprovalsPage from '../pages/PendingApprovalsPage.vue'
 import TestPage from '../pages/TestPage.vue'
@@ -48,6 +49,23 @@ const routes = [
       component: PracticePage,
       meta: {
         title: 'GP Portal - GP Access System',
+        metaTags: [
+          {
+            name: 'description',
+            content: 'The about page of our example app.'
+          },
+          {
+            property: 'og:description',
+            content: 'The about page of our example app.'
+          }
+        ]
+      }
+    },
+    {
+      path: '/employees',
+      component: AllEmployeesPage,
+      meta: {
+        title: 'Admin Portal - GP Access System',
         metaTags: [
           {
             name: 'description',

@@ -22,7 +22,7 @@
                     </b-navbar-item>
                 </b-navbar-dropdown>
                 <b-navbar-dropdown v-show="isAdmin" label="Employees" hoverable>
-                    <b-navbar-item href="#">
+                    <b-navbar-item href="/employees">
                         View All Employees
                     </b-navbar-item>
                     <b-navbar-item href="#">
@@ -43,7 +43,8 @@
             <template slot="end">
                 <b-navbar-dropdown label="Switch View" hoverable>
                     <router-link to='/login'><b-navbar-item>Login Page</b-navbar-item></router-link>
-                    <router-link to='/practices'><b-navbar-item>Admin Practice View</b-navbar-item></router-link>
+                    <router-link to='/practices'><b-navbar-item>Admin Practices View</b-navbar-item></router-link>
+                    <router-link to='/employees'><b-navbar-item>Admin Employees View</b-navbar-item></router-link>
                     <router-link to='/practice'><b-navbar-item>GP User View</b-navbar-item></router-link>
                 </b-navbar-dropdown>
                 <!-- <b-navbar-item tag="div">
