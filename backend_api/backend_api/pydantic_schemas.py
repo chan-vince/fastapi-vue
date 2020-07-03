@@ -97,8 +97,7 @@ class Practice(PracticeBase):
 
 
 class EmployeeBase(BaseModel):
-    first_name: str
-    last_name: str
+    name: str
     email: str
     professional_num: str
     desktop_num: str = None
