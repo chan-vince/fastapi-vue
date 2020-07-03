@@ -11,6 +11,9 @@
             </template>
             <template slot="start">
                 <b-navbar-dropdown v-show="isAdmin" label="Practices" hoverable>
+                    <b-navbar-item href="/admin">
+                        View All Practices
+                    </b-navbar-item>
                     <b-navbar-item href="#">
                         Add New Practice
                     </b-navbar-item>
@@ -19,6 +22,9 @@
                     </b-navbar-item>
                 </b-navbar-dropdown>
                 <b-navbar-dropdown v-show="isAdmin" label="Employees" hoverable>
+                    <b-navbar-item href="#">
+                        View All Employees
+                    </b-navbar-item>
                     <b-navbar-item href="#">
                         Add New Employee
                     </b-navbar-item>
