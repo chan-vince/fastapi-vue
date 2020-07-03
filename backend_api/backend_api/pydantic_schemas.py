@@ -133,7 +133,7 @@ class EntityNames(BaseModel):
 
 class EmployeesForPractice(BaseModel):
     practice_id: int
-    employees: List[Employee]
+    employees: List[Employee] = []
 
     class Config:
         orm_mode = True
@@ -147,8 +147,8 @@ class StagingPracticeRequest(PracticeCreate):
 class StagingRequest(PracticeCreate):
     id: int
     last_modified: datetime.datetime
-    source_id: int
-    source: Practice
+    source_id: int = None
+    source: Practice = None
     requestor: Employee
     approver: Employee = None
     approved: bool = None

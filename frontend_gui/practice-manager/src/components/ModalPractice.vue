@@ -1,10 +1,10 @@
 <template>
     <div class="modal-card" style="margin: 0px 50px 0px 50px">
         <header class="modal-card-head">
-            <p class="modal-card-title">{{action}} Employee</p>
+            <p class="modal-card-title">{{action}} GP Practice</p>
         </header>
         <section class="modal-card-body">
-            <b-field label="Name" horizontal>
+            <!-- <b-field label="Name" horizontal>
                 <b-input
                     :value="rowObject.name"
                     placeholder="Name(s)"
@@ -56,7 +56,7 @@
                 <b-switch :value="rowObject.active"
                 type="is-success">
                 </b-switch>
-            </b-field>
+            </b-field> -->
 
         </section>
         <footer class="modal-card-foot">
@@ -69,8 +69,8 @@
 
 <script>
     export default {
-        name: 'EmployeeEditModal',
-        props: ["rowObject", "jobTitles", "action"],
+        name: 'ModalPractice',
+        props: ["jobTitles", "action"],
         components: {
             
         },

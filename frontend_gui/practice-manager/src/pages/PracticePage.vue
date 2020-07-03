@@ -1,36 +1,32 @@
 <template>
   <div id="login">
-      <NavBar ref="navBar"/>
-    <PracticeForm
-      v-bind:practice_name="practice_name"
-      @newRequestGenerated="newRequestGenerated"/>
+    <NavBar ref="navBar" />
+    <PracticeForm v-bind:practice_name="practice_name" @newRequestGenerated="newRequestGenerated" />
   </div>
 </template>
 
 <script>
-
-import NavBar from '../components/NavBar'
-import PracticeForm from '../components/PracticeForm'
+import NavBar from "../components/NavBar";
+import PracticeForm from "../components/PracticeForm";
 
 export default {
-  name: 'PracticePage',
+  name: "PracticePage",
   components: {
     NavBar,
     PracticeForm
   },
-  data (){
+  data() {
     return {
       practice_name: this.$route.params.name
-    }
+    };
   },
-  created () {  
-    },
+  created() {},
   methods: {
-    newRequestGenerated () {
-      this.$refs.navBar.getPendingApprovalsCount()
+    newRequestGenerated() {
+      this.$refs.navBar.getPendingApprovalsCount();
     }
   }
-}
+};
 </script>
 
 <style>

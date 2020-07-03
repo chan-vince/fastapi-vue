@@ -69,7 +69,7 @@
 
 <script>
 import {client} from '../api.js'
-import EmployeeEditModal from '../components/EmployeeEditModal'
+import ModalEmployee from '../components/ModalEmployee'
 import AddMainPartnerModal from '../components/AddMainPartnerModal'
 
 export default {
@@ -86,9 +86,9 @@ export default {
     watch: {
         practice_id: function(practice_id) {
             this.practice_id = practice_id
+            this.getJobTitles()
             this.getEmployeesForPractice()
             this.getMainPartnersForPractice()
-            this.getJobTitles()
         }
     },
     created () {
@@ -134,7 +134,7 @@ export default {
             }
             this.$buefy.modal.open({
                 parent: this,
-                component: EmployeeEditModal,
+                component: ModalEmployee,
                 hasModalCard: true,
                 trapFocus: true,
                 props: {

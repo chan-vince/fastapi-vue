@@ -6,6 +6,7 @@ import AllEmployeesPage from '../pages/AllEmployeesPage.vue'
 import PracticePage from '../pages/PracticePage.vue'
 import PendingApprovalsPage from '../pages/PendingApprovalsPage.vue'
 import TestPage from '../pages/TestPage.vue'
+import NotFoundPage from '../pages/NotFoundPage.vue'
 
 Vue.use(VueRouter);
 
@@ -111,7 +112,9 @@ const routes = [
           }
         ]
       }
-    }
+    },
+    { path: "/404", component: NotFoundPage },
+    { path: "*", component: NotFoundPage }
   ];
 
 const router = new VueRouter({
