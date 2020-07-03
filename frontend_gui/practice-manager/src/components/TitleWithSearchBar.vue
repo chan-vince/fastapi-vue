@@ -47,7 +47,4 @@
         /* margin-top: 10px; */
         /* padding-left: 0px; */
     }
-    .columns {
-        padding-top: 20px
-    }
 </style>
