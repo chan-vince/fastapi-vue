@@ -24,7 +24,7 @@
       <b-table
         :data="employees"
         :selected.sync="selected"
-        default-sort="first_name"
+        default-sort="name"
         :default-sort-direction="defaultSortDirection"
         :loading="loading"
         :total="total"
@@ -43,10 +43,10 @@
       >
         <template slot-scope="props">
           <b-table-column
-            field="first_name"
+            field="name"
             label="Name"
             sortable
-          >{{ `${props.row.first_name} ${props.row.last_name}`}}</b-table-column>
+          >{{ props.row.name }}</b-table-column>
         </template>
       </b-table>
     </div>

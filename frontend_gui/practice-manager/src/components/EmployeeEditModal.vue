@@ -4,18 +4,10 @@
             <p class="modal-card-title">{{action}} Employee</p>
         </header>
         <section class="modal-card-body">
-            <b-field label="First Name" horizontal>
+            <b-field label="Name" horizontal>
                 <b-input
-                    :value="rowObject.first_name"
-                    placeholder="First Name"
-                    required>
-                </b-input>
-            </b-field>
-
-            <b-field label="Last Name" horizontal>
-                <b-input
-                    :value="rowObject.last_name"
-                    placeholder="Last Name"
+                    :value="rowObject.name"
+                    placeholder="Name(s)"
                     required>
                 </b-input>
             </b-field>

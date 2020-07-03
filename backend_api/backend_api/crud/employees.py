@@ -14,7 +14,7 @@ def read_employee_by_email(db: Session, email: str):
 
 
 def read_employee_by_name(db: Session, name: str):
-    return db.query(tables.Employee).filter(tables.Employee.first_name == name).first()
+    return db.query(tables.Employee).filter(tables.Employee.name == name).first()
 
 
 def read_employee_by_id(db: Session, employee_id: int):
@@ -146,4 +146,4 @@ def read_total_number_of_employees(db: Session):
 
 
 def read_all_employee_names(db: Session):
-    return [employee.first_name for employee in db.query(tables.Employee.first_name).all()]
+    return [employee.name for employee in db.query(tables.Employee.name).all()]
