@@ -114,7 +114,7 @@ def get_all_employees_for_practice_id(db: Session, practice_id: int):
         .all()
 
     if len(practice_employee) == 0:
-        return backend_api.exc.EmployeeNotFoundError
+        raise backend_api.exc.EmployeeNotFoundError
 
     # Extract the list of employee IDs from the db results
     employee_ids = sorted([pair[1] for pair in practice_employee])
@@ -130,7 +130,7 @@ def get_main_partners_for_practice_id(db: Session, practice_id: int):
         .all()
 
     if len(practice_partners) == 0:
-        return backend_api.exc.EmployeeNotFoundError
+        raise backend_api.exc.EmployeeNotFoundError
 
     partners = sorted([pair[1] for pair in practice_partners])
 

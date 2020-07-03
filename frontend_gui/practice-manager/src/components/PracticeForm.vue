@@ -46,10 +46,14 @@
         },
         methods: {
             getPracticeDetails(){
+                var current = this
                 client.get(`api/v1/practice/name`, {params: {name: this.$props.practice_name} })
                 .then(response => {
                     this.practice_details = response.data
                     this.practice_id = response.data["id"]
+                })
+                .catch( function () {
+                    current.$router.replace({ path: `/404` });
                 })
             },
             newRequestGenerated(){

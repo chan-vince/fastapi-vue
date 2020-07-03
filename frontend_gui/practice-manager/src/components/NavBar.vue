@@ -9,12 +9,12 @@
       <template slot="start">
         <b-navbar-dropdown v-show="isAdmin" label="Practices" hoverable>
           <b-navbar-item href="/practices">View All Practices</b-navbar-item>
-          <b-navbar-item href="#">Add New Practice</b-navbar-item>
+          <b-navbar-item @click="addPracticeModal">Add New Practice</b-navbar-item>
           <b-navbar-item href="#">Edit Practice Details</b-navbar-item>
         </b-navbar-dropdown>
         <b-navbar-dropdown v-show="isAdmin" label="Employees" hoverable>
           <b-navbar-item href="/employees">View All Employees</b-navbar-item>
-          <b-navbar-item href="#">Add New Employee</b-navbar-item>
+          <b-navbar-item @click="addEmployeeModal">Add New Employee</b-navbar-item>
           <b-navbar-item href="#">Edit Employee Details</b-navbar-item>
         </b-navbar-dropdown>
         <b-navbar-item v-show="isAdmin" href="/approvals">
@@ -52,6 +52,8 @@
 
 <script>
 import { client } from "../api.js";
+import ModalPractice from './ModalPractice.vue';
+import ModalEmployee from './ModalEmployee.vue';
 
 export default {
   name: "NavBar",
@@ -77,6 +79,46 @@ export default {
       client.get(`api/v1/staging/practice/count/pending`).then(response => {
         this.pending_count = response.data;
       });
+    },
+    addPracticeModal() {
+        this.$buefy.modal.open({
+            parent: this,
+            component: ModalPractice,
+            hasModalCard: true,
+            trapFocus: true,
+            props: {
+                jobTitles: this.job_titles,
+                action: "Add"
+            }
+        })
+    },
+    addEmployeeModal() {
+        var rowObject = {
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "professional_num": "",
+            "desktop_num": "",
+            "it_portal_num": "",
+            "active": true,
+            "job_title": {
+                "title": "Administrator",
+                "id": 5
+            }
+        }
+        var action = "Add"
+
+        this.$buefy.modal.open({
+            parent: this,
+            component: ModalEmployee,
+            hasModalCard: true,
+            trapFocus: true,
+            props: {
+                rowObject: rowObject,
+                jobTitles: this.job_titles,
+                action: action
+            }
+        })
     }
   }
   //   props: {

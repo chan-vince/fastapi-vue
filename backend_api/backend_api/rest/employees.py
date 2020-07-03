@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
+import backend_api.exc
 import backend_api.pydantic_schemas as schemas
 from backend_api.crud import employees as crud_employees
 from backend_api.database import get_db
@@ -103,13 +104,21 @@ def modify_job_title_for_employee(employee_id: int, job_title_id: int, db: Sessi
 
 @router.get("/employees/practice", response_model=schemas.EmployeesForPractice)
 def get_all_employees_for_practice(practice_id: int, db: Session = Depends(get_db)):
-    employees = crud_employees.get_all_employees_for_practice_id(db, practice_id)
+    try:
+        employees = crud_employees.get_all_employees_for_practice_id(db, practice_id)
+    except backend_api.exc.EmployeeNotFoundError:
+        employees = []
+
     return {"practice_id": practice_id, "employees": employees}
 
 
 @router.get("/employees/main_partners", response_model=List[schemas.Employee])
 def get_main_partners_for_practice(practice_id: int, db: Session = Depends(get_db)):
-    return crud_employees.get_main_partners_for_practice_id(db, practice_id)
+    try:
+        employees = crud_employees.get_main_partners_for_practice_id(db, practice_id)
+    except backend_api.exc.EmployeeNotFoundError:
+        employees = []
+    return employees
 
 
 @router.get("/job_titles", response_model=List[schemas.JobTitle])

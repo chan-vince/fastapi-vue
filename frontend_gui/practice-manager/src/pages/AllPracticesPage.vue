@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar/>
+    <NavBar />
     <div class="container" id="content">
       <TitleWithSearchBar
         pageTitle="All Practices"
@@ -48,14 +48,20 @@
               >{{ props.row[column.field] }}</template>
               <template v-else-if="column.date">{{ displayDate(props.row[column.field]) }}</template>
               <template
-                v-else-if="column.list_target && column.parent"
-              >{{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}</template>
+                v-else-if="column.list_target && column.parent">
+                <template v-if="props.row[column.parent].length">
+                  {{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}
+                </template>
+              </template>
               <template
                 v-else-if="!(column.list_target) && column.parent"
               >{{ props.row[column.parent].map(a => a[column.field]).join(", ") }}</template>
               <template
-                v-else
-              >{{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}</template>
+                v-else>
+                  <template v-if="props.row[column.field].length">
+                    {{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}
+                  </template>
+                </template>
             </b-table-column>
           </template>
         </template>
@@ -71,7 +77,7 @@ import TitleWithSearchBar from "../components/TitleWithSearchBar";
 import moment from "moment";
 
 export default {
-  name: "PracticesTable",
+  name: "AllPracticesPage",
   components: {
     NavBar,
     TitleWithSearchBar
