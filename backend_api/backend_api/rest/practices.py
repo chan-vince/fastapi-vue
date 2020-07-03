@@ -87,11 +87,11 @@ def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db
     return crud_practices.unassign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
 
 
-@router.get("/practice/count", response_model=schemas.PracticeCount)
+@router.get("/practice/count", response_model=schemas.RowCount)
 def get_total_number_practices(db: Session = Depends(get_db)):
-    return schemas.PracticeCount(count=crud_practices.read_total_number_of_practices(db))
+    return schemas.RowCount(count=crud_practices.read_total_number_of_practices(db))
 
 
-@router.get("/practice/names", response_model=schemas.PracticeNames)
+@router.get("/practice/names", response_model=schemas.EntityNames)
 def get_names_of_practices(db: Session = Depends(get_db)):
-    return schemas.PracticeNames(names=crud_practices.read_all_practice_names(db))
+    return schemas.EntityNames(names=crud_practices.read_all_practice_names(db))

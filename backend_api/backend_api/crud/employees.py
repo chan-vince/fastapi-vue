@@ -13,6 +13,10 @@ def read_employee_by_email(db: Session, email: str):
     return db.query(tables.Employee).filter(tables.Employee.email == email).first()
 
 
+def read_employee_by_name(db: Session, name: str):
+    return db.query(tables.Employee).filter(tables.Employee.first_name == name).first()
+
+
 def read_employee_by_id(db: Session, employee_id: int):
     return db.query(tables.Employee).filter(tables.Employee.id == employee_id).first()
 
@@ -135,3 +139,11 @@ def get_main_partners_for_practice_id(db: Session, practice_id: int):
 
 def get_all_job_titles(db: Session):
     return db.query(tables.JobTitle).all()
+
+
+def read_total_number_of_employees(db: Session):
+    return db.query(tables.Employee).count()
+
+
+def read_all_employee_names(db: Session):
+    return [employee.first_name for employee in db.query(tables.Employee.first_name).all()]

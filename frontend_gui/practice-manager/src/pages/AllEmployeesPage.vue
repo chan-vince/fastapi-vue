@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar/>
+    <NavBar />
     <div class="container" id="content">
       <TitleWithSearchBar
         pageTitle="All Employees"
@@ -22,7 +22,10 @@
       </b-field>
 
       <b-table
-        :data="data"
+        :data="employees"
+        :selected.sync="selected"
+        default-sort="first_name"
+        :default-sort-direction="defaultSortDirection"
         :loading="loading"
         :total="total"
         backend-pagination
@@ -30,34 +33,20 @@
         :per-page="perPage"
         @page-change="onPageChange"
         :current-page.sync="currentPage"
-        :default-sort-direction="defaultSortDirection"
         :sort-icon="sortIcon"
         :sort-icon-size="sortIconSize"
         aria-next-label="Next page"
         aria-previous-label="Previous page"
         aria-page-label="Page"
         aria-current-label="Current page"
-        :selected.sync="selected"
         @dblclick="onDoubleClick"
       >
         <template slot-scope="props">
-          <template v-for="column in columns">
-            <b-table-column :key="column.id" v-bind="column">
-              <template
-                v-if="!('list_target' in column) && !column.date && !(column.parent)"
-              >{{ props.row[column.field] }}</template>
-              <template v-else-if="column.date">{{ displayDate(props.row[column.field]) }}</template>
-              <template
-                v-else-if="column.list_target && column.parent"
-              >{{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}</template>
-              <template
-                v-else-if="!(column.list_target) && column.parent"
-              >{{ props.row[column.parent].map(a => a[column.field]).join(", ") }}</template>
-              <template
-                v-else
-              >{{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}</template>
-            </b-table-column>
-          </template>
+          <b-table-column
+            field="first_name"
+            label="Name"
+            sortable
+          >{{ `${props.row.first_name} ${props.row.last_name}`}}</b-table-column>
         </template>
       </b-table>
     </div>
@@ -71,35 +60,16 @@ import TitleWithSearchBar from "../components/TitleWithSearchBar";
 import moment from "moment";
 
 export default {
-  name: "PracticesTable",
+  name: "AllEmployeesPage",
   components: {
     NavBar,
     TitleWithSearchBar
   },
   data() {
     return {
-      data: [],
-      columns: [
-        { field: "id", label: "ID", width: "100", numeric: true },
-        { field: "created_date", label: "Date Created", date: true },
-        { field: "name", label: "Practice Name" },
-        { field: "national_code", label: "National Code" },
-        { field: "emis_cdb_practice_code", label: "EMIS CDB Practice Code" },
-        {
-          field: "access_systems",
-          label: "Access System(s)",
-          list_target: "name"
-        },
-        {
-          field: "ip_ranges",
-          parent: "addresses",
-          label: "IP Range(s)",
-          list_target: "cidr"
-        },
-        { field: "phone_num", parent: "addresses", label: "Phone Number" }
-      ],
+      employees: [],
       total: 0,
-      practice_names: [],
+      employee_names: [],
       loading: false,
       isPaginated: true,
       isPaginationSimple: false,
@@ -115,16 +85,16 @@ export default {
   },
   methods: {
     onDoubleClick(rowObject) {
-      this.$router.push({ path: `/practice/${rowObject["name"]}` });
+      this.$router.push({ path: `/employee/${rowObject["name"]}` });
     },
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");
     },
-    getPractices(skip, limit) {
+    getEmployees(skip, limit) {
       client
-        .get(`api/v1/practice/`, { params: { skip: skip, limit: limit } })
+        .get(`api/v1/employees/`, { params: { skip: skip, limit: limit } })
         .then(response => {
-          this.data = response.data;
+          this.employees = response.data;
           this.loading = false;
         });
     },
@@ -133,64 +103,65 @@ export default {
       let limit = this.perPage;
       this.currentPage = page;
       if (this.searchInput.length == 0) {
-        this.getPractices(skip, limit);
+        this.getEmployees(skip, limit);
       }
     },
     perPageModified() {
       this.onPageChange(this.currentPage);
     },
-    getPractice() {
-      if (this.searchInput.length > 0) {
+    filterEmployees() {
+      if (this.searchInput.length > 1) {
         this.loading = true;
-        var names = this.practice_names.filter(name =>
+        var names = this.employee_names.filter(name =>
           name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
-        var practice_details = [];
+        var employee_details = [];
         var promises = [];
+        console.log(names)
         for (const name of names) {
           promises.push(
             client
-              .get(`api/v1/practice/name/`, { params: { name: name } })
+              .get(`api/v1/employee/name`, { params: { name: name } })
               .then(response => {
-                practice_details.push(response.data);
+                employee_details.push(response.data);
               })
           );
         }
         Promise.all(promises).then(() => {
           // Need to check the length again once the promise returns as its likely that the search input is deleted before the return
           if (this.searchInput.length != 0) {
-            this.total = practice_details.length;
+            this.total = employee_details.length;
           }
-          this.data = practice_details;
+          this.employees = employee_details;
           this.currentPage = 1;
           this.loading = false;
         });
       } else {
-        this.getPractices(0, this.perPage);
-        this.getTotalPractices();
+        this.getEmployees(0, this.perPage);
+        this.getTotalEmployees();
       }
     },
-    getTotalPractices() {
-      client.get(`api/v1/practice/count`).then(response => {
+    getTotalEmployees() {
+      client.get(`api/v1/employees/count`).then(response => {
         this.total = response.data.count;
       });
     },
-    getAllPracticeNames() {
-      client.get(`api/v1/practice/names`).then(response => {
-        this.practice_names = response.data.names;
+    getAllEmployeeNames() {
+      client.get(`api/v1/employees/names`).then(response => {
+        this.employee_names = response.data.names;
       });
     },
     updateTable(searchInput) {
       console.log(searchInput);
       this.searchInput = searchInput;
-      this.getPractice();
+      this.filterEmployees();
     }
   },
   created() {
     this.loading = true;
-    this.getTotalPractices();
-    this.getAllPracticeNames();
-    this.getPractices(0, 15);
+    this.getTotalEmployees();
+    this.getAllEmployeeNames();
+    this.getEmployees(0, 15);
   }
 };
 </script>
