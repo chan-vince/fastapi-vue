@@ -118,14 +118,14 @@ class Employee(EmployeeBase):
         orm_mode = True
 
 
-class PracticeCount(BaseModel):
+class RowCount(BaseModel):
     count: int
 
     class Config:
         orm_mode = True
 
 
-class PracticeNames(BaseModel):
+class EntityNames(BaseModel):
     names: List[str]
 
     class Config:

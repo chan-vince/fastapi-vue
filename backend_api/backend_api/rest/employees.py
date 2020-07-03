@@ -14,7 +14,7 @@ router = APIRouter()
 
 
 # Create a new employee entry
-@router.post("/employee/", response_model=schemas.Employee)
+@router.post("/employee", response_model=schemas.Employee)
 def add_new_employee(new_employee: schemas.EmployeeCreate, db: Session = Depends(get_db)):
     employee = crud_employees.read_employee_by_email(db, new_employee.email)
     if employee:
@@ -23,14 +23,14 @@ def add_new_employee(new_employee: schemas.EmployeeCreate, db: Session = Depends
 
 
 # Get multiple/all employees
-@router.get("/employee/", response_model=List[schemas.Employee])
+@router.get("/employees", response_model=List[schemas.Employee])
 def get_all_employees(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     employees = crud_employees.read_all_employees(db, skip=skip, limit=limit)
     return employees
 
 
 # Get employee details using database primary key
-@router.get("/employee/id/", response_model=schemas.Employee)
+@router.get("/employee/id", response_model=schemas.Employee)
 def get_employee_by_id(employee_id: int, db: Session = Depends(get_db)):
     employee = crud_employees.read_employee_by_id(db, employee_id)
     if employee is None:
@@ -44,6 +44,15 @@ def get_employee_by_email(email: str, db: Session = Depends(get_db)):
     employee = crud_employees.read_employee_by_email(db, email)
     if employee is None:
         raise HTTPException(status_code=404, detail=f"No employee found with email {email}")
+    return employee
+
+
+# Get employee details using first name
+@router.get("/employee/name", response_model=schemas.Employee)
+def get_employee_by_name(name: str, db: Session = Depends(get_db)):
+    employee = crud_employees.read_employee_by_name(db, name)
+    if employee is None:
+        raise HTTPException(status_code=404, detail=f"No employee found with first name {name}")
     return employee
 
 
@@ -106,3 +115,13 @@ def get_main_partners_for_practice(practice_id: int, db: Session = Depends(get_d
 @router.get("/job_titles", response_model=List[schemas.JobTitle])
 def get_all_job_titles(db: Session = Depends(get_db)):
     return crud_employees.get_all_job_titles(db)
+
+
+@router.get("/employees/count", response_model=schemas.RowCount)
+def get_total_number_employees(db: Session = Depends(get_db)):
+    return schemas.RowCount(count=crud_employees.read_total_number_of_employees(db))
+
+
+@router.get("/employees/names", response_model=schemas.EntityNames)
+def get_names_of_employees(db: Session = Depends(get_db)):
+    return schemas.EntityNames(names=crud_employees.read_all_employee_names(db))
