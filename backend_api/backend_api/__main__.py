@@ -60,7 +60,7 @@ def start():
     else:
         os.environ["LOG_LEVEL"] = args.log_level
 
-    log_level = os.environ.get('LOG_LEVEL')
+    log_level = os.environ.get('LOG_LEVEL').upper()
     logger = logging.getLogger()
 
     logging.basicConfig(
