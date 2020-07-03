@@ -12,7 +12,7 @@ import PracticesTable from '../components/PracticesTable.vue'
 import NavBar from '../components/NavBar.vue'
 
 export default {
-  name: 'AdminPage',
+  name: 'AllPracticesPage',
   components: {
     NavBar,
     PracticesTable

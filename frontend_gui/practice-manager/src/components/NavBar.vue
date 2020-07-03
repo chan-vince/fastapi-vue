@@ -2,7 +2,7 @@
     <div style="padding-left: 20px">
         <b-navbar spaced shadow>
             <template slot="brand">
-                <b-navbar-item tag="router-link" :to="{ path: '/admin' }" style="padding-right: 40px">
+                <b-navbar-item tag="router-link" :to="{ path: '/login' }" style="padding-right: 40px">
                     <img
                         src="../../public/logo.png"
                         alt="GP Data Access System"
@@ -11,7 +11,7 @@
             </template>
             <template slot="start">
                 <b-navbar-dropdown v-show="isAdmin" label="Practices" hoverable>
-                    <b-navbar-item href="/admin">
+                    <b-navbar-item href="/practices">
                         View All Practices
                     </b-navbar-item>
                     <b-navbar-item href="#">
@@ -43,7 +43,7 @@
             <template slot="end">
                 <b-navbar-dropdown label="Switch View" hoverable>
                     <router-link to='/login'><b-navbar-item>Login Page</b-navbar-item></router-link>
-                    <router-link to='/admin'><b-navbar-item>Admin View</b-navbar-item></router-link>
+                    <router-link to='/practices'><b-navbar-item>Admin Practice View</b-navbar-item></router-link>
                     <router-link to='/practice'><b-navbar-item>GP User View</b-navbar-item></router-link>
                 </b-navbar-dropdown>
                 <!-- <b-navbar-item tag="div">

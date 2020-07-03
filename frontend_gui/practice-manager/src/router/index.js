@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from  'vue-router'
 import LoginPage from '../pages/LoginPage.vue'
-import AdminPage from '../pages/AdminPage.vue'
+import AllPracticesPage from '../pages/AllPracticesPage.vue'
 import PracticePage from '../pages/PracticePage.vue'
 import PendingApprovalsPage from '../pages/PendingApprovalsPage.vue'
 import TestPage from '../pages/TestPage.vue'
@@ -27,8 +27,8 @@ const routes = [
       }
     },
     {
-      path: '/admin',
-      component: AdminPage,
+      path: '/practices',
+      component: AllPracticesPage,
       meta: {
         title: 'Admin Portal - GP Access System',
         metaTags: [
