@@ -1,22 +1,10 @@
 <template>
     <div class="table-div">
         <section>
-            <div class="columns">
-                <div class="column">
-                    <h1 class="subsection">GP Practices</h1>
-                </div>
-                <div class="column is-three-fifths" style="padding-top: 50px">
-                    <b-input
-                    autofocus
-                    v-model="practiceSearch"
-                    v-on:input="getPractice"
-                    placeholder="Search Practice Name..."
-                    icon="magnify"
-                    size="is-large"/>
-                </div>
-                <div class="column">
-                </div>
-            </div>
+            <TitleWithSearchBar
+                pageTitle="GP Practices"
+                minSearchLength="0"
+                @newSearchInput="updateTable"/>
             <b-field grouped group-multiline>
                 <b-select v-model="perPage" v-on:input="perPageModified">
                     <option value="5">5 per page</option>
@@ -24,11 +12,11 @@
                     <option value="15">15 per page</option>
                     <option value="20">20 per page</option>
                 </b-select>
-                <button class="button field is-danger" @click="selected = null"
+                <!-- <button class="button field is-danger" @click="selected = null"
                     :disabled="!selected">
                     <b-icon icon="close"></b-icon>
                     <span>Clear selected</span>
-                </button>
+                </button> -->
             </b-field>
 
             <b-table
@@ -83,10 +71,14 @@
 
 <script>
     import {client} from '../api.js'
+    import TitleWithSearchBar from '../components/TitleWithSearchBar'
     import moment from 'moment'
 
     export default { 
         name: 'PracticesTable',
+        components: {
+            TitleWithSearchBar
+        },
         data() {
             return {
                 data: [],
@@ -111,7 +103,7 @@
                 sortIconSize: 'is-small',
                 perPage: 15,
                 currentPage: 1,
-                practiceSearch: "",
+                searchInput: "",
                 selected: null
             }
         },
@@ -133,7 +125,7 @@
                 let skip = (page * this.perPage) - this.perPage
                 let limit = this.perPage
                 this.currentPage = page
-                if(this.practiceSearch.length == 0){
+                if(this.searchInput.length == 0){
                     this.getPractices(skip, limit)
                 }
             },
@@ -141,9 +133,9 @@
                 this.onPageChange(this.currentPage)
             },
             getPractice(){
-                if (this.practiceSearch.length > 0){
+                if (this.searchInput.length > 0){
                     this.loading = true
-                    var names = this.practice_names.filter(name => name.toLowerCase().includes(this.practiceSearch.toLowerCase()))
+                    var names = this.practice_names.filter(name => name.toLowerCase().includes(this.searchInput.toLowerCase()))
                     var practice_details = []
                     var promises = []
                     for (const name of names) {
@@ -156,7 +148,7 @@
                     }
                     Promise.all(promises).then(() => {
                         // Need to check the length again once the promise returns as its likely that the search input is deleted before the return
-                        if (this.practiceSearch.length != 0){
+                        if (this.searchInput.length != 0){
                             this.total = practice_details.length
                         }
                         this.data = practice_details
@@ -181,6 +173,11 @@
                     this.practice_names = response.data.names
                 })
             },
+            updateTable (searchInput) {
+                console.log(searchInput)
+                this.searchInput = searchInput
+                this.getPractice()
+            }
         },
         created () {  
             this.loading = true
@@ -196,13 +193,5 @@
     .table-div {
         padding-left: 60px;
         padding-right: 60px;
-    }
-    h1.subsection {
-    font-weight: bold;
-    font-size: 30pt;
-    text-align: left;
-    margin-top: 10px;
-    /* margin-bottom: 20px; */
-    padding-left: 0px;
     }
 </style>
