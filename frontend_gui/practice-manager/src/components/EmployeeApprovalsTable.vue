@@ -25,7 +25,7 @@
         </b-table-column>
 
         <b-table-column field="practice_name" label="Practice" sortable>
-          <template>{{ props.row.practice_name }}</template>
+          <template><a @click="goToPractice(props.row.practice_name)">{{ props.row.practice_name }}</a></template>
         </b-table-column>
 
         <b-table-column field="last_modified" label="Request Date" sortable centered>
@@ -187,6 +187,9 @@ export default {
             type: "is-danger"
           });
         });
+    },
+    goToPractice(name) {
+      this.$router.push({ path: `/practice/${name}` });
     }
   },
   created() {

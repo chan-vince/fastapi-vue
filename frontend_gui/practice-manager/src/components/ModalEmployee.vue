@@ -7,7 +7,7 @@
 
             <b-field label="Name" horizontal>
                 <b-input
-                    :value="rowObject.name"
+                    :value="this.name"
                     v-model="name"
                     placeholder="Name(s)"
                     required>
@@ -16,7 +16,7 @@
 
             <b-field label="Email" horizontal>
                 <b-input
-                    :value="rowObject.email"
+                    :value="this.email"
                     v-model="email"
                     placeholder="Email"
                     required>
@@ -24,7 +24,7 @@
             </b-field>
 
             <b-field label="Job Title" horizontal>
-                <b-select :placeholder="rowObject.job_title.title"
+                <b-select :placeholder="this.job_title.title"
                 v-model="title_id">
                     <option
                         v-for="title in job_titles"
@@ -39,7 +39,7 @@
                 <b-autocomplete
                     v-model="practice_name"
                     :data="filteredPractices"
-                    placeholder="Search for a Practice..."
+                    :placeholder="practice_name"
                     icon="magnify"
                     clearable
                     @select="option => selected = option">
@@ -49,7 +49,7 @@
 
             <b-field label="Professional ID" horizontal>
                 <b-input
-                    :value="rowObject.professional_num"
+                    :value="this.professional_num"
                     v-model="professional_num"
                     placeholder="Professional ID"
                     required>
@@ -58,21 +58,21 @@
 
             <b-field label="IT Portal ID" horizontal>
                 <b-input
-                    :value="rowObject.it_portal_num"
+                    :value="this.it_portal_num"
                     v-model="it_portal_num"
                     placeholder="IT Portal ID">
                 </b-input>
             </b-field>
             <b-field label="Desktop ID" horizontal>
                 <b-input
-                    :value="rowObject.desktop_num"
+                    :value="this.desktop_num"
                     v-model="desktop_num"
                     placeholder="Desktop ID">
                 </b-input>
             </b-field>
 
             <b-field label="Active" horizontal>
-                <b-switch :value="rowObject.active"
+                <b-switch :value="this.active"
                 v-model="active"
                 type="is-success">
                 </b-switch>
@@ -100,6 +100,7 @@
             return {
                 isComponentModalActive: false,
                 job_titles: [],
+                id: '',
                 name: '',
                 email: '',
                 title_id: null,
@@ -109,7 +110,8 @@
                 active: true,
                 source_id: null,
                 practice_name: '',
-                all_practices: []
+                all_practices: [],
+                job_title: {"title": ""}
             }
         },
         computed: {
@@ -133,7 +135,10 @@
             else{
                 this.job_titles = this.$props.jobTitles
             }
+            console.log(`Row object: ${this.rowObject}`)
             if (this.rowObject != null){
+                console.log("!!!!!!!")
+                this.id = this.rowObject.id
                 this.name = this.rowObject.name,
                 this.email = this.rowObject.email,
                 this.title_id = this.rowObject.job_title.id,
@@ -142,6 +147,7 @@
                 this.desktop_num = this.rowObject.desktop_num,
                 this.active = this.rowObject.active
                 this.source_id = this.rowObject.id
+                this.practice_name = this.rowObject.practices[0].name
             }
         },
         methods: {
@@ -157,6 +163,7 @@
             saveDetails() {
                 var current = this;
                 var payload = {
+                    "id": this.id,
                     "name": this.name,
                     "email": this.email,
                     "job_title_id": this.title_id,
@@ -168,27 +175,51 @@
                     "practice_name": this.practice_name,
                     "requestor_id": 5000
                 }
-                console.log(payload)
-                client.post(`api/v1/staging/employee`, payload)
-                .then(response => {
-                    console.log(response.data)
-                    this.$buefy.toast.open({
-                        message: 'Request submitted successfully',
-                        type: 'is-success'
+                if(self.action == "Add"){
+                    client.post(`api/v1/staging/employee`, payload)
+                    .then(response => {
+                        console.log(response.data)
+                        this.$buefy.toast.open({
+                            message: 'Request submitted successfully',
+                            type: 'is-success'
+                        })
+                        this.$emit('newRequestGenerated')
+                        this.$parent.close()
                     })
-                    this.$emit('newRequestGenerated')
-                    this.$parent.close()
-                })
-                .catch(function (error) {
-                    var error_msg = "Request error"
-                    if (error.response.data.detail != null){
-                        error_msg = error.response.data.detail
-                    }
-                    current.$buefy.toast.open({
-                        message: error_msg,
-                        type: 'is-danger'
+                    .catch(function (error) {
+                        var error_msg = "Request error"
+                        if (error.response.data.detail != null){
+                            error_msg = error.response.data.detail
+                        }
+                        current.$buefy.toast.open({
+                            message: error_msg,
+                            type: 'is-danger'
+                        })
                     })
-                })
+                }
+                else {
+                    console.log(payload)
+                    client.put(`api/v1/staging/employee`, payload)
+                    .then(response => {
+                        console.log(response.data)
+                        this.$buefy.toast.open({
+                            message: 'Request submitted successfully',
+                            type: 'is-success'
+                        })
+                        this.$emit('newRequestGenerated')
+                        this.$parent.close()
+                    })
+                    .catch(function (error) {
+                        var error_msg = "Request error"
+                        if (error.response.data.detail != null){
+                            error_msg = error.response.data.detail
+                        }
+                        current.$buefy.toast.open({
+                            message: error_msg,
+                            type: 'is-danger'
+                        })
+                    })
+                }
             }
         }
     }

@@ -7,19 +7,27 @@
         minSearchLength="0"
         @newSearchInput="updateTable"
       />
-      <b-field grouped group-multiline>
-        <b-select v-model="perPage" v-on:input="perPageModified">
-          <option value="5">5 per page</option>
-          <option value="10">10 per page</option>
-          <option value="15">15 per page</option>
-          <option value="20">20 per page</option>
-        </b-select>
-        <!-- <button class="button field is-danger" @click="selected = null"
-                    :disabled="!selected">
-                    <b-icon icon="close"></b-icon>
-                    <span>Clear selected</span>
-        </button>-->
-      </b-field>
+
+      <nav class="level">
+        <!-- Left side -->
+        <div class="level-left">
+          <div class="level-item">
+            <b-select v-model="perPage" v-on:input="perPageModified">
+              <option value="5">5 per page</option>
+              <option value="10">10 per page</option>
+              <option value="15">15 per page</option>
+              <option value="20">20 per page</option>
+            </b-select>
+          </div>
+        </div>
+
+        <!-- Right side -->
+        <div class="level-right">
+          <p class="level-item">
+            <a class="button is-success" @click="addEmployeeModal">Add New Employee</a>
+          </p>
+        </div>
+      </nav>
 
       <b-table
         :data="employees"
@@ -49,11 +57,7 @@
             label="Job Title"
             sortable
           >{{ props.row.job_title.title }}</b-table-column>
-          <b-table-column
-            field="email"
-            label="Email"
-            sortable
-          >{{ props.row.email }}</b-table-column>
+          <b-table-column field="email" label="Email" sortable>{{ props.row.email }}</b-table-column>
           <b-table-column
             field="professional_num"
             label="Professional ID"
@@ -88,7 +92,7 @@ import { client } from "../api.js";
 import NavBar from "../components/NavBar.vue";
 import TitleWithSearchBar from "../components/TitleWithSearchBar";
 import moment from "moment";
-import ModalEmployee from '../components/ModalEmployee.vue';
+import ModalEmployee from "../components/ModalEmployee.vue";
 
 export default {
   name: "AllEmployeesPage",
@@ -115,19 +119,35 @@ export default {
     };
   },
   methods: {
-    onDoubleClick(rowObject) {
-      console.log(rowObject)
+    addEmployeeModal() {
+      var rowObject = null;
+      var action = "Add";
+
       this.$buefy.modal.open({
-            parent: this,
-            component: ModalEmployee,
-            hasModalCard: true,
-            trapFocus: true,
-            props: {
-                rowObject: rowObject,
-                jobTitles: this.job_titles,
-                action: "Edit"
-            }
-        })
+        parent: this,
+        component: ModalEmployee,
+        hasModalCard: true,
+        trapFocus: true,
+        props: {
+          rowObject: rowObject,
+          jobTitles: this.job_titles,
+          action: action
+        }
+      });
+    },
+    onDoubleClick(rowObject) {
+      console.log(rowObject);
+      this.$buefy.modal.open({
+        parent: this,
+        component: ModalEmployee,
+        hasModalCard: true,
+        trapFocus: true,
+        props: {
+          rowObject: rowObject,
+          jobTitles: this.job_titles,
+          action: "Edit"
+        }
+      });
     },
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");
