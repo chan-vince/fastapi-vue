@@ -21,7 +21,11 @@
         </b-table-column>
 
         <b-table-column field="name" label="Name" sortable>
-          <template v-if="pendingOnly">{{ props.row.name }}</template>
+          <template>{{ props.row.name }}</template>
+        </b-table-column>
+
+        <b-table-column field="practice_name" label="Practice" sortable>
+          <template>{{ props.row.practice_name }}</template>
         </b-table-column>
 
         <b-table-column field="last_modified" label="Request Date" sortable centered>
@@ -135,6 +139,7 @@ export default {
             this.data = response.data.filter(item => item.approved != null);
           }
           this.loading = false;
+          console.log(response.data)
         });
     },
     acceptChanges(id) {

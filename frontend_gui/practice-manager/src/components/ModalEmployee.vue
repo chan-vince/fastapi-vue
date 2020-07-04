@@ -1,9 +1,10 @@
 <template>
-    <div class="modal-card" style="margin: 0px 50px 0px 50px">
+    <div class="modal-card">
         <header class="modal-card-head">
             <p class="modal-card-title">{{action}} Employee</p>
         </header>
         <section class="modal-card-body">
+
             <b-field label="Name" horizontal>
                 <b-input
                     :value="rowObject.name"
@@ -32,6 +33,18 @@
                         {{ title.title }}
                     </option>
                 </b-select>
+            </b-field>
+
+            <b-field label="Practice" horizontal>
+                <b-autocomplete
+                    v-model="practice_name"
+                    :data="filteredPractices"
+                    placeholder="Search for a Practice..."
+                    icon="magnify"
+                    clearable
+                    @select="option => selected = option">
+                    <template slot="empty">No results found</template>
+                </b-autocomplete>
             </b-field>
 
             <b-field label="Professional ID" horizontal>
@@ -94,10 +107,23 @@
                 it_portal_num: null,
                 desktop_num: null,
                 active: true,
-                source_id: null
+                source_id: null,
+                practice_name: '',
+                all_practices: []
+            }
+        },
+        computed: {
+            filteredPractices() {
+                return this.all_practices.filter((option) => {
+                    return option
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(this.practice_name.toLowerCase()) >= 0
+                })
             }
         },
         created () {
+            this.getAllPracticeNames();
             if (this.$props.jobTitles == null) {
                 client.get(`api/v1/job_titles`)
                 .then(response => {
@@ -119,6 +145,15 @@
             }
         },
         methods: {
+            getAllPracticeNames() {
+                client.get(`api/v1/practice/names`)
+                .then(response => {
+                    this.all_practices = response.data.names;
+                })
+                .catch( function(error) {
+                    console.log(error)
+                })
+            },
             saveDetails() {
                 var current = this;
                 var payload = {
@@ -130,6 +165,7 @@
                     "desktop_num": this.desktop_num,
                     "active": this.active,
                     "source_id": this.source_id,
+                    "practice_name": this.practice_name,
                     "requestor_id": 5000
                 }
                 console.log(payload)
@@ -144,9 +180,12 @@
                     this.$parent.close()
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    var error_msg = "Request error"
+                    if (error.response.data.detail != null){
+                        error_msg = error.response.data.detail
+                    }
                     current.$buefy.toast.open({
-                        message: 'Request error',
+                        message: error_msg,
                         type: 'is-danger'
                     })
                 })
