@@ -33,7 +33,7 @@
               <div class="card-header-title">Pending Employee Approvals</div>
               <div class="card">
                 <EmployeeApprovalsTable
-                  ref="pendingApprovals"
+                  ref="pendingEmployeeApprovals"
                   v-bind:pendingOnly="true"
                   @refresh="refreshTables"
                   style="margin: 0px 20px 120px 20px"
@@ -44,7 +44,7 @@
               <div class="card-header-title">Approval History</div>
               <div class="card">
                 <EmployeeApprovalsTable
-                  ref="historicApprovals"
+                  ref="historicEmployeeApprovals"
                   v-bind:pendingOnly="false"
                   @refresh="refreshTables"
                   style="margin: 0px 20px 0px 20px"
@@ -80,6 +80,8 @@ export default {
       console.log("Time to refresh!");
       this.$refs.pendingPracticeApprovals.getStagingPractices();
       this.$refs.historicPracticeApprovals.getStagingPractices();
+      this.$refs.pendingEmployeeApprovals.getStagingEmployees();
+      this.$refs.historicEmployeeApprovals.getStagingEmployees();
       this.$refs.navBar.getPendingApprovalsCount();
     }
   }
