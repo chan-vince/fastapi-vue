@@ -14,3 +14,7 @@ class JobTitleNotFoundError(Exception):
 
 class AddressNotFoundError(Exception):
     pass
+
+
+class DuplicateEmployeeError(Exception):
+    pass
