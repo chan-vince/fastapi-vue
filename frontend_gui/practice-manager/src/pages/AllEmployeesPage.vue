@@ -88,6 +88,7 @@ import { client } from "../api.js";
 import NavBar from "../components/NavBar.vue";
 import TitleWithSearchBar from "../components/TitleWithSearchBar";
 import moment from "moment";
+import ModalEmployee from '../components/ModalEmployee.vue';
 
 export default {
   name: "AllEmployeesPage",
@@ -115,7 +116,18 @@ export default {
   },
   methods: {
     onDoubleClick(rowObject) {
-      this.$router.push({ path: `/employee/${rowObject["name"]}` });
+      console.log(rowObject)
+      this.$buefy.modal.open({
+            parent: this,
+            component: ModalEmployee,
+            hasModalCard: true,
+            trapFocus: true,
+            props: {
+                rowObject: rowObject,
+                jobTitles: this.job_titles,
+                action: "Edit"
+            }
+        })
     },
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");

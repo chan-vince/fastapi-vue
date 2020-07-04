@@ -19,7 +19,7 @@
         </b-navbar-dropdown>
         <b-navbar-item v-show="isAdmin" href="/approvals">
           Pending Approvals
-          <template v-if="pending_count > 0">({{pending_count}})</template>
+          <template v-if="(pending_practice > 0) || (pending_employee > 0)">({{pending_practice + pending_employee}})</template>
         </b-navbar-item>
       </template>
 
@@ -68,7 +68,8 @@ export default {
   },
   data() {
     return {
-      pending_count: 0
+      pending_practice: 0,
+      pending_employee: 0
     };
   },
   created() {
@@ -77,7 +78,10 @@ export default {
   methods: {
     getPendingApprovalsCount() {
       client.get(`api/v1/staging/practice/count/pending`).then(response => {
-        this.pending_count = response.data;
+        this.pending_practice = response.data;
+      });
+      client.get(`api/v1/staging/employee/count/pending`).then(response => {
+        this.pending_employee = response.data;
       });
     },
     addPracticeModal() {

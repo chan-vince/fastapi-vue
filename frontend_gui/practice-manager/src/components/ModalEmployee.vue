@@ -93,7 +93,8 @@
                 professional_num: null,
                 it_portal_num: null,
                 desktop_num: null,
-                active: true
+                active: true,
+                source_id: null
             }
         },
         created () {
@@ -105,6 +106,16 @@
             }
             else{
                 this.job_titles = this.$props.jobTitles
+            }
+            if (this.rowObject != null){
+                this.name = this.rowObject.name,
+                this.email = this.rowObject.email,
+                this.title_id = this.rowObject.job_title.id,
+                this.professional_num = this.rowObject.professional_num,
+                this.it_portal_num = this.rowObject.it_portal_num,
+                this.desktop_num = this.rowObject.desktop_num,
+                this.active = this.rowObject.active
+                this.source_id = this.rowObject.id
             }
         },
         methods: {
@@ -118,6 +129,7 @@
                     "it_portal_num": this.it_portal_num,
                     "desktop_num": this.desktop_num,
                     "active": this.active,
+                    "source_id": this.source_id,
                     "requestor_id": 5000
                 }
                 console.log(payload)
