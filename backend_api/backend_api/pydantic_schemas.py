@@ -89,7 +89,7 @@ class Practice(PracticeBase):
     created_at: datetime.date
     addresses: List[Address] = []
     # employees: List[Employee] = []
-    main_partners: List[Any] = []
+    # main_partners: List[Any] = []
     access_systems: List[AccessSystem] = []
 
     class Config:
@@ -112,6 +112,7 @@ class EmployeeCreate(EmployeeBase):
 class Employee(EmployeeBase):
     id: int
     job_title: JobTitle = None
+    practices: List[Practice] = ""
 
     class Config:
         orm_mode = True
@@ -161,6 +162,7 @@ class StagingPracticeRequest(PracticeCreate):
 
 
 class StagingEmployeeCreateRequest(EmployeeCreate):
+    id: int
     source_id: int = None
     requestor_id: int
     practice_name: str
