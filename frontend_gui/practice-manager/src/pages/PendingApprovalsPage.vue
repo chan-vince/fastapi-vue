@@ -7,10 +7,10 @@
           <b-tabs id="spacing-margins-tabs">
             <b-tab-item label="Practices">
               <br />
-              <div class="card-header-title">Pending Approvals</div>
+              <div class="card-header-title">Pending Practice Approvals</div>
               <div class="card">
                 <PracticeApprovalsTable
-                  ref="pendingApprovals"
+                  ref="pendingPracticeApprovals"
                   v-bind:pendingOnly="true"
                   @refresh="refreshTables"
                   style="margin: 0px 20px 120px 20px"
@@ -21,6 +21,29 @@
               <div class="card-header-title">Approval History</div>
               <div class="card">
                 <PracticeApprovalsTable
+                  ref="historicPracticeApprovals"
+                  v-bind:pendingOnly="false"
+                  @refresh="refreshTables"
+                  style="margin: 0px 20px 0px 20px"
+                />
+              </div>
+            </b-tab-item>
+            <b-tab-item label="Employees">
+              <br />
+              <div class="card-header-title">Pending Employee Approvals</div>
+              <div class="card">
+                <EmployeeApprovalsTable
+                  ref="pendingApprovals"
+                  v-bind:pendingOnly="true"
+                  @refresh="refreshTables"
+                  style="margin: 0px 20px 120px 20px"
+                />
+              </div>
+
+              <hr />
+              <div class="card-header-title">Approval History</div>
+              <div class="card">
+                <EmployeeApprovalsTable
                   ref="historicApprovals"
                   v-bind:pendingOnly="false"
                   @refresh="refreshTables"
@@ -28,7 +51,6 @@
                 />
               </div>
             </b-tab-item>
-            <b-tab-item label="Employees">insert employees table</b-tab-item>
           </b-tabs>
         </div>
       </div>
@@ -39,12 +61,14 @@
 <script>
 import NavBar from "../components/NavBar";
 import PracticeApprovalsTable from "../components/PracticeApprovalsTable";
+import EmployeeApprovalsTable from "../components/EmployeeApprovalsTable";
 
 export default {
   name: "PendingApprovalsPage",
   components: {
     NavBar,
-    PracticeApprovalsTable
+    PracticeApprovalsTable,
+    EmployeeApprovalsTable
   },
   // data() {
   // },
@@ -54,8 +78,8 @@ export default {
   methods: {
     refreshTables() {
       console.log("Time to refresh!");
-      this.$refs.pendingApprovals.getStagingPractices();
-      this.$refs.historicApprovals.getStagingPractices();
+      this.$refs.pendingPracticeApprovals.getStagingPractices();
+      this.$refs.historicPracticeApprovals.getStagingPractices();
       this.$refs.navBar.getPendingApprovalsCount();
     }
   }

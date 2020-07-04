@@ -139,16 +139,40 @@ class EmployeesForPractice(BaseModel):
         orm_mode = True
 
 
-class StagingPracticeRequest(PracticeCreate):
-    source_id: int
+class StagingPracticeCreateRequest(PracticeCreate):
+    source_id: int = None
     requestor_id: int
 
+    class Config:
+        orm_mode = True
 
-class StagingRequest(PracticeCreate):
+
+class StagingPracticeRequest(PracticeCreate):
     id: int
     last_modified: datetime.datetime
     source_id: int = None
     source: Practice = None
+    requestor: Employee
+    approver: Employee = None
+    approved: bool = None
+
+    class Config:
+        orm_mode = True
+
+
+class StagingEmployeeCreateRequest(EmployeeCreate):
+    source_id: int = None
+    requestor_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class StagingEmployeeRequest(EmployeeCreate):
+    id: int
+    last_modified: datetime.datetime
+    source_id: int = None
+    source: Employee = None
     requestor: Employee
     approver: Employee = None
     approved: bool = None

@@ -95,6 +95,36 @@ class Employee(Base):
     partner_of = relationship("Practice", secondary=association_practice_partners, back_populates="main_partners")
 
 
+class StagingEmployee(Base):
+    __tablename__ = "_staging_employees"
+
+    name = Column(String(length=255), nullable=False)
+    email = Column(String(length=255), nullable=False, unique=True)
+    professional_num = Column(String(length=255), nullable=False)
+    desktop_num = Column(String(length=255), nullable=True)
+    it_portal_num = Column(String(length=255), nullable=True)
+    active = Column(Boolean, default=True)
+    job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
+
+    Index('idx_staging_employee_id', 'id')
+    Index('idx_staging_employee_email', 'email', unique=True)
+
+    # Extra stuff for staging table
+    id = Column(Integer, primary_key=True)
+    last_modified = Column(DateTime, server_default=func.now(),
+                           onupdate=func.current_timestamp())  # try TIMESTAMP if broken
+    source_id = Column(Integer, ForeignKey('employees.id'))
+    requestor_id = Column(Integer, ForeignKey('employees.id'))
+    approver_id = Column(Integer, ForeignKey('employees.id'))
+    approved = Column(Boolean)
+
+    source = relationship("Employee", foreign_keys=[source_id])
+    requestor = relationship("Employee", foreign_keys=[requestor_id])
+    approver = relationship("Employee", foreign_keys=[approver_id])
+
+    Index('idx_staging_employee_id', 'id')
+
+
 class Address(Base):
     __tablename__ = "addresses"
 

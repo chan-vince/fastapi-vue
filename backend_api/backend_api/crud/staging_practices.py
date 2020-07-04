@@ -9,12 +9,13 @@ from backend_api.pydantic_schemas import PracticeCreate
 
 from sqlalchemy import inspect
 
+
 def object_as_dict(obj):
     return {c.key: getattr(obj, c.key)
             for c in inspect(obj).mapper.column_attrs}
 
 
-def update_staging_practice(db: Session, staging_practice: schemas.StagingPracticeRequest):
+def update_staging_practice(db: Session, staging_practice: schemas.StagingPracticeCreateRequest):
 
     existing_record_query = db.query(tables.StagingPractice)\
         .filter(tables.StagingPractice.source_id == staging_practice.source_id)\
