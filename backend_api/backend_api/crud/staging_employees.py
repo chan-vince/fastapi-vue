@@ -18,8 +18,9 @@ def object_as_dict(obj):
 def update_staging_employee(db: Session, staging_employee: schemas.StagingEmployeeCreateRequest):
 
     existing_record_query = db.query(tables.StagingEmployee)\
-        .filter(tables.StagingEmployee.source_id == staging_employee.source_id)\
+        .filter(tables.StagingEmployee.id == staging_employee.id)\
         .filter(tables.StagingEmployee.approved == None)
+
     existing_record = existing_record_query.first()
 
     # If there's no existing staging record, create and insert one
