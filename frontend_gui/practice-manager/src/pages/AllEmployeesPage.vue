@@ -134,7 +134,7 @@ export default {
     },
     getEmployees(skip, limit) {
       client
-        .get(`api/v1/employees/`, { params: { skip: skip, limit: limit } })
+        .get(`api/v1/employees`, { params: { skip: skip, limit: limit } })
         .then(response => {
           this.employees = response.data;
           this.loading = false;
