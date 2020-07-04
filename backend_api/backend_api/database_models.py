@@ -117,6 +117,7 @@ class StagingEmployee(Base):
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
     approved = Column(Boolean)
+    practice_name = Column(String(length=255))
 
     source = relationship("Employee", foreign_keys=[source_id])
     requestor = relationship("Employee", foreign_keys=[requestor_id])
