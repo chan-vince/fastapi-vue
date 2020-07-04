@@ -6,6 +6,7 @@ from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
 import backend_api.pydantic_schemas as schemas
+import backend_api.exc
 from backend_api.crud import employees as crud_employees
 from backend_api.crud import staging_employees as crud_staging_employees
 from backend_api.database import get_db
@@ -18,7 +19,10 @@ router = APIRouter()
 
 @router.post("/employee", response_model=schemas.StagingEmployeeRequest)
 def submit_request_to_add_employee(new_employee: schemas.StagingEmployeeCreateRequest, db: Session = Depends(get_db)):
-    return crud_staging_employees.add_new_staging_employee(db, new_employee)
+    try:
+        return crud_staging_employees.add_new_staging_employee(db, new_employee)
+    except backend_api.exc.DuplicateEmployeeError:
+        raise HTTPException(status_code=400, detail=f"Employee already exists!")
 
 
 @router.put("/employee", response_model=schemas.StagingEmployeeRequest)

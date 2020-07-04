@@ -38,9 +38,12 @@ def update_staging_employee(db: Session, staging_employee: schemas.StagingEmploy
 
 def add_new_staging_employee(db: Session, staging_employee: schemas.StagingEmployeeCreateRequest):
     entry = tables.StagingEmployee(**staging_employee.dict())
-    db.add(entry)
-    db.commit()
-    return entry
+    try:
+        db.add(entry)
+        db.commit()
+        return entry
+    except sqlalchemy.exc.IntegrityError:
+        raise backend_api.exc.DuplicateEmployeeError
 
 
 def read_staging_employee(db: Session, staging_employee: schemas.StagingEmployeeRequest):
@@ -56,9 +59,20 @@ def read_staging_employees_count_pending(db: Session):
 
 
 def action_pending_changes_to_employee_by_id(db: Session, id: int, approved: Union[bool, None]):
+
+    # Get the staging record details
     record: tables.StagingEmployee = db.query(tables.StagingEmployee).filter(tables.StagingEmployee.id == id).first()
 
-    update_item = {
+    # Set approved value
+    record.approved = approved
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+    # Quit here if its rejected, no need to update more records
+    if not approved:
+        return record
+
+    employee = {
         "name": record.name,
         "email": record.email,
         "job_title_id": record.job_title_id,
@@ -71,25 +85,24 @@ def action_pending_changes_to_employee_by_id(db: Session, id: int, approved: Uni
     # If there is no link to an actual employee, then it means we need to add a new one
     if record.source_id is None:
         employee_details = object_as_dict(record)
+        practice_name = employee_details["practice_name"]
+
         del employee_details["last_modified"]
         del employee_details["source_id"]
         del employee_details["requestor_id"]
         del employee_details["approver_id"]
         del employee_details["approved"]
         del employee_details["id"]
+        del employee_details["practice_name"]
         new_employee = tables.Employee(**employee_details)
+        new_employee.practices.append(db.query(tables.Practice).filter(tables.Practice.name == practice_name).first())
         db.add(new_employee)
         db.commit()
         db.refresh(new_employee)
-        # new_employee.name = record.name
-        # new_employee.go_live_date = record.go_live_date
-        # new_employee.emis_cdb_employee_code = record.emis_cdb_employee_code
-        # new_employee.national_code = record.national_code
-        # new_employee.closed = record.closed
-        # new_employee.created_at = record.created_at
 
-    # Use the record's source_id to find the real entry in the employee table
-    db.query(tables.Employee).filter(tables.Employee.id == record.source_id).update(update_item)
+    # Use the record's source_id to find the real entry in the employee table and update it
+    db.query(tables.Employee).filter(tables.Employee.id == record.source_id).update(employee)
+
     record.approved = approved
     db.add(record)
     db.commit()
