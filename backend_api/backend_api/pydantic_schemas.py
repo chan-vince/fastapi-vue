@@ -163,6 +163,7 @@ class StagingPracticeRequest(PracticeCreate):
 class StagingEmployeeCreateRequest(EmployeeCreate):
     source_id: int = None
     requestor_id: int
+    practice_name: str
 
     class Config:
         orm_mode = True
@@ -175,6 +176,7 @@ class StagingEmployeeRequest(EmployeeCreate):
     source: Employee = None
     requestor: Employee
     approver: Employee = None
+    practice_name: str = None
     approved: bool = None
 
     class Config:
