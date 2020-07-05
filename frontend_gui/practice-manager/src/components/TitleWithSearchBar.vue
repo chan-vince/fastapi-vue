@@ -18,7 +18,7 @@
 
 <script>
     export default { 
-        name: 'PracticesTable',
+        name: 'TitleWithSearchBar',
         props: ['pageTitle', 'minSearchLength'],
         data() {
             return {

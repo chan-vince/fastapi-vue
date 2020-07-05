@@ -112,7 +112,7 @@ export default {
       defaultSortDirection: "asc",
       sortIcon: "chevron-up",
       sortIconSize: "is-small",
-      perPage: 15,
+      perPage: 10,
       currentPage: 1,
       searchInput: "",
       selected: null
@@ -238,6 +238,6 @@ export default {
 }
 #content {
   max-width: 1920px;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 20px 0px 20px;
 }
 </style>

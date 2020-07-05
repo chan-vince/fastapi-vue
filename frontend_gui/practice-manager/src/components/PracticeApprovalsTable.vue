@@ -21,10 +21,11 @@
         </b-table-column>
 
         <b-table-column field="name" label="Practice" sortable>
-          <template v-if="pendingOnly">{{ props.row.name }}</template>
+          <!-- <template v-if="pendingOnly">{{ props.row.name }}</template>
           <template v-else>
             <a @click="goToPractice(props.row)">{{ props.row.name }}</a>
-          </template>
+          </template> -->
+          {{ props.row.name }}
         </b-table-column>
 
         <b-table-column field="last_modified" label="Request Date" sortable centered>

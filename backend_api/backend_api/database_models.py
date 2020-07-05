@@ -99,7 +99,7 @@ class StagingEmployee(Base):
     __tablename__ = "_staging_employees"
 
     name = Column(String(length=255), nullable=False)
-    email = Column(String(length=255), nullable=False, unique=True)
+    email = Column(String(length=255), nullable=False)
     professional_num = Column(String(length=255), nullable=False)
     desktop_num = Column(String(length=255), nullable=True)
     it_portal_num = Column(String(length=255), nullable=True)

@@ -49,6 +49,12 @@ def read_staging_practices_count_pending(db: Session):
 
 def action_pending_changes_to_practice_by_id(db: Session, id: int, approved: Union[bool, None]):
     record: tables.StagingPractice = db.query(tables.StagingPractice).filter(tables.StagingPractice.id == id).first()
+    record.approved = approved
+    db.add(record)
+    db.commit()
+
+    if not approved:
+        return record
 
     update_item = {
         "name": record.name,
@@ -57,7 +63,6 @@ def action_pending_changes_to_practice_by_id(db: Session, id: int, approved: Uni
         "go_live_date": record.go_live_date,
         "closed": record.closed
     }
-
     # If there is no link to an actual Practice, then it means we need to add a new one
     if record.source_id is None:
         practice_details = object_as_dict(record)
@@ -80,7 +85,6 @@ def action_pending_changes_to_practice_by_id(db: Session, id: int, approved: Uni
 
     # Use the record's source_id to find the real entry in the practice table
     db.query(tables.Practice).filter(tables.Practice.id == record.source_id).update(update_item)
-    record.approved = approved
-    db.add(record)
     db.commit()
-    return record
+
+    return db.query(tables.Practice).filter(tables.Practice.id == record.source_id).first()

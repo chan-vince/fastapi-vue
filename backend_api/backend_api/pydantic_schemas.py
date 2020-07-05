@@ -111,7 +111,7 @@ class EmployeeCreate(EmployeeBase):
 
 class Employee(EmployeeBase):
     id: int
-    job_title: JobTitle = None
+    job_title: JobTitle
     practices: List[Practice] = ""
 
     class Config:
@@ -162,7 +162,6 @@ class StagingPracticeRequest(PracticeCreate):
 
 
 class StagingEmployeeCreateRequest(EmployeeCreate):
-    id: int
     source_id: int = None
     requestor_id: int
     practice_name: str
@@ -173,13 +172,14 @@ class StagingEmployeeCreateRequest(EmployeeCreate):
 
 class StagingEmployeeRequest(EmployeeCreate):
     id: int
-    last_modified: datetime.datetime
+    last_modified: datetime.datetime = None
     source_id: int = None
     source: Employee = None
     requestor: Employee
     approver: Employee = None
     practice_name: str = None
     approved: bool = None
+    job_title_id: int
 
     class Config:
         orm_mode = True

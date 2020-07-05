@@ -15,10 +15,10 @@ logger = logging.getLogger("REST:Practices")
 router = APIRouter()
 
 
-@router.post("/practice/", response_model=schemas.Practice)
+@router.post("/practice", response_model=schemas.Practice)
 def add_new_practice(practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
-    practice = crud_practices.read_practice_by_name(db, practice.name)
-    if practice:
+    practice_existing = crud_practices.read_practice_by_name(db, practice.name)
+    if practice_existing:
         raise HTTPException(status_code=422, detail=f"GP Practice with name {practice.name} already registered")
     return crud_practices.create_practice(db=db, practice=practice)
 
