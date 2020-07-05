@@ -1,6 +1,6 @@
 <template>
     <div class="columns">
-        <div class="column is-three-fifths is-offset-one-fifth">
+        <div class="column is-8 is-offset-2">
             <GPNameTitle v-bind:practice_name="practice_name"/>
             <b-tabs v-model="activeTab" :animated=false>
                 <b-tab-item label="GP Details">
@@ -68,8 +68,8 @@
 .layout {
     /* margin-left: 200px; */
     /* margin-right: 200px; */
-    max-width: 1280px;
-    position: absolute;
+    max-width: 1920px;
+    /* position: absolute; */
     margin: auto;
     left: 0;
     right: 0;

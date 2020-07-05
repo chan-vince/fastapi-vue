@@ -25,7 +25,8 @@
         </b-table-column>
 
         <b-table-column field="practice_name" label="Practice" sortable>
-          <template><a @click="goToPractice(props.row.practice_name)">{{ props.row.practice_name }}</a></template>
+          <!-- <template><a @click="goToPractice(props.row.practice_name)">{{ props.row.practice_name }}</a></template> -->
+          {{ props.row.practice_name }}
         </b-table-column>
 
         <b-table-column field="last_modified" label="Request Date" sortable centered>
@@ -117,12 +118,14 @@ export default {
       defaultOpenedDetails: [1],
       showDetailIcon: true,
       loading: true,
+      job_titles: [],
       diff_data: [
         { field: "name", label: "Name" },
         { field: "email", label: "Email" },
         { field: "professional_num", label: "Professional ID" },
         { field: "desktop_num", label: "Desktop ID" },
-        { field: "it_portal_num", label: "IT Portal ID" }
+        { field: "it_portal_num", label: "IT Portal ID" },
+        { field: "job_title", label: "Job Title" }
       ]
     };
   },
@@ -138,8 +141,21 @@ export default {
           } else {
             this.data = response.data.filter(item => item.approved != null);
           }
+          this.data.forEach(item => {
+            console.log(item["name"]);
+            if (item.job_title_id !== null) {
+              item["job_title"] = this.job_titles.find(
+                element => element.id == item.job_title_id
+              ).title;
+            }
+            if (item.source !== null) {
+              if (item.source.job_title !== null) {
+                item["source"]["job_title"] =
+                  item["source"]["job_title"]["title"];
+              }
+            }
+          });
           this.loading = false;
-          console.log(response.data)
         });
     },
     acceptChanges(id) {
@@ -190,10 +206,16 @@ export default {
     },
     goToPractice(name) {
       this.$router.push({ path: `/practice/${name}` });
+    },
+    getJobTitles() {
+      client.get(`api/v1/job_titles`).then(response => {
+        this.job_titles = response.data;
+      });
     }
   },
   created() {
     this.loading = true;
+    this.getJobTitles();
     this.getStagingEmployees();
   }
 };

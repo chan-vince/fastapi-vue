@@ -35,6 +35,6 @@ def get_staging_practice_count(db: Session = Depends(get_db)):
     return crud_staging_practices.read_staging_practices_count_pending(db)
 
 
-@router.put("/practice/approved", response_model=schemas.StagingPracticeRequest)
+@router.put("/practice/approved", response_model=schemas.Practice)
 def action_staging_practice_changes(id: int, approved: Union[bool, None], db: Session = Depends(get_db)):
     return crud_staging_practices.action_pending_changes_to_practice_by_id(db, id, approved)

@@ -35,7 +35,6 @@ def update_address_by_practice_id(db: Session, practice_id: int, address_id: int
 
     address: schemas.Address = address_query.first()
     # Make sure it is linked to the given practice
-    print(address.practice_id)
     if address.practice_id != practice_id:
         raise AssertionError
 
