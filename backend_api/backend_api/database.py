@@ -2,10 +2,37 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
+import logging
+import sys
 
 
-MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD")
-SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://francis:{MYSQL_PASSWORD}@127.0.0.1:3306/francis"
+logger = logging.getLogger("Database")
+logging.basicConfig(
+        format="%(asctime)s: %(levelname)s: %(name)s - %(message)s", level="DEBUG"
+    )
+
+DB_HOST = os.environ.get("DB_HOST")
+if DB_HOST is None:
+    DB_HOST = "127.0.0.1"
+
+DB_PORT = os.environ.get("DB_PORT")
+if DB_PORT is None:
+    DB_PORT = 3306
+else:
+    DB_PORT = int(os.environ.get("DB_PORT"))
+
+DB_NAME = os.environ.get("DB_NAME")
+if DB_NAME is None:
+    DB_NAME = "francis"
+
+logger.info(f"Connecting to {DB_HOST}@{DB_PORT}/{DB_NAME}..")
+
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+if DB_PASSWORD is None:
+    logger.error(f"MYSQL_PASSWORD is not set!")
+    sys.exit(1)
+
+SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://francis:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_timeout=60, pool_recycle=120)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
