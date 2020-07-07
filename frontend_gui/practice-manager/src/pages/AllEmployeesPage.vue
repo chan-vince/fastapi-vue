@@ -1,89 +1,91 @@
 <template>
   <div id="app">
     <NavBar />
-    <div class="container" id="content">
-      <TitleWithSearchBar
-        pageTitle="All Employees"
-        minSearchLength="0"
-        @newSearchInput="updateTable"
-      />
+    <section id="content">
+      <div class="container">
+        <TitleWithSearchBar
+          pageTitle="All Employees"
+          minSearchLength="0"
+          @newSearchInput="updateTable"
+        />
 
-      <nav class="level">
-        <!-- Left side -->
-        <div class="level-left">
-          <div class="level-item">
-            <b-select v-model="perPage" v-on:input="perPageModified">
-              <option value="5">5 per page</option>
-              <option value="10">10 per page</option>
-              <option value="15">15 per page</option>
-              <option value="20">20 per page</option>
-            </b-select>
+        <nav class="level">
+          <!-- Left side -->
+          <div class="level-left">
+            <div class="level-item">
+              <b-select v-model="perPage" v-on:input="perPageModified">
+                <option value="5">5 per page</option>
+                <option value="10">10 per page</option>
+                <option value="15">15 per page</option>
+                <option value="20">20 per page</option>
+              </b-select>
+            </div>
           </div>
-        </div>
 
-        <!-- Right side -->
-        <div class="level-right">
-          <p class="level-item">
-            <a class="button is-success" @click="addEmployeeModal">Add New Employee</a>
-          </p>
-        </div>
-      </nav>
+          <!-- Right side -->
+          <div class="level-right">
+            <p class="level-item">
+              <a class="button is-success" @click="addEmployeeModal">Add New Employee</a>
+            </p>
+          </div>
+        </nav>
 
-      <b-table
-        :data="employees"
-        :selected.sync="selected"
-        default-sort="name"
-        :default-sort-direction="defaultSortDirection"
-        :loading="loading"
-        :total="total"
-        backend-pagination
-        paginated
-        :per-page="perPage"
-        @page-change="onPageChange"
-        :current-page.sync="currentPage"
-        :sort-icon="sortIcon"
-        :sort-icon-size="sortIconSize"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-        @dblclick="onDoubleClick"
-      >
-        <template slot-scope="props">
-          <b-table-column field="id" label="ID" sortable>{{ props.row.id }}</b-table-column>
-          <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
-          <b-table-column
-            field="job_title"
-            label="Job Title"
-            sortable
-          >{{ props.row.job_title.title }}</b-table-column>
-          <b-table-column field="email" label="Email" sortable>{{ props.row.email }}</b-table-column>
-          <b-table-column
-            field="professional_num"
-            label="Professional ID"
-            sortable
-          >{{ props.row.professional_num }}</b-table-column>
-          <b-table-column
-            field="it_portal_num"
-            label="IT Portal ID"
-            sortable
-          >{{ props.row.it_portal_num }}</b-table-column>
-          <b-table-column
-            field="desktop_num"
-            label="Desktop ID"
-            sortable
-          >{{ props.row.desktop_num }}</b-table-column>
-          <b-table-column field="active" label="Active" sortable>
-            <template v-if="props.row.active == true">
-              <b-icon icon="check"></b-icon>
-            </template>
-            <template v-else>
-              <b-icon icon="close"></b-icon>
-            </template>
-          </b-table-column>
-        </template>
-      </b-table>
-    </div>
+        <b-table
+          :data="employees"
+          :selected.sync="selected"
+          default-sort="name"
+          :default-sort-direction="defaultSortDirection"
+          :loading="loading"
+          :total="total"
+          backend-pagination
+          paginated
+          :per-page="perPage"
+          @page-change="onPageChange"
+          :current-page.sync="currentPage"
+          :sort-icon="sortIcon"
+          :sort-icon-size="sortIconSize"
+          aria-next-label="Next page"
+          aria-previous-label="Previous page"
+          aria-page-label="Page"
+          aria-current-label="Current page"
+          @dblclick="onDoubleClick"
+        >
+          <template slot-scope="props">
+            <b-table-column field="id" label="ID" sortable>{{ props.row.id }}</b-table-column>
+            <b-table-column field="name" label="Name" sortable>{{ props.row.name }}</b-table-column>
+            <b-table-column
+              field="job_title"
+              label="Job Title"
+              sortable
+            >{{ props.row.job_title.title }}</b-table-column>
+            <b-table-column field="email" label="Email" sortable>{{ props.row.email }}</b-table-column>
+            <b-table-column
+              field="professional_num"
+              label="Professional ID"
+              sortable
+            >{{ props.row.professional_num }}</b-table-column>
+            <b-table-column
+              field="it_portal_num"
+              label="IT Portal ID"
+              sortable
+            >{{ props.row.it_portal_num }}</b-table-column>
+            <b-table-column
+              field="desktop_num"
+              label="Desktop ID"
+              sortable
+            >{{ props.row.desktop_num }}</b-table-column>
+            <b-table-column field="active" label="Active" sortable>
+              <template v-if="props.row.active == true">
+                <b-icon icon="check"></b-icon>
+              </template>
+              <template v-else>
+                <b-icon icon="close"></b-icon>
+              </template>
+            </b-table-column>
+          </template>
+        </b-table>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -237,7 +239,6 @@ export default {
   /* margin-top: 60px; */
 }
 #content {
-  max-width: 1920px;
-  padding: 0px 20px 0px 20px;
+  margin: 0px 5px 0px 5px;
 }
 </style>

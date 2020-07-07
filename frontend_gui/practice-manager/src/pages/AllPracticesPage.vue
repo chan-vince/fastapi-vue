@@ -1,78 +1,80 @@
 <template>
   <div id="app">
     <NavBar />
-    <div class="container" id="content">
-      <TitleWithSearchBar
-        pageTitle="All Practices"
-        minSearchLength="0"
-        @newSearchInput="updateTable"
-      />
+    <section id="content">
+      <div class="container">
+        <TitleWithSearchBar
+          pageTitle="All Practices"
+          minSearchLength="0"
+          @newSearchInput="updateTable"
+        />
 
-      <nav class="level">
-        <!-- Left side -->
-        <div class="level-left">
-          <div class="level-item">
-            <b-select v-model="perPage" v-on:input="perPageModified">
-              <option value="5">5 per page</option>
-              <option value="10">10 per page</option>
-              <option value="15">15 per page</option>
-              <option value="20">20 per page</option>
-            </b-select>
+        <nav class="level">
+          <!-- Left side -->
+          <div class="level-left">
+            <div class="level-item">
+              <b-select v-model="perPage" v-on:input="perPageModified">
+                <option value="5">5 per page</option>
+                <option value="10">10 per page</option>
+                <option value="15">15 per page</option>
+                <option value="20">20 per page</option>
+              </b-select>
+            </div>
           </div>
-        </div>
 
-        <!-- Right side -->
-        <div class="level-right">
-          <p class="level-item">
-            <a class="button is-success" @click="addPracticeModal">Add New Practice</a>
-          </p>
-        </div>
-      </nav>
+          <!-- Right side -->
+          <div class="level-right">
+            <p class="level-item">
+              <a class="button is-success" @click="addPracticeModal">Add New Practice</a>
+            </p>
+          </div>
+        </nav>
 
-      <b-table
-        :data="data"
-        :loading="loading"
-        :total="total"
-        backend-pagination
-        paginated
-        :per-page="perPage"
-        @page-change="onPageChange"
-        :current-page.sync="currentPage"
-        :default-sort-direction="defaultSortDirection"
-        :sort-icon="sortIcon"
-        :sort-icon-size="sortIconSize"
-        aria-next-label="Next page"
-        aria-previous-label="Previous page"
-        aria-page-label="Page"
-        aria-current-label="Current page"
-        :selected.sync="selected"
-        @dblclick="onDoubleClick"
-      >
-        <template slot-scope="props">
-          <template v-for="column in columns">
-            <b-table-column :key="column.id" v-bind="column">
-              <template
-                v-if="!('list_target' in column) && !column.date && !(column.parent)"
-              >{{ props.row[column.field] }}</template>
-              <template v-else-if="column.date">{{ displayDate(props.row[column.field]) }}</template>
-              <template v-else-if="column.list_target && column.parent">
+        <b-table
+          :data="data"
+          :loading="loading"
+          :total="total"
+          backend-pagination
+          paginated
+          :per-page="perPage"
+          @page-change="onPageChange"
+          :current-page.sync="currentPage"
+          :default-sort-direction="defaultSortDirection"
+          :sort-icon="sortIcon"
+          :sort-icon-size="sortIconSize"
+          aria-next-label="Next page"
+          aria-previous-label="Previous page"
+          aria-page-label="Page"
+          aria-current-label="Current page"
+          :selected.sync="selected"
+          @dblclick="onDoubleClick"
+        >
+          <template slot-scope="props">
+            <template v-for="column in columns">
+              <b-table-column :key="column.id" v-bind="column">
                 <template
-                  v-if="props.row[column.parent].length"
-                >{{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}</template>
-              </template>
-              <template
-                v-else-if="!(column.list_target) && column.parent"
-              >{{ props.row[column.parent].map(a => a[column.field]).join(", ") }}</template>
-              <template v-else>
+                  v-if="!('list_target' in column) && !column.date && !(column.parent)"
+                >{{ props.row[column.field] }}</template>
+                <template v-else-if="column.date">{{ displayDate(props.row[column.field]) }}</template>
+                <template v-else-if="column.list_target && column.parent">
+                  <template
+                    v-if="props.row[column.parent].length"
+                  >{{ props.row[column.parent][0][column.field].map(a => a[column.list_target]).join(", ") }}</template>
+                </template>
                 <template
-                  v-if="props.row[column.field].length"
-                >{{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}</template>
-              </template>
-            </b-table-column>
+                  v-else-if="!(column.list_target) && column.parent"
+                >{{ props.row[column.parent].map(a => a[column.field]).join(", ") }}</template>
+                <template v-else>
+                  <template
+                    v-if="props.row[column.field].length"
+                  >{{ props.row[column.field].map(a => a[column.list_target]).join(", ") }}</template>
+                </template>
+              </b-table-column>
+            </template>
           </template>
-        </template>
-      </b-table>
-    </div>
+        </b-table>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -128,17 +130,17 @@ export default {
   },
   methods: {
     addPracticeModal() {
-        this.$buefy.modal.open({
-            parent: this,
-            component: ModalPractice,
-            hasModalCard: true,
-            trapFocus: true,
-            scroll: "keep",
-            props: {
-                jobTitles: [],
-                action: "Add"
-            }
-        })
+      this.$buefy.modal.open({
+        parent: this,
+        component: ModalPractice,
+        hasModalCard: true,
+        trapFocus: true,
+        scroll: "keep",
+        props: {
+          jobTitles: [],
+          action: "Add"
+        }
+      });
     },
     onDoubleClick(rowObject) {
       this.$router.push({ path: `/practice/${rowObject["name"]}` });
@@ -231,7 +233,6 @@ export default {
   color: #2c3e50;
 }
 #content {
-  max-width: 1920px;
-  margin: 0px 20px 0px 20px;
+  margin: 0px 5px 0px 5px;
 }
 </style>
