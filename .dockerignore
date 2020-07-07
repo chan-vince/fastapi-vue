@@ -1,0 +1,12 @@
+.git
+**/*.pyc
+docker-compose.yml
+Dockerfile
+README.md
+**/.idea
+**/node_modules/
+**/.pytest_cache
+**/.venv
+**/passwords.txt
+**/.DS_Store
+**/tests

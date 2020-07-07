@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  c00006-mariadb:
+    image: linuxserver/mariadb
+    container_name: c00006-mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=Europe/London
+      - MYSQL_DATABASE=francis
+      - MYSQL_USER=francis
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+#    volumes:
+#      - ./mariadb-config:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+  c00006-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: c00006-phpmyadmin
+    environment:
+      - PUID=100006
+      - PGID=100006
+      - PMA_HOST=c00006-mariadb
+      - PMA_PORT=3306
+    ports:
+      - 8080:80
+    restart: unless-stopped
+
+  c00006-francis:
+    image: francis:latest
+    container_name: c00006-francis
+    environment:
+      - DB_HOST=c00006-mariadb
+      - DB_PORT=3306
+      - DB_NAME=francis
+      - DB_PASSWORD=${MYSQL_PASSWORD}
+      - MOCK_DATA=true
+    ports:
+      - 8081:80
+      - 5000:5000
+    restart: unless-stopped
