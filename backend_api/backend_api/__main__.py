@@ -20,12 +20,21 @@ app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
 
 origins = [
     "http://127.0.0.1:8081",
-    "http://localhost:8081"
+    "http://localhost:8081",
+    "http://127.0.0.1:80",
+    "http://localhost:80",
+    "https://78.47.251.229:40093"
+]
+
+origins_regex = [
+    "https://.*\.prelim\.cloud:443",
+    "https://.*\.prelim\.cloud:40093"
 ]
 
 app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
+        allow_origin_regex=origins_regex,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
