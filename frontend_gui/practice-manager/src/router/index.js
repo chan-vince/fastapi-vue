@@ -113,6 +113,7 @@ const routes = [
         ]
       }
     },
+    { path: '/', redirect: '/practices' },
     { path: "/404", component: NotFoundPage },
     { path: "*", component: NotFoundPage }
   ];
