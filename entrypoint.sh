@@ -1,4 +1,4 @@
 #!/bin/bash
 
-poetry run app -l info &
+poetry run app &
 nginx -g "daemon off;"
