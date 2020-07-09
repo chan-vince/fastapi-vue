@@ -1,6 +1,6 @@
 import datetime
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func, JSON
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -167,6 +167,26 @@ class IPRange(Base):
     cidr = Column(String(length=255), nullable=False, unique=True)
     address_id = Column(Integer, ForeignKey("addresses.id", ondelete='CASCADE'))
 
+
+class StagingChanges(Base):
+    __tablename__ = "_staging_changes"
+
+    id = Column(Integer, primary_key=True)
+    last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp())
+    requestor_id = Column(Integer, ForeignKey('employees.id'))
+    approver_id = Column(Integer, ForeignKey('employees.id'))
+    approved = Column(Boolean)
+
+    target_table = Column(String(length=255))
+    target_id = Column(Integer)
+    modify = Column(Boolean)
+
+    update_object = Column(JSON)
+
+    Index('target_table', 'target_id', 'modify')
+
+    approver = relationship("Employee", foreign_keys=[approver_id])
+    requestor = relationship("Employee", foreign_keys=[requestor_id])
 
 # class SystemUser(Base):
 #     __tablename__ = "system_users"
