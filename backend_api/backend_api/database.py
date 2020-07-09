@@ -34,7 +34,7 @@ if DB_PASSWORD is None:
 
 SQLALCHEMY_DATABASE_URL = f"mysql+pymysql://francis:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_timeout=60, pool_recycle=120)
+engine = create_engine(SQLALCHEMY_DATABASE_URL, pool_timeout=30, pool_size=200, max_overflow=100, pool_recycle=120)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
