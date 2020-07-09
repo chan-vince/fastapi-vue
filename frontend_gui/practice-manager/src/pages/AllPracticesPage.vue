@@ -25,7 +25,7 @@
           <!-- Right side -->
           <div class="level-right">
             <p class="level-item">
-              <a class="button is-success" @click="addPracticeModal">Add New Practice</a>
+              <a class="button is-primary" @click="addPracticeModal">Add New Practice</a>
             </p>
           </div>
         </nav>
@@ -150,7 +150,7 @@ export default {
     },
     getPractices(skip, limit) {
       client
-        .get(`api/v1/practice/`, { params: { skip: skip, limit: limit } })
+        .get(`api/v1/practice`, { params: { skip: skip, limit: limit } })
         .then(response => {
           this.data = response.data;
           this.loading = false;
@@ -178,7 +178,7 @@ export default {
         for (const name of names) {
           promises.push(
             client
-              .get(`api/v1/practice/name/`, { params: { name: name } })
+              .get(`api/v1/practice/name`, { params: { name: name } })
               .then(response => {
                 practice_details.push(response.data);
               })

@@ -25,7 +25,7 @@
           <!-- Right side -->
           <div class="level-right">
             <p class="level-item">
-              <a class="button is-success" @click="addEmployeeModal">Add New Employee</a>
+              <a class="button is-primary" @click="addEmployeeModal">Add New Employee</a>
             </p>
           </div>
         </nav>

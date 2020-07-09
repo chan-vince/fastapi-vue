@@ -12,6 +12,8 @@
     "buefy": "^0.8.20",
     "core-js": "^3.6.5",
     "moment": "^2.27.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.2",
     "vue": "^2.6.11",
     "vue-headful": "^2.1.0",
     "vue-router": "^3.3.4",
