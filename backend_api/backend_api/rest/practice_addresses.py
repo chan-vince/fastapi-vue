@@ -59,7 +59,7 @@ def get_practice_address_by_id(practice_id: int, db: Session = Depends(get_db)):
     return addresses
 
 
-@router.delete("/practice/address/", response_model=schemas.Practice)
+@router.delete("/practice/address", response_model=schemas.Practice)
 def delete_address_from_practice(practice_id: int, address_id: int, db: Session = Depends(get_db)):
     return crud_practice_addresses.delete_address_from_practice(db, address_id, get_practice_by_id(practice_id, db))
 

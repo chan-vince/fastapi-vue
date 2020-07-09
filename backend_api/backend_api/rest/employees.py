@@ -40,7 +40,7 @@ def get_employee_by_id(employee_id: int, db: Session = Depends(get_db)):
 
 
 # Get employee details using email address
-@router.get("/employee/email/", response_model=schemas.Employee)
+@router.get("/employee/email", response_model=schemas.Employee)
 def get_employee_by_email(email: str, db: Session = Depends(get_db)):
     employee = crud_employees.read_employee_by_email(db, email)
     if employee is None:
@@ -58,7 +58,7 @@ def get_employee_by_name(name: str, db: Session = Depends(get_db)):
 
 
 # Get employee details using professional_num (GMC/NMC number)
-@router.get("/employee/professional_num/", response_model=schemas.Employee)
+@router.get("/employee/professional_num", response_model=schemas.Employee)
 def get_employee_by_professional_num(professional_num: str, db: Session = Depends(get_db)):
     employee = crud_employees.read_employee_by_professional_num(db, professional_num)
     if employee is None:
@@ -67,7 +67,7 @@ def get_employee_by_professional_num(professional_num: str, db: Session = Depend
 
 
 # Modify details for existing employee entry
-@router.put("/employee/", response_model=schemas.Employee)
+@router.put("/employee", response_model=schemas.Employee)
 def modify_existing_employee_details_by_id(employee_id: int, employee_details: schemas.EmployeeCreate, db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
     get_employee_by_id(employee_id, db)
@@ -78,7 +78,7 @@ def modify_existing_employee_details_by_id(employee_id: int, employee_details: s
 
 
 # Delete an existing employee entry
-@router.delete("/employee/", response_model=schemas.Employee)
+@router.delete("/employee", response_model=schemas.Employee)
 def delete_existing_employee_by_id(employee_id: int, db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
     get_employee_by_id(employee_id, db)

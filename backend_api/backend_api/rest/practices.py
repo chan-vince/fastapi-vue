@@ -23,7 +23,7 @@ def add_new_practice(practice: schemas.PracticeCreate, db: Session = Depends(get
     return crud_practices.create_practice(db=db, practice=practice)
 
 
-@router.put("/practice/", response_model=schemas.Practice)
+@router.put("/practice", response_model=schemas.Practice)
 def update_practice(practice_id: int, practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
     existing_practice = crud_practices.read_practice_by_id(db, practice_id)
     if existing_practice is None:
@@ -32,13 +32,13 @@ def update_practice(practice_id: int, practice: schemas.PracticeCreate, db: Sess
     return crud_practices.update_practice(db, practice_id, practice)
 
 
-@router.get("/practice/", response_model=List[schemas.Practice])
+@router.get("/practice", response_model=List[schemas.Practice])
 def get_all_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     practices = crud_practices.read_practices_all(db, skip=skip, limit=limit)
     return practices
 
 
-@router.get("/practice/id/", response_model=schemas.Practice)
+@router.get("/practice/id", response_model=schemas.Practice)
 def get_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
     practice: schemas.Practice = crud_practices.read_practice_by_id(db, practice_id=practice_id)
     if practice is None:
@@ -46,7 +46,7 @@ def get_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
     return practice
 
 
-@router.get("/practice/name/", response_model=schemas.Practice)
+@router.get("/practice/name", response_model=schemas.Practice)
 def get_practice_by_name(name: str, db: Session = Depends(get_db)):
     practice: schemas.Practice = crud_practices.read_practice_by_name(db, practice_name=name)
     if practice is None:
@@ -55,7 +55,7 @@ def get_practice_by_name(name: str, db: Session = Depends(get_db)):
 
 
 # Delete an existing practice
-@router.delete("/practice/", response_model=schemas.Practice)
+@router.delete("/practice", response_model=schemas.Practice)
 def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
     get_practice_by_id(practice_id, db)
@@ -63,7 +63,7 @@ def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_d
 
 
 # Add an Access System to a practice
-@router.put("/practice/system/", response_model=schemas.Practice)
+@router.put("/practice/system", response_model=schemas.Practice)
 def add_access_system_to_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
     get_practice_by_id(practice_id, db)
@@ -72,7 +72,7 @@ def add_access_system_to_practice_by_id(practice_id: int, access_system_id: int,
     return crud_practices.add_access_system_to_practice(db, practice_id, access_system)
 
 
-@router.delete("/practice/system/", response_model=schemas.Practice)
+@router.delete("/practice/system", response_model=schemas.Practice)
 def remove_access_system_from_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
     return crud_practices.delete_access_system_from_practice(db, practice_id, access_system_id)
 
