@@ -91,6 +91,9 @@ def start():
     database_models.Base.metadata.create_all(bind=engine)
 
     # Load the mock data if necessary
+    if os.environ.get("MOCK_DATA") is None:
+        os.environ["MOCK_DATA"] = "false"
+
     if args.mock_data or os.environ.get("MOCK_DATA").lower() == "true":
         mock_data_base_path = pathlib.Path(pathlib.Path.cwd()) / ".." / "mock_data"
 
