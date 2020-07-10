@@ -1,6 +1,6 @@
 import datetime
 from typing import List, Any, Union
-from pydantic import BaseModel
+from pydantic import BaseModel, Json
 
 
 class IPRangeBase(BaseModel):
@@ -180,6 +180,39 @@ class StagingEmployeeRequest(EmployeeCreate):
     practice_name: str = None
     approved: bool = None
     job_title_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class StagingChangeRequest(BaseModel):
+    """
+    target_id is optional because if it's adding a new thing, there will be
+    no target_id in the table. This is signalled by the modify flag
+    """
+    requestor_id: int
+    target_table: str
+    target_id: int = None
+    modify: bool
+    payload: Json
+
+    class Config:
+        orm_mode = True
+
+
+class StagingChangeResponse(BaseModel):
+    """
+    Response model for any staging change
+    """
+    id: int
+    last_modified: datetime.datetime
+    requestor: Employee
+    approver: Employee = None
+    approved: bool = None
+    target_table: str
+    target_id: int = None
+    modify: bool
+    payload: Json
 
     class Config:
         orm_mode = True

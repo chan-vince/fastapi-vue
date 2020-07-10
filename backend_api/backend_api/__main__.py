@@ -9,7 +9,8 @@ import uvicorn
 
 from backend_api import __version__, database_models
 from .database import engine, DB_HOST, DB_PORT
-from .rest import practices, employees, practice_addresses, access_systems, staging_practices, staging_employees
+from .rest import practices, employees, practice_addresses, access_systems, staging_practices, staging_employees, \
+    staging_changes
 from .dummy_data_loader import DummyDataLoader
 from fastapi.middleware.cors import CORSMiddleware
 from backend_api.utils import check_port_open
@@ -54,6 +55,10 @@ app.include_router(
 )
 app.include_router(
     staging_employees.router, tags=["Staging Employees"], prefix=f"/api/v1/staging"
+)
+
+app.include_router(
+    staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1/stagingbeta"
 )
 
 
