@@ -181,9 +181,8 @@ class StagingChanges(Base):
     target_id = Column(Integer)
     modify = Column(Boolean)
 
-    update_object = Column(JSON)
-
-    Index('target_table', 'target_id', 'modify')
+    # payload must be unique to avoid duplicate entries for new records
+    payload = Column(JSON, unique=True)
 
     approver = relationship("Employee", foreign_keys=[approver_id])
     requestor = relationship("Employee", foreign_keys=[requestor_id])

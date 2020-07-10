@@ -194,7 +194,7 @@ class StagingChangeRequest(BaseModel):
     target_table: str
     target_id: int = None
     modify: bool
-    payload: Json
+    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate]
 
     class Config:
         orm_mode = True
@@ -212,7 +212,15 @@ class StagingChangeResponse(BaseModel):
     target_table: str
     target_id: int = None
     modify: bool
-    payload: Json
+    payload: dict
 
     class Config:
         orm_mode = True
+
+
+class StagingChangeDeltaResponse(BaseModel):
+    before: dict
+    after: dict
+
+    class Config:
+        orm_mode = False
