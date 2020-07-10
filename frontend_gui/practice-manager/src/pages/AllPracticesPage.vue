@@ -215,6 +215,8 @@ export default {
     }
   },
   created() {
+    console.log("AllPractices")
+    console.log(process.env.VUE_APP_BACKEND_URL)
     this.loading = true;
     this.getTotalPractices();
     this.getAllPracticeNames();

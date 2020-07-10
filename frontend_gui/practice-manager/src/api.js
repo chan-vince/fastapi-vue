@@ -1,8 +1,7 @@
 import axios from 'axios';
-// import { apiToken } from '@/env';
 
 export const client = axios.create({
-  baseURL: 'https://abys.prelim.cloud/',
+  baseURL: process.env.VUE_APP_BACKEND_URL,
   json: true
 })
 
