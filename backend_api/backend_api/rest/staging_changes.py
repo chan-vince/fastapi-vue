@@ -1,5 +1,5 @@
 import logging
-from typing import List, Union
+from typing import List, Union, Any
 
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
@@ -46,7 +46,7 @@ def create_new_record_request(request: schemas.StagingChangeRequest, db: Session
         raise HTTPException(status_code=409, detail=f"A request already exists with payload: {request.payload}")
 
 
-@router.put("/", response_model=Union[schemas.StagingChangeResponse, None])
+@router.put("/", response_model=Union[schemas.StagingChangeResponse, Any])
 def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
 
     # Ensure the target table exists
@@ -57,15 +57,14 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
     if not request.modify or request.target_id is None:
         raise HTTPException(status_code=400, detail=f"To modify a request, set modify to true and set target_id to a row id")
 
-    return crud.modify_staging_record(db, request)
     try:
         return crud.modify_staging_record(db, request)
     except AssertionError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except backend_api.exc.StagingChangeNotFoundError:
         raise HTTPException(status_code=409, detail=f"No entry exists with id {request.target_id} in table {request.target_table}")
-    # except backend_api.exc.StagingChangeNoEffectError as e:
-        # return HTTPException(status_code=218, detail=e.args[0])
+    except backend_api.exc.StagingChangeNoEffectError:
+        return {"detail": "No changes made"}
 
 
 @router.get("/", response_model=List[schemas.StagingChangeResponse])
@@ -74,5 +73,5 @@ def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depen
 
 
 @router.get("/delta", response_model=schemas.StagingChangeDeltaResponse)
-def get_delta_between_current_record_and_change_request(id: int):
-    pass
+def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db)):
+    return crud.get_delta_for_record(db, id)

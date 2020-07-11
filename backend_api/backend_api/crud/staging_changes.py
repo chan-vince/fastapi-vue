@@ -84,7 +84,7 @@ def modify_staging_record(db: Session, request: StagingChangeRequest):
             break
     else:
         logger.debug("Request payload is identical to current state. Nothing to do")
-        return None
+        raise backend_api.exc.StagingChangeNoEffectError
 
     db.add(staging_record)
 
@@ -104,7 +104,13 @@ def read_all_staging_records(db: Session, skip: int, limit: int):
 
 
 def get_delta_for_record(db: Session, staging_id: int):
-    pass
     # get the staging record
-    # lookup the table/id to get the real data
-    # for each of the staging record payload entries, get the
+    staging_record = db.query(tables.StagingChanges).filter(tables.StagingChanges.id == staging_id).first()
+
+    # find the table where the master record is
+    table_model = get_table_model_by_name(staging_record.target_table)
+
+    master_record = db.query(table_model).filter(table_model.id == staging_record.target_id).first()
+
+    delta = {key: {"current": master_record.__dict__.get(key), "request": value} for key, value in staging_record.payload.items() if master_record.__dict__.get(key) != value}
+    return {"deltas": delta}

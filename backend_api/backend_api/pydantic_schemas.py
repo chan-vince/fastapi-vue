@@ -219,8 +219,7 @@ class StagingChangeResponse(BaseModel):
 
 
 class StagingChangeDeltaResponse(BaseModel):
-    before: dict
-    after: dict
+    deltas: dict
 
     class Config:
         orm_mode = False
