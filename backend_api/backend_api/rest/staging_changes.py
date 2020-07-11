@@ -75,3 +75,12 @@ def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depen
 @router.get("/delta", response_model=schemas.StagingChangeDeltaResponse)
 def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db)):
     return crud.get_delta_for_record(db, id)
+
+
+@router.get("/id", response_model=schemas.StagingChangeResponse)
+def get_staging_record_by_id(id: int, db: Session = Depends(get_db)):
+    result = crud.read_staging_record_by_id(db, id)
+    if result is None:
+        raise HTTPException(status_code=404)
+    else:
+        return result

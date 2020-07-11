@@ -35,10 +35,32 @@ def get_table_model_by_name(table: str):
         return None
 
 
+def read_staging_record_by_id(db: Session, id: int):
+    return db.query(tables.StagingChanges).filter(tables.StagingChanges.id == id).first()
+
+
 def create_staging_record(db: Session, request: StagingChangeRequest):
+    logger.debug("create_staging_record")
 
     if request.modify:
         raise AssertionError("Cannot create a new record if the modify flag is true")
+
+    # Check for existing record with same target_table, target_id, and modify
+    # existing_record_query = db.query(tables.StagingChanges)\
+    #     .filter(tables.StagingChanges.target_table == request.target_table)\
+    #     .filter(tables.StagingChanges.target_id == request.target_id)\
+    #     .filter(tables.StagingChanges.modify == request.modify)
+    #
+    # existing_record = existing_record_query.first()
+    #
+    # if existing_record is not None:
+    #     logger.debug(f"Updating existing record: {existing_record.id}")
+    #     logger.debug(f"Request: {request.dict()}")
+    #     existing_record_query.update(request.dict())
+    #     record = existing_record
+    # else:
+    #     record = tables.StagingChanges(**request.dict())
+    #     db.add(record)
 
     record = tables.StagingChanges(**request.dict())
     db.add(record)
@@ -52,6 +74,9 @@ def create_staging_record(db: Session, request: StagingChangeRequest):
 
 
 def modify_staging_record(db: Session, request: StagingChangeRequest):
+    """
+    Request to change the record of an existing entry in a table
+    """
 
     if not request.modify:
         raise AssertionError("Modify requests should set modify to true")
@@ -110,7 +135,23 @@ def get_delta_for_record(db: Session, staging_id: int):
     # find the table where the master record is
     table_model = get_table_model_by_name(staging_record.target_table)
 
-    master_record = db.query(table_model).filter(table_model.id == staging_record.target_id).first()
+    if staging_record.target_id is None:
+        logger.debug("Staging record has no target id")
+        delta = {key: {"current": None, "request": value} for key, value in staging_record.payload.items()}
 
-    delta = {key: {"current": master_record.__dict__.get(key), "request": value} for key, value in staging_record.payload.items() if master_record.__dict__.get(key) != value}
+    else:
+        master_record = db.query(table_model).filter(table_model.id == staging_record.target_id).first()
+        delta = {key: {"current": master_record.__dict__.get(key), "request": value} for key, value in staging_record.payload.items() if master_record.__dict__.get(key) != value}
+
     return {"deltas": delta}
+
+
+def approve_staging_change(db: Session, staging_id: int, approver_id: int = 5000):
+    """
+    Approving means retrieving the staging record, and updating the main record, then marking this as approved.
+    """
+    # staging_record = db.query(tables.StagingChanges).filter(tables.StagingChanges.id)
+    pass
+
+def reject_staging_change(db: Session, staging_id: int):
+    pass
