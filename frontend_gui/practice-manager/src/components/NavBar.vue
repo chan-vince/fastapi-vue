@@ -11,7 +11,7 @@
         <b-navbar-item href="/practices" v-show="isAdmin">Practices</b-navbar-item>
         <b-navbar-item href="/employees" v-show="isAdmin">Employees</b-navbar-item>
         <b-navbar-item v-show="isAdmin" href="/approvals">
-          Pending Approvals
+          Approvals
           <template v-if="(pending_practice > 0) || (pending_employee > 0)">({{pending_practice + pending_employee}})</template>
         </b-navbar-item>
       </template>
