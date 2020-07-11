@@ -195,6 +195,7 @@ class StagingChangeRequest(BaseModel):
     target_id: int = None
     modify: bool
     payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate]
+    # payload: dict
 
     class Config:
         orm_mode = True

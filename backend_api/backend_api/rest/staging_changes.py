@@ -17,7 +17,16 @@ logger = logging.getLogger("REST:StagingEmployees")
 router = APIRouter()
 
 
-@router.post("/", response_model=schemas.StagingChangeResponse)
+@router.get("/id", response_model=schemas.StagingChangeResponse)
+def get_staging_record_by_id(id: int, db: Session = Depends(get_db)):
+    result = crud.read_staging_record_by_id(db, id)
+    if result is None:
+        raise HTTPException(status_code=404)
+    else:
+        return result
+
+
+@router.post("", response_model=schemas.StagingChangeResponse)
 def create_new_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
     """
     Stores a record in the staging changes table, which details which table to put this new payload in. Don't forget
@@ -46,7 +55,15 @@ def create_new_record_request(request: schemas.StagingChangeRequest, db: Session
         raise HTTPException(status_code=409, detail=f"A request already exists with payload: {request.payload}")
 
 
-@router.put("/", response_model=Union[schemas.StagingChangeResponse, Any])
+@router.get("/delta", response_model=schemas.StagingChangeDeltaResponse)
+def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db)):
+    try:
+        return crud.get_delta_for_record(db, id)
+    except backend_api.exc.StagingRecordNotFoundError:
+        raise HTTPException(status_code=404)
+
+
+@router.put("", response_model=Union[schemas.StagingChangeResponse, Any])
 def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
 
     # Ensure the target table exists
@@ -61,26 +78,22 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
         return crud.modify_staging_record(db, request)
     except AssertionError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except backend_api.exc.StagingChangeNotFoundError:
+    except backend_api.exc.MasterRecordNotFoundError:
         raise HTTPException(status_code=409, detail=f"No entry exists with id {request.target_id} in table {request.target_table}")
     except backend_api.exc.StagingChangeNoEffectError:
         return {"detail": "No changes made"}
 
 
-@router.get("/", response_model=List[schemas.StagingChangeResponse])
+@router.get("", response_model=List[schemas.StagingChangeResponse])
 def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return crud.read_all_staging_records(db, skip=skip, limit=limit)
 
 
-@router.get("/delta", response_model=schemas.StagingChangeDeltaResponse)
-def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db)):
-    return crud.get_delta_for_record(db, id)
+@router.put("/approve", response_model=schemas.StagingChangeResponse)
+def approve_pending_staging_request(staging_id: int, db: Session = Depends(get_db)):
+    return crud.approve_staging_change(db, staging_id)
 
 
-@router.get("/id", response_model=schemas.StagingChangeResponse)
-def get_staging_record_by_id(id: int, db: Session = Depends(get_db)):
-    result = crud.read_staging_record_by_id(db, id)
-    if result is None:
-        raise HTTPException(status_code=404)
-    else:
-        return result
+@router.put("/reject", response_model=schemas.StagingChangeResponse)
+def reject_pending_staging_request(staging_id: int, db: Session = Depends(get_db)):
+    return crud.reject_staging_change(db, staging_id)

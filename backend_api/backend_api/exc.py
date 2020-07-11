@@ -24,9 +24,14 @@ class DuplicateStagingChangePayload(Exception):
     pass
 
 
-class StagingChangeNotFoundError(Exception):
+class MasterRecordNotFoundError(Exception):
     pass
 
 
 class StagingChangeNoEffectError(Exception):
     pass
+
+
+class StagingRecordNotFoundError(Exception):
+    pass
+
