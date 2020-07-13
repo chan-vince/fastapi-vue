@@ -50,15 +50,15 @@ app.include_router(
 app.include_router(
     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
 )
-app.include_router(
-    staging_practices.router, tags=["Staging Practices"], prefix=f"/api/v1/staging"
-)
-app.include_router(
-    staging_employees.router, tags=["Staging Employees"], prefix=f"/api/v1/staging"
-)
+# app.include_router(
+#     staging_practices.router, tags=["Staging Practices"], prefix=f"/api/v1/staging"
+# )
+# app.include_router(
+#     staging_employees.router, tags=["Staging Employees"], prefix=f"/api/v1/staging"
+# )
 
 app.include_router(
-    staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1/stagingbeta"
+    staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
 )
 
 
