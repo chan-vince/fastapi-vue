@@ -6,7 +6,7 @@
         <div class="card-content">
           <b-tabs id="spacing-margins-tabs">
             <b-tab-item label="Pending">
-                <EmployeeApprovalsTable
+                <PendingApprovalsTable
                   id="tables"
                   ref="pendingEmployeeApprovals"
                   v-bind:pendingOnly="true"
@@ -15,13 +15,13 @@
                 />
             </b-tab-item>
             <b-tab-item label="History">
-                <PracticeApprovalsTable
+                <!-- <PracticeApprovalsTable
                   id="tables"
                   ref="pendingPracticeApprovals"
                   v-bind:pendingOnly="true"
                   @refresh="refreshTables"
                   style="margin: 0px 20px 120px 20px"
-                />
+                /> -->
             </b-tab-item>
           </b-tabs>
         </div>
@@ -32,29 +32,27 @@
 
 <script>
 import NavBar from "../components/NavBar";
-import PracticeApprovalsTable from "../components/PracticeApprovalsTable";
-import EmployeeApprovalsTable from "../components/EmployeeApprovalsTable";
+import PendingApprovalsTable from "../components/PendingApprovalsTable";
 
 export default {
-  name: "PendingApprovalsPage",
+  name: "ApprovalsPage",
   components: {
     NavBar,
-    PracticeApprovalsTable,
-    EmployeeApprovalsTable
+    PendingApprovalsTable
   },
   // data() {
   // },
   created() {
-    console.log("Pending Approvals Page");
+    console.log("Approvals Page");
   },
   methods: {
     refreshTables() {
       console.log("Time to refresh!");
-      this.$refs.pendingPracticeApprovals.getStagingPractices();
-      this.$refs.historicPracticeApprovals.getStagingPractices();
-      this.$refs.pendingEmployeeApprovals.getStagingEmployees();
-      this.$refs.historicEmployeeApprovals.getStagingEmployees();
-      this.$refs.navBar.getPendingApprovalsCount();
+      // this.$refs.pendingPracticeApprovals.getStagingPractices();
+      // this.$refs.historicPracticeApprovals.getStagingPractices();
+      // this.$refs.pendingEmployeeApprovals.getStagingEmployees();
+      // this.$refs.historicEmployeeApprovals.getStagingEmployees();
+      // this.$refs.navBar.getPendingApprovalsCount();
     }
   }
 };
@@ -62,12 +60,12 @@ export default {
 
 <style scoped>
 #spacing-margins-card {
-  margin: 40px 20px 40px 20px;
+  margin: 10px 25px 25px 25px;
 }
 #spacing-margins-tabs {
-  margin: 10px 20px 40px 20px;
+  margin: 0px 20px 40px 20px;
 }
 #tables{  
-  min-height: 800px;
+  min-height: 600px;
 }
 </style>

@@ -4,7 +4,7 @@ import LoginPage from '../pages/LoginPage.vue'
 import AllPracticesPage from '../pages/AllPracticesPage.vue'
 import AllEmployeesPage from '../pages/AllEmployeesPage.vue'
 import PracticePage from '../pages/PracticePage.vue'
-import PendingApprovalsPage from '../pages/PendingApprovalsPage.vue'
+import ApprovalsPage from '../pages/ApprovalsPage.vue'
 import TestPage from '../pages/TestPage.vue'
 import NotFoundPage from '../pages/NotFoundPage.vue'
 
@@ -81,7 +81,7 @@ const routes = [
     },
     {
       path: '/approvals',
-      component: PendingApprovalsPage,
+      component: ApprovalsPage,
       meta: {
         title: 'Approvals',
         metaTags: [
