@@ -159,6 +159,10 @@ def read_all_staging_records(db: Session, skip: int, limit: int):
     return db.query(tables.StagingChanges).offset(skip).limit(limit).all()
 
 
+def pending_count(db: Session):
+    return db.query(tables.StagingChanges).filter(tables.StagingChanges.approved == None).count()
+
+
 def get_delta_for_record(db: Session, staging_id: int):
     # get the staging record
     staging_record = db.query(tables.StagingChanges).filter(tables.StagingChanges.id == staging_id).first()
