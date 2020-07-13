@@ -17,6 +17,15 @@ def read_practice_by_name(db: Session, practice_name: str):
     return db.query(tables.Practice).filter(tables.Practice.name == practice_name).first()
 
 
+def read_practice_by_address_id(db: Session, address_id: int):
+    address = db.query(tables.Address).filter(tables.Address.id == address_id).first()
+
+    if address is None:
+        raise backend_api.exc.PracticeNotFoundError
+
+    return db.query(tables.Practice).filter(tables.Practice.addresses.contains(address)).one()
+
+
 def create_practice(db: Session, practice: schemas.PracticeCreate):
     practice = tables.Practice(**practice.dict())
     db.add(practice)

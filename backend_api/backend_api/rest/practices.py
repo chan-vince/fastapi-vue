@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
+import backend_api.exc
 import backend_api.pydantic_schemas as schemas
 from backend_api.crud import practices as crud_practices
 from backend_api.database import get_db
@@ -51,6 +52,18 @@ def get_practice_by_name(name: str, db: Session = Depends(get_db)):
     practice: schemas.Practice = crud_practices.read_practice_by_name(db, practice_name=name)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with name {name} not found")
+    return practice
+
+
+@router.get("/practice/address_id", response_model=schemas.Practice)
+def get_practice_by_address_id(address_id: int, db: Session = Depends(get_db)):
+    try:
+        practice: schemas.Practice = crud_practices.read_practice_by_address_id(db, address_id=address_id)
+    except backend_api.exc.AddressNotFoundError:
+        raise HTTPException(status_code=404, detail=f"No address found with ID {address_id}")
+
+    if practice is None:
+        raise HTTPException(status_code=404, detail=f"No Practices associated with address {address_id}")
     return practice
 
 
