@@ -49,7 +49,15 @@
                 <template v-if="props.row.target_table == 'ip_ranges'">
                     <PendingIPRangeDetail
                             v-bind:row="props.row"
-                            v-bind:aux_info="aux_info"/>
+                            v-bind:aux_info="aux_info"
+                            v-bind:detail_delta="detail_delta"/>
+                </template>
+
+                <template v-if="props.row.target_table == 'practices'">
+                    <PendingPracticeDetail
+                            v-bind:row="props.row"
+                            v-bind:aux_info="aux_info"
+                            v-bind:detail_delta="detail_delta"/>
                 </template>
                 <!-- <template v-if="props.row.target_id == null">
                   {{ props.row.payload }}
@@ -133,13 +141,15 @@
 
 <script>
     import {client} from "../../api.js";
-    import PendingIPRangeDetail from "../PendingIPRangeDetail.vue";
+    import PendingIPRangeDetail from "../approval_details/PendingIPRangeDetail.vue";
+    import PendingPracticeDetail from "../approval_details/PendingPracticeDetail";
 
     export default {
         name: "PendingApprovalsTable",
         props: ["pendingOnly"],
         components: {
-            PendingIPRangeDetail
+            PendingIPRangeDetail,
+            PendingPracticeDetail
         },
         data() {
             return {
@@ -205,13 +215,17 @@
                             console.log(error);
                         });
                 }
+                // add new practice
+                else if (row.target_table === "practices" && row.modify === false) {
+                    this.aux_info = {}
+                }
             },
             acceptChanges(id) {
                 var current = this;
                 console.log(`Accepting changes for row id ${id}`);
                 client
-                    .put(`api/v1/staging/practice/approved`, null, {
-                        params: {id: id, approved: true}
+                    .put(`api/v1/stagingbeta/approve`, null, {
+                        params: {staging_id: id, approver_id: 5000}
                     })
                     .then(response => {
                         console.log(response.data);
@@ -233,8 +247,8 @@
                 var current = this;
                 console.log(`Rejecting changes for row id ${id}`);
                 client
-                    .put(`api/v1/staging/practice/approved`, null, {
-                        params: {id: id, approved: false}
+                    .put(`api/v1/stagingbeta/reject`, null, {
+                        params: {staging_id: id, approver_id: 5000}
                     })
                     .then(response => {
                         console.log(response.data);

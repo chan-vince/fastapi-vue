@@ -94,7 +94,7 @@ import { client } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
-import ModalEmployee from "../components/modals/ModalEmployee.vue";
+import ModalEmployee from "../components/modals/AddEmployeeModal.vue";
 
 export default {
   name: "AllEmployeesPage",

@@ -5,8 +5,8 @@
             <b-tabs v-model="activeTab" :animated=false>
                 <b-tab-item label="GP Details">
                     <GPDetailsGeneralForm v-bind:practice_details="practice_details"
-                    @newRequestGenerated="newRequestGenerated"
-                    style="margin-bottom: 15px"/>
+                                          @newRequestGenerated="newRequestGenerated"
+                                          style="margin-bottom: 15px"/>
                     <GPDetailsAddressesForm v-bind:practice_details="practice_details"/>
                 </b-tab-item>
 
@@ -45,18 +45,18 @@
             this.getPracticeDetails()
         },
         methods: {
-            getPracticeDetails(){
+            getPracticeDetails() {
                 var current = this
-                client.get(`api/v1/practice/name`, {params: {name: this.$props.practice_name} })
-                .then(response => {
-                    this.practice_details = response.data
-                    this.practice_id = response.data["id"]
-                })
-                .catch( function () {
-                    current.$router.replace({ path: `/404` });
-                })
+                client.get(`api/v1/practice/name`, {params: {name: this.$props.practice_name}})
+                    .then(response => {
+                        this.practice_details = response.data
+                        this.practice_id = response.data["id"]
+                    })
+                    .catch(function () {
+                        current.$router.replace({path: `/404`});
+                    })
             },
-            newRequestGenerated(){
+            newRequestGenerated() {
                 this.$emit('newRequestGenerated')
             }
         }
@@ -65,16 +65,16 @@
 
 <style scoped>
 
-.layout {
-    /* margin-left: 200px; */
-    /* margin-right: 200px; */
-    max-width: 1920px;
-    /* position: absolute; */
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 5%;
-    bottom: 0;
-}
+    .layout {
+        /* margin-left: 200px; */
+        /* margin-right: 200px; */
+        max-width: 1920px;
+        /* position: absolute; */
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 5%;
+        bottom: 0;
+    }
 
 </style>

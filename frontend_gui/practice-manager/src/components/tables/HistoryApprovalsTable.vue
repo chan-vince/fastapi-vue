@@ -8,7 +8,7 @@
                 :data="staging_records"
                 :show-detail-icon="showDetailIcon"
                 :opened-detailed="defaultOpenedDetails"
-                :detailed="pendingOnly"
+                :detailed="true"
                 @details-open="getSupportInfo"
                 detail-key="id"
                 aria-next-label="Next page"
@@ -49,11 +49,12 @@
             </template>
 
             <template slot="detail" slot-scope="props">
-                <template v-if="props.row.target_table == 'ip_ranges'">
-                    <PendingIPRangeDetail
-                            v-bind:row="props.row"
-                            v-bind:aux_info="aux_info"/>
-                </template>
+                <div v-for="(item, key) in props.row.payload" :key="key">
+                    <div class="columns">
+                        <strong class="column is-3"> {{ display_headings[key] }}:</strong>
+                        <p class="column"> {{ item }} </p>
+                    </div>
+                </div>
             </template>
 
             <template slot="empty">
@@ -76,14 +77,10 @@
 
 <script>
     import {client} from "../../api.js";
-    import PendingIPRangeDetail from "../PendingIPRangeDetail.vue";
 
     export default {
         name: "PendingApprovalsTable",
         props: ["pendingOnly"],
-        components: {
-            PendingIPRangeDetail
-        },
         data() {
             return {
                 staging_records: [],
@@ -93,7 +90,16 @@
                 loading: true,
                 target_tables: {ip_ranges: "CIDR IP Range", practices: "Practice"},
                 aux_info: null,
-                details_close: null
+                details_close: null,
+                display_headings: {
+                    name: "Practice Name",
+                    national_code: "National Code",
+                    emis_cdb_practice_code: "EMIS CDB Practice Code",
+                    go_live_date: "Go Live Date",
+                    closed: "Closed",
+                    cidr: "CIDR",
+                    address_id: "Address ID#"
+                },
             };
         },
         methods: {
@@ -104,9 +110,13 @@
                     })
                     .then(response => {
                         this.staging_records = response.data.filter(
-                            item => item.approved == true
+                            item => item.approved !== null
                         );
                         this.loading = false;
+                        console.log(this.staging_records)
+                    })
+                    .catch(error => {
+                        console.log(error)
                     });
             },
             getSupportInfo(row) {

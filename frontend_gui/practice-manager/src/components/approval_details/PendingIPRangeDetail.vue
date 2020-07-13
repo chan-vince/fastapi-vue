@@ -47,7 +47,7 @@
 <script>
     export default {
         name: "PendingIPRangeDetail",
-        props: ["row", "aux_info", "modify"],
+        props: ["row", "aux_info"],
 
         data() {
             return {

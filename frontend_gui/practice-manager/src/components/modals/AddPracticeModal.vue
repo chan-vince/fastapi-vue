@@ -75,6 +75,7 @@ export default {
   methods: {
     addNewPractice() {
       var current = this;
+
       var payload = {
         name: this.name,
         national_code: this.national_code,
@@ -82,9 +83,17 @@ export default {
         go_live_date: this.go_live_date.toISOString().split('T')[0],
         closed: this.closed
       };
+      var body = {
+        requestor_id: 5000,
+        target_table: "practices",
+        target_id: null,
+        modify: false,
+        payload: payload
+      }
+
       console.log(payload)
       client
-        .post(`api/v1/practice`, payload)
+        .post(`api/v1/stagingbeta`, body)
         .then(response => {
           console.log(response.data);
           this.$parent.close()

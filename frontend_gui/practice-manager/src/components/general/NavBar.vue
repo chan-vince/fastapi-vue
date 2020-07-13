@@ -2,9 +2,9 @@
   <div id='navBar'>
     <b-navbar spaced shadow>
       <template slot="brand">
-        <b-navbar-item tag="router-link" :to="{ path: '#' }" style="padding-right: 40px">
+        <b-navbar-item style="padding-right: 40px">
           <!-- <img src="../../public/logo.png" alt="GP Data Access System" /> -->
-          <img src="../../../public/nhs-logo.png" alt="GP Data Access System" />
+          <a href="https://prel.im/"><img src="../../../public/nhs-logo.png" alt="GP Data Access System" /></a>
         </b-navbar-item>
       </template>
       <template slot="start">

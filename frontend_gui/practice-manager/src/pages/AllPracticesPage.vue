@@ -83,7 +83,7 @@ import { client } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
-import ModalPractice from "../components/modals/ModalPractice.vue";
+import ModalPractice from "../components/modals/AddPracticeModal.vue";
 
 export default {
   name: "AllPracticesPage",

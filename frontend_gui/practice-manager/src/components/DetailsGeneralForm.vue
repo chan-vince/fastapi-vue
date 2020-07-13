@@ -9,28 +9,28 @@
             <section style="padding-right: 50px">
                 <b-field label="Name" horizontal>
                     <b-input v-model="name" size="is-default" required
-                    placeholder="Enter a GP Practice Name"></b-input>
+                             placeholder="Enter a GP Practice Name"></b-input>
                 </b-field>
                 <b-field label="National Code" horizontal>
                     <b-input v-model="national_code" size="is-default" required
-                    placeholder="Enter a National Code"></b-input>
+                             placeholder="Enter a National Code"></b-input>
                 </b-field>
                 <b-field label="EMIS CDB Practice Code" horizontal>
                     <b-input v-model="emis_cdb_practice_code" size="is-default" required
-                    placeholder="Enter a National Code"></b-input>
+                             placeholder="Enter a National Code"></b-input>
                 </b-field>
                 <b-field label="Go Live Date" horizontal>
                     <b-datepicker v-model="go_live_date"
-                        :first-day-of-week="1"
-                        placeholder="Click to select...">                        
+                                  :first-day-of-week="1"
+                                  placeholder="Click to select...">
                         <button class="button is-primary"
-                            @click="go_live_date = new Date()">
+                                @click="go_live_date = new Date()">
                             <b-icon icon="calendar-today"></b-icon>
                             <span>Today</span>
                         </button>
 
                         <button class="button is-danger"
-                            @click="go_live_date = null">
+                                @click="go_live_date = null">
                             <b-icon icon="close"></b-icon>
                             <span>Clear</span>
                         </button>
@@ -39,22 +39,23 @@
                 <br>
                 <div class="field level-left" horizontal>
                     <b-checkbox v-model="closed"
-                        type="is-primary">
-                            Practice closed
+                                type="is-primary">
+                        Practice closed
                     </b-checkbox>
                 </div>
-                <div class="level">
+                <div class="level" style="padding-top: 20px">
                     <b-field class="level-left">
                         <b-checkbox-button v-model="checkboxGroup" v-for="system in access_systems" :key="system.id"
-                            :native-value="system.name"
-                            type="is-success"
-                            v-on:input="printSelected">
+                                           :native-value="system.name"
+                                           type="is-success"
+                                           v-on:input="printSelected">
                             <span>{{system.name}}</span>
                         </b-checkbox-button>
                     </b-field>
 
                     <div class="level-right" style="padding-top: 20px">
-                        <b-button v-on:click="saveDetails" type="is-primary" outlined icon-left="content-save">Save</b-button>
+                        <b-button v-on:click="saveDetails" type="is-primary" outlined icon-left="content-save">Save
+                        </b-button>
                     </div>
                 </div>
             </section>
@@ -63,84 +64,117 @@
 </template>
 
 <script>
-import {client} from '../api.js'
+    import {client} from '../api.js'
 
 
-export default {
-    name: 'GPDetailsGeneralForm',
-    props: ['practice_details'],
-    data() {
-        const today = new Date()
-        return {
-            go_live_date: today,
-            minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
-            name: '',
-            national_code: '',
-            emis_cdb_practice_code: '',
-            closed: false,
-            access_systems: [],
-            checkboxGroup: []
-        }
-    },
-    watch: { 
-          practice_details: function(details) {
-            this.practice_id = details['id']
-            this.name = details['name']
-            this.national_code = details['national_code']
-            this.emis_cdb_practice_code = details['emis_cdb_practice_code']
-            this.go_live_date = new Date(details['go_live_date'])
-            this.closed = details['closed']
-            this.checkboxGroup = details['access_systems'].map((item) => item["name"])
-        }
-    },
-    methods: {
-        getAllAccessSystems(){
-            client.get(`api/v1/access_system`)
-            .then(response => {
-                this.access_systems = response.data
-            })
-        },
-        printSelected () {
-            console.log(this.checkboxGroup)
-        },
-        saveDetails() {
-            var current = this;
-            var payload = {
-                "name": this.name,
-                "national_code": this.national_code,
-                "emis_cdb_practice_code": this.emis_cdb_practice_code,
-                "go_live_date": this.go_live_date.toISOString().split('T')[0],
-                "closed": this.closed,
-                "source_id": this.practice_id,
-                "requestor_id": 5000
+    export default {
+        name: 'GPDetailsGeneralForm',
+        props: ['practice_details'],
+        data() {
+            const today = new Date()
+            return {
+                go_live_date: today,
+                minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+                name: '',
+                national_code: '',
+                emis_cdb_practice_code: '',
+                closed: false,
+                access_systems: [],
+                checkboxGroup: []
             }
-            console.log(payload)
-            client.put(`api/v1/staging/practice`, payload)
-            .then(response => {
-                console.log(response.data)
-                this.$buefy.toast.open({
-                    message: 'Request submitted successfully',
-                    type: 'is-success'
+        },
+        watch: {
+            practice_details: function (details) {
+                this.id = details['id']
+                this.name = details['name']
+                this.national_code = details['national_code']
+                this.emis_cdb_practice_code = details['emis_cdb_practice_code']
+                this.go_live_date = new Date(details['go_live_date'])
+                this.closed = details['closed']
+                this.checkboxGroup = details['access_systems'].map((item) => item["name"])
+            }
+        },
+        methods: {
+            getAllAccessSystems() {
+                client.get(`api/v1/access_system`)
+                    .then(response => {
+                        this.access_systems = response.data
+                    })
+            },
+            printSelected() {
+                console.log(this.checkboxGroup)
+            },
+            saveDetails() {
+                var promises = [];
+                var message = "Request submitted successfully";
+                var type = "is-success";
+                var gen_body = {
+                    requestor_id: 5000,
+                    target_table: "practices",
+                    target_id: this.id,
+                    modify: true
+                }
+                var as_body = {
+                    requestor_id: 5000,
+                    target_table: "practices",
+                    target_id: this.id,
+                    modify: true
+                }
+                var gen_payload = {
+                    "name": this.name,
+                    "national_code": this.national_code,
+                    "emis_cdb_practice_code": this.emis_cdb_practice_code,
+                    "go_live_date": this.go_live_date.toISOString().split('T')[0],
+                    "closed": this.closed,
+                }
+                var as_payload = {
+                    "access_systems": this.checkboxGroup
+                }
+
+                gen_body.payload = gen_payload
+                as_body.payload = as_payload
+
+                promises.push(client.put(`api/v1/stagingbeta`, gen_body)
+                    .then(response => {
+                        if (response.data.status_code === 204) {
+                            message = "No changes made"
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data.detail);
+                        message = 'Error saving GP General details'
+                        type = 'is-danger'
+                    }))
+
+                promises.push(client.put(`api/v1/stagingbeta`, as_body)
+                    .then(response => {
+                        if (response.data.status_code === 204) {
+                            message = "No changes made"
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error.response.data.detail);
+                        message = 'Error saving Access Systems'
+                        type = 'is-danger'
+                    }))
+
+                Promise.all(promises).then(() => {
+                    this.$buefy.toast.open({
+                        message: message,
+                        type: type
+                    })
+                    this.$emit('newRequestGenerated')
                 })
-                this.$emit('newRequestGenerated')
-            })
-            .catch(function (error) {
-                console.log(error);
-                current.$buefy.toast.open({
-                    message: 'Request error',
-                    type: 'is-danger'
-                })
-            })
+            }
+        },
+        created() {
+            this.access_systems = this.getAllAccessSystems()
         }
-    },
-    created() {
-        this.access_systems = this.getAllAccessSystems()
     }
-}
 </script>
 
 <style scoped>
-.title {
-    font-weight: lighter;
-}
+    .title {
+        font-weight: lighter;
+    }
 </style>

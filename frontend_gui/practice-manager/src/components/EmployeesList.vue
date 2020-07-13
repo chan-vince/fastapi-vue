@@ -69,7 +69,7 @@
 
 <script>
 import {client} from '../api.js'
-import ModalEmployee from './modals/ModalEmployee'
+import ModalEmployee from './modals/AddEmployeeModal'
 import AddMainPartnerModal from './modals/AddMainPartnerModal'
 
 export default {

@@ -57,6 +57,13 @@ class AccessSystem(AccessSystemBase):
         orm_mode = True
 
 
+class AccessSystems(BaseModel):
+    access_systems: List[str]
+
+    class Config:
+        orm_mode = True
+
+
 class JobTitleBase(BaseModel):
     title: str
 
@@ -194,7 +201,7 @@ class StagingChangeRequest(BaseModel):
     target_table: str
     target_id: int = None
     modify: bool
-    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate]
+    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate, AccessSystems]
     # payload: dict
 
     class Config:

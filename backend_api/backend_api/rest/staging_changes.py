@@ -81,7 +81,7 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
     except backend_api.exc.MasterRecordNotFoundError:
         raise HTTPException(status_code=409, detail=f"No entry exists with id {request.target_id} in table {request.target_table}")
     except backend_api.exc.StagingChangeNoEffectError:
-        return {"detail": "No changes made"}
+        return HTTPException(status_code=204)
 
 
 @router.get("/stagingbeta", response_model=List[schemas.StagingChangeResponse])
@@ -90,13 +90,13 @@ def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depen
 
 
 @router.put("/stagingbeta/approve", response_model=schemas.StagingChangeResponse)
-def approve_pending_staging_request(staging_id: int, db: Session = Depends(get_db)):
-    return crud.approve_staging_change(db, staging_id)
+def approve_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db)):
+    return crud.approve_staging_change(db, staging_id, approver_id)
 
 
 @router.put("/stagingbeta/reject", response_model=schemas.StagingChangeResponse)
-def reject_pending_staging_request(staging_id: int, db: Session = Depends(get_db)):
-    return crud.reject_staging_change(db, staging_id)
+def reject_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db)):
+    return crud.reject_staging_change(db, staging_id, approver_id)
 
 
 @router.get("/stagingbeta/count/pending")

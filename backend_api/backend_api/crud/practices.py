@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session
 import backend_api.exc
 from backend_api import database_models as tables
@@ -69,20 +71,16 @@ def get_all_access_systems(db: Session):
     return db.query(tables.AccessSystem).all()
 
 
-def add_access_system_to_practice(db: Session, practice_id: int, access_system: schemas.AccessSystem):
-    practice: tables.Practice = read_practice_by_id(db, practice_id)
-    practice.access_systems.append(access_system)
-    db.add(practice)
-    db.commit()
-    return practice
-
-
-def delete_access_system_from_practice(db: Session, practice_id: int, access_system_id: int):
+def set_access_systems_for_practice(db: Session, practice_id: int, access_system_ids: List[int]):
     practice: tables.Practice = read_practice_by_id(db, practice_id)
 
-    for index, system in enumerate(practice.access_systems):
-        if system.id == access_system_id:
-            practice.access_systems.pop(index)
+    # Clear access systems
+    practice.access_systems = []
+
+    # Set all the ones in the list
+    for as_id in access_system_ids:
+        system = db.query(tables.AccessSystem).filter(tables.AccessSystem.id == as_id).first()
+        practice.access_systems.append(system)
 
     db.add(practice)
     db.commit()

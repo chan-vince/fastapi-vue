@@ -76,18 +76,12 @@ def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_d
 
 
 # Add an Access System to a practice
-@router.put("/practice/system", response_model=schemas.Practice)
-def add_access_system_to_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
+@router.post("/practice/system", response_model=schemas.Practice)
+def set_access_systems_for_practice_by_id(practice_id: int, access_system_ids: List[int], db: Session = Depends(get_db)):
     # Raises 404 if doesn't exist
     get_practice_by_id(practice_id, db)
-    access_system = crud_practices.get_access_system_by_id(db, access_system_id)
 
-    return crud_practices.add_access_system_to_practice(db, practice_id, access_system)
-
-
-@router.delete("/practice/system", response_model=schemas.Practice)
-def remove_access_system_from_practice_by_id(practice_id: int, access_system_id: int, db: Session = Depends(get_db)):
-    return crud_practices.delete_access_system_from_practice(db, practice_id, access_system_id)
+    return crud_practices.set_access_systems_for_practice(db, practice_id, access_system_ids)
 
 
 @router.put("/practice/main_partner", response_model=schemas.Practice)

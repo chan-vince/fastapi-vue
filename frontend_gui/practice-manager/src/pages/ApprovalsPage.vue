@@ -48,11 +48,9 @@
         methods: {
             refreshTables() {
                 console.log("Time to refresh!");
-                // this.$refs.pendingPracticeApprovals.getStagingPractices();
-                // this.$refs.historicPracticeApprovals.getStagingPractices();
-                // this.$refs.pendingApprovalsTable.getStagingEmployees();
-                // this.$refs.historicEmployeeApprovals.getStagingEmployees();
-                // this.$refs.navBar.getPendingApprovalsCount();
+                this.$refs.navBar.getPendingApprovalsCount()
+                this.$refs.pendingApprovalsTable.getStagingPractices();
+                this.$refs.historyApprovalsTable.getStagingPractices();
             }
         }
     };
