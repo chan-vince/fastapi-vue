@@ -9,7 +9,7 @@
                 :show-detail-icon="showDetailIcon"
                 :opened-detailed="defaultOpenedDetails"
                 :detailed="pendingOnly"
-                @details-open="getDelta"
+                @details-open="getSupportInfo"
                 detail-key="id"
                 aria-next-label="Next page"
                 aria-previous-label="Previous page"
@@ -112,6 +112,7 @@
                     </div>
                 </template>
             </template>
+
             <template slot="empty">
                 <section class="section">
                     <div class="content has-text-grey has-text-centered">
@@ -165,7 +166,7 @@
                         this.loading = false;
                     });
             },
-            getDelta(row) {
+            getSupportInfo(row) {
                 client
                     .get(`api/v1/stagingbeta/delta`, {
                         params: {id: row.id}
