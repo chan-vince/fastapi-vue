@@ -46,13 +46,7 @@
     export default {
         name: "PendingIPRangeDetail",
         props: ["row", "aux_info", "modify"],
-        // props: {
-        //     row: Object,
-        //     aux_info: {
-        //         default: {}
-        //     },
-        //     modify: Boolean
-        // },
+
         data() {
             return {
                 loading: true,
