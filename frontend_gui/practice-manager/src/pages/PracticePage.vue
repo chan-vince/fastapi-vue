@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import NavBar from "../components/NavBar";
+import NavBar from "../components/general/NavBar";
 import PracticeForm from "../components/PracticeForm";
 
 export default {

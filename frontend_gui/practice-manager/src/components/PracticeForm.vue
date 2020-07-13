@@ -19,10 +19,10 @@
 </template>
 
 <script>
-    import GPNameTitle from '../components/GPNameTitle.vue'
-    import GPDetailsGeneralForm from '../components/GPDetailsGeneralForm.vue'
-    import GPDetailsAddressesForm from '../components/GPDetailsAddressesForm.vue'
-    import GPEmployeesList from '../components/GPEmployeesList.vue'
+    import GPNameTitle from './general/GPNameTitle.vue'
+    import GPDetailsGeneralForm from './DetailsGeneralForm.vue'
+    import GPDetailsAddressesForm from './DetailsAddressesForm.vue'
+    import GPEmployeesList from './EmployeesList.vue'
     import {client} from '../api.js'
 
     export default {

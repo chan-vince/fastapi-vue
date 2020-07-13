@@ -132,8 +132,8 @@
 
 
 <script>
-    import {client} from "../api.js";
-    import PendingIPRangeDetail from "../components/PendingIPRangeDetail.vue";
+    import {client} from "../../api.js";
+    import PendingIPRangeDetail from "../PendingIPRangeDetail.vue";
 
     export default {
         name: "PendingApprovalsTable",

@@ -29,9 +29,9 @@
 </template>
 
 <script>
-    import NavBar from "../components/NavBar";
-    import PendingApprovalsTable from "../components/PendingApprovalsTable";
-    import HistoryApprovalsTable from "../components/HistoryApprovalsTable";
+    import NavBar from "../components/general/NavBar";
+    import PendingApprovalsTable from "../components/tables/PendingApprovalsTable";
+    import HistoryApprovalsTable from "../components/tables/HistoryApprovalsTable";
 
     export default {
         name: "ApprovalsPage",

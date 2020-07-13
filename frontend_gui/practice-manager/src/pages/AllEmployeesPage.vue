@@ -91,10 +91,10 @@
 
 <script>
 import { client } from "../api.js";
-import NavBar from "../components/NavBar.vue";
-import TitleWithSearchBar from "../components/TitleWithSearchBar";
+import NavBar from "../components/general/NavBar.vue";
+import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
-import ModalEmployee from "../components/ModalEmployee.vue";
+import ModalEmployee from "../components/modals/ModalEmployee.vue";
 
 export default {
   name: "AllEmployeesPage",

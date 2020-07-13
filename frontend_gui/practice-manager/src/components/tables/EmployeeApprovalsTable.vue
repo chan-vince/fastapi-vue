@@ -107,7 +107,7 @@
 
 
 <script>
-import { client } from "../api.js";
+import { client } from "../../api.js";
 
 export default {
   name: "PracticeApprovalsTable",

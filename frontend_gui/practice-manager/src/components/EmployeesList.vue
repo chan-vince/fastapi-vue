@@ -69,8 +69,8 @@
 
 <script>
 import {client} from '../api.js'
-import ModalEmployee from '../components/ModalEmployee'
-import AddMainPartnerModal from '../components/AddMainPartnerModal'
+import ModalEmployee from './modals/ModalEmployee'
+import AddMainPartnerModal from './modals/AddMainPartnerModal'
 
 export default {
     name: 'GPEmployeesList',

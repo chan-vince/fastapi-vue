@@ -32,7 +32,9 @@
             <div class="column">
                 <section class="level-left">
                     <template v-if="row.modify">
-                        <b-tag size="is-medium" type="is-danger">{{ address.ip_ranges.map(item => item.cidr).join(", ") }}</b-tag>
+                        <b-tag size="is-medium" type="is-danger">
+                            {{ address.ip_ranges.map(item => item.cidr).join(", ") }}
+                        </b-tag>
                         <b-icon icon="arrow-right"></b-icon>
                     </template>
                     <b-tag size="is-medium" type="is-success">{{ row.payload.cidr }}</b-tag>
@@ -55,7 +57,7 @@
         },
         watch: {
             aux_info() {
-                if(this.aux_info !== null){
+                if (this.aux_info !== null) {
                     this.getAddressForIpRange();
                     this.loading = false
                 }
