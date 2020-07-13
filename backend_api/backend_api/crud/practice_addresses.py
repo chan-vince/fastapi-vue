@@ -1,3 +1,4 @@
+import sqlalchemy.exc
 from sqlalchemy.orm import Session
 
 import backend_api.exc
@@ -65,6 +66,16 @@ def assign_ip_range_to_address(db: Session, ip_range: schemas.IPRangeCreate):
     db.add(ip_range)
     db.commit()
     return address
+
+
+def modify_ip_range_for_address(db: Session, ip_range_id: int, cidr: str):
+    ip_range: tables.IPRange = db.query(tables.IPRange).filter(tables.IPRange.id == ip_range_id).first()
+    ip_range.cidr = cidr
+    try:
+        db.commit()
+        return ip_range
+    except sqlalchemy.exc.IntegrityError:
+        raise backend_api.exc.IPRangeAlreadyExistsError
 
 
 def unassign_ip_range_from_address(db: Session, ip_range_id: int, address_id: int):

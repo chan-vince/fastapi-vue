@@ -35,3 +35,6 @@ class StagingChangeNoEffectError(Exception):
 class StagingRecordNotFoundError(Exception):
     pass
 
+
+class IPRangeAlreadyExistsError(Exception):
+    pass

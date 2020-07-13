@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 
+import backend_api.exc
 import backend_api.pydantic_schemas as schemas
 from backend_api.crud import practices as crud_practices
 from backend_api.crud import practice_addresses as crud_practice_addresses
@@ -64,9 +65,17 @@ def delete_address_from_practice(practice_id: int, address_id: int, db: Session 
     return crud_practice_addresses.delete_address_from_practice(db, address_id, get_practice_by_id(practice_id, db))
 
 
-@router.put("/practice/address/ip_ranges", response_model=schemas.Address)
+@router.post("/practice/address/ip_ranges", response_model=schemas.Address)
 def add_ip_range_to_address_by_id(ip_range: schemas.IPRangeCreate, db: Session = Depends(get_db)):
     return crud_practice_addresses.assign_ip_range_to_address(db, ip_range)
+
+
+@router.put("/practice/address/ip_ranges", response_model=schemas.IPRange)
+def modify_ip_range_for_address(ip_range_id: int, cidr: str, db: Session = Depends(get_db)):
+    try:
+        return crud_practice_addresses.modify_ip_range_for_address(db, ip_range_id, cidr)
+    except backend_api.exc.IPRangeAlreadyExistsError:
+        raise HTTPException(status_code=409, detail=f"CIDR {cidr} already exists")
 
 
 @router.delete("/practice/address/ip_range", response_model=schemas.Address)
