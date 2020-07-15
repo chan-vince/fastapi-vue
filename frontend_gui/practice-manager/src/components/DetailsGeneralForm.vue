@@ -65,6 +65,7 @@
 
 <script>
     import {client} from '../api.js'
+    import isEqual from 'lodash.isequal';
 
 
     export default {
@@ -80,7 +81,8 @@
                 emis_cdb_practice_code: '',
                 closed: false,
                 access_systems: [],
-                checkboxGroup: []
+                checkboxGroup: [],
+                checkboxGroupInit: []
             }
         },
         watch: {
@@ -92,6 +94,7 @@
                 this.go_live_date = new Date(details['go_live_date'])
                 this.closed = details['closed']
                 this.checkboxGroup = details['access_systems'].map((item) => item["name"])
+                this.checkboxGroupInit = details['access_systems'].map((item) => item["name"])
             }
         },
         methods: {
@@ -105,39 +108,46 @@
                 console.log(this.checkboxGroup)
             },
             saveDetails() {
-                var promises = [];
-                var message = "Request submitted successfully";
-                var type = "is-success";
-                var gen_body = {
+                let promises = [];
+                let message = "No changes made";
+                let type = "is-success";
+                let gen_body = {
                     requestor_id: 5000,
                     target_table: "practices",
                     target_id: this.id,
-                    modify: true
+                    link: false
                 }
-                var as_body = {
+                let as_body = {
                     requestor_id: 5000,
-                    target_table: "practices",
+                    target_table: "_association_practice_systems",
                     target_id: this.id,
-                    modify: true
+                    link: true
                 }
-                var gen_payload = {
+                let gen_payload = {
                     "name": this.name,
                     "national_code": this.national_code,
                     "emis_cdb_practice_code": this.emis_cdb_practice_code,
                     "go_live_date": this.go_live_date.toISOString().split('T')[0],
                     "closed": this.closed,
                 }
-                var as_payload = {
-                    "access_systems": this.checkboxGroup
+
+                let access_system_ids = this.access_systems
+                    .filter(i => this.checkboxGroup.includes(i.name))
+                    .map(i => ({"practice_id": this.id, "item": i.id}))
+
+                let as_payload = {
+                    action: "add",
+                    elements: access_system_ids,
                 }
 
                 gen_body.payload = gen_payload
                 as_body.payload = as_payload
 
+
                 promises.push(client.put(`api/v1/stagingbeta`, gen_body)
                     .then(response => {
-                        if (response.data.status_code === 204) {
-                            message = "No changes made"
+                        if (response.status === 200) {
+                            message = "Request submitted successfully"
                         }
                     })
                     .catch(function (error) {
@@ -146,17 +156,20 @@
                         type = 'is-danger'
                     }))
 
-                promises.push(client.put(`api/v1/stagingbeta`, as_body)
-                    .then(response => {
-                        if (response.data.status_code === 204) {
-                            message = "No changes made"
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error.response.data.detail);
-                        message = 'Error saving Access Systems'
-                        type = 'is-danger'
-                    }))
+                if (!(isEqual(this.checkboxGroup, this.checkboxGroupInit))) {
+                    console.log("Submitting access systems")
+                    promises.push(client.put(`api/v1/stagingbeta/link`, as_body)
+                        .then(response => {
+                            if (response.status === 200) {
+                                message = "Request submitted successfully"
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error.response.data.detail);
+                            message = 'Error saving Access Systems'
+                            type = 'is-danger'
+                        }))
+                }
 
                 Promise.all(promises).then(() => {
                     this.$buefy.toast.open({

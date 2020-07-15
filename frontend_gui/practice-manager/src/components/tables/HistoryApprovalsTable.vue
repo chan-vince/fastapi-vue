@@ -88,7 +88,11 @@
                 defaultOpenedDetails: [1],
                 showDetailIcon: true,
                 loading: true,
-                target_tables: {ip_ranges: "CIDR IP Range", practices: "Practice"},
+                target_tables: {
+                    ip_ranges: "CIDR IP Range",
+                    practices: "Practice",
+                    employees: "Employee",
+                    _association_practice_systems: "System Access"},
                 aux_info: null,
                 details_close: null,
                 display_headings: {

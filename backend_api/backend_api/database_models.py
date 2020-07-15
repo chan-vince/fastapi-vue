@@ -27,7 +27,7 @@ class Practice(Base):
     created_at = Column(DateTime, default=datetime.datetime.now())
     national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False,  unique=True)
-    go_live_date = Column(Date)
+    go_live_date = Column(String(length=255))
     closed = Column(Boolean, default=False)
 
     Index('idx_practice_id', 'id')
@@ -48,7 +48,7 @@ class StagingPractice(Base):
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     national_code = Column(String(length=255))
     emis_cdb_practice_code = Column(String(length=255), nullable=False)
-    go_live_date = Column(Date)
+    go_live_date = Column(String(length=255))
     closed = Column(Boolean, default=False)
 
     Index('idx_staging_practice_name', 'name')
@@ -175,14 +175,14 @@ class StagingChanges(Base):
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp())
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
-    approved = Column(Boolean)
+    approved = Column(Boolean)  # can be null which means pending
 
     target_table = Column(String(length=255))
     target_id = Column(Integer)
-    modify = Column(Boolean)
+    link = Column(Boolean)
 
-    # payload must be unique to avoid duplicate entries for new records
-    payload = Column(JSON, unique=True)
+    payload = Column(JSON)
+    Index('payload')
 
     approver = relationship("Employee", foreign_keys=[approver_id])
     requestor = relationship("Employee", foreign_keys=[requestor_id])

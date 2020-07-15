@@ -57,8 +57,9 @@ class AccessSystem(AccessSystemBase):
         orm_mode = True
 
 
-class AccessSystems(BaseModel):
-    access_systems: List[str]
+class Association(BaseModel):
+    action: str
+    elements: List[dict]
 
     class Config:
         orm_mode = True
@@ -83,7 +84,7 @@ class PracticeBase(BaseModel):
     name: str
     national_code: str
     emis_cdb_practice_code: str
-    go_live_date: datetime.date
+    go_live_date: str
     closed: bool
 
 
@@ -200,8 +201,8 @@ class StagingChangeRequest(BaseModel):
     requestor_id: int
     target_table: str
     target_id: int = None
-    modify: bool
-    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate, AccessSystems]
+    link: bool
+    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate, Association]
     # payload: dict
 
     class Config:
@@ -219,7 +220,7 @@ class StagingChangeResponse(BaseModel):
     approved: bool = None
     target_table: str
     target_id: int = None
-    modify: bool
+    link: bool
     payload: dict
 
     class Config:

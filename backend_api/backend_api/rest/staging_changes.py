@@ -38,8 +38,8 @@ def create_new_record_request(request: schemas.StagingChangeRequest, db: Session
         raise HTTPException(status_code=400, detail=f"Invalid target_table, must be one of {printable_tables}")
 
     # Ensure that target_id is not set since we're not modifying
-    if request.modify or request.target_id is not None:
-        raise HTTPException(status_code=400, detail=f"target_id is set or modify is true. Use the PUT request to modify an existing entry")
+    if request.target_id is not None:
+        raise HTTPException(status_code=400, detail=f"target_id is set. Use the PUT request to modify an existing entry")
 
     # # # If the modify flag is true, then an existing record must exist
     # if request.modify and not id_exists(db, request.target_table, request.target_id):
@@ -71,8 +71,8 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
         raise HTTPException(status_code=400, detail=f"Invalid target_table, must be one of {printable_tables}")
 
     # Ensure the right parameters are set
-    if not request.modify or request.target_id is None:
-        raise HTTPException(status_code=400, detail=f"To modify a request, set modify to true and set target_id to a row id")
+    # if request.target_id is not None:
+    #     raise HTTPException(status_code=400, detail=f"To modify a request, set target_id to a row id")
 
     try:
         return crud.modify_staging_record(db, request)
@@ -82,6 +82,14 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
         raise HTTPException(status_code=409, detail=f"No entry exists with id {request.target_id} in table {request.target_table}")
     except backend_api.exc.StagingChangeNoEffectError:
         return HTTPException(status_code=204)
+
+
+@router.put("/stagingbeta/link", response_model=schemas.StagingChangeResponse)
+def modify_existing_association_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
+    if not request.target_table.startswith("_association"):
+        raise HTTPException(status_code=400, detail="This endpoint links many-to-many, and so acts on _association_* tables only")
+
+    return crud.modify_staging_record_m2m(db, request)
 
 
 @router.get("/stagingbeta", response_model=List[schemas.StagingChangeResponse])

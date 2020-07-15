@@ -30,10 +30,12 @@ def id_exists(db: Session, table: str, id: int):
 
 
 def get_table_model_by_name(table: str):
-    for table_model in Base._decl_class_registry.values():
-        if hasattr(table_model, '__tablename__') and table_model.__tablename__ == table:
-            return table_model
+    for name, model in Base.metadata.tables.items():
+        if name == table:
+            logger.debug(type(model))
+            return model
     else:
+        logger.debug("Not found")
         return None
 
 
@@ -86,31 +88,33 @@ def create_staging_record(db: Session, request: StagingChangeRequest):
 
 def modify_staging_record(db: Session, request: StagingChangeRequest):
     """
-    Request to change the record of an existing entry in a table
+    Request to change the record of an existing entry in a table, by adding an entry to the
+    _staging_changes table
     """
-
-    if not request.modify:
-        raise AssertionError("Modify requests should set modify to true")
+    logger.debug(request)
 
     if request.target_id is None:
         raise AssertionError("target_id is required")
 
     table_model = get_table_model_by_name(request.target_table)
 
+    # the master record is the existing record that is being requested to change
     master_record_query = db.query(table_model)\
-        .filter(table_model.id == request.target_id)
-    master_record = master_record_query.first()
+        .filter(table_model.c.id == request.target_id)
+    master_record = master_record_query.first()._asdict()
 
     if master_record is None:
         raise backend_api.exc.MasterRecordNotFoundError
 
+    logger.debug(f"master record:")
+    logger.debug(f"{master_record.keys()}")
+    logger.debug(type(master_record))
+
     # check for deltas, as potentially nothing actually changed
     for key, value in request.payload.dict().items():
         logger.debug(f"Checking {key}")
-        if master_record.__dict__.get(key) != value:
-            logger.debug(f"Found a delta for {key}. Before: {master_record.__dict__.get(key)} After: {value}")
-            logger.debug(f"Type before: {type(master_record.__dict__.get(key))}")
-            logger.debug(f"Type after: {type(value)}")
+        if master_record.get(key) != value:
+            logger.debug(f"Found a delta for {key}. Before: {master_record.get(key)} After: {value}")
             break
     else:
         logger.debug("Request payload is identical to current state. Nothing to do")
@@ -172,6 +176,13 @@ def get_delta_for_record(db: Session, staging_id: int):
     if not staging_record:
         raise backend_api.exc.StagingRecordNotFoundError
 
+    # Special case for links - should break out into separate functions etc
+    if staging_record.target_table.startswith("_association"):
+        practice = db.query(tables.Practice).filter(tables.Practice.id == staging_record.target_id).first()
+        existing_systems = [system.id for system in practice.access_systems]
+        delta = {"before": existing_systems, "after": [x["item"] for x in staging_record.payload["elements"]]}
+        return {"deltas": delta}
+
     # find the table where the master record is
     table_model = get_table_model_by_name(staging_record.target_table)
 
@@ -180,8 +191,11 @@ def get_delta_for_record(db: Session, staging_id: int):
         delta = {key: {"before": None, "after": value} for key, value in staging_record.payload.items()}
 
     else:
-        master_record = db.query(table_model).filter(table_model.id == staging_record.target_id).first()
-        delta = {key: {"before": master_record.__dict__.get(key), "after": value} for key, value in staging_record.payload.items() if master_record.__dict__.get(key) != value}
+        logger.debug(table_model)
+        master_record = db.query(table_model).filter(table_model.c.id == staging_record.target_id).first()._asdict()
+        delta = {key: {"before": master_record.get(key), "after": value} for key, value in staging_record.payload.items() if master_record.get(key) != value}
+
+    logger.debug(delta)
     return {"deltas": delta}
 
 
@@ -196,15 +210,18 @@ def approve_staging_change(db: Session, staging_id: int, approver_id: int = 5000
     table = get_table_model_by_name(staging_record.target_table)
     id = staging_record.target_id
 
-    if "access_systems" in staging_record.payload.keys():
+    if staging_record.target_table.startswith("_association"):
         practice = db.query(tables.Practice).filter(tables.Practice.id == id).first()
         practice.access_systems = []
-        for name in staging_record.payload["access_systems"]:
-            access_system = db.query(tables.AccessSystem).filter(tables.AccessSystem.name == name).first()
+        for name in staging_record.payload["elements"]:
+            access_system = db.query(table).filter(table.c.name == name).first()
             practice.access_systems.append(access_system)
 
     else:
-        db.query(table).filter(table.id == id).update(staging_record.payload)
+        statement = table.update().where(table.c.id == id).values(**staging_record.payload)
+        logger.debug(statement)
+        logger.debug(type(statement))
+        db.execute(statement)
 
     db.commit()
 
@@ -221,3 +238,41 @@ def reject_staging_change(db: Session, staging_id: int, approver_id: int = 5000)
     staging_record.approver_id = approver_id
     db.commit()
     return staging_record
+
+
+def modify_staging_record_m2m(db: Session, request: StagingChangeRequest):
+    logger.debug(request)
+    if request.target_table == "_association_practice_systems":
+
+        # Check for existing pending record
+        query = db.query(tables.StagingChanges)\
+            .filter(tables.StagingChanges.approved == None)\
+            .filter(tables.StagingChanges.target_table == request.target_table)\
+            .filter(tables.StagingChanges.target_id == request.target_id)\
+            .filter(tables.StagingChanges.link == True)
+
+        if query.first():
+            # Check if the existing pending record payload is already the same as the new request payload
+            if query.first().payload == request.payload:
+                logger.debug("Nothing to do to modify m2m record")
+                return query.first()
+
+        # Check if the new request payload actually is the current state
+
+        # If we pass the above checks, then we either need to update the payload of the existing request
+        if query.first():
+            logger.debug("Updating existing staging record")
+            query.update({**request.dict()})
+            db.commit()
+            return query.first()
+
+        # Or create a new one for it
+        staging_record = tables.StagingChanges(**request.dict())
+        db.add(staging_record)
+        db.commit()
+        return staging_record
+
+        # if request.payload.action == "add":
+        #     for element in request.payload.elements:
+        #         access_system = db.query(tables.AccessSystem).filter(tables.AccessSystem.id == element).first()
+        #         practice.access_systems.append(access_system)

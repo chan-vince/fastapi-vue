@@ -2,18 +2,19 @@
     <section v-if="aux_info">
         <b-loading :is-full-page="false" :active.sync="loading" :can-cancel="false"></b-loading>
 
-        <strong v-if="Object.keys(aux_info).length !== 0">{{ aux_info.name }}
+        <div class="title is-4" v-if="row.target_id != null">
+            <router-link :to="`/practice/${aux_info.name}`">{{ aux_info.name }}</router-link>
             <hr>
-        </strong>
+        </div>
         <div v-for="(element, index) in elements" :key="index">
-            <template v-if="(aux_info[element.key] != row.payload[element.key]) && (row.payload[element.key])">
+            <template v-if="(aux_info[element.key] !== row.payload[element.key]) && (row.payload[element.key])">
                 <div class="columns">
                     <div class="column is-2">
                         <strong>{{ element.label }}</strong>
                     </div>
                     <div class="column">
                         <div class="level-left">
-                            <template v-if="row.modify">
+                            <template v-if="row.target_id">
                                 <template v-if="element.label === 'Access Systems'">
                                     <b-tag size="is-medium" type="is-success">{{ row.payload[element.key].join(" and ") }}</b-tag>
                                 </template>

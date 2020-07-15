@@ -46,15 +46,27 @@
             </template>
 
             <template slot="detail" slot-scope="props">
-                <template v-if="props.row.target_table == 'ip_ranges'">
+                <template v-if="props.row.target_table === 'ip_ranges'">
                     <PendingIPRangeDetail
                             v-bind:row="props.row"
                             v-bind:aux_info="aux_info"
                             v-bind:detail_delta="detail_delta"/>
                 </template>
 
-                <template v-if="props.row.target_table == 'practices'">
+                <template v-if="props.row.target_table === 'practices'">
                     <PendingPracticeDetail
+                            v-bind:row="props.row"
+                            v-bind:aux_info="aux_info"
+                            v-bind:detail_delta="detail_delta"/>
+                </template>
+                <template v-if="props.row.target_table === '_association_practice_systems'">
+                    <PendingAccessSystemDetail
+                            v-bind:row="props.row"
+                            v-bind:aux_info="aux_info"
+                            v-bind:detail_delta="detail_delta"/>
+                </template>
+                <template v-if="props.row.target_table === 'employees'">
+                    <PendingEmployeeDetail
                             v-bind:row="props.row"
                             v-bind:aux_info="aux_info"
                             v-bind:detail_delta="detail_delta"/>
@@ -143,13 +155,17 @@
     import {client} from "../../api.js";
     import PendingIPRangeDetail from "../approval_details/PendingIPRangeDetail.vue";
     import PendingPracticeDetail from "../approval_details/PendingPracticeDetail";
+    import PendingAccessSystemDetail from "../approval_details/PendingAccessSystemDetail";
+    import PendingEmployeeDetail from "../approval_details/PendingEmployeeDetail";
 
     export default {
         name: "PendingApprovalsTable",
         props: ["pendingOnly"],
         components: {
+            PendingEmployeeDetail,
             PendingIPRangeDetail,
-            PendingPracticeDetail
+            PendingPracticeDetail,
+            PendingAccessSystemDetail
         },
         data() {
             return {
@@ -158,7 +174,11 @@
                 defaultOpenedDetails: [1],
                 showDetailIcon: true,
                 loading: true,
-                target_tables: {ip_ranges: "CIDR IP Range", practices: "Practice"},
+                target_tables: {
+                    ip_ranges: "CIDR IP Range",
+                    practices: "Practice",
+                    employees: "Employee",
+                    _association_practice_systems: "System Access"},
                 aux_info: null,
                 details_close: null
             };
@@ -203,7 +223,7 @@
                         });
                 }
                 // modify existing practice
-                else if (row.target_table === "practices" && row.modify === true) {
+                else if (row.target_table === "practices" && row.target_id !== null) {
                     client
                         .get(`api/v1/practice/id`, {
                             params: {practice_id: row.target_id}
@@ -216,8 +236,33 @@
                         });
                 }
                 // add new practice
-                else if (row.target_table === "practices" && row.modify === false) {
+                else if (row.target_table === "practices" && row.target_id === null) {
                     this.aux_info = {}
+                }
+                // access systems
+                else if (row.target_table === "_association_practice_systems") {
+                    client
+                        .get(`api/v1/practice/id`, {
+                            params: {practice_id: row.target_id}
+                        })
+                        .then(response => {
+                            this.aux_info = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                }
+                else if (row.target_table === "employees"){
+                    client
+                        .get(`api/v1/employee/id`, {
+                            params: {employee_id: row.target_id}
+                        })
+                        .then(response => {
+                            this.aux_info = response.data;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
                 }
             },
             acceptChanges(id) {
