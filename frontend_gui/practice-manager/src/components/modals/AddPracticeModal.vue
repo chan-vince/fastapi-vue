@@ -44,8 +44,8 @@
       <b-checkbox v-model="closed" type="is-primary">Practice closed</b-checkbox>
     </section>
     <footer class="modal-card-foot">
-      <button class="button" type="button" @click="$parent.close()">Cancel</button>
       <button class="button is-primary" @click="addNewPractice">Submit</button>
+      <button class="button" type="button" @click="$parent.close()">Cancel</button>
     </footer>
   </div>
 </template>
@@ -87,7 +87,7 @@ export default {
         requestor_id: 5000,
         target_table: "practices",
         target_id: null,
-        modify: false,
+        link: false,
         payload: payload
       }
 

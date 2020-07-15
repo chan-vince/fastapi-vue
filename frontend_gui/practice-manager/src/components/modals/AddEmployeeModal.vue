@@ -20,9 +20,9 @@
 
             <b-field label="Practice" horizontal>
                 <b-autocomplete
-                        v-model="employee_name"
+                        v-model="practice_name"
                         :data="filteredPractices"
-                        :placeholder="employee_name"
+                        :placeholder="practice_name"
                         icon="magnify"
                         clearable
                         @select="option => selected = option"
@@ -53,8 +53,8 @@
             </b-field>
         </section>
         <footer class="modal-card-foot">
-            <button class="button" type="button" @click="$parent.close()">Cancel</button>
             <button class="button is-primary" @click="saveDetails(rowObject)">Save</button>
+            <button class="button" type="button" @click="$parent.close()">Cancel</button>
         </footer>
     </div>
 </template>
@@ -81,6 +81,7 @@
                 active: true,
                 source_id: null,
                 all_practices: [],
+                practice_name: "",
                 job_title: {title: ""}
             };
         },
@@ -91,7 +92,7 @@
                         option
                             .toString()
                             .toLowerCase()
-                            .indexOf(this.employee_name.toLowerCase()) >= 0
+                            .indexOf(this.practice_name.toLowerCase()) >= 0
                     );
                 });
             }
@@ -108,15 +109,15 @@
             console.log(`Row object: ${this.rowObject}`);
             if (this.rowObject != null) {
                 this.id = this.rowObject.id;
-                (this.name = this.rowObject.name),
-                    (this.email = this.rowObject.email),
-                    (this.title_id = this.rowObject.job_title.id),
-                    (this.professional_num = this.rowObject.professional_num),
-                    (this.it_portal_num = this.rowObject.it_portal_num),
-                    (this.desktop_num = this.rowObject.desktop_num),
-                    (this.active = this.rowObject.active);
+                this.name = this.rowObject.name;
+                this.email = this.rowObject.email;
+                this.title_id = this.rowObject.job_title.id;
+                this.professional_num = this.rowObject.professional_num;
+                this.it_portal_num = this.rowObject.it_portal_num;
+                this.desktop_num = this.rowObject.desktop_num;
+                this.active = this.rowObject.active;
                 this.source_id = this.rowObject.id;
-                this.employee_name = this.rowObject.practices[0].name;
+                this.practice_name = this.rowObject.practices[0].name || ""
             }
         },
         methods: {

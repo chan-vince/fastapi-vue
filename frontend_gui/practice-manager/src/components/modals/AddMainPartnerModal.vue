@@ -8,16 +8,16 @@
                 <b-select placeholder="">
                     <option
                         v-for="employee in employees.sort((a, b) => a.name.localeCompare(b.name))"
-                        :value="`${employee.name} ${employee.last_name}`"
+                        :value="`${employee.name}`"
                         :key="employee.id">
-                        {{ `${employee.name} ${employee.last_name}` }}
+                        {{ `${employee.name}` }}
                     </option>
                 </b-select>
             </b-field>
         </section>
         <footer class="modal-card-foot">
-            <button class="button" type="button" @click="$parent.close()">Cancel</button>
             <button class="button is-primary">Save</button>
+            <button class="button" type="button" @click="$parent.close()">Cancel</button>
         </footer>
     </div>
 </template>

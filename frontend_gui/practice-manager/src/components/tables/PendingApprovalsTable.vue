@@ -171,7 +171,7 @@
             return {
                 staging_records: [],
                 detail_delta: {},
-                defaultOpenedDetails: [1],
+                defaultOpenedDetails: [],
                 showDetailIcon: true,
                 loading: true,
                 target_tables: {
@@ -252,7 +252,8 @@
                             console.log(error);
                         });
                 }
-                else if (row.target_table === "employees"){
+                // modify existing employee
+                else if (row.target_table === "employees" && row.target_id !== null){
                     client
                         .get(`api/v1/employee/id`, {
                             params: {employee_id: row.target_id}
@@ -263,6 +264,10 @@
                         .catch(error => {
                             console.log(error);
                         });
+                }
+                // add new employee
+                else if (row.target_table === "employees" && row.target_id === null) {
+                    this.aux_info = {}
                 }
             },
             acceptChanges(id) {

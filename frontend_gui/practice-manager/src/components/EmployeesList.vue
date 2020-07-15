@@ -125,7 +125,8 @@ export default {
                     "job_title": {
                         "title": "Administrator",
                         "id": 5
-                    }
+                    },
+                    "practices": [{"name": ""}]
                 }
                 var action = "Add"
             }

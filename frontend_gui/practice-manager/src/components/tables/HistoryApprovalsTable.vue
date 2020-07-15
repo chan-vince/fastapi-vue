@@ -8,7 +8,7 @@
                 :data="staging_records"
                 :show-detail-icon="showDetailIcon"
                 :opened-detailed="defaultOpenedDetails"
-                :detailed="true"
+                :detailed="false"
                 @details-open="getSupportInfo"
                 detail-key="id"
                 aria-next-label="Next page"
@@ -96,7 +96,7 @@
                 aux_info: null,
                 details_close: null,
                 display_headings: {
-                    name: "Practice Name",
+                    name: "Name",
                     national_code: "National Code",
                     emis_cdb_practice_code: "EMIS CDB Practice Code",
                     go_live_date: "Go Live Date",

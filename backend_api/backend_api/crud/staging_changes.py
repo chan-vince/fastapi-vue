@@ -46,7 +46,7 @@ def read_staging_record_by_id(db: Session, id: int):
 def create_staging_record(db: Session, request: StagingChangeRequest):
     logger.debug("create_staging_record")
 
-    if request.modify:
+    if request.target_id:
         raise AssertionError("Cannot create a new record if the modify flag is true")
 
     # Check for existing record with same target_table, target_id, and modify
@@ -210,17 +210,20 @@ def approve_staging_change(db: Session, staging_id: int, approver_id: int = 5000
     table = get_table_model_by_name(staging_record.target_table)
     id = staging_record.target_id
 
-    if staging_record.target_table.startswith("_association"):
+    if staging_record.target_table.startswith("_association_practice_systems"):
         practice = db.query(tables.Practice).filter(tables.Practice.id == id).first()
         practice.access_systems = []
-        for name in staging_record.payload["elements"]:
-            access_system = db.query(table).filter(table.c.name == name).first()
+        for pair in staging_record.payload["elements"]:
+            access_system = db.query(tables.AccessSystem).filter(tables.AccessSystem.id == pair["item"]).first()
             practice.access_systems.append(access_system)
 
     else:
-        statement = table.update().where(table.c.id == id).values(**staging_record.payload)
+        if id is None:
+            # Create a new record
+            statement = table.insert().values(**staging_record.payload)
+        else:
+            statement = table.update().where(table.c.id == id).values(**staging_record.payload)
         logger.debug(statement)
-        logger.debug(type(statement))
         db.execute(statement)
 
     db.commit()
