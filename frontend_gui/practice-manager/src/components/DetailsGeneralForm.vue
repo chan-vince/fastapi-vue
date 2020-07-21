@@ -162,6 +162,7 @@
                         .then(response => {
                             if (response.status === 200) {
                                 message = "Request submitted successfully"
+                                type = "is-success";
                             }
                         })
                         .catch(function (error) {
