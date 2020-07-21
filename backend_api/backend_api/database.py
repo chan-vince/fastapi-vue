@@ -41,7 +41,9 @@ Base = declarative_base()
 
 inspector = inspect(engine)
 table_names = inspector.get_table_names()
-printable_tables = ', '.join([x for x in table_names if x[0] != "_"])
+printable_tables = ', '.join([x for x in table_names])
+logger.info(f"Tables: {table_names}")
+logger.info(f"Printable Tables: {printable_tables}")
 
 
 def get_db():
