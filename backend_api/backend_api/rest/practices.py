@@ -6,8 +6,8 @@ from typing import List
 
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas
-from backend_api.crud import practices as crud_practices
-from backend_api.database import get_db
+from backend_api import database as db
+from backend_api.database_connection import get_db_session
 
 logger = logging.getLogger("REST:Practices")
 
@@ -16,31 +16,49 @@ router = APIRouter()
 
 
 @router.get("/practice", response_model=List[schemas.Practice])
-def get_all_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    practices = crud_practices.read_practices_all(db, skip=skip, limit=limit)
+def get_all_practices(skip: int = 0, limit: int = 100, session: Session = Depends(get_db_session)):
+    """
+    Queries the database for practices, returns all column data for each practice. Default page limit is 100
+    """
+    logger.debug(f"Getting all practices: {skip=} {limit=}")
+
+    # skip and limit allow pagination, and the results should be a list of practices
+    practices: List[schemas.Practice] = db.read_practices_all(session, skip=skip, limit=limit)
+
+    # If there are none, raise a not found HTTP status code
+    if not practices:
+        raise HTTPException(status_code=404, detail="Practices table contains no entries")
+
     return practices
 
 
 @router.get("/practice/id", response_model=schemas.Practice)
-def get_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
-    practice: schemas.Practice = crud_practices.read_practice_by_id(db, practice_id=practice_id)
+def get_practice_by_id(practice_id: int, session: Session = Depends(get_db_session)):
+    """
+    Query for a single practice by it's row ID
+    """
+    logger.debug(f"Getting practice for ID {practice_id}")
+
+    practice: schemas.Practice = db.read_practice_by_id(session, practice_id=practice_id)
+
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with id {practice_id} not found")
+
     return practice
 
 
 @router.get("/practice/name", response_model=schemas.Practice)
-def get_practice_by_name(name: str, db: Session = Depends(get_db)):
-    practice: schemas.Practice = crud_practices.read_practice_by_name(db, practice_name=name)
+def get_practice_by_name(name: str, session: Session = Depends(get_db_session)):
+    practice: schemas.Practice = db.read_practice_by_name(session, practice_name=name)
     if practice is None:
         raise HTTPException(status_code=404, detail=f"GP Practice with name {name} not found")
     return practice
 
 
 @router.get("/practice/address_id", response_model=schemas.Practice)
-def get_practice_by_address_id(address_id: int, db: Session = Depends(get_db)):
+def get_practice_by_address_id(address_id: int, session: Session = Depends(get_db_session)):
     try:
-        practice: schemas.Practice = crud_practices.read_practice_by_address_id(db, address_id=address_id)
+        practice: schemas.Practice = db.read_practice_by_address_id(session, address_id=address_id)
     except backend_api.exc.AddressNotFoundError:
         raise HTTPException(status_code=404, detail=f"No address found with ID {address_id}")
 
@@ -50,13 +68,13 @@ def get_practice_by_address_id(address_id: int, db: Session = Depends(get_db)):
 
 
 @router.get("/practice/count", response_model=schemas.RowCount)
-def get_total_number_practices(db: Session = Depends(get_db)):
-    return schemas.RowCount(count=crud_practices.read_total_number_of_practices(db))
+def get_total_number_practices(session: Session = Depends(get_db_session)):
+    return schemas.RowCount(count=db.read_total_number_of_practices(session))
 
 
 @router.get("/practice/names", response_model=schemas.EntityNames)
-def get_names_of_practices(db: Session = Depends(get_db)):
-    return schemas.EntityNames(names=crud_practices.read_all_practice_names(db))
+def get_names_of_practices(session: Session = Depends(get_db_session)):
+    return schemas.EntityNames(names=db.read_all_practice_names(session))
 
 
 # @router.post("/practice", response_model=schemas.Practice)

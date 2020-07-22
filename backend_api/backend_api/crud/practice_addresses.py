@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
-from backend_api.crud.practices import read_practice_by_name, read_practice_by_id
+from backend_api import crud
 
 
 def get_addresses_all(db: Session, skip, limit):
@@ -16,11 +16,11 @@ def read_address_by_id(db: Session, address_id: int):
 
 
 def get_address_by_practice_name(db: Session, practice_name: str):
-    return read_practice_by_name(db, practice_name).addresses
+    return crud.read_practice_by_name(db, practice_name).addresses
 
 
 def get_addresses_by_practice_id(db: Session, practice_id: int):
-    return read_practice_by_id(db, practice_id).addresses
+    return crud.read_practice_by_id(db, practice_id).addresses
 
 
 def create_address_for_practice(db: Session, practice_id: int, address: schemas.AddressCreate):
@@ -58,7 +58,7 @@ def delete_address_from_practice(db: Session, address_id: int, practice: schemas
 
 
 def assign_ip_range_to_address(db: Session, ip_range: schemas.IPRangeCreate):
-    address: tables.Address = read_address_by_id(db, ip_range.address_id)
+    address: tables.Address = crud.read_address_by_id(db, ip_range.address_id)
     if address is None:
         raise backend_api.exc.AddressNotFoundError
 
@@ -79,7 +79,7 @@ def modify_ip_range_for_address(db: Session, ip_range_id: int, cidr: str):
 
 
 def unassign_ip_range_from_address(db: Session, ip_range_id: int, address_id: int):
-    address: tables.Address = read_address_by_id(db, address_id)
+    address: tables.Address = crud.read_address_by_id(db, address_id)
     if address is None:
         raise backend_api.exc.AddressNotFoundError
 

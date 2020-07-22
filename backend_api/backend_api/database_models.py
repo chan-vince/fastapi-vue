@@ -2,7 +2,10 @@ import datetime
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func, JSON
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
 
 association_practice_employee = Table('_association_practice_employee', Base.metadata,
                                       Column('practice_id', Integer, ForeignKey('practices.id', ondelete='CASCADE')),

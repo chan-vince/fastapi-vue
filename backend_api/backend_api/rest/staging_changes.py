@@ -8,7 +8,7 @@ import backend_api.exc
 import backend_api.pydantic_schemas as schemas
 from backend_api.crud import staging_changes as crud
 from backend_api.crud.staging_changes import id_exists
-from backend_api.database import get_db, table_names, printable_tables
+from backend_api.database_connection import get_db_session
 
 logger = logging.getLogger("REST:StagingChanges")
 
@@ -17,7 +17,7 @@ router = APIRouter()
 
 
 @router.get("/stagingbeta/id", response_model=schemas.StagingChangeResponse)
-def get_staging_record_by_id(id: int, db: Session = Depends(get_db)):
+def get_staging_record_by_id(id: int, db: Session = Depends(get_db_session)):
     result = crud.read_staging_record_by_id(db, id)
     if result is None:
         raise HTTPException(status_code=404)
@@ -26,14 +26,14 @@ def get_staging_record_by_id(id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/stagingbeta", response_model=schemas.StagingChangeResponse)
-def create_new_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
+def create_new_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db_session)):
     """
     Stores a record in the staging changes table, which details which table to put this new payload in. Don't forget
     the "payload" object, which for some reason is broken if you're viewing this from the docs page
     """
 
     # Ensure the target table exists
-    if request.target_table not in table_names:
+    if request.target_table not in TABLE_NAMES:
         raise HTTPException(status_code=400, detail=f"Invalid target_table, must be one of {printable_tables}")
 
     # Ensure that target_id is not set since we're not modifying
@@ -55,7 +55,7 @@ def create_new_record_request(request: schemas.StagingChangeRequest, db: Session
 
 
 @router.get("/stagingbeta/delta", response_model=schemas.StagingChangeDeltaResponse)
-def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db)):
+def get_delta_between_current_record_and_change_request(id: int, db: Session = Depends(get_db_session)):
     try:
         return crud.get_delta_for_record(db, id)
     except backend_api.exc.StagingRecordNotFoundError:
@@ -63,7 +63,7 @@ def get_delta_between_current_record_and_change_request(id: int, db: Session = D
 
 
 @router.put("/stagingbeta", response_model=Union[schemas.StagingChangeResponse, Any])
-def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
+def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db_session)):
 
     # Ensure the target table exists
     if request.target_table not in table_names:
@@ -84,7 +84,7 @@ def modify_existing_record_request(request: schemas.StagingChangeRequest, db: Se
 
 
 @router.put("/stagingbeta/link", response_model=schemas.StagingChangeResponse)
-def modify_existing_association_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db)):
+def modify_existing_association_request(request: schemas.StagingChangeRequest, db: Session = Depends(get_db_session)):
     if not request.target_table.startswith("_association"):
         raise HTTPException(status_code=400, detail="This endpoint links many-to-many, and so acts on _association_* tables only")
 
@@ -92,20 +92,20 @@ def modify_existing_association_request(request: schemas.StagingChangeRequest, d
 
 
 @router.get("/stagingbeta", response_model=List[schemas.StagingChangeResponse])
-def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+def get_all_staging_records(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     return crud.read_all_staging_records(db, skip=skip, limit=limit)
 
 
 @router.put("/stagingbeta/approve", response_model=schemas.StagingChangeResponse)
-def approve_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db)):
+def approve_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db_session)):
     return crud.approve_staging_change(db, staging_id, approver_id)
 
 
 @router.put("/stagingbeta/reject", response_model=schemas.StagingChangeResponse)
-def reject_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db)):
+def reject_pending_staging_request(staging_id: int, approver_id: int, db: Session = Depends(get_db_session)):
     return crud.reject_staging_change(db, staging_id, approver_id)
 
 
 @router.get("/stagingbeta/count/pending")
-def get_pending_count(db: Session = Depends(get_db)):
+def get_pending_count(db: Session = Depends(get_db_session)):
     return crud.pending_count(db)

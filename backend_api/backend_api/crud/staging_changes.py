@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 import backend_api.exc
 from backend_api import database_models as tables
-from backend_api.database import Base
+from backend_api.database_connection import BASE
 from backend_api.pydantic_schemas import StagingChangeRequest
 
 logger = logging.getLogger("StagingChanges")
@@ -19,7 +19,7 @@ def object_as_dict(obj):
 
 
 def id_exists(db: Session, table: str, id: int):
-    for table_model in Base._decl_class_registry.values():
+    for table_model in BASE._decl_class_registry.values():
         if hasattr(table_model, '__tablename__') and table_model.__tablename__ == table:
             if db.query(table_model).filter(table_model.id == id).first() == None:
                 return False
@@ -29,7 +29,7 @@ def id_exists(db: Session, table: str, id: int):
 
 
 def get_table_model_by_name(table: str):
-    for name, model in Base.metadata.tables.items():
+    for name, model in BASE.metadata.tables.items():
         if name == table:
             logger.debug(type(model))
             return model

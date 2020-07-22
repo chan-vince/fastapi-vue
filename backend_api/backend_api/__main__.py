@@ -1,22 +1,22 @@
 import argparse
-import fastapi
 import logging
 import os
 import pathlib
 import sys
+
+import fastapi
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend_api import __version__, database_models
-from backend_api.utils import check_port_open
-from .database import engine, DB_HOST, DB_PORT
+from backend_api import __version__
+from backend_api.config import DB_HOST, DB_PORT
+from backend_api.database_connection import BASE, ENGINE
+from backend_api.utils import check_port_open, LOGGING_CONFIG
 from .dummy_data_loader import DummyDataLoader
-from .rest import practices, employees, practice_addresses, access_systems, staging_practices, staging_employees, \
-    staging_changes
+from .rest import practices, employees, practice_addresses, access_systems, staging_changes
 
 # Create the root instance of a FastAPI app
 app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
-
 
 origins = [
     "http://127.0.0.1:8081",
@@ -49,13 +49,6 @@ app.include_router(
 app.include_router(
     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
 )
-# app.include_router(
-#     staging_practices.router, tags=["Staging Practices"], prefix=f"/api/v1/staging"
-# )
-# app.include_router(
-#     staging_employees.router, tags=["Staging Employees"], prefix=f"/api/v1/staging"
-# )
-
 app.include_router(
     staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
 )
@@ -76,8 +69,7 @@ def start():
         os.environ["LOG_LEVEL"] = args.log_level
 
     log_level = os.environ.get('LOG_LEVEL').upper()
-    logger = logging.getLogger("MAIN")
-
+    logger = logging.getLogger("main")
     logging.basicConfig(
         format="%(asctime)s: %(levelname)s: %(name)s - %(message)s", level=log_level
     )
@@ -92,7 +84,7 @@ def start():
     if not check_port_open(DB_HOST, DB_PORT, retries=10):
         sys.exit(1)
 
-    database_models.Base.metadata.create_all(bind=engine)
+    BASE.metadata.create_all(bind=ENGINE)
 
     # Load the mock data if necessary
     if os.environ.get("MOCK_DATA") is None:
@@ -114,8 +106,12 @@ def start():
         ddl.assign_partner_to_practice()
         ddl.assign_access_system_to_practice()
 
+    logger.info("Staring uvicorn")
     # Start the ASGI server
-    uvicorn.run("backend_api.__main__:app", host="0.0.0.0", port=5000, log_level=log_level.lower(), reload=reload)
+    uvicorn.run("backend_api.__main__:app",
+                host="0.0.0.0", port=5000,
+                log_level=log_level.lower(), reload=reload,
+                access_log=True, log_config=LOGGING_CONFIG)
 
 
 if __name__ == '__main__':

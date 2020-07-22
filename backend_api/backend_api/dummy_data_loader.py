@@ -2,9 +2,9 @@ import json
 import logging
 import pathlib
 
-from backend_api.crud import practices, practice_addresses, employees
-from backend_api.database import SessionLocal
-from . import database_models as models
+from backend_api.crud import practice_addresses, employees
+from backend_api.database_connection import get_db_session
+from . import database_models as models, crud
 from . import pydantic_schemas as schemas
 
 logger = logging.getLogger("DummyDataLoader")
@@ -12,7 +12,7 @@ logger = logging.getLogger("DummyDataLoader")
 
 class DummyDataLoader:
     def __init__(self):
-        self.db = SessionLocal()
+        self.db = get_db_session()
 
     def write_practice_mock_data(self, json_file: pathlib.Path):
 
@@ -22,7 +22,7 @@ class DummyDataLoader:
         logger.info(f"Writing mock data for {len(data)} Practices..")
         try:
             for index, item in enumerate(data, 1):
-                practices.create_practice(self.db, schemas.PracticeCreate(**item))
+                crud.create_practice(self.db, schemas.PracticeCreate(**item))
             logger.info("..done.")
 
         except Exception as e:
@@ -79,7 +79,7 @@ class DummyDataLoader:
         logger.info(f"Writing mock data for {len(data)} Access Systems...")
         try:
             for index, item in enumerate(data, 1):
-                practices.add_access_system(self.db, schemas.AccessSystemCreate(**item))
+                crud.add_access_system(self.db, schemas.AccessSystemCreate(**item))
             logger.info("..done.")
 
         except Exception as e:
@@ -93,7 +93,7 @@ class DummyDataLoader:
         logger.info(f"Writing mock data for {len(data)}  IP Ranges...")
         try:
             for index, item in enumerate(data, 1):
-                practices.add_ip_range(self.db, schemas.IPRangeCreate(**item))
+                crud.add_ip_range(self.db, schemas.IPRangeCreate(**item))
             logger.info("..done.")
         except Exception as e:
             logger.debug(f"{index} {e}")
