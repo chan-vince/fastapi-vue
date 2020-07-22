@@ -1,12 +1,11 @@
 import logging
-from typing import List, Union
-
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List, Union
 
-import backend_api.pydantic_schemas as schemas
 import backend_api.exc
+import backend_api.pydantic_schemas as schemas
 from backend_api.crud import employees as crud_employees
 from backend_api.crud import staging_employees as crud_staging_employees
 from backend_api.database import get_db

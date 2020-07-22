@@ -1,11 +1,10 @@
-from typing import List
-
 import sqlalchemy.exc
 from sqlalchemy.orm import Session
+from typing import List
 
+import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
-import backend_api.exc
 from backend_api.crud.practices import read_practice_by_id
 
 

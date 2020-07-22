@@ -1,9 +1,8 @@
 import logging
-from typing import List
-
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas

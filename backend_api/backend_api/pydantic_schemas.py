@@ -1,6 +1,6 @@
 import datetime
-from typing import List, Any, Union
 from pydantic import BaseModel, Json
+from typing import List, Any, Union
 
 
 class IPRangeBase(BaseModel):

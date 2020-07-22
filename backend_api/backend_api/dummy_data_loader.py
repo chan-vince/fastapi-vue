@@ -4,8 +4,8 @@ import pathlib
 
 from backend_api.crud import practices, practice_addresses, employees
 from backend_api.database import SessionLocal
-from . import pydantic_schemas as schemas
 from . import database_models as models
+from . import pydantic_schemas as schemas
 
 logger = logging.getLogger("DummyDataLoader")
 

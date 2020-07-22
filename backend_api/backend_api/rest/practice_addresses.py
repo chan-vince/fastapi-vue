@@ -1,16 +1,15 @@
 import logging
-from typing import List
-
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas
-from backend_api.crud import practices as crud_practices
 from backend_api.crud import practice_addresses as crud_practice_addresses
-from backend_api.rest.practices import get_practice_by_id
+from backend_api.crud import practices as crud_practices
 from backend_api.database import get_db
+from backend_api.rest.practices import get_practice_by_id
 
 logger = logging.getLogger("REST:Practices")
 

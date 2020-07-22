@@ -1,13 +1,12 @@
+import sqlalchemy.exc
+from sqlalchemy import inspect
+from sqlalchemy.orm import Session
 from typing import Union
 
-from sqlalchemy.orm import Session
-import sqlalchemy.exc
 import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
 from backend_api.pydantic_schemas import EmployeeCreate
-
-from sqlalchemy import inspect
 
 
 def object_as_dict(obj):

@@ -1,6 +1,6 @@
+from sqlalchemy.orm import Session
 from typing import List
 
-from sqlalchemy.orm import Session
 import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas

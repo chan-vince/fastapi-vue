@@ -1,19 +1,18 @@
 import argparse
+import fastapi
 import logging
 import os
-import sys
 import pathlib
-
-import fastapi
+import sys
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend_api import __version__, database_models
+from backend_api.utils import check_port_open
 from .database import engine, DB_HOST, DB_PORT
+from .dummy_data_loader import DummyDataLoader
 from .rest import practices, employees, practice_addresses, access_systems, staging_practices, staging_employees, \
     staging_changes
-from .dummy_data_loader import DummyDataLoader
-from fastapi.middleware.cors import CORSMiddleware
-from backend_api.utils import check_port_open
 
 # Create the root instance of a FastAPI app
 app = fastapi.FastAPI(title="GP Access Systems PoC API", version=__version__)
