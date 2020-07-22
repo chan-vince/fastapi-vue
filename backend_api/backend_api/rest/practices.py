@@ -15,23 +15,6 @@ logger = logging.getLogger("REST:Practices")
 router = APIRouter()
 
 
-@router.post("/practice", response_model=schemas.Practice)
-def add_new_practice(practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
-    practice_existing = crud_practices.read_practice_by_name(db, practice.name)
-    if practice_existing:
-        raise HTTPException(status_code=422, detail=f"GP Practice with name {practice.name} already registered")
-    return crud_practices.create_practice(db=db, practice=practice)
-
-
-@router.put("/practice", response_model=schemas.Practice)
-def update_practice(practice_id: int, practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
-    existing_practice = crud_practices.read_practice_by_id(db, practice_id)
-    if existing_practice is None:
-        raise HTTPException(status_code=404, detail=f"Could not find practice with id {practice_id}")
-
-    return crud_practices.update_practice(db, practice_id, practice)
-
-
 @router.get("/practice", response_model=List[schemas.Practice])
 def get_all_practices(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     practices = crud_practices.read_practices_all(db, skip=skip, limit=limit)
@@ -66,33 +49,6 @@ def get_practice_by_address_id(address_id: int, db: Session = Depends(get_db)):
     return practice
 
 
-# Delete an existing practice
-@router.delete("/practice", response_model=schemas.Practice)
-def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
-    # Raises 404 if doesn't exist
-    get_practice_by_id(practice_id, db)
-    return crud_practices.delete_practice(db, practice_id)
-
-
-# Add an Access System to a practice
-@router.post("/practice/system", response_model=schemas.Practice)
-def set_access_systems_for_practice_by_id(practice_id: int, access_system_ids: List[int], db: Session = Depends(get_db)):
-    # Raises 404 if doesn't exist
-    get_practice_by_id(practice_id, db)
-
-    return crud_practices.set_access_systems_for_practice(db, practice_id, access_system_ids)
-
-
-@router.put("/practice/main_partner", response_model=schemas.Practice)
-def assign_a_main_partner_to_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
-    return crud_practices.assign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
-
-
-@router.delete("/practice/main_partner", response_model=schemas.Practice)
-def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
-    return crud_practices.unassign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
-
-
 @router.get("/practice/count", response_model=schemas.RowCount)
 def get_total_number_practices(db: Session = Depends(get_db)):
     return schemas.RowCount(count=crud_practices.read_total_number_of_practices(db))
@@ -101,3 +57,47 @@ def get_total_number_practices(db: Session = Depends(get_db)):
 @router.get("/practice/names", response_model=schemas.EntityNames)
 def get_names_of_practices(db: Session = Depends(get_db)):
     return schemas.EntityNames(names=crud_practices.read_all_practice_names(db))
+
+
+# @router.post("/practice", response_model=schemas.Practice)
+# def add_new_practice(practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
+#     practice_existing = crud_practices.read_practice_by_name(db, practice.name)
+#     if practice_existing:
+#         raise HTTPException(status_code=422, detail=f"GP Practice with name {practice.name} already registered")
+#     return crud_practices.create_practice(db=db, practice=practice)
+#
+#
+# @router.put("/practice", response_model=schemas.Practice)
+# def update_practice(practice_id: int, practice: schemas.PracticeCreate, db: Session = Depends(get_db)):
+#     existing_practice = crud_practices.read_practice_by_id(db, practice_id)
+#     if existing_practice is None:
+#         raise HTTPException(status_code=404, detail=f"Could not find practice with id {practice_id}")
+#
+#     return crud_practices.update_practice(db, practice_id, practice)
+#
+#
+# # Delete an existing practice
+# @router.delete("/practice", response_model=schemas.Practice)
+# def delete_existing_practice_by_id(practice_id: int, db: Session = Depends(get_db)):
+#     # Raises 404 if doesn't exist
+#     get_practice_by_id(practice_id, db)
+#     return crud_practices.delete_practice(db, practice_id)
+#
+#
+# # Add an Access System to a practice
+# @router.post("/practice/system", response_model=schemas.Practice)
+# def set_access_systems_for_practice_by_id(practice_id: int, access_system_ids: List[int], db: Session = Depends(get_db)):
+#     # Raises 404 if doesn't exist
+#     get_practice_by_id(practice_id, db)
+#
+#     return crud_practices.set_access_systems_for_practice(db, practice_id, access_system_ids)
+#
+#
+# @router.put("/practice/main_partner", response_model=schemas.Practice)
+# def assign_a_main_partner_to_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
+#     return crud_practices.assign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
+#
+#
+# @router.delete("/practice/main_partner", response_model=schemas.Practice)
+# def unassign_a_main_partner_from_practice(practice_id: int, employee_id: int, db: Session = Depends(get_db)):
+#     return crud_practices.unassign_employee_as_main_partner_of_practice(db, employee_id, practice_id)
