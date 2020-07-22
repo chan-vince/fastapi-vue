@@ -1,8 +1,9 @@
 import logging
+from typing import List
+
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas
@@ -20,6 +21,7 @@ def get_all_practices(skip: int = 0, limit: int = 100, session: Session = Depend
     """
     Queries the database for practices, returns all column data for each practice. Default page limit is 100
     """
+
     logger.debug(f"Getting all practices: {skip=} {limit=}")
 
     # skip and limit allow pagination, and the results should be a list of practices

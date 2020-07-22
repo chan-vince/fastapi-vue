@@ -40,18 +40,18 @@ app.add_middleware(
 app.include_router(
     practices.router, tags=["Practices"], prefix=f"/api/v1"
 )
-app.include_router(
-    practice_addresses.router, tags=["Practice Addresses"], prefix=f"/api/v1"
-)
-app.include_router(
-    employees.router, tags=["Employees"], prefix=f"/api/v1"
-)
-app.include_router(
-    access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
-)
-app.include_router(
-    staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
-)
+# app.include_router(
+#     practice_addresses.router, tags=["Practice Addresses"], prefix=f"/api/v1"
+# )
+# app.include_router(
+#     employees.router, tags=["Employees"], prefix=f"/api/v1"
+# )
+# app.include_router(
+#     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
+# )
+# app.include_router(
+#     staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
+# )
 
 
 def start():
@@ -106,7 +106,7 @@ def start():
         ddl.assign_partner_to_practice()
         ddl.assign_access_system_to_practice()
 
-    logger.info("Staring uvicorn")
+    logger.info("Starting uvicorn")
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app",
                 host="0.0.0.0", port=5000,
