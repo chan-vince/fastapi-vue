@@ -2,7 +2,7 @@ import json
 import logging
 import pathlib
 
-from backend_api.crud import practice_addresses, employees
+from backend_api.database import create_address_for_practice, add_new_job_title, add_many_employees
 from backend_api.database_connection import get_db_session
 from backend_api import database
 from . import database_models as models
@@ -39,7 +39,7 @@ class DummyDataLoader:
         logger.info(f"Writing mock data for {len(data)} Addresses..")
         try:
             for index, item in enumerate(data, 1):
-                practice_addresses.create_address_for_practice(self.db, index, schemas.AddressCreate(**item))
+                create_address_for_practice(self.db, index, schemas.AddressCreate(**item))
             logger.info("..done.")
 
         except Exception as e:
@@ -53,7 +53,7 @@ class DummyDataLoader:
         logger.info(f"Writing mock data for {len(data)} Job Titles...")
         try:
             for index, item in enumerate(data, 1):
-                employees.add_job_title(self.db, schemas.JobTitleCreate(**item))
+                add_new_job_title(self.db, schemas.JobTitleCreate(**item))
             logger.info("..done.")
 
         except Exception as e:
@@ -64,7 +64,7 @@ class DummyDataLoader:
             data = json.loads(file.read())
 
         logger.info(f"Writing mock data for {len(data)}  Employees...")
-        employees.add_employee_bulk(self.db, [schemas.EmployeeCreate(**item, active=True) for item in data])
+        add_many_employees(self.db, [schemas.EmployeeCreate(**item, active=True) for item in data])
         # for index, item in enumerate(data, 1):
         #     try:
         #         employees.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))

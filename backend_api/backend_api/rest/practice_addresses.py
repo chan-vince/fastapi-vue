@@ -6,8 +6,8 @@ from typing import List
 
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas
-from backend_api.crud import practice_addresses as crud_practice_addresses
-from backend_api import crud as crud_practices
+# from backend_api.crud import practice_addresses as crud_practice_addresses
+# from backend_api import crud as crud_practices
 from backend_api.database_connection import get_db_session
 from backend_api.rest.practices import get_practice_by_id
 

@@ -1,6 +1,7 @@
 import datetime
-from pydantic import BaseModel, Json
-from typing import List, Any, Union
+from typing import List, Union
+
+from pydantic import BaseModel
 
 
 class IPRangeBase(BaseModel):
@@ -96,8 +97,6 @@ class Practice(PracticeBase):
     id: int
     created_at: datetime.date
     addresses: List[Address] = []
-    # employees: List[Employee] = []
-    # main_partners: List[Any] = []
     access_systems: List[AccessSystem] = []
 
     class Config:

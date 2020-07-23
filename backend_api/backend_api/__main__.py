@@ -43,12 +43,12 @@ app.include_router(
 # app.include_router(
 #     practice_addresses.router, tags=["Practice Addresses"], prefix=f"/api/v1"
 # )
-# app.include_router(
-#     employees.router, tags=["Employees"], prefix=f"/api/v1"
-# )
-# app.include_router(
-#     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
-# )
+app.include_router(
+    employees.router, tags=["Employees"], prefix=f"/api/v1"
+)
+app.include_router(
+    access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
+)
 # app.include_router(
 #     staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
 # )
