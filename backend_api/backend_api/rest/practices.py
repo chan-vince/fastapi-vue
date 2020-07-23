@@ -16,7 +16,7 @@ logger = logging.getLogger("REST:Practices")
 router = APIRouter()
 
 
-@router.get("/practice", response_model=List[schemas.Practice])
+@router.get("/practice/all", response_model=List[schemas.Practice])
 def get_all_practices(skip: int = 0, limit: int = 100, session: Session = Depends(get_db_session)):
     """
     Queries the database for practices, returns all column data for each practice. Default page limit is 100
