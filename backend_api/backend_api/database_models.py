@@ -1,10 +1,8 @@
 import datetime
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func, JSON
+
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index, func, JSON
+from backend_api.database_connection import BASE as Base
 from sqlalchemy.orm import relationship
-
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 
 association_practice_employee = Table('_association_practice_employee', Base.metadata,
