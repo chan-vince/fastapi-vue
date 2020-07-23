@@ -106,12 +106,15 @@ def start():
         ddl.assign_partner_to_practice()
         ddl.assign_access_system_to_practice()
 
+    access_log = True if log_level == "DEBUG" or log_level == "INFO" else False
+    logger.info(f"Access logging enabled: {access_log}")
+
     logger.info("Starting uvicorn")
     # Start the ASGI server
     uvicorn.run("backend_api.__main__:app",
                 host="0.0.0.0", port=5000,
                 log_level=log_level.lower(), reload=reload,
-                access_log=True, log_config=LOGGING_CONFIG)
+                access_log=access_log, log_config=LOGGING_CONFIG)
 
 
 if __name__ == '__main__':
