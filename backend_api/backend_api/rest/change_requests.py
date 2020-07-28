@@ -89,15 +89,19 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
 
 
 @router.put("/change/request/approve", response_model=schemas.ChangeResponse)
-def approve_change_request(id: int, db: Session = Depends(get_db_session)):
-    record: tables.ChangeHistory = backend_api.database.read_change_request(db, id)
+def approve_change_request(change_request_id: int, db: Session = Depends(get_db_session)):
+    """
+    Once a user system has been implemented, this should be a protected route to only allow certain users to
+    approve a request
+    """
+    record: tables.ChangeHistory = backend_api.database.read_change_request(db, change_request_id)
 
     if record.approval_status is True:
         logger.debug(f"Already approved, nothing to do")
         return record
 
     if record is None:
-        raise HTTPException(status_code=404, detail=f"No change request found with id {id}")
+        raise HTTPException(status_code=404, detail=f"No change request found with id {change_request_id}")
 
     table = get_sqlalchemy_model_for_entity(record.target_name)
     existing_record = backend_api.database.update_existing_record_by_id(db, record.target_id, table, record.new_state)
@@ -123,11 +127,15 @@ def approve_change_request(id: int, db: Session = Depends(get_db_session)):
 
 
 @router.put("/change/request/reject")
-def reject_change_request(id: int, db: Session = Depends(get_db_session)):
-    record: tables.ChangeHistory = backend_api.database.read_change_request(db, id)
+def reject_change_request(change_request_id: int, db: Session = Depends(get_db_session)):
+    """
+    Once a user system has been implemented, this should be a protected route to only allow certain users to
+    reject a request
+    """
+    record: tables.ChangeHistory = backend_api.database.read_change_request(db, change_request_id)
 
     if record is None:
-        raise HTTPException(status_code=404, detail=f"No change request found with id {id}")
+        raise HTTPException(status_code=404, detail=f"No change request found with id {change_request_id}")
 
     record.approver_id = 1
     record.approval_status = False
