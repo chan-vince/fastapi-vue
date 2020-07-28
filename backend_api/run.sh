@@ -1,3 +1,3 @@
 #!/bin/bash
 
-poetry run app "$@"
+poetry run python -m backend_api "$@"

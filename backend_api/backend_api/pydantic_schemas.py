@@ -1,7 +1,7 @@
 import datetime
 from typing import List, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class IPRangeBase(BaseModel):
@@ -21,6 +21,7 @@ class IPRange(IPRangeBase):
 
 
 class AddressBase(BaseModel):
+    practice_id: Union[int, None]
     line_1: str
     line_2: Union[str, None]
     town: str
@@ -36,7 +37,6 @@ class AddressCreate(AddressBase):
 
 class Address(AddressBase):
     id: int
-    practice_id: Union[int, None]
     ip_ranges: List[IPRange] = []
 
     class Config:
@@ -147,80 +147,37 @@ class EmployeesForPractice(BaseModel):
         orm_mode = True
 
 
-class StagingPracticeCreateRequest(PracticeCreate):
-    source_id: int = None
+class ChangeRequest(BaseModel):
     requestor_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class StagingPracticeRequest(PracticeCreate):
-    id: int
-    last_modified: datetime.datetime
-    source_id: int = None
-    source: Practice = None
-    requestor: Employee
-    approver: Employee = None
-    approved: bool = None
-
-    class Config:
-        orm_mode = True
-
-
-class StagingEmployeeCreateRequest(EmployeeCreate):
-    source_id: int = None
-    requestor_id: int
-    practice_name: str
-
-    class Config:
-        orm_mode = True
-
-
-class StagingEmployeeRequest(EmployeeCreate):
-    id: int
-    last_modified: datetime.datetime = None
-    source_id: int = None
-    source: Employee = None
-    requestor: Employee
-    approver: Employee = None
-    practice_name: str = None
-    approved: bool = None
-    job_title_id: int
-
-    class Config:
-        orm_mode = True
-
-
-class StagingChangeRequest(BaseModel):
-    """
-    target_id is optional because if it's adding a new thing, there will be
-    no target_id in the table. This is signalled by the modify flag
-    """
-    requestor_id: int
-    target_table: str
+    target_name: str
     target_id: int = None
-    link: bool
-    payload: Union[AddressCreate, EmployeeCreate, IPRangeCreate, PracticeCreate, Association]
-    # payload: dict
+    new_state: Union[EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate]
+
+    @validator('target_name')
+    def target_name_must_be_one_of(cls, v):
+        names = ["employee", "practice"]
+        if v not in names:
+            raise ValueError(f"target_name must be one of {', '.join(names)}")
+        return v
 
     class Config:
         orm_mode = True
 
 
-class StagingChangeResponse(BaseModel):
+class ChangeResponse(BaseModel):
     """
     Response model for any staging change
     """
     id: int
+    created_at: datetime.datetime
     last_modified: datetime.datetime
-    requestor: Employee
-    approver: Employee = None
-    approved: bool = None
-    target_table: str
+    requestor_id: int
+    approver_id: int = 1
+    approval_status: bool = None
+    target_name: str
     target_id: int = None
-    link: bool
-    payload: dict
+    current_state: dict = None
+    new_state: dict
 
     class Config:
         orm_mode = True

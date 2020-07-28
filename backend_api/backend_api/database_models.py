@@ -1,7 +1,7 @@
 import datetime
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index, func, JSON
-from backend_api.database_connection import BASE as Base
+from backend_api.database_connection import Base
 from sqlalchemy.orm import relationship
 
 
@@ -175,9 +175,9 @@ class ChangeHistory(Base):
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp())
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
-    pending_approval = Column(Boolean)  # can be null which means pending
+    approval_status = Column(Boolean)  # can be null which means pending
 
-    target_table = Column(String(length=255))
+    target_name = Column(String(length=255))
     target_id = Column(Integer)
 
     current_state = Column(JSON)

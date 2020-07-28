@@ -1,1 +1,4 @@
-__version__ = '0.1.0'
+import toml
+
+pyproject = toml.load("./pyproject.toml")
+__version__ = pyproject["tool"]["poetry"]["version"]

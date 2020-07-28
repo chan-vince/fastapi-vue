@@ -1,5 +1,6 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload, subqueryload
 from typing import List
+from .log_setup import logger
 
 import backend_api.exc
 from backend_api import database_models as tables
@@ -136,9 +137,9 @@ def read_all_practice_names(db: Session):
     return [practice.name for practice in db.query(tables.Practice.name).all()]
 
 
-def create_address_for_practice(db: Session, practice_id: int, address: schemas.AddressCreate):
+def create_address_for_practice(db: Session, address: schemas.AddressCreate):
     # Create an address model and assign the practice_id
-    address = tables.Address(**address.dict(), practice_id=practice_id)
+    address = tables.Address(**address.dict())
     try:
         db.add(address)
         db.commit()
@@ -282,3 +283,76 @@ def get_address_by_practice_name(db: Session, practice_name: str):
 
 def get_addresses_by_practice_id(db: Session, practice_id: int):
     return read_practice_by_id(db, practice_id).addresses
+
+
+def create_change_request(db: Session, request: dict, current_state: dict = None):
+    entry = tables.ChangeHistory(**request, current_state=current_state)
+    db.add(entry)
+    db.commit()
+    db.refresh(entry)
+    return entry
+
+
+def read_change_request(db: Session, id: int):
+    return db.query(tables.ChangeHistory).filter(tables.ChangeHistory.id == id).first()
+
+
+def update_change_request_new_state(db: Session, new_state: dict, row):
+    row.new_state = new_state
+    db.commit()
+    db.refresh(row)
+    return row
+
+
+def read_pending_change_requests_with_matching_new_state(db: Session, request: schemas.ChangeRequest):
+    results = db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status == None)\
+        .filter(tables.ChangeHistory.target_name == request.target_name)\
+        .filter(tables.ChangeHistory.target_id == request.target_id)\
+        .all()
+
+    logger.debug(f"Checking new_state of {len(results)} records")
+
+    for record in results:
+        if record.new_state == request.new_state:
+            logger.debug(f"Found existing record with the same new_state, nothing to update")
+            return record
+    else:
+        logger.debug("No matching record found")
+        return None
+
+
+def read_existing_record_by_id(db: Session,target_id: int, table: sqlalchemy.Table):
+    return db.query(table)\
+        .filter(table.id == target_id)\
+        .first()
+
+
+def update_existing_record_by_id(db: Session, target_id: int, table: sqlalchemy.Table, update: dict):
+    query = db.query(table)\
+        .filter(table.id == target_id)
+
+    query.update(update)
+    db.commit()
+    return query.first()
+
+
+def create_entry_in_table(db: Session, table_model, row_data):
+    new_entry = table_model(**row_data)
+    try:
+        db.add(new_entry)
+        db.commit()
+    except sqlalchemy.exc.IntegrityError:
+        db.rollback()
+        raise
+    db.refresh(new_entry)
+    return new_entry
+
+
+def read_pending_change_requests_with_matching_target(db: Session, request: schemas.ChangeRequest):
+    return db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status == None)\
+        .filter(tables.ChangeHistory.target_name == request.target_name)\
+        .filter(tables.ChangeHistory.target_id == request.target_id)\
+        .first()
+

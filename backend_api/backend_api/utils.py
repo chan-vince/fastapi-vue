@@ -2,6 +2,9 @@ import logging
 import socket
 import time
 
+from backend_api.pydantic_schemas import EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate
+from backend_api.database_models import Employee, Practice, Address, IPRange
+
 
 def check_port_open(host: str, port: int, retries: int, interval: int = 5, logger: logging.Logger = None):
 
@@ -24,35 +27,27 @@ def check_port_open(host: str, port: int, retries: int, interval: int = 5, logge
         return False
 
 
-LOGGING_CONFIG = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "default": {
-            "()": "uvicorn.logging.DefaultFormatter",
-            "fmt": "%(asctime)s: %(levelprefix)s%(message)s",
-            "use_colors": None,
-        },
-        "access": {
-            "()": "uvicorn.logging.AccessFormatter",
-            "fmt": '%(asctime)s: %(levelprefix)s%(client_addr)s - "%(request_line)s" %(status_code)s',
-        },
-    },
-    "handlers": {
-        "default": {
-            "formatter": "default",
-            "class": "logging.StreamHandler",
-            "stream": "ext://sys.stderr",
-        },
-        "access": {
-            "formatter": "access",
-            "class": "logging.StreamHandler",
-            "stream": "ext://sys.stdout",
-        },
-    },
-    "loggers": {
-        "uvicorn": {"handlers": ["default"], "level": "INFO"},
-        "uvicorn.error": {"level": "INFO"},
-        "uvicorn.access": {"handlers": ["access"], "level": "INFO", "propagate": False},
-    },
-}
+def get_pydantic_model_for_entity(name: str):
+    classes = {
+        "employee": EmployeeCreate,
+        "practice": PracticeCreate,
+        "address": AddressCreate,
+        "ip_range": IPRangeCreate
+    }
+    return classes.get(name)
+
+
+def get_sqlalchemy_model_for_entity(name: str):
+    classes = {
+        "employee": Employee,
+        "practice": Practice,
+        "address": Address,
+        "ip_range": IPRange,
+    }
+    return classes.get(name)
+
+
+def columns_to_dict(row):
+    result = row.__dict__
+    del result["_sa_instance_state"]
+    return result
