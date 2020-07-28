@@ -23,13 +23,23 @@ def get_all_pending_requests(skip: int = 0, limit: int = 100, db: Session = Depe
 
 
 @router.get("/changes/history/all")
-def get_all_historic_requests():
-    pass
+def get_all_historic_requests(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
+    return backend_api.database.read_all_historic_change_requests(db, skip, limit)
 
 
 @router.get("/changes/history/id")
-def get_change_history_for_existing_record():
-    pass
+def get_change_history_for_existing_record(target_name: str, target_id: int, db: Session = Depends(get_db_session)):
+    table = get_sqlalchemy_model_for_entity(target_name)
+    if table is None:
+        raise HTTPException(status_code=422, detail=f"Unknown target_name {target_name}")
+
+    existing_record = backend_api.database.read_existing_record_by_id(db, target_id, table)
+    if not existing_record:
+        raise HTTPException(status_code=404, detail=f"No record found of type {target_name} with id {target_id}")
+
+    history = backend_api.database.read_all_historic_change_requests_for_target(db, target_name, target_id)
+
+    return {"current": existing_record, "history": history}
 
 
 @router.post("/change/request")

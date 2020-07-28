@@ -300,6 +300,20 @@ def read_all_pending_change_requests(db: Session, skip: int, limit: int):
         .offset(skip).limit(limit).all()
 
 
+def read_all_historic_change_requests(db: Session, skip: int, limit: int):
+    return db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status != None)\
+        .offset(skip).limit(limit).all()
+
+
+def read_all_historic_change_requests_for_target(db: Session, target_name: str, target_id: int):
+    return db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status != None)\
+        .filter(tables.ChangeHistory.target_name == target_name)\
+        .filter(tables.ChangeHistory.target_id == target_id)\
+        .all()
+
+
 def read_change_request(db: Session, id: int):
     return db.query(tables.ChangeHistory).filter(tables.ChangeHistory.id == id).first()
 
@@ -329,7 +343,7 @@ def read_pending_change_requests_with_matching_new_state(db: Session, request: s
         return None
 
 
-def read_existing_record_by_id(db: Session,target_id: int, table: sqlalchemy.Table):
+def read_existing_record_by_id(db: Session, target_id: int, table: sqlalchemy.Table):
     return db.query(table)\
         .filter(table.id == target_id)\
         .first()
