@@ -2,8 +2,8 @@ import logging
 import socket
 import time
 
-from backend_api.pydantic_schemas import EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate
 from backend_api.database_models import Employee, Practice, Address, IPRange
+from backend_api.pydantic_schemas import EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate
 
 
 def check_port_open(host: str, port: int, retries: int, interval: int = 5, logger: logging.Logger = None):

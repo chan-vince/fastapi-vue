@@ -1,8 +1,9 @@
-from .log_setup import logger
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+
 from backend_api.config import DB_NAME, DB_PORT, DB_HOST, DB_PASSWORD
+from .log_setup import logger
 
 logger.info(f"Connecting to {DB_HOST}@{DB_PORT}/{DB_NAME}..")
 db_conn_url = f"mysql+pymysql://francis:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"

@@ -1,4 +1,3 @@
-from ..log_setup import logger
 from typing import List
 
 from fastapi import APIRouter
@@ -9,6 +8,7 @@ import backend_api.exc
 import backend_api.pydantic_schemas as schemas
 from backend_api import database
 from backend_api.database_connection import get_db_session
+from ..log_setup import logger
 
 # Create a fastapi router for these REST endpoints
 router = APIRouter()

@@ -1,4 +1,3 @@
-from .log_setup import *
 import argparse
 import os
 import pathlib
@@ -11,6 +10,7 @@ from backend_api.database_connection import Base, Engine
 # import backend_api.database_connection
 from backend_api.utils import check_port_open
 from .dummy_data_loader import DummyDataLoader
+from .log_setup import *
 
 # Get the command line arguments
 parser = argparse.ArgumentParser(description='Backend API server for the ICE PoC')

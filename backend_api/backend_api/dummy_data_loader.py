@@ -2,8 +2,8 @@ import json
 import logging
 import pathlib
 
-from backend_api.database_connection import get_db_session
 from backend_api import database
+from backend_api.database_connection import get_db_session
 from . import database_models as models
 from . import pydantic_schemas as schemas
 

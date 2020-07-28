@@ -1,12 +1,13 @@
-from sqlalchemy.orm import Session, joinedload, subqueryload
 from typing import List
-from .log_setup import logger
+
+import sqlalchemy.exc
+from sqlalchemy.orm import Session
 
 import backend_api.exc
 from backend_api import database_models as tables
 from backend_api import pydantic_schemas as schemas
 from backend_api.pydantic_schemas import PracticeCreate
-import sqlalchemy.exc
+from .log_setup import logger
 
 
 def read_practices_all(db: Session, skip, limit):

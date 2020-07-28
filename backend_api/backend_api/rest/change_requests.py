@@ -1,20 +1,17 @@
 import json
 
-from ..log_setup import logger
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List, Union, Any
-from sqlalchemy.orm.collections import InstrumentedList
 
 import backend_api.database
-
+import backend_api.database
+import backend_api.database_models as tables
 import backend_api.exc
 import backend_api.pydantic_schemas as schemas
-import backend_api.database_models as tables
 from backend_api.database_connection import get_db_session
 from backend_api.utils import get_pydantic_model_for_entity, get_sqlalchemy_model_for_entity, columns_to_dict
-import backend_api.database
+from ..log_setup import logger
 
 # Create a fastapi router for these REST endpoints
 router = APIRouter()
@@ -73,14 +70,7 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
         if existing_pending_record:
             return backend_api.database.update_change_request_new_state(db, request.new_state.dict(), existing_pending_record)
 
-        # # Convert the existing record model into a dict so we can serialise to JSON and store it as the current state
-        # current_state = columns_to_dict(existing_record)
-        #
-        # # Go through the relationships and serialise them too
-        # for key, value in current_state.items():
-        #     if isinstance(value, InstrumentedList):
-        #         current_state[key] = [columns_to_dict(model) for model in value]
-
+        # serialise using json to sort keys and stringify by default to eat up the datetime objects
         current_state = json.loads(json.dumps(columns_to_dict(existing_record), sort_keys=True, default=str))
         logger.debug(f"is there the stuff: {current_state}")
         logger.debug(f"Update change request for existing record: {current_state}")
