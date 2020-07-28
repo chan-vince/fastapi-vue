@@ -294,6 +294,12 @@ def create_change_request(db: Session, request: dict, current_state: dict = None
     return entry
 
 
+def read_all_pending_change_requests(db: Session, skip: int, limit: int):
+    return db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status == None)\
+        .offset(skip).limit(limit).all()
+
+
 def read_change_request(db: Session, id: int):
     return db.query(tables.ChangeHistory).filter(tables.ChangeHistory.id == id).first()
 

@@ -30,6 +30,9 @@ app.add_middleware(
 )
 
 app.include_router(
+    change_requests.router, tags=["Change Requests"], prefix=f"/api/v1"
+)
+app.include_router(
     practices.router, tags=["Practices"], prefix=f"/api/v1"
 )
 app.include_router(
@@ -38,9 +41,3 @@ app.include_router(
 app.include_router(
     access_systems.router, tags=["Access Systems"], prefix=f"/api/v1"
 )
-app.include_router(
-    change_requests.router, tags=["Change Requests"], prefix=f"/api/v1"
-)
-# app.include_router(
-#     staging_changes.router, tags=["Staging Unified"], prefix=f"/api/v1"
-# )

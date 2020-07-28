@@ -18,8 +18,8 @@ router = APIRouter()
 
 
 @router.get("/changes/pending/all")
-def get_all_pending_requests():
-    pass
+def get_all_pending_requests(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
+    return backend_api.database.read_all_pending_change_requests(db, skip, limit)
 
 
 @router.get("/changes/history/all")
