@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { client, getPracticesAll, getPracticesCount } from "../api.js";
+import { client, getPracticesAll, getPracticesCount, getPracticeNamesAll } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
@@ -148,26 +148,18 @@ export default {
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");
     },
-    getPractices(skip, limit) {
-      client
-        .get(`api/v1/practice/all`, { params: { skip: skip, limit: limit } })
-        .then(response => {
-          this.data = response.data;
-          this.loading = false;
-        });
-    },
-    onPageChange(page) {
+    async onPageChange(page) {
       let skip = page * this.perPage - this.perPage;
       let limit = this.perPage;
       this.currentPage = page;
       if (this.searchInput.length == 0) {
-        this.getPractices(skip, limit);
+        this.data = await getPracticesAll(skip, limit);
       }
     },
     perPageModified() {
       this.onPageChange(this.currentPage);
     },
-    getPractice() {
+    async getPractice() {
       if (this.searchInput.length > 0) {
         this.loading = true;
         var names = this.practice_names.filter(name =>
@@ -194,19 +186,9 @@ export default {
           this.loading = false;
         });
       } else {
-        this.getPractices(0, this.perPage);
-        this.getTotalPractices();
+        this.data = await getPracticesAll(0, this.perPage);
+        this.total = await getPracticesCount();
       }
-    },
-    getTotalPractices() {
-      client.get(`api/v1/practice/count`).then(response => {
-        this.total = response.data.count;
-      });
-    },
-    getAllPracticeNames() {
-      client.get(`api/v1/practice/name/all`).then(response => {
-        this.practice_names = response.data.names;
-      });
     },
     updateTable(searchInput) {
       console.log(searchInput);
@@ -215,18 +197,11 @@ export default {
     }
   },
   async created() {
-    console.log("AllPractices")
-    console.log(process.env.VUE_APP_BACKEND_URL)
     this.loading = true;
     this.total = await getPracticesCount();
-    this.getAllPracticeNames();
-    this.getPractices(0, 15);
-    getPracticesAll(0, 10).then(
-        (res) => {
-          console.log("HI!!!!")
-          console.log(res)
-        }
-    )
+    this.practice_names = await getPracticeNamesAll();
+    this.data = await getPracticesAll(0, 15);
+    this.loading = false;
   }
 };
 </script>

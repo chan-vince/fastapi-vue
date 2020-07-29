@@ -10,7 +10,7 @@ const apiVersion = `api/v1`
 const apiBase = `${baseURL}${apiVersion}`
 
 export const getPracticesAll = (skip, limit) => {
-  return axios(`${apiBase}/practice/name/all`, {
+  return axios(`${apiBase}/practice/all`, {
     method: 'GET',
     headers: {},
     params: {
@@ -21,6 +21,14 @@ export const getPracticesAll = (skip, limit) => {
       .then(response => response.data)
       .catch(error => console.log(error));
 };
+
+export const getPracticeNamesAll = () => {
+  return axios(`${apiBase}/practice/name/all`, {
+    method: 'GET',
+  })
+      .then(response => response.data.names)
+      .catch(error => console.log(error));
+}
 
 export const getPracticesCount = () => {
   return axios(`${apiBase}/practice/count`, {
