@@ -1,5 +1,6 @@
 import json
 
+import sqlalchemy.exc
 from fastapi import APIRouter
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -104,7 +105,10 @@ def approve_change_request(change_request_id: int, db: Session = Depends(get_db_
         raise HTTPException(status_code=404, detail=f"No change request found with id {change_request_id}")
 
     table = get_sqlalchemy_model_for_entity(record.target_name)
-    existing_record = backend_api.database.update_existing_record_by_id(db, record.target_id, table, record.new_state)
+    try:
+        existing_record = backend_api.database.update_existing_record_by_id(db, record.target_id, table, record.new_state)
+    except sqlalchemy.exc.IntegrityError as e:
+        raise HTTPException(status_code=422, detail=f"{e}")
 
     if existing_record:
         logger.debug(f"Updated entry: {columns_to_dict(existing_record)}")
