@@ -144,7 +144,7 @@ import {getJobTitles, getPracticeNamesAll, postChangeRequest} from "../../api.js
                     target_id: this.source_id,
                     new_state: payload
                 };
-                
+
                 try {
                   let response = await postChangeRequest(body);
                   console.log(response.data);

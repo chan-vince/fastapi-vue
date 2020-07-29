@@ -22,6 +22,17 @@ export const getPracticeAll = (skip, limit) => {
       .catch(error => console.log(error));
 };
 
+export const getPracticeDetails = (practice_name) => {
+  return axios(`${apiBase}/practice/name`, {
+    method: 'GET',
+    params: {
+      name: practice_name
+    }
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error));
+}
+
 export const getPracticeNamesAll = () => {
   return axios(`${apiBase}/practice/name/all`, {
     method: 'GET',
@@ -36,6 +47,14 @@ export const getPracticeCount = () => {
   })
       .then(response => response.data)
       .catch(error => console.log(error));
+}
+
+export const getAccessSystemsAll = () => {
+  return axios(`${apiBase}/access_system/all`, {
+    method: 'GET',
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error))
 }
 
 export const getEmployeeCount = () => {
@@ -101,7 +120,7 @@ export const postChangeRequest = (request) => {
     data: request
   })
       .then(response => response)
-      .catch(error => console.log(error));
+      .catch(error => console.log(error.response.data.detail));
 }
 
 

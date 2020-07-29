@@ -52,7 +52,7 @@
 
 
 <script>
-import { client } from "../../api.js";
+import {postChangeRequest} from "../../api.js";
 
 export default {
   name: "ModalPractice",
@@ -73,8 +73,7 @@ export default {
     // console.log(this.$props.rowObject)
   },
   methods: {
-    addNewPractice() {
-      var current = this;
+    async addNewPractice() {
 
       var payload = {
         name: this.name,
@@ -84,31 +83,27 @@ export default {
         closed: this.closed
       };
       var body = {
-        requestor_id: 5000,
-        target_table: "practices",
+        requestor_id: 1,
+        target_name: "practice",
         target_id: null,
-        link: false,
-        payload: payload
+        new_state: payload
       }
-
-      console.log(payload)
-      client
-        .post(`api/v1/stagingbeta`, body)
-        .then(response => {
-          console.log(response.data);
-          this.$parent.close()
-          this.$buefy.toast.open({
-            message: "Request submitted successfully",
-            type: "is-success"
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-          current.$buefy.toast.open({
-            message: "Request error",
-            type: "is-danger"
-          });
+      try {
+        let response = await postChangeRequest(body);
+        console.log(response.data);
+        this.$buefy.toast.open({
+          message: "Request submitted successfully",
+          type: "is-success"
         });
+        this.$emit("newRequestGenerated");
+        this.$parent.close();
+      }
+      catch (error) {
+        this.$buefy.toast.open({
+          message: "Request error",
+          type: "is-danger"
+        });
+      }
     }
   }
 };
