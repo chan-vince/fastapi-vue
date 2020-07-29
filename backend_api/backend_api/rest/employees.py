@@ -50,9 +50,9 @@ def get_employee_by_professional_num(professional_num: str, db: Session = Depend
     return employee
 
 
-@router.get("/employee/count", response_model=schemas.RowCount)
+@router.get("/employee/count", response_model=int)
 def get_total_number_employees(db: Session = Depends(get_db_session)):
-    return schemas.RowCount(count=database.read_total_number_of_employees(db))
+    return database.read_total_number_of_employees(db)
 
 
 @router.get("/employee/names", response_model=schemas.EntityNames)

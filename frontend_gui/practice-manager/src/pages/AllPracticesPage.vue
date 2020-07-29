@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { client, getPracticesAll, getPracticesCount, getPracticeNamesAll } from "../api.js";
+import { client, getPracticeAll, getPracticeCount, getPracticeNamesAll } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
@@ -152,8 +152,8 @@ export default {
       let skip = page * this.perPage - this.perPage;
       let limit = this.perPage;
       this.currentPage = page;
-      if (this.searchInput.length == 0) {
-        this.data = await getPracticesAll(skip, limit);
+      if (this.searchInput.length === 0) {
+        this.data = await getPracticeAll(skip, limit);
       }
     },
     perPageModified() {
@@ -162,11 +162,11 @@ export default {
     async getPractice() {
       if (this.searchInput.length > 0) {
         this.loading = true;
-        var names = this.practice_names.filter(name =>
+        let names = this.practice_names.filter(name =>
           name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
-        var practice_details = [];
-        var promises = [];
+        let practice_details = [];
+        let promises = [];
         for (const name of names) {
           promises.push(
             client
@@ -186,8 +186,8 @@ export default {
           this.loading = false;
         });
       } else {
-        this.data = await getPracticesAll(0, this.perPage);
-        this.total = await getPracticesCount();
+        this.data = await getPracticeAll(0, this.perPage);
+        this.total = await getPracticeCount();
       }
     },
     updateTable(searchInput) {
@@ -198,9 +198,9 @@ export default {
   },
   async created() {
     this.loading = true;
-    this.total = await getPracticesCount();
+    this.total = await getPracticeCount();
     this.practice_names = await getPracticeNamesAll();
-    this.data = await getPracticesAll(0, 15);
+    this.data = await getPracticeAll(0, 15);
     this.loading = false;
   }
 };

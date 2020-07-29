@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { client } from "../api.js";
+import {getEmployeeCount, getEmployeeAll, getEmployeeNames, getEmployeeByName} from "@/api";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
@@ -154,45 +154,36 @@ export default {
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");
     },
-    getEmployees(skip, limit) {
-      client
-        .get(`api/v1/employees`, { params: { skip: skip, limit: limit } })
-        .then(response => {
-          this.employees = response.data;
-          this.loading = false;
-        });
-    },
-    onPageChange(page) {
+    async onPageChange(page) {
       let skip = page * this.perPage - this.perPage;
       let limit = this.perPage;
       this.currentPage = page;
-      if (this.searchInput.length == 0) {
-        this.getEmployees(skip, limit);
+      if (this.searchInput.length === 0) {
+        this.employees = await getEmployeeAll(skip, limit);
       }
     },
     perPageModified() {
       this.onPageChange(this.currentPage);
     },
-    filterEmployees() {
+    async filterEmployees() {
       if (this.searchInput.length > 1) {
         this.loading = true;
-        var names = this.employee_names.filter(name =>
+        let names = this.employee_names.filter(name =>
           name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
-        var employee_details = [];
-        var promises = [];
+        let employee_details = [];
+        let promises = [];
         for (const name of names) {
           promises.push(
-            client
-              .get(`api/v1/employee/name`, { params: { name: name } })
+            getEmployeeByName(name)
               .then(response => {
-                employee_details.push(response.data);
+                employee_details.push(response);
               })
           );
         }
         Promise.all(promises).then(() => {
           // Need to check the length again once the promise returns as its likely that the search input is deleted before the return
-          if (this.searchInput.length != 0) {
+          if (this.searchInput.length !== 0) {
             this.total = employee_details.length;
           }
           this.employees = employee_details;
@@ -200,30 +191,21 @@ export default {
           this.loading = false;
         });
       } else {
-        this.getEmployees(0, this.perPage);
-        this.getTotalEmployees();
+        this.employees = await getEmployeeAll(0, this.perPage);
+        this.total = await getEmployeeCount();
       }
-    },
-    getTotalEmployees() {
-      client.get(`api/v1/employees/count`).then(response => {
-        this.total = response.data.count;
-      });
-    },
-    getAllEmployeeNames() {
-      client.get(`api/v1/employees/names`).then(response => {
-        this.employee_names = response.data.names;
-      });
     },
     updateTable(searchInput) {
       this.searchInput = searchInput;
       this.filterEmployees();
     }
   },
-  created() {
+  async created() {
     this.loading = true;
-    this.getTotalEmployees();
-    this.getAllEmployeeNames();
-    this.getEmployees(0, 15);
+    this.total = await getEmployeeCount();
+    this.employees = await getEmployeeAll(0, 15);
+    this.employee_names = await getEmployeeNames();
+    this.loading = false;
   }
 };
 </script>

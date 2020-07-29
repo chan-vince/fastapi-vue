@@ -9,7 +9,7 @@ const baseURL = process.env.VUE_APP_BACKEND_URL
 const apiVersion = `api/v1`
 const apiBase = `${baseURL}${apiVersion}`
 
-export const getPracticesAll = (skip, limit) => {
+export const getPracticeAll = (skip, limit) => {
   return axios(`${apiBase}/practice/all`, {
     method: 'GET',
     headers: {},
@@ -30,13 +30,54 @@ export const getPracticeNamesAll = () => {
       .catch(error => console.log(error));
 }
 
-export const getPracticesCount = () => {
+export const getPracticeCount = () => {
   return axios(`${apiBase}/practice/count`, {
     method: 'GET',
   })
       .then(response => response.data)
       .catch(error => console.log(error));
 }
+
+export const getEmployeeCount = () => {
+  return axios(`${apiBase}/employee/count`, {
+    method: 'GET',
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error));
+}
+
+export const getEmployeeAll = (skip, limit) => {
+  return axios(`${apiBase}/employee/all`, {
+    method: 'GET',
+    headers: {},
+    params: {
+      skip: skip,
+      limit: limit
+    }
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error));
+};
+
+export const getEmployeeNames = () => {
+  return axios(`${apiBase}/employee/names`, {
+    method: 'GET',
+  })
+      .then(response => response.data.names)
+      .catch(error => console.log(error));
+}
+
+export const getEmployeeByName = (name) => {
+  return axios(`${apiBase}/employee/name`, {
+    method: 'GET',
+    params: {
+      name: name
+    }
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error));
+}
+
 
 export const getPendingChangesCount = () => {
   return axios(`${apiBase}/changes/pending/count`, {
