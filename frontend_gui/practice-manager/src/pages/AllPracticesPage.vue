@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { client } from "../api.js";
+import { client, getPracticesAll, getPracticesCount } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
@@ -214,13 +214,19 @@ export default {
       this.getPractice();
     }
   },
-  created() {
+  async created() {
     console.log("AllPractices")
     console.log(process.env.VUE_APP_BACKEND_URL)
     this.loading = true;
-    this.getTotalPractices();
+    this.total = await getPracticesCount();
     this.getAllPracticeNames();
     this.getPractices(0, 15);
+    getPracticesAll(0, 10).then(
+        (res) => {
+          console.log("HI!!!!")
+          console.log(res)
+        }
+    )
   }
 };
 </script>

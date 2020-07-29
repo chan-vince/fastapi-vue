@@ -300,6 +300,12 @@ def read_all_pending_change_requests(db: Session, skip: int, limit: int):
         .offset(skip).limit(limit).all()
 
 
+def read_all_pending_change_requests_count(db: Session):
+    return db.query(tables.ChangeHistory)\
+        .filter(tables.ChangeHistory.approval_status == None)\
+        .count()
+
+
 def read_all_historic_change_requests(db: Session, skip: int, limit: int):
     return db.query(tables.ChangeHistory)\
         .filter(tables.ChangeHistory.approval_status != None)\

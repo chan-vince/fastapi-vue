@@ -66,9 +66,9 @@ def get_practice_by_address_id(address_id: int, session: Session = Depends(get_d
     return practice
 
 
-@router.get("/practice/count", response_model=schemas.RowCount)
+@router.get("/practice/count", response_model=int)
 def get_total_number_practices(session: Session = Depends(get_db_session)):
-    return schemas.RowCount(count=database.read_total_number_of_practices(session))
+    return database.read_total_number_of_practices(session)
 
 
 @router.get("/practice/name/all", response_model=schemas.EntityNames)

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { client } from "../../api.js";
+import { getPendingChangesCount } from "../../api.js";
 
 export default {
   name: "NavBar",
@@ -62,19 +62,10 @@ export default {
       pending_count: 0
     };
   },
-  created() {
-    this.getPendingApprovalsCount();
+  async created() {
+    this.pending_count = await getPendingChangesCount();
+    console.log("Pending changes count:", this.pending_count);
   },
-  methods: {
-    getPendingApprovalsCount() {
-      client.get(`api/v1/stagingbeta/count/pending`).then(response => {
-        this.pending_count = response.data;
-      });
-    }
-  }
-  //   props: {
-  //     msg: String
-  //   }
 };
 </script>
 

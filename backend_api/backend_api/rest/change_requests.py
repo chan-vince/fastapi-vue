@@ -23,6 +23,11 @@ def get_all_pending_requests(skip: int = 0, limit: int = 100, db: Session = Depe
     return backend_api.database.read_all_pending_change_requests(db, skip, limit)
 
 
+@router.get("/changes/pending/count")
+def get_all_pending_requests(db: Session = Depends(get_db_session)):
+    return backend_api.database.read_all_pending_change_requests_count(db)
+
+
 @router.get("/changes/history/all")
 def get_all_historic_requests(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     return backend_api.database.read_all_historic_change_requests(db, skip, limit)
