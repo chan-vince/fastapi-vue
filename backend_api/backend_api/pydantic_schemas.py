@@ -155,7 +155,7 @@ class ChangeRequest(BaseModel):
 
     @validator('target_name')
     def target_name_must_be_one_of(cls, v):
-        names = ["employee", "practice"]
+        names = ["employee", "practice", "ip_range", "address"]
         if v not in names:
             raise ValueError(f"target_name must be one of {', '.join(names)}")
         return v

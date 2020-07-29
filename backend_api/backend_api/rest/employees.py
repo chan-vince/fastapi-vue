@@ -58,3 +58,8 @@ def get_total_number_employees(db: Session = Depends(get_db_session)):
 @router.get("/employee/names", response_model=schemas.EntityNames)
 def get_names_of_employees(db: Session = Depends(get_db_session)):
     return schemas.EntityNames(names=database.read_all_employee_names(db))
+
+
+@router.get("/employee/job-titles")
+def get_all_job_titles(db: Session = Depends(get_db_session)):
+    return database.get_all_job_titles(db)

@@ -78,12 +78,29 @@ export const getEmployeeByName = (name) => {
       .catch(error => console.log(error));
 }
 
+export const getJobTitles = () => {
+  return axios(`${apiBase}/employee/job-titles`, {
+    method: 'GET'
+  })
+      .then(response => response.data)
+      .catch(error => console.log(error));
+}
+
 
 export const getPendingChangesCount = () => {
   return axios(`${apiBase}/changes/pending/count`, {
     method: 'GET',
   })
       .then(response => response.data)
+      .catch(error => console.log(error));
+}
+
+export const postChangeRequest = (request) => {
+  return axios(`${apiBase}/change/request`, {
+    method: 'POST',
+    data: request
+  })
+      .then(response => response)
       .catch(error => console.log(error));
 }
 
