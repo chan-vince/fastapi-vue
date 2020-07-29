@@ -150,7 +150,7 @@ export default {
     },
     getPractices(skip, limit) {
       client
-        .get(`api/v1/practice`, { params: { skip: skip, limit: limit } })
+        .get(`api/v1/practice/all`, { params: { skip: skip, limit: limit } })
         .then(response => {
           this.data = response.data;
           this.loading = false;
@@ -204,7 +204,7 @@ export default {
       });
     },
     getAllPracticeNames() {
-      client.get(`api/v1/practice/names`).then(response => {
+      client.get(`api/v1/practice/name/all`).then(response => {
         this.practice_names = response.data.names;
       });
     },
@@ -226,14 +226,6 @@ export default {
 </script>
 
 <style>
-@import "https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css";
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 #content {
   margin: 0px 5px 0px 5px;
 }
