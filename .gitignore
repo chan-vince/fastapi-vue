@@ -1,3 +1,4 @@
 backend_api/.venv
 *.pyc
 passwords.txt
+.DS_Store
