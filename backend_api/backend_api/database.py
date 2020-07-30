@@ -356,8 +356,15 @@ def read_existing_record_by_id(db: Session, target_id: int, table: sqlalchemy.Ta
 
 
 def update_existing_record_by_id(db: Session, target_id: int, table: sqlalchemy.Table, update: dict):
+    # Get the target_id row from the given table
     query = db.query(table)\
         .filter(table.id == target_id)
+
+    # Check for links, aka updates to a joined table
+    if update.get("access_system_link"):
+        # Get access system by name, append to this query.first()
+        # query.first().access_systems.append()
+        logger.debug("Access system link!")
 
     query.update(update)
     db.commit()

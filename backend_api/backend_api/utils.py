@@ -42,7 +42,7 @@ def get_sqlalchemy_model_for_entity(name: str):
         "employee": Employee,
         "practice": Practice,
         "address": Address,
-        "ip_range": IPRange,
+        "ip_range": IPRange
     }
     return classes.get(name)
 

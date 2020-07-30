@@ -53,7 +53,7 @@
             </b-checkbox-button>
           </b-field>
 
-          <div class="level-right" style="padding-top: 20px">
+          <div class="level-right">
             <b-button v-on:click="saveDetails" type="is-primary" outlined icon-left="content-save">Save
             </b-button>
           </div>
@@ -109,40 +109,28 @@ export default {
     printSelected() {
       console.log(this.checkboxGroup)
     },
+
+
     async saveDetails() {
 
-      let gen_body = {
-        requestor_id: 1,
-        target_name: "practice",
-        target_id: this.id,
-      }
-      let as_body = {
-        requestor_id: 1,
-        target_name: "_association_practice_systems",
-        target_id: this.id,
-        link: true
-      }
-      let gen_payload = {
+      // Build the objects for the new state of the data fields
+      let new_state_general = {
         "name": this.name,
         "national_code": this.national_code,
         "emis_cdb_practice_code": this.emis_cdb_practice_code,
         "go_live_date": this.go_live_date.toISOString().split('T')[0],
         "closed": this.closed,
       }
-
-      let access_system_ids = this.access_systems
-          .filter(i => this.checkboxGroup.includes(i.name))
-          .map(i => ({"practice_id": this.id, "item": i.id}))
-
-      let as_payload = {
-        action: "add",
-        elements: access_system_ids,
+      let new_state_access_system = {
+        link: "access_system",
+        action: "replace",
+        data: this.access_systems
+            .filter(i => this.checkboxGroup.includes(i.name))
+            // .map(i => ({"id": this.id, "name": i.name})),
       }
 
-      gen_body.new_state = gen_payload
-      as_body.payload = as_payload
-              
-      if (isEqual(this.originalPracticeDetails, gen_payload)) {
+      // Check for the case where the save button is pressed when no changes have been made
+      if ((isEqual(this.originalPracticeDetails, new_state_general)) && (isEqual(this.checkboxGroup, this.checkboxGroupInit))) {
         this.$buefy.toast.open({
           message: "No changes made",
           type: "is-default"
@@ -150,20 +138,43 @@ export default {
         return
       }
 
+      // Create the wrapper info in preparation for the API requests
+      let body = {
+        requestor_id: 1,
+        target_name: "practice",
+        target_id: this.id,
+      }
+
       try {
-        let response = await postChangeRequest(gen_body);
-        console.log(response.data);
+        // Send API request for the general section
+        if (!(isEqual(this.originalPracticeDetails, new_state_general))) {
+          let response = await postChangeRequest({...body, new_state: new_state_general});
+          console.log(response.data);
+        }
+
+        console.log({...body, new_state: new_state_access_system})
+        // Send API request for the Access system box thing
+        if (!(isEqual(this.checkboxGroup, this.checkboxGroupInit))) {
+          let response = await postChangeRequest({...body, new_state: new_state_access_system});
+          console.log(response.data);
+        }
+
+        // Should we not encounter any errors after both requests, we can celebrate
         this.$buefy.toast.open({
           message: "Request submitted successfully",
           type: "is-success"
         });
         this.$emit("newRequestGenerated");
-      } catch (error) {
+
+        // Crude uh-oh..the second can fail and the first succeed and the user won't know
+      } catch
+          (error) {
         this.$buefy.toast.open({
           message: "Request error",
           type: "is-danger"
         });
       }
+
     }
   },
   async created() {

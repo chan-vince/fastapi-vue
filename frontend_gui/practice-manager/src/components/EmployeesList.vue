@@ -95,19 +95,19 @@ export default {
     },
     methods: {
         getEmployeesForPractice(){
-            client.get(`api/v1/employees/practice`, {params: {practice_id: this.practice_id} })
+            client.get(`api/v1/practice/all_employees`, {params: {practice_id: this.practice_id} })
             .then(response => {
                 this.employees = response.data["employees"]
             })
         },
         getMainPartnersForPractice(){
-            client.get(`api/v1/employees/main_partners`, {params: {practice_id: this.practice_id} })
+            client.get(`api/v1/practice/all_main_partners`, {params: {practice_id: this.practice_id} })
             .then(response => {
                 this.main_partners = response.data
             })
         },
         getJobTitles(){
-            client.get(`api/v1/job_titles`)
+            client.get(`api/v1/employee/job-titles`)
             .then(response => {
                 this.job_titles = response.data
             })

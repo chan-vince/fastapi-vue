@@ -86,7 +86,8 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
         if existing_pending_record:
             return backend_api.database.update_change_request_new_state(db, request.new_state.dict(), existing_pending_record)
 
-        # serialise using json to sort keys and stringify by default to eat up the datetime objects
+        # serialise using json to sort keys and stringify by default to eat up the datetime objects. should switch this
+        #  to pydantic's built in .json() method which can handle datetimes
         current_state = json.loads(json.dumps(columns_to_dict(existing_record), sort_keys=True, default=str))
         logger.debug(f"is there the stuff: {current_state}")
         logger.debug(f"Update change request for existing record: {current_state}")

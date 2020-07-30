@@ -62,6 +62,11 @@ export default {
       pending_count: 0
     };
   },
+  methods: {
+    async getPendingApprovalsCount() {
+      this.pending_count = await getPendingChangesCount();
+    }
+  },
   async created() {
     this.pending_count = await getPendingChangesCount();
     console.log("Pending changes count:", this.pending_count);

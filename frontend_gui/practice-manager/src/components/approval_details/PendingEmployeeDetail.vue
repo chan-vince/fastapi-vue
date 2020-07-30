@@ -59,7 +59,7 @@
         },
         methods: {
             getJobTitles() {
-                client.get(`api/v1/job_titles`).then(response => {
+                client.get(`api/v1/employee/job-titles`).then(response => {
                     this.job_titles = response.data;
                 });
             }

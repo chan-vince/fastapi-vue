@@ -51,6 +51,29 @@ class AccessSystemCreate(AccessSystemBase):
     pass
 
 
+class Link(BaseModel):
+    link: str
+    action: str
+    data: List[Union[AccessSystemCreate]]
+
+    @validator('link')
+    def link_must_be_one_of(cls, v):
+        allowed = ["access_system", "address"]
+        if v not in allowed:
+            raise ValueError
+        return v
+
+    @validator('action')
+    def action_must_be_one_of(cls, v):
+        allowed = ["add", "remove", "replace"]
+        if v not in allowed:
+            raise ValueError
+        return v
+
+    class Config:
+        orm_mode = True
+
+
 class AccessSystem(AccessSystemBase):
     id: int
 
@@ -151,11 +174,11 @@ class ChangeRequest(BaseModel):
     requestor_id: int
     target_name: str
     target_id: int = None
-    new_state: Union[EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate]
+    new_state: Union[EmployeeCreate, PracticeCreate, Link]
 
     @validator('target_name')
     def target_name_must_be_one_of(cls, v):
-        names = ["employee", "practice", "ip_range", "address"]
+        names = ["employee", "practice", "ip_range", "address", "access_system"]
         if v not in names:
             raise ValueError(f"target_name must be one of {', '.join(names)}")
         return v
