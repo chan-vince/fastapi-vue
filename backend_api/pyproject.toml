@@ -6,18 +6,17 @@ authors = ["Vince Chan <vince.chan@mclaren.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.58.0"
 uvicorn = "^0.11.5"
 PyMySQL = "^0.9.3"
 async-exit-stack = "^1.0.1"
 async-generator = "^1.10"
 sqlalchemy = "^1.3.18"
+fastapi = "^0.60.1"
+toml = "^0.10.1"
+vulture = "^1.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
-
-[tool.poetry.scripts]
-app = "backend_api.__main__:start"
 
 [build-system]
 requires = ["poetry>=0.12"]

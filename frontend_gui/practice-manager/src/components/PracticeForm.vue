@@ -23,7 +23,7 @@
     import GPDetailsGeneralForm from './DetailsGeneralForm.vue'
     import GPDetailsAddressesForm from './DetailsAddressesForm.vue'
     import GPEmployeesList from './EmployeesList.vue'
-    import {client} from '../api.js'
+    import {getPracticeDetailsByName} from '../api.js'
 
     export default {
         name: 'PracticeForm',
@@ -41,21 +41,11 @@
                 practice_id: 0
             }
         },
-        created() {
-            this.getPracticeDetails()
+        async created() {
+            this.practice_details = await getPracticeDetailsByName(this.$props.practice_name)
+            this.practice_id = this.practice_details["id"]
         },
         methods: {
-            getPracticeDetails() {
-                var current = this
-                client.get(`api/v1/practice/name`, {params: {name: this.$props.practice_name}})
-                    .then(response => {
-                        this.practice_details = response.data
-                        this.practice_id = response.data["id"]
-                    })
-                    .catch(function () {
-                        current.$router.replace({path: `/404`});
-                    })
-            },
             newRequestGenerated() {
                 this.$emit('newRequestGenerated')
             }

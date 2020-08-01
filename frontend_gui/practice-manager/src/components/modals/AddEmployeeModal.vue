@@ -61,7 +61,7 @@
 
 
 <script>
-    import {client} from "../../api.js";
+import {getJobTitles, getPracticeDetailsByName, getPracticeNamesAll, postChangeRequest} from "@/api";
 
     export default {
         name: "ModalEmployee",
@@ -97,12 +97,10 @@
                 });
             }
         },
-        created() {
-            this.getAllPracticeNames();
+        async created() {
+            this.all_practices = await getPracticeNamesAll()
             if (this.$props.jobTitles == null) {
-                client.get(`api/v1/job_titles`).then(response => {
-                    this.job_titles = response.data;
-                });
+              this.job_titles = await getJobTitles()
             } else {
                 this.job_titles = this.$props.jobTitles;
             }
@@ -121,17 +119,7 @@
             }
         },
         methods: {
-            getAllPracticeNames() {
-                client
-                    .get(`api/v1/practice/names`)
-                    .then(response => {
-                        this.all_practices = response.data.names;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-            },
-            saveDetails() {
+            async saveDetails() {
                 // Check if name is blank
                 if (this.name.length === 0) {
                     this.$buefy.toast.open({
@@ -141,7 +129,6 @@
                     return
                 }
 
-                let current = this;
                 let payload = {
                     name: this.name,
                     email: this.email,
@@ -152,57 +139,33 @@
                     active: this.active
                 };
                 let body = {
-                    requestor_id: 5000,
-                    target_table: "employees",
+                    requestor_id: 1,
+                    target_name: "employee",
                     target_id: this.source_id,
-                    link: false,
-                    payload: payload
+                    new_state: payload
                 };
-                if (this.action === "Add") {
-                    client
-                        .post(`api/v1/stagingbeta`, body)
-                        .then(response => {
-                            console.log(response.data);
-                            this.$buefy.toast.open({
-                                message: "Request submitted successfully",
-                                type: "is-success"
-                            });
-                            this.$emit("newRequestGenerated");
-                            this.$parent.close();
-                        })
-                        .catch(function (error) {
-                            var error_msg = "Request error";
-                            if (error.response.data.detail != null) {
-                                error_msg = error.response.data.detail;
-                            }
-                            current.$buefy.toast.open({
-                                message: error_msg,
-                                type: "is-danger"
-                            });
-                        });
-                } else {
-                    client
-                        .put(`api/v1/stagingbeta`, body)
-                        .then(response => {
-                            console.log(response.data);
-                            this.$buefy.toast.open({
-                                message: "Request submitted successfully",
-                                type: "is-success"
-                            });
-                            this.$emit("newRequestGenerated");
-                            this.$parent.close();
-                        })
-                        .catch(function (error) {
-                            var error_msg = "Request error";
-                            console.log(error.response.data.detail);
-                            if (error.response.data.detail != null) {
-                                error_msg = error.response.data.detail;
-                            }
-                            current.$buefy.toast.open({
-                                message: error_msg,
-                                type: "is-danger"
-                            });
-                        });
+
+                if (this.practice_name !== "") {
+                  let practice = await getPracticeDetailsByName(this.practice_name)
+                  payload.practice_ids = [practice.id]
+                }
+
+                try {
+                  let response = await postChangeRequest(body);
+
+                  console.log(response.data);
+                  this.$buefy.toast.open({
+                    message: "Request submitted successfully",
+                    type: "is-success"
+                  });
+                  this.$parent.$emit("newRequestGenerated");
+                  this.$parent.close();
+                }
+                catch (error) {
+                  this.$buefy.toast.open({
+                    message: "Request error",
+                    type: "is-danger"
+                  });
                 }
             }
         }

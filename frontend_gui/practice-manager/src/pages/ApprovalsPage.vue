@@ -14,7 +14,7 @@
                             />
                         </b-tab-item>
                         <b-tab-item label="History">
-                            <HistoryApprovalsTable
+                            <PendingApprovalsTable
                                     id="tablesHistory"
                                     ref="historyApprovalsTable"
                                     v-bind:pendingOnly="false"
@@ -31,14 +31,14 @@
 <script>
     import NavBar from "../components/general/NavBar";
     import PendingApprovalsTable from "../components/tables/PendingApprovalsTable";
-    import HistoryApprovalsTable from "../components/tables/HistoryApprovalsTable";
+    // import HistoryApprovalsTable from "../components/tables/HistoryApprovalsTable";
 
     export default {
         name: "ApprovalsPage",
         components: {
             NavBar,
             PendingApprovalsTable,
-            HistoryApprovalsTable
+            // HistoryApprovalsTable
         },
         // data() {
         // },
@@ -49,8 +49,9 @@
             refreshTables() {
                 console.log("Time to refresh!");
                 this.$refs.navBar.getPendingApprovalsCount()
-                this.$refs.pendingApprovalsTable.getStagingPractices();
-                this.$refs.historyApprovalsTable.getStagingPractices();
+                this.$refs.pendingApprovalsTable.refreshRows();
+                this.$refs.historyApprovalsTable.refreshRows();
+                // this.$refs.historyApprovalsTable.getStagingPractices();
             }
         }
     };

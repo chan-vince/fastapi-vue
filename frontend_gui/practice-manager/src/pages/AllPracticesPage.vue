@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { client } from "../api.js";
+import { client, getPracticeAll, getPracticeCount, getPracticeNamesAll } from "../api.js";
 import NavBar from "../components/general/NavBar.vue";
 import TitleWithSearchBar from "../components/general/TitleWithSearchBar";
 import moment from "moment";
@@ -148,33 +148,25 @@ export default {
     displayDate(datestring) {
       return moment(datestring).format("Do MMM YYYY");
     },
-    getPractices(skip, limit) {
-      client
-        .get(`api/v1/practice`, { params: { skip: skip, limit: limit } })
-        .then(response => {
-          this.data = response.data;
-          this.loading = false;
-        });
-    },
-    onPageChange(page) {
+    async onPageChange(page) {
       let skip = page * this.perPage - this.perPage;
       let limit = this.perPage;
       this.currentPage = page;
-      if (this.searchInput.length == 0) {
-        this.getPractices(skip, limit);
+      if (this.searchInput.length === 0) {
+        this.data = await getPracticeAll(skip, limit);
       }
     },
     perPageModified() {
       this.onPageChange(this.currentPage);
     },
-    getPractice() {
+    async getPractice() {
       if (this.searchInput.length > 0) {
         this.loading = true;
-        var names = this.practice_names.filter(name =>
+        let names = this.practice_names.filter(name =>
           name.toLowerCase().includes(this.searchInput.toLowerCase())
         );
-        var practice_details = [];
-        var promises = [];
+        let practice_details = [];
+        let promises = [];
         for (const name of names) {
           promises.push(
             client
@@ -194,19 +186,9 @@ export default {
           this.loading = false;
         });
       } else {
-        this.getPractices(0, this.perPage);
-        this.getTotalPractices();
+        this.data = await getPracticeAll(0, this.perPage);
+        this.total = await getPracticeCount();
       }
-    },
-    getTotalPractices() {
-      client.get(`api/v1/practice/count`).then(response => {
-        this.total = response.data.count;
-      });
-    },
-    getAllPracticeNames() {
-      client.get(`api/v1/practice/names`).then(response => {
-        this.practice_names = response.data.names;
-      });
     },
     updateTable(searchInput) {
       console.log(searchInput);
@@ -214,26 +196,17 @@ export default {
       this.getPractice();
     }
   },
-  created() {
-    console.log("AllPractices")
-    console.log(process.env.VUE_APP_BACKEND_URL)
+  async created() {
     this.loading = true;
-    this.getTotalPractices();
-    this.getAllPracticeNames();
-    this.getPractices(0, 15);
+    this.total = await getPracticeCount();
+    this.practice_names = await getPracticeNamesAll();
+    this.data = await getPracticeAll(0, 15);
+    this.loading = false;
   }
 };
 </script>
 
 <style>
-@import "https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css";
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 #content {
   margin: 0px 5px 0px 5px;
 }

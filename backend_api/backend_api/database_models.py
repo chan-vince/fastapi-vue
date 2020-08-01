@@ -1,8 +1,9 @@
 import datetime
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date, DateTime, Table, Index, func, JSON
+
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime, Table, Index, func, JSON
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from backend_api.database_connection import Base
 
 association_practice_employee = Table('_association_practice_employee', Base.metadata,
                                       Column('practice_id', Integer, ForeignKey('practices.id', ondelete='CASCADE')),
@@ -39,40 +40,6 @@ class Practice(Base):
     main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
 
 
-class StagingPractice(Base):
-    __tablename__ = "_staging_practices"
-
-    name = Column(String(length=255), nullable=False)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
-    national_code = Column(String(length=255))
-    emis_cdb_practice_code = Column(String(length=255), nullable=False)
-    go_live_date = Column(String(length=255))
-    closed = Column(Boolean, default=False)
-
-    Index('idx_staging_practice_name', 'name')
-    Index('idx_staging_practice_emis_cdb_practice_code', 'emis_cdb_practice_code')
-
-    # These relationships allow SQLAlchemy to automatically load data from automatic table joins
-    # access_systems = relationship("AccessSystem", secondary=association_practice_systems)
-    # addresses = relationship("Address", back_populates="practice")
-    # employees = relationship("Employee", secondary=association_practice_employee, back_populates="practices")
-    # main_partners = relationship("Employee", secondary=association_practice_partners, back_populates="partner_of")
-
-    # Extra stuff for staging table
-    id = Column(Integer, primary_key=True)
-    last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp()) # try TIMESTAMP if broken
-    source_id = Column(Integer, ForeignKey('practices.id'))
-    requestor_id = Column(Integer, ForeignKey('employees.id'))
-    approver_id = Column(Integer, ForeignKey('employees.id'))
-    approved = Column(Boolean)
-
-    source = relationship("Practice")
-    requestor = relationship("Employee", foreign_keys=[requestor_id])
-    approver = relationship("Employee", foreign_keys=[approver_id])
-
-    Index('idx_staging_practice_id', 'id')
-
-
 class Employee(Base):
     __tablename__ = "employees"
 
@@ -93,37 +60,6 @@ class Employee(Base):
     partner_of = relationship("Practice", secondary=association_practice_partners, back_populates="main_partners")
 
 
-class StagingEmployee(Base):
-    __tablename__ = "_staging_employees"
-
-    name = Column(String(length=255), nullable=False)
-    email = Column(String(length=255), nullable=False)
-    professional_num = Column(String(length=255), nullable=False)
-    desktop_num = Column(String(length=255), nullable=True)
-    it_portal_num = Column(String(length=255), nullable=True)
-    active = Column(Boolean, default=True)
-    job_title_id = Column(Integer, ForeignKey("job_titles.id"), nullable=True)
-
-    Index('idx_staging_employee_id', 'id')
-    Index('idx_staging_employee_email', 'email', unique=True)
-
-    # Extra stuff for staging table
-    id = Column(Integer, primary_key=True)
-    last_modified = Column(DateTime, server_default=func.now(),
-                           onupdate=func.current_timestamp())  # try TIMESTAMP if broken
-    source_id = Column(Integer, ForeignKey('employees.id'))
-    requestor_id = Column(Integer, ForeignKey('employees.id'))
-    approver_id = Column(Integer, ForeignKey('employees.id'))
-    approved = Column(Boolean)
-    practice_name = Column(String(length=255))
-
-    source = relationship("Employee", foreign_keys=[source_id])
-    requestor = relationship("Employee", foreign_keys=[requestor_id])
-    approver = relationship("Employee", foreign_keys=[approver_id])
-
-    Index('idx_staging_employee_id', 'id')
-
-
 class Address(Base):
     __tablename__ = "addresses"
 
@@ -138,7 +74,7 @@ class Address(Base):
     practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
     # Ensure that each address is unique in its combination of fields
-    Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', unique=True)
+    Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', 'practice_id', unique=True)
 
     practice = relationship("Practice", back_populates="addresses")
     ip_ranges = relationship("IPRange")
@@ -166,21 +102,21 @@ class IPRange(Base):
     address_id = Column(Integer, ForeignKey("addresses.id", ondelete='CASCADE'))
 
 
-class StagingChanges(Base):
-    __tablename__ = "_staging_changes"
+class ChangeHistory(Base):
+    __tablename__ = "_change_history"
 
     id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=datetime.datetime.now())
     last_modified = Column(DateTime, server_default=func.now(), onupdate=func.current_timestamp())
     requestor_id = Column(Integer, ForeignKey('employees.id'))
     approver_id = Column(Integer, ForeignKey('employees.id'))
-    approved = Column(Boolean)  # can be null which means pending
+    approval_status = Column(Boolean)  # can be null which means pending
 
-    target_table = Column(String(length=255))
+    target_name = Column(String(length=255))
     target_id = Column(Integer)
-    link = Column(Boolean)
 
-    payload = Column(JSON)
-    Index('payload')
+    current_state = Column(JSON)
+    new_state = Column(JSON)
 
     approver = relationship("Employee", foreign_keys=[approver_id])
     requestor = relationship("Employee", foreign_keys=[requestor_id])

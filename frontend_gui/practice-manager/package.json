@@ -19,7 +19,7 @@
     "vue": "^2.6.11",
     "vue-headful": "^2.1.0",
     "vue-router": "^3.3.4",
-    "webpack": "^4.43.0"
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",

@@ -20,10 +20,13 @@ export default {
 
 <style lang="scss">
 @import 'https://cdn.materialdesignicons.com/5.3.45/css/materialdesignicons.min.css';
-@import url('https://www.fontify.me/wf/ba4fae954925b35b64e3ad96fd0944fa');
+@font-face {
+  font-family: Frutiger;
+  src: url("./assets/fonts/Frutiger.ttf") format('truetype');
+}
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-family: 'font75874';
+  font-family: Frutiger,serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

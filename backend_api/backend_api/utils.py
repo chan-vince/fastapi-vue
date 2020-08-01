@@ -2,6 +2,9 @@ import logging
 import socket
 import time
 
+from backend_api.database_models import Employee, Practice, Address, IPRange, AccessSystem
+from backend_api.pydantic_schemas import EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate
+
 
 def check_port_open(host: str, port: int, retries: int, interval: int = 5, logger: logging.Logger = None):
 
@@ -22,3 +25,32 @@ def check_port_open(host: str, port: int, retries: int, interval: int = 5, logge
     else:
         logger.fatal(f"Connection to InfluxDB at {host}:{port} failed")
         return False
+
+
+def get_pydantic_model_for_entity(name: str):
+    classes = {
+        "employee": EmployeeCreate,
+        "practice": PracticeCreate,
+        "address": AddressCreate,
+        "ip_range": IPRangeCreate,
+        "access_systems": AccessSystem
+    }
+    return classes.get(name)
+
+
+def get_sqlalchemy_model_for_entity(name: str):
+    classes = {
+        "employee": Employee,
+        "practice": Practice,
+        # "practice.access_systems": Practice,
+        "access_systems": AccessSystem
+        # "address": Address,
+        # "ip_range": IPRange
+    }
+    return classes.get(name)
+
+
+def columns_to_dict(row):
+    result = row.__dict__
+    del result["_sa_instance_state"]
+    return result
