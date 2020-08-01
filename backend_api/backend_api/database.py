@@ -286,8 +286,8 @@ def get_addresses_by_practice_id(db: Session, practice_id: int):
     return read_practice_by_id(db, practice_id).addresses
 
 
-def create_change_request(db: Session, request: dict, current_state: dict = None):
-    entry = tables.ChangeHistory(**request, current_state=current_state)
+def create_change_request(db: Session, request: dict):
+    entry = tables.ChangeHistory(**request)
     db.add(entry)
     db.commit()
     db.refresh(entry)

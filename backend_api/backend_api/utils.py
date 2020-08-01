@@ -2,7 +2,7 @@ import logging
 import socket
 import time
 
-from backend_api.database_models import Employee, Practice, Address, IPRange
+from backend_api.database_models import Employee, Practice, Address, IPRange, AccessSystem
 from backend_api.pydantic_schemas import EmployeeCreate, PracticeCreate, AddressCreate, IPRangeCreate
 
 
@@ -32,7 +32,8 @@ def get_pydantic_model_for_entity(name: str):
         "employee": EmployeeCreate,
         "practice": PracticeCreate,
         "address": AddressCreate,
-        "ip_range": IPRangeCreate
+        "ip_range": IPRangeCreate,
+        "access_systems": AccessSystem
     }
     return classes.get(name)
 
@@ -41,8 +42,10 @@ def get_sqlalchemy_model_for_entity(name: str):
     classes = {
         "employee": Employee,
         "practice": Practice,
-        "address": Address,
-        "ip_range": IPRange
+        # "practice.access_systems": Practice,
+        "access_systems": AccessSystem
+        # "address": Address,
+        # "ip_range": IPRange
     }
     return classes.get(name)
 

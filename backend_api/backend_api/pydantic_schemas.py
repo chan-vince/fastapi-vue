@@ -47,21 +47,28 @@ class AccessSystemBase(BaseModel):
     name: str
 
 
+class AccessSystem(AccessSystemBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
+
 class AccessSystemCreate(AccessSystemBase):
     pass
 
 
 class Link(BaseModel):
-    link: str
+    # link: str
     action: str
-    data: List[Union[AccessSystemCreate]]
+    data: List[Union[AccessSystem]]
 
-    @validator('link')
-    def link_must_be_one_of(cls, v):
-        allowed = ["access_system", "address"]
-        if v not in allowed:
-            raise ValueError
-        return v
+    # @validator('link')
+    # def link_must_be_one_of(cls, v):
+    #     allowed = ["access_systems", "addresses"]
+    #     if v not in allowed:
+    #         raise ValueError
+    #     return v
 
     @validator('action')
     def action_must_be_one_of(cls, v):
@@ -69,13 +76,6 @@ class Link(BaseModel):
         if v not in allowed:
             raise ValueError
         return v
-
-    class Config:
-        orm_mode = True
-
-
-class AccessSystem(AccessSystemBase):
-    id: int
 
     class Config:
         orm_mode = True
@@ -174,11 +174,12 @@ class ChangeRequest(BaseModel):
     requestor_id: int
     target_name: str
     target_id: int = None
+    current_state: Union[Employee, Practice] = None
     new_state: Union[EmployeeCreate, PracticeCreate, Link]
 
     @validator('target_name')
     def target_name_must_be_one_of(cls, v):
-        names = ["employee", "practice", "ip_range", "address", "access_system"]
+        names = ["employee", "practice", "ip_range", "address", "practice.access_systems"]
         if v not in names:
             raise ValueError(f"target_name must be one of {', '.join(names)}")
         return v
@@ -195,7 +196,8 @@ class ChangeResponse(BaseModel):
     created_at: datetime.datetime
     last_modified: datetime.datetime
     requestor_id: int
-    approver_id: int = 1
+    requestor: Employee
+    approver_id: Union[int, None] = 1
     approval_status: bool = None
     target_name: str
     target_id: int = None

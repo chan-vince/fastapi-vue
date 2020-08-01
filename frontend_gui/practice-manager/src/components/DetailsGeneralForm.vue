@@ -110,7 +110,6 @@ export default {
       console.log(this.checkboxGroup)
     },
 
-
     async saveDetails() {
 
       // Build the objects for the new state of the data fields
@@ -122,7 +121,6 @@ export default {
         "closed": this.closed,
       }
       let new_state_access_system = {
-        link: "access_system",
         action: "replace",
         data: this.access_systems
             .filter(i => this.checkboxGroup.includes(i.name))
@@ -148,14 +146,14 @@ export default {
       try {
         // Send API request for the general section
         if (!(isEqual(this.originalPracticeDetails, new_state_general))) {
-          let response = await postChangeRequest({...body, new_state: new_state_general});
+          let response = await postChangeRequest({...body, new_state: new_state_general, target_name: "practice"});
           console.log(response.data);
         }
 
         console.log({...body, new_state: new_state_access_system})
         // Send API request for the Access system box thing
         if (!(isEqual(this.checkboxGroup, this.checkboxGroupInit))) {
-          let response = await postChangeRequest({...body, new_state: new_state_access_system});
+          let response = await postChangeRequest({...body, new_state: new_state_access_system, target_name: "practice.access_systems"});
           console.log(response.data);
         }
 

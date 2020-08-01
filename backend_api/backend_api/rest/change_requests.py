@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 import sqlalchemy.exc
 from fastapi import APIRouter
@@ -18,7 +19,7 @@ from ..log_setup import logger
 router = APIRouter()
 
 
-@router.get("/changes/pending/all")
+@router.get("/changes/pending/all", response_model=List[schemas.ChangeResponse])
 def get_all_pending_requests(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     return backend_api.database.read_all_pending_change_requests(db, skip, limit)
 
@@ -26,6 +27,44 @@ def get_all_pending_requests(skip: int = 0, limit: int = 100, db: Session = Depe
 @router.get("/changes/pending/count")
 def get_all_pending_requests(db: Session = Depends(get_db_session)):
     return backend_api.database.read_all_pending_change_requests_count(db)
+
+
+@router.get("/changes/pending/id")
+def get_pending_request_by_id(id: int, db: Session = Depends(get_db_session)):
+    return backend_api.database.read_change_request(db, id)
+
+
+@router.get("/changes/pending/id/delta")
+def get_delta_for_pending_request_by_id(id: int, db: Session = Depends(get_db_session)):
+    change_request: schemas.ChangeRequest = backend_api.database.read_change_request(db, id)
+
+    if change_request is None:
+        raise HTTPException(status_code=404, detail=f"No change request with ID {id}")
+
+    if "." in change_request.target_name:
+        parent, child = tuple(change_request.target_name.split('.'))
+        record = backend_api.database.read_existing_record_by_id(db,
+                                                                 change_request.target_id,
+                                                                 get_sqlalchemy_model_for_entity(parent))
+        before = getattr(record, child)
+        logger.debug(f"!!! {before}")
+        return {
+            "before": before,
+            "after": change_request.new_state.get('data')
+        }
+
+    else:
+        before = change_request.current_state
+
+    delta = {
+        key: {
+            "before": before.get(key),
+            "after": value
+        }
+        for key, value in change_request.new_state.items()
+        if before.get(key) != value}
+
+    return delta
 
 
 @router.get("/changes/history/all")
@@ -58,12 +97,17 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
     if identical_pending_record is not None:
         return identical_pending_record
 
+    if "." in request.target_name:
+        parent, child = tuple(request.target_name.split('.'))
+    else:
+        parent = request.target_name
+
     # Request to add a new thing
     if request.target_id is None:
         # Note: pydantic handles the validation of target_name
         logger.debug(f"New change request: {request}")
-        logger.debug(f"Request name: {request.target_name}\t"
-                     f"Request schema: {get_pydantic_model_for_entity(request.target_name)}")
+        logger.debug(f"Request name: {parent}\t"
+                     f"Request schema: {get_pydantic_model_for_entity(parent)}")
 
         # Create the change request. The new_state dict is automagically validated with pydantic already
         return backend_api.database.create_change_request(db, request.dict())
@@ -71,14 +115,16 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
     # Requst to modify an existing thing
     else:
         # find the existing record
-        table = get_sqlalchemy_model_for_entity(request.target_name)
+        table = get_sqlalchemy_model_for_entity(parent)
+        logger.debug(f"!!!!{parent}")
+        logger.debug(f"!!!!{table}")
 
         # use the table and target_id to find the record to change
         existing_record = backend_api.database.read_existing_record_by_id(db, request.target_id, table)
 
         # if the record doesn't exist then we can't change it
         if existing_record is None:
-            raise HTTPException(status_code=404, detail=f"No existing {request.target_name} entry with target_id {request.target_id}")
+            raise HTTPException(status_code=404, detail=f"No existing {parent} entry with target_id {request.target_id}")
 
         # Since there should only be one pending request per row, check the ChangeHistory for pending with the same
         # target table and id
@@ -89,10 +135,9 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
         # serialise using json to sort keys and stringify by default to eat up the datetime objects. should switch this
         #  to pydantic's built in .json() method which can handle datetimes
         current_state = json.loads(json.dumps(columns_to_dict(existing_record), sort_keys=True, default=str))
-        logger.debug(f"is there the stuff: {current_state}")
+        request.current_state = current_state
         logger.debug(f"Update change request for existing record: {current_state}")
-
-        return backend_api.database.create_change_request(db, request.dict(), current_state=current_state)
+        return backend_api.database.create_change_request(db, request.dict())
 
 
 @router.put("/change/request/approve", response_model=schemas.ChangeResponse)
@@ -101,39 +146,60 @@ def approve_change_request(change_request_id: int, db: Session = Depends(get_db_
     Once a user system has been implemented, this should be a protected route to only allow certain users to
     approve a request
     """
-    record: tables.ChangeHistory = backend_api.database.read_change_request(db, change_request_id)
+    change_request: tables.ChangeHistory = backend_api.database.read_change_request(db, change_request_id)
 
-    if record.approval_status is True:
+    if change_request.approval_status is True:
         logger.debug(f"Already approved, nothing to do")
-        return record
+        return change_request
 
-    if record is None:
+    if change_request is None:
         raise HTTPException(status_code=404, detail=f"No change request found with id {change_request_id}")
 
-    table = get_sqlalchemy_model_for_entity(record.target_name)
-    try:
-        existing_record = backend_api.database.update_existing_record_by_id(db, record.target_id, table, record.new_state)
-    except sqlalchemy.exc.IntegrityError as e:
-        raise HTTPException(status_code=422, detail=f"{e}")
+    if "." in change_request.target_name:
+        parent, child = tuple(change_request.target_name.split('.'))
+    else:
+        parent = change_request.target_name
+        child = None
 
-    if existing_record:
-        logger.debug(f"Updated entry: {columns_to_dict(existing_record)}")
+    table = get_sqlalchemy_model_for_entity(parent)
 
-    # Create a new object and write to db
-    if existing_record is None:
-        new_entry = backend_api.database.create_entry_in_table(db,
-                                                               get_sqlalchemy_model_for_entity(record.target_name),
-                                                               record.new_state)
-        logger.debug(f"New entry: {columns_to_dict(new_entry)}")
+    if "." in change_request.target_name:
+        record = backend_api.database.read_existing_record_by_id(db,
+                                                                 change_request.target_id,
+                                                                 get_sqlalchemy_model_for_entity(parent))
+        
+        if change_request.new_state.get("action") == "replace":
+            setattr(record, child, [backend_api.database.read_existing_record_by_id(db, element["id"], get_sqlalchemy_model_for_entity(child)) for element in change_request.new_state.get("data")])
+            logger.debug(record.access_systems)
+            db.commit()
+
+    else:
+        try:
+            existing_record = backend_api.database.update_existing_record_by_id(db,
+                                                                                change_request.target_id,
+                                                                                table,
+                                                                                change_request.new_state)
+        except sqlalchemy.exc.IntegrityError as e:
+            raise HTTPException(status_code=422, detail=f"{e}")
+
+        if existing_record:
+            logger.debug(f"Updated entry: {columns_to_dict(existing_record)}")
+
+        # Create a new object and write to db
+        if existing_record is None:
+            new_entry = backend_api.database.create_entry_in_table(db,
+                                                                   get_sqlalchemy_model_for_entity(parent),
+                                                                   change_request.new_state)
+            logger.debug(f"New entry: {columns_to_dict(new_entry)}")
 
     # do a hardcoded approver id for now since we don't have admins
-    record.approver_id = 1
-    record.approval_status = True
+    change_request.approver_id = 1
+    change_request.approval_status = True
     db.commit()
 
     logger.debug("Record approved and updated")
 
-    return record
+    return change_request
 
 
 @router.put("/change/request/reject")

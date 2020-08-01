@@ -23,7 +23,7 @@
     import GPDetailsGeneralForm from './DetailsGeneralForm.vue'
     import GPDetailsAddressesForm from './DetailsAddressesForm.vue'
     import GPEmployeesList from './EmployeesList.vue'
-    import {getPracticeDetails} from '../api.js'
+    import {getPracticeDetailsByName} from '../api.js'
 
     export default {
         name: 'PracticeForm',
@@ -42,7 +42,7 @@
             }
         },
         async created() {
-            this.practice_details = await getPracticeDetails(this.$props.practice_name)
+            this.practice_details = await getPracticeDetailsByName(this.$props.practice_name)
             this.practice_id = this.practice_details["id"]
         },
         methods: {
