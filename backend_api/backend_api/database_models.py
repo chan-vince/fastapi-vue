@@ -74,7 +74,7 @@ class Address(Base):
     practice_id = Column(Integer, ForeignKey("practices.id", ondelete='CASCADE'))
 
     # Ensure that each address is unique in its combination of fields
-    Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', unique=True)
+    Index('idx_address', 'line_1', 'line_2', 'town', 'county', 'postcode', 'practice_id', unique=True)
 
     practice = relationship("Practice", back_populates="addresses")
     ip_ranges = relationship("IPRange")
