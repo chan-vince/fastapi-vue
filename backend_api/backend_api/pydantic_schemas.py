@@ -137,12 +137,13 @@ class EmployeeBase(BaseModel):
 
 class EmployeeCreate(EmployeeBase):
     job_title_id: int
+    practice_ids: List[int] = None
 
 
 class Employee(EmployeeBase):
     id: int
     job_title: JobTitle
-    practices: List[Practice] = ""
+    practices: List[Practice] = None
 
     class Config:
         orm_mode = True
@@ -174,7 +175,7 @@ class ChangeRequest(BaseModel):
     requestor_id: int
     target_name: str
     target_id: int = None
-    current_state: Union[Employee, Practice] = None
+    current_state: Union[Employee, Practice] = {}
     new_state: Union[EmployeeCreate, PracticeCreate, Link]
 
     @validator('target_name')

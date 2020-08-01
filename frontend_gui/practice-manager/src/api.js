@@ -191,6 +191,18 @@ export const approveChangeRequest = (change_request_id, approver_id) => {
         .catch(error => console.log(error.response.data.detail));
 }
 
+export const rejectChangeRequest = (change_request_id, approver_id) => {
+    return axios(`${apiBase}/change/request/reject`, {
+        method: 'PUT',
+        params: {
+            change_request_id: change_request_id,
+            approver_id: approver_id
+        }
+    })
+        .then(response => response)
+        .catch(error => console.log(error.response.data.detail));
+}
+
 
 // export default {
 //     async execute (method, resource, data) {

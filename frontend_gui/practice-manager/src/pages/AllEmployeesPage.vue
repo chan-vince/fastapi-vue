@@ -122,8 +122,6 @@ export default {
   },
   methods: {
     addEmployeeModal() {
-      var rowObject = null;
-      var action = "Add";
 
       this.$buefy.modal.open({
         parent: this,
@@ -131,9 +129,9 @@ export default {
         hasModalCard: true,
         trapFocus: true,
         props: {
-          rowObject: rowObject,
+          rowObject: null,
           jobTitles: this.job_titles,
-          action: action
+          action: "Add"
         }
       });
     },

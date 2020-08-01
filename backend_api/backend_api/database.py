@@ -164,8 +164,8 @@ def add_new_job_title(db: Session, new_job_title: schemas.JobTitleCreate):
     return job_title
 
 
-def add_many_employees(db: Session, new_gp_employees: List[schemas.EmployeeCreate]):
-    db.bulk_save_objects([tables.Employee(**employee.dict()) for employee in new_gp_employees])
+def add_many_employees(db: Session, new_gp_employees: List[dict]):
+    db.bulk_save_objects([tables.Employee(**employee) for employee in new_gp_employees])
     db.commit()
     return
 
@@ -187,6 +187,7 @@ def read_all_employees(db: Session, skip: int, limit: int):
 
 
 def read_employee_by_id(db: Session, employee_id: int):
+    logger.debug(f"Getting employee {employee_id}, {type(employee_id)}")
     return db.query(tables.Employee).filter(tables.Employee.id == employee_id).first()
 
 
@@ -212,7 +213,7 @@ def delete_employee(db: Session, employee_id: int):
 
 
 def assign_employee_to_practice(db: Session, employee_id: int, practice_id: int):
-    employee: schemas.Employee = read_employee_by_id(db, employee_id)
+    employee: tables.Employee = read_employee_by_id(db, employee_id)
     if employee is None:
         raise backend_api.exc.EmployeeNotFoundError
 
@@ -220,8 +221,7 @@ def assign_employee_to_practice(db: Session, employee_id: int, practice_id: int)
     if practice is None:
         raise backend_api.exc.PracticeNotFoundError
 
-    employee.practices.append(practice)
-    db.add(employee)
+    practice.employees.append(employee)
     db.commit()
     return employee
 
@@ -376,11 +376,13 @@ def create_entry_in_table(db: Session, table_model, row_data):
     try:
         db.add(new_entry)
         db.commit()
+        logger.info("Done creating entry in table")
     except sqlalchemy.exc.IntegrityError:
+        logger.error("!!!!!!")
         db.rollback()
         raise
     db.refresh(new_entry)
-    return new_entry
+    return read_employee_by_id(db, new_entry.id)
 
 
 def read_pending_change_requests_with_matching_target(db: Session, request: schemas.ChangeRequest):

@@ -63,7 +63,7 @@ class DummyDataLoader:
             data = json.loads(file.read())
 
         logger.info(f"Writing mock data for {len(data)}  Employees...")
-        database.add_many_employees(self.db, [schemas.EmployeeCreate(**item, active=True) for item in data])
+        database.add_many_employees(self.db, [item for item in data])
         # for index, item in enumerate(data, 1):
         #     try:
         #         employees.add_employee(self.db, schemas.EmployeeCreate(**item, active=True))

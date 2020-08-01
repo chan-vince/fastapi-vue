@@ -61,7 +61,7 @@
 
 
 <script>
-import {getJobTitles, getPracticeNamesAll, postChangeRequest} from "../../api.js";
+import {getJobTitles, getPracticeDetailsByName, getPracticeNamesAll, postChangeRequest} from "@/api";
 
     export default {
         name: "ModalEmployee",
@@ -145,14 +145,20 @@ import {getJobTitles, getPracticeNamesAll, postChangeRequest} from "../../api.js
                     new_state: payload
                 };
 
+                if (this.practice_name !== "") {
+                  let practice = await getPracticeDetailsByName(this.practice_name)
+                  payload.practice_ids = [practice.id]
+                }
+
                 try {
                   let response = await postChangeRequest(body);
+
                   console.log(response.data);
                   this.$buefy.toast.open({
                     message: "Request submitted successfully",
                     type: "is-success"
                   });
-                  this.$emit("newRequestGenerated");
+                  this.$parent.$emit("newRequestGenerated");
                   this.$parent.close();
                 }
                 catch (error) {

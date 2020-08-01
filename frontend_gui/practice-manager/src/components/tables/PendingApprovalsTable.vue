@@ -24,7 +24,7 @@
         </b-table-column>
 
         <b-table-column field="last_modified" label="Request Date" sortable>
-          <span class>{{ new Date(props.row.last_modified).toLocaleString() }}</span>
+          <span class>{{ new Date(props.row.created_at).toLocaleString() }}</span>
         </b-table-column>
 
         <b-table-column field="requestor.name" label="Requested By" sortable>
@@ -33,16 +33,22 @@
         </b-table-column>
 
         <template v-if="!(pendingOnly)">
+          <b-table-column field="approver.name" label="Approved At" sortable>
+            <span class>{{ new Date(props.row.last_modified).toLocaleString() }}</span>
+          </b-table-column>
+        </template>
+
+        <template v-if="!(pendingOnly)">
           <b-table-column field="approver.name" label="Approved By" sortable>
             {{ props.row.approver.name }}
           </b-table-column>
         </template>
 
         <b-table-column field="approved" label="Status" sortable>
-          <template v-if="props.row.approval_status == 1">
+          <template v-if="props.row.approval_status === true">
             <b-tag type="is-success" rounded>Approved</b-tag>
           </template>
-          <template v-else-if="props.row.approval_status == 0">
+          <template v-else-if="props.row.approval_status === false">
             <b-tag type="is-danger" rounded>Rejected</b-tag>
           </template>
           <template v-else>
@@ -62,6 +68,11 @@
               v-bind:row="props.row"
               v-bind:detail_delta="detail_delta"/>
         </template>
+        <template v-if="props.row.target_name === 'employee'">
+          <PendingEmployeeDetail
+              v-bind:row="props.row"
+              v-bind:detail_delta="detail_delta"/>
+        </template>
 
         <template v-if="props.row.target_name === 'ip_ranges'">
           <PendingIPRangeDetail
@@ -70,12 +81,7 @@
               v-bind:detail_delta="detail_delta"/>
         </template>
 
-        <template v-if="props.row.target_table === 'employees'">
-          <PendingEmployeeDetail
-              v-bind:row="props.row"
-              v-bind:aux_info="aux_info"
-              v-bind:detail_delta="detail_delta"/>
-        </template>
+
         <!-- <template v-if="props.row.target_id == null">
           {{ props.row.payload }}
           {{ aux_info }}
@@ -159,10 +165,9 @@
 <script>
 import {
   approveChangeRequest,
-  client,
   getDeltaPendingChangeById,
   getPendingChangesAll,
-  getHistoricChangesAll
+  getHistoricChangesAll, rejectChangeRequest
 } from "@/api";
 import PendingIPRangeDetail from "../approval_details/PendingIPRangeDetail.vue";
 import PendingPracticeDetail from "../approval_details/PendingPracticeDetail";
@@ -214,6 +219,7 @@ export default {
     async acceptChanges(id) {
       console.log(`Accepting changes for row id ${id}`);
       try {
+        // One day the approver_id will be the logged in admin user
         let approver_id = 1
         await approveChangeRequest(id, approver_id)
         this.$buefy.toast.open({
@@ -229,28 +235,24 @@ export default {
         });
       }
     },
-    rejectChanges(id) {
-      var current = this;
+    async rejectChanges(id) {
       console.log(`Rejecting changes for row id ${id}`);
-      client
-          .put(`api/v1/stagingbeta/reject`, null, {
-            params: {staging_id: id, approver_id: 5000}
-          })
-          .then(response => {
-            console.log(response.data);
-            this.$buefy.toast.open({
-              message: "Rejected change successfully",
-              type: "is-success"
-            });
-            this.$emit("refresh");
-          })
-          .catch(function (error) {
-            console.log(error);
-            current.$buefy.toast.open({
-              message: "Could not reject change",
-              type: "is-danger"
-            });
-          });
+      try {
+        // One day the approver_id will be the logged in admin user
+        let approver_id = 1
+        await rejectChangeRequest(id, approver_id)
+        this.$buefy.toast.open({
+          message: "No change made to original record",
+          type: "is-success"
+        });
+        this.$emit("refresh");
+      } catch (error) {
+        console.log(error);
+        this.$buefy.toast.open({
+          message: "Could not reject change request",
+          type: "is-danger"
+        });
+      }
     },
     goToPractice(rowObject) {
       this.$router.push({path: `/practice/${rowObject["name"]}`});

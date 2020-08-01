@@ -41,21 +41,32 @@ def get_delta_for_pending_request_by_id(id: int, db: Session = Depends(get_db_se
     if change_request is None:
         raise HTTPException(status_code=404, detail=f"No change request with ID {id}")
 
+    # The parent is the table, the child is the column
     if "." in change_request.target_name:
         parent, child = tuple(change_request.target_name.split('.'))
+
+        # get the record specified by the table/id combo
         record = backend_api.database.read_existing_record_by_id(db,
                                                                  change_request.target_id,
                                                                  get_sqlalchemy_model_for_entity(parent))
+        # the before state is simply the current value
         before = getattr(record, child)
-        logger.debug(f"!!! {before}")
         return {
             "before": before,
             "after": change_request.new_state.get('data')
         }
 
+    # If it's just an object directly from the table, we can directly use the current_state as the before state
     else:
-        before = change_request.current_state
+        before: dict = change_request.current_state
+        if change_request.target_name == "employee":
+            # get the record specified by the table/id combo
+            record: tables.Employee = backend_api.database.read_existing_record_by_id(db,
+                                                                     change_request.target_id,
+                                                                     tables.Employee)
+            before["practice_ids"] = [practice.id for practice in record.practices]
 
+    # The delta includes before/after for each attribute column of the object if there's a difference
     delta = {
         key: {
             "before": before.get(key),
@@ -141,7 +152,7 @@ def submit_new_change_request(request: schemas.ChangeRequest, db: Session = Depe
 
 
 @router.put("/change/request/approve", response_model=schemas.ChangeResponse)
-def approve_change_request(change_request_id: int, db: Session = Depends(get_db_session)):
+def approve_change_request(change_request_id: int, approver_id: int = 1, db: Session = Depends(get_db_session)):
     """
     Once a user system has been implemented, this should be a protected route to only allow certain users to
     approve a request
@@ -174,26 +185,35 @@ def approve_change_request(change_request_id: int, db: Session = Depends(get_db_
             db.commit()
 
     else:
+        new_state: dict = change_request.new_state
+        practice_ids = new_state.pop("practice_ids", None)
         try:
             existing_record = backend_api.database.update_existing_record_by_id(db,
                                                                                 change_request.target_id,
                                                                                 table,
-                                                                                change_request.new_state)
+                                                                                new_state)
         except sqlalchemy.exc.IntegrityError as e:
             raise HTTPException(status_code=422, detail=f"{e}")
 
         if existing_record:
-            logger.debug(f"Updated entry: {columns_to_dict(existing_record)}")
+            logger.debug(f"Updated entry: {existing_record}")
 
         # Create a new object and write to db
         if existing_record is None:
-            new_entry = backend_api.database.create_entry_in_table(db,
-                                                                   get_sqlalchemy_model_for_entity(parent),
-                                                                   change_request.new_state)
-            logger.debug(f"New entry: {columns_to_dict(new_entry)}")
+            new_entry: tables.Employee = backend_api.database.create_entry_in_table(db,
+                                                                                    get_sqlalchemy_model_for_entity(parent),
+                                                                                    new_state)
+            logger.debug(f"New entry: {new_entry}")
+
+        # Do the practice assignment if the request is a employee
+        if parent == "employee" and practice_ids is not None:
+            for practice_id in practice_ids:
+                logger.info(f"Linking employee {change_request.target_id} to practice {practice_id}")
+                backend_api.database.unassign_employee_from_all_practices(db, change_request.target_id)
+                backend_api.database.assign_employee_to_practice(db, change_request.target_id, practice_id)
 
     # do a hardcoded approver id for now since we don't have admins
-    change_request.approver_id = 1
+    change_request.approver_id = approver_id
     change_request.approval_status = True
     db.commit()
 
@@ -203,7 +223,7 @@ def approve_change_request(change_request_id: int, db: Session = Depends(get_db_
 
 
 @router.put("/change/request/reject")
-def reject_change_request(change_request_id: int, db: Session = Depends(get_db_session)):
+def reject_change_request(change_request_id: int, approver_id: int = 1, db: Session = Depends(get_db_session)):
     """
     Once a user system has been implemented, this should be a protected route to only allow certain users to
     reject a request
@@ -213,7 +233,7 @@ def reject_change_request(change_request_id: int, db: Session = Depends(get_db_s
     if record is None:
         raise HTTPException(status_code=404, detail=f"No change request found with id {change_request_id}")
 
-    record.approver_id = 1
+    record.approver_id = approver_id
     record.approval_status = False
     db.commit()
     logger.debug("Record change rejected")
