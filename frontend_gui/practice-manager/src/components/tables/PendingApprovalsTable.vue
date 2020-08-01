@@ -8,7 +8,7 @@
         :data="staging_records"
         :show-detail-icon="showDetailIcon"
         :opened-detailed="defaultOpenedDetails"
-        :detailed="pendingOnly"
+        :detailed="true"
         @details-open="getSupportInfo"
         detail-key="id"
         aria-next-label="Next page"
@@ -32,11 +32,17 @@
           {{ props.row.requestor.name }}
         </b-table-column>
 
+        <template v-if="!(pendingOnly)">
+          <b-table-column field="approver.name" label="Approved By" sortable>
+            {{ props.row.approver.name }}
+          </b-table-column>
+        </template>
+
         <b-table-column field="approved" label="Status" sortable>
-          <template v-if="props.row.approved == 1">
+          <template v-if="props.row.approval_status == 1">
             <b-tag type="is-success" rounded>Approved</b-tag>
           </template>
-          <template v-else-if="props.row.approved == 0">
+          <template v-else-if="props.row.approval_status == 0">
             <b-tag type="is-danger" rounded>Rejected</b-tag>
           </template>
           <template v-else>
@@ -151,7 +157,13 @@
 
 
 <script>
-import {approveChangeRequest, client, getDeltaPendingChangeById, getPendingChangesAll} from "@/api";
+import {
+  approveChangeRequest,
+  client,
+  getDeltaPendingChangeById,
+  getPendingChangesAll,
+  getHistoricChangesAll
+} from "@/api";
 import PendingIPRangeDetail from "../approval_details/PendingIPRangeDetail.vue";
 import PendingPracticeDetail from "../approval_details/PendingPracticeDetail";
 import PendingAccessSystemDetail from "../approval_details/PendingAccessSystemDetail";
@@ -188,9 +200,16 @@ export default {
       this.detail_delta = await getDeltaPendingChangeById(row.id);
       this.defaultOpenedDetails = [row.id];
     },
-    async refreshPendingRows() {
-      this.staging_records = await getPendingChangesAll(0, 100)
-      this.staging_records = this.staging_records.filter(item => item.approval_status == null);
+    async refreshRows() {
+      if (this.$props.pendingOnly === true) {
+        this.staging_records = await getPendingChangesAll(0, 100)
+        // this.staging_records = this.staging_records.filter(item => item.approval_status == null);
+      } else {
+        this.staging_records = await getHistoricChangesAll(0, 100)
+        console.log(`pending: ${this.$props.pendingOnly}`)
+        console.log(this.staging_records)
+        // this.staging_records = this.staging_records.filter(item => item.approval_status != null);
+      }
     },
     async acceptChanges(id) {
       console.log(`Accepting changes for row id ${id}`);
@@ -202,8 +221,7 @@ export default {
           type: "is-success"
         });
         this.$emit("refresh");
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
         this.$buefy.toast.open({
           message: "Could not accept change",
@@ -240,9 +258,7 @@ export default {
   },
   async created() {
     this.loading = true;
-    this.staging_records = await getPendingChangesAll(0, 100)
-    this.staging_records = this.staging_records.filter(item => item.approval_status == null);
-    console.log(this.staging_records)
+    await this.refreshRows();
     this.loading = false;
   }
 };

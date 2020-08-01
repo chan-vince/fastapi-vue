@@ -67,7 +67,7 @@ def get_delta_for_pending_request_by_id(id: int, db: Session = Depends(get_db_se
     return delta
 
 
-@router.get("/changes/history/all")
+@router.get("/changes/history/all", response_model=List[schemas.ChangeResponse])
 def get_all_historic_requests(skip: int = 0, limit: int = 100, db: Session = Depends(get_db_session)):
     return backend_api.database.read_all_historic_change_requests(db, skip, limit)
 
@@ -167,7 +167,7 @@ def approve_change_request(change_request_id: int, db: Session = Depends(get_db_
         record = backend_api.database.read_existing_record_by_id(db,
                                                                  change_request.target_id,
                                                                  get_sqlalchemy_model_for_entity(parent))
-        
+
         if change_request.new_state.get("action") == "replace":
             setattr(record, child, [backend_api.database.read_existing_record_by_id(db, element["id"], get_sqlalchemy_model_for_entity(child)) for element in change_request.new_state.get("data")])
             logger.debug(record.access_systems)

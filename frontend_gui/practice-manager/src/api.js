@@ -136,6 +136,18 @@ export const getPendingChangesAll = (skip, limit) => {
         .catch(error => console.log(error.response.data.detail));
 }
 
+export const getHistoricChangesAll = (skip, limit) => {
+    return axios(`${apiBase}/changes/history/all`, {
+        method: 'GET',
+        params: {
+            skip: skip,
+            limit: limit
+        }
+    })
+        .then(response => response.data)
+        .catch(error => console.log(error.response.data.detail));
+}
+
 export const getPendingChangeById = (id) => {
     return axios(`${apiBase}/changes/pending/id`, {
         method: 'GET',

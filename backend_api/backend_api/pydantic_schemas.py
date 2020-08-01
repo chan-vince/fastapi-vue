@@ -197,6 +197,7 @@ class ChangeResponse(BaseModel):
     last_modified: datetime.datetime
     requestor_id: int
     requestor: Employee
+    approver: Employee = None
     approver_id: Union[int, None] = 1
     approval_status: bool = None
     target_name: str

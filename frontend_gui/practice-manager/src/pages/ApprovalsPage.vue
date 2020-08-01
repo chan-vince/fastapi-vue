@@ -14,12 +14,12 @@
                             />
                         </b-tab-item>
                         <b-tab-item label="History">
-<!--                            <HistoryApprovalsTable-->
-<!--                                    id="tablesHistory"-->
-<!--                                    ref="historyApprovalsTable"-->
-<!--                                    v-bind:pendingOnly="false"-->
-<!--                                    @refresh="refreshTables"-->
-<!--                            />-->
+                            <PendingApprovalsTable
+                                    id="tablesHistory"
+                                    ref="historyApprovalsTable"
+                                    v-bind:pendingOnly="false"
+                                    @refresh="refreshTables"
+                            />
                         </b-tab-item>
                     </b-tabs>
                 </div>
@@ -49,7 +49,8 @@
             refreshTables() {
                 console.log("Time to refresh!");
                 this.$refs.navBar.getPendingApprovalsCount()
-                this.$refs.pendingApprovalsTable.refreshPendingRows();
+                this.$refs.pendingApprovalsTable.refreshRows();
+                this.$refs.historyApprovalsTable.refreshRows();
                 // this.$refs.historyApprovalsTable.getStagingPractices();
             }
         }
